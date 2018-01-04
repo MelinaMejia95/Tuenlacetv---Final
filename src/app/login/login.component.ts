@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/login.service';
+
+declare let jQuery: any;
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _LoginService: LoginService) { }
 
   ngOnInit() {
   }
 
-}
+} 
