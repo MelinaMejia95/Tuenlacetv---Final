@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { AppRoutingModule } from './/app-routing.module';
+import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 //import swal from 'sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -19,7 +22,10 @@ import { LoginService } from './services/login.service';
       customClass: 'modal-content',
       confirmButtonClass: 'btn btn-primary',
       cancelButtonClass: 'btn'
-  })
+  }),
+  AppRoutingModule,
+  HttpModule,
+  FormsModule
   ],
   providers: [ LoginService ],
   bootstrap: [AppComponent]
