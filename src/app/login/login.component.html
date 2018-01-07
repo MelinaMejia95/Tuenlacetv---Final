@@ -1,4 +1,5 @@
 <html>
+
 <body>
   <div class="row">
     <div class="col s12 m5">
@@ -9,25 +10,37 @@
         <h3 class="welcome">BIENVENIDO</h3>
         <form class="col s12">
           <div class="row">
-            <div class="input-field col s12 login">
-             <i class="material-icons prefix" >account_circle</i>
+            <div class="input-field col s6 login">
+              <i class="material-icons prefix">account_circle</i>
               <input id="email" type="email" class="validate">
               <label for="email" class="label-login">Nombre de usuario</label>
             </div>
-            <div class="input-field col s12 login">
+            <div class="input-field col s6 login">
               <i class="material-icons prefix">vpn_key</i>
               <input id="password" type="tel" class="validate">
               <label for="password" class="label-login">Contraseña</label>
             </div>
           </div>
+          <div class="row">
+            <div class="input-field col s12 login">
+              <select>
+                <option value="" disabled selected id="select">Seleccione la filial a trabajar</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+          </div>
 
           <button class="btn waves-effect waves-light  light-blue darken-3" type="submit" (click)="conectar(usuario.value, password.value)">
-              Conectar<i class="material-icons right">send</i>
-            </button>
+            Conectar
+            <i class="material-icons right">send</i>
+          </button>
 
         </form>
       </div>
     </div>
   </div>
 </body>
+
 </html>

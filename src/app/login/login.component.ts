@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private _LoginService: LoginService) { }
 
   ngOnInit() {
+    jQuery('select').material_select(); 
   }
 
 } 
