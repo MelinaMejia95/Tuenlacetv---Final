@@ -24,8 +24,8 @@ h6{
 }
 
 .img-user {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     vertical-align: middle;
     align-content: center
 }
@@ -40,6 +40,10 @@ span{
 
 .icon-list{
     color: white
+}
+
+.second-icon{
+    padding-right: 0.5em
 }
 
 .side-nav li > a > i.material-icons {

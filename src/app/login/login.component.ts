@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import {} from '../../img/Me.png'
 
 declare let jQuery: any;
 
