@@ -12,6 +12,7 @@ import { LoginService } from './services/login.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { NavbarPrincipalComponent } from './navbar-principal/navbar-principal.component';
+import { CitiesComponent } from './cities/cities.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NavbarPrincipalComponent } from './navbar-principal/navbar-principal.co
     LoginComponent,
     NavbarComponent,
     PrincipalComponent,
-    NavbarPrincipalComponent
+    NavbarPrincipalComponent,
+    CitiesComponent
   ],
   imports: [
     BrowserModule,
