@@ -31,28 +31,28 @@
           <div class="col s12 m6">
             <div class="row">
               <div class="input-field col s3 m1 button-right mt-0">
-                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1 modal-trigger" href="#modal1">
+                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1 modal-trigger" href="#modal-add">
                   <i class="material-icons">person_add</i>
                 </a>
               </div>
               <div class="input-field col s3 m1 button-right mt-0">
-                  <a class="btn-floating btn-large waves-effect waves-light yellow darken-1 modal-trigger" href="#modal2">
-                    <i class="material-icons">edit</i>
-                  </a>
-                </div>
-                <div class="input-field col s3 m1 button-right mt-0">
-                  <a class="btn-floating btn-large waves-effect waves-light yellow darken-1  modal-trigger" href="#modal3">
-                    <i class="material-icons">
-                      folder_shared</i>
-                  </a> 
-                </div>
-                <div class="input-field col s3 m1 button-right mt-0">
-                  <swal #dialog [options]="{ title: '¿Está seguro que desea eliminar el barrio?', 
-                    confirmButtonText: 'Eliminar', showCancelButton: 'true', type: 'warning' }" type="info" (confirm)="deleteBarrio()"></swal>
-                  <a class="btn-floating btn-large waves-effect waves-light yellow darken-1" (click)="dialog.show()">
-                    <i class="material-icons">delete</i>
-                  </a>
-                </div>
+                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1 modal-trigger" href="#modal-edit">
+                  <i class="material-icons">edit</i>
+                </a>
+              </div>
+              <div class="input-field col s3 m1 button-right mt-0">
+                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1  modal-trigger" href="#modal-see">
+                  <i class="material-icons">
+                    folder_shared</i>
+                </a>
+              </div>
+              <div class="input-field col s3 m1 button-right mt-0">
+                <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
+                    confirmButtonText: 'Si', cancelButtonText: 'No' ,showCancelButton: 'true', type: 'warning' }" type="info"></swal>
+                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1" (click)="dialog.show()">
+                  <i class="material-icons">delete</i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -64,7 +64,7 @@
                 </tr>
               </thead>
               <tbody>
-                
+
               </tbody>
             </table>
           </div>
@@ -73,3 +73,87 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Crear Ciudad -->
+<div id="modal-add" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Crear Ciudad</h4>
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input disabled id="codigo" type="text" class="validate">
+            <label for="codigo">Código</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="nombre" type="text" class="validate">
+            <label for="nombre">Nombre</label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <swal #dialog2 [options]="{ title: '¿Desea grabar el registro?', 
+      confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question',
+      confirmButtonColor: '#0288d1' }" type="info"></swal>
+    <a class="waves-effect waves-light btn light-green lighten-1" (click)="dialog2.show()">Aceptar</a>
+    <a class="waves-effect waves-light btn orange darken-1">Cancelar</a>
+    <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
+  </div>
+</div>
+
+<!-- Modal Actualizar Ciudad -->
+<div id="modal-edit" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Actualizar Ciudad</h4>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input disabled id="codigo" type="text" class="validate">
+              <label for="codigo">Código</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="nombre" type="text" class="validate">
+              <label for="nombre">Nombre</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <swal #dialog3 [options]="{ title: '¿Desea actualizar el registro?', 
+        confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question',
+        confirmButtonColor: '#0288d1' }" type="info"></swal>
+      <a class="waves-effect waves-light btn light-green lighten-1" (click)="dialog3.show()">Aceptar</a>
+      <a class="waves-effect waves-light btn orange darken-1">Cancelar</a>
+      <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
+    </div>
+  </div>
+
+  <!-- Modal Ver Ciudad -->
+<div id="modal-see" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Ciudad</h4>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input disabled id="codigo" type="text" class="validate">
+              <label for="codigo">Código</label>
+            </div>
+            <div class="input-field col s6">
+              <input disabled id="nombre" type="text" class="validate">
+              <label for="nombre">Nombre</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-light btn light-green lighten-1 disabled">Aceptar</a>
+      <a class="waves-effect waves-light btn orange darken-1 disabled">Cancelar</a>
+      <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
+    </div>
+  </div>
