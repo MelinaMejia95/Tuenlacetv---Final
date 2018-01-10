@@ -1,9 +1,9 @@
 .side-nav li>a {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .side-nav{
-    width: 250px;
+    width:  15em;
     background-color: #213030
 }
 
@@ -51,7 +51,7 @@ span{
 }
 
 .second-level{
-    margin-left: 2em
+    margin-left: 1em
 }
 
 .divider {
