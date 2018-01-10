@@ -1,0 +1,42 @@
+nav{
+    width: 74.54em;
+    padding-left: 2em;
+    margin-left: 16.5em;
+    background-color: #468ebc;
+    height: 3em
+}
+
+.img-user {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.img-modal{
+    width: 90px;
+    height: 90px;
+    vertical-align: middle;
+}
+
+span{
+    text-align: center;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.modal{
+    background-color: #343e45;
+    width: 20em;
+    height: 16em;
+    
+}
+
+.modal-footer{
+    background-color: #192329
+}
+
+.btn{
+    background-color: #de4a3a
+}
