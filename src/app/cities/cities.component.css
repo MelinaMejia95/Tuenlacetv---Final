@@ -1,0 +1,9 @@
+.card .card-content {
+    height: 0.5em;
+}
+
+.card .card-content .card-title {
+    line-height: 2px;
+    margin-bottom: 0px;
+    font-size: 16px;
+}
