@@ -22,35 +22,36 @@
                 <input id="value" type="text" class="validate">
               </div>
               <div class="input-field col s12 m4">
-                <a class="btn-floating btn-large waves-effect waves-light orange lighten-2" href="">
+                <a class="waves-effect waves-light btn cyan darken-3"><i class="material-icons left">search</i>Buscar</a>
+                <!--<a class="btn-floating btn-large waves-effect waves-light orange lighten-2" href="">
                   <i class="material-icons">search</i>
-                </a>
+                </a>-->
               </div>
             </div>
           </div>
           <div class="col s12 m6">
             <div class="row">
               <div class="input-field col s3 m1 button-right mt-0">
-                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1 modal-trigger" href="#modal-add">
-                  <i class="material-icons">person_add</i>
+                <a class="waves-effect waves-light btn  light-green darken-2" href="#modal-add">Crear
+                  <i class="material-icons left">person_add</i>
                 </a>
               </div>
               <div class="input-field col s3 m1 button-right mt-0">
-                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1 modal-trigger" href="#modal-edit">
-                  <i class="material-icons">edit</i>
+                <a class="waves-effect waves-light btn lime darken-1" href="#modal-edit">Editar
+                  <i class="material-icons left">edit</i>
                 </a>
               </div>
               <div class="input-field col s3 m1 button-right mt-0">
-                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1  modal-trigger" href="#modal-see">
-                  <i class="material-icons">
+                <a class="waves-effect waves-light btn orange accent-4" href="#modal-see">Ver
+                  <i class="material-icons left">
                     folder_shared</i>
                 </a>
               </div>
               <div class="input-field col s3 m1 button-right mt-0">
                 <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
                     confirmButtonText: 'Si', cancelButtonText: 'No' ,showCancelButton: 'true', type: 'warning' }" type="info"></swal>
-                <a class="btn-floating btn-large waves-effect waves-light yellow darken-1" (click)="dialog.show()">
-                  <i class="material-icons">delete</i>
+                <a class="waves-effect waves-light btn red darken-4" (click)="dialog.show()">Eliminar
+                  <i class="material-icons left">delete</i>
                 </a>
               </div>
             </div>
@@ -95,8 +96,7 @@
   </div>
   <div class="modal-footer">
     <swal #dialog2 [options]="{ title: '¿Desea grabar el registro?', 
-      confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question',
-      confirmButtonColor: '#0288d1' }" type="info"></swal>
+      confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question', confirmButtonColor: '#aaa' }" type="info"></swal>
     <a class="waves-effect waves-light btn light-green lighten-1" (click)="dialog2.show()">Aceptar</a>
     <a class="waves-effect waves-light btn orange darken-1">Cancelar</a>
     <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
@@ -125,7 +125,7 @@
     <div class="modal-footer">
       <swal #dialog3 [options]="{ title: '¿Desea actualizar el registro?', 
         confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question',
-        confirmButtonColor: '#0288d1' }" type="info"></swal>
+        cancelButtonColor: '#0288d1' }" type="info"></swal>
       <a class="waves-effect waves-light btn light-green lighten-1" (click)="dialog3.show()">Aceptar</a>
       <a class="waves-effect waves-light btn orange darken-1">Cancelar</a>
       <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>

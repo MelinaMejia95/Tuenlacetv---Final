@@ -7,3 +7,27 @@
     margin-bottom: 0px;
     font-size: 16px;
 }
+
+.swal2-confirm{
+    padding-right: 1em
+}
+
+.card{
+    width: 70em;
+    height: 10em;
+}
+
+a{
+    display: inline-flex;
+    font-size: 0.7em;
+    width: 9em;
+    padding-left: 1em;
+}
+
+.btn i, .btn-large i, .btn-floating i, .btn-large i, .btn-flat i {
+    font-size: 1rem;
+}
+
+select {
+    font-size: 11px
+}
