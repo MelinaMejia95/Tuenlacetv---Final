@@ -1,5 +1,6 @@
-<nav>
+<!--<nav>
   <div class="nav-wrapper">
+    <a class="brand-logo">ENLACE INFORMÁTICO</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><img class="circle img-user" src="https://pbs.twimg.com/profile_images/844328219465728000/qUUfHbb1_400x400.jpg">
         <a href="#modal1" class="d-inline-block modal-trigger">Usuario</a></li>
@@ -17,4 +18,119 @@
     <div class="modal-footer">
         <a class="waves-effect waves-light btn">Salir</a>
     </div>
-</div>
+</div>-->
+
+<nav class="background">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo">TUENLACETV</a>
+    <a class="button-collapse" (click)="toggleShow()">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <img class="circle img-user" src="https://pbs.twimg.com/profile_images/844328219465728000/qUUfHbb1_400x400.jpg">
+        <a href="#">Usuario</a>
+      </li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li>
+        <a href="#">Usuario</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<ul id="slide-out" class="side-nav fixed">
+  <!--<div class="main-background">
+        <h6 class="white-text center-align">ENLACE INFORMÁTICO</h6>
+      </div>-->
+  <li>
+    <div class="user-view">
+      <div class="background">
+      </div>
+      <img class="circle img-user" src="https://pbs.twimg.com/profile_images/844328219465728000/qUUfHbb1_400x400.jpg">
+      <span class="white-text name">Usuario</span>
+      <span class="white-text email">
+        <i class="tiny material-icons prefix icon">radio_button_checked</i> Online</span>
+    </div>
+  </li>
+  <!--<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
+  <li>
+    <div class="divider"></div>
+  </li>
+  <li class="no-padding background">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header white-text">
+          <div>
+            <i class="material-icons prefix">view_list</i>Maestros
+          </div>
+        </a>
+        <div class="collapsible-body background">
+          <ul>
+            <li>
+              <a class="second-level white-text" routerLink="/cities">
+                <div>
+                  <i class="material-icons prefix second-icon">location_city</i>Ciudades
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="">
+                <div>
+                  <i class="material-icons prefix second-icon">home</i>Zonas
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="">
+                <div>
+                  <i class="material-icons prefix second-icon">store</i>Barrios
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="">
+                <div>
+                  <i class="material-icons prefix second-icon">attach_money</i>Bancos
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="">
+                <div>
+                  <i class="material-icons prefix second-icon">domain</i>Empresa
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="">
+                <div>
+                  <i class="material-icons prefix second-icon">local_atm</i>Tarifas
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="/suscriptor">
+                <div>
+                  <i class="material-icons prefix second-icon">people_outline</i>Suscriptores
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text" routerLink="">
+                <div>
+                  <i class="material-icons prefix second-icon">person_outline</i>Usuarios
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>

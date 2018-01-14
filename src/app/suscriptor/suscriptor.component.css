@@ -1,0 +1,15 @@
+.button-options{
+    background-color: #407FA9
+}
+
+.dropdown-options{
+    min-width: 10rem;
+}
+
+.dropdown-content li > a, .dropdown-content li > span{
+    font-size: 13px;
+}
+
+.dropdown-content li {
+    min-height: 36px;
+}

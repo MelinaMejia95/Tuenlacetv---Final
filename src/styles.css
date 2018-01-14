@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Istok+Web');
+
+html {
+    font-family: 'Istok Web', sans-serif !important;
+}
+
+.dropdown-content li > span {
+    color: #213031 !important;
+}
+
+.color-dark-principal {
+    color: #455a64;
+}
+
+.principal-container{
+    border: 1pt solid red;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.breadcrumb:before{
+    color: black;
+    font-size: 15px;
+}
+
+.breadcrumb{
+    font-size: 1em;
+    
+}
+
+.bradcrum-position{
+    margin-top: 3.5em;
+    margin-bottom: 0;
+}

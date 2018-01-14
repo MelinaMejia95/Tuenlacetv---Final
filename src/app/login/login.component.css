@@ -1,83 +1,50 @@
-.header-card {
-    width: 52em;
-    height: 6em;
-}
-
-.card {
-    align-self: center;
-    max-width: 100rem;
-    max-height: 50em;
-    width: 52em;
-    margin-left: 13em;
-    margin-top: 4.3em;
-}
-
-h2 {
-    color: white;
-    font-size: 1.5em;
-    vertical-align: middle;
-    line-height: normal;
-    padding-top: 1.5em;
-    padding-left: 4.5em
+ .header-card {
+    padding: 0.5em 1em;
 }
 
 .welcome {
-    text-align: center;
-    color: #455a64;
-    padding-top: 0.5em
+    padding: 0.8em 0;
+    font-size: 1.8rem;
 }
 
-.row .col.s12 {
-    width: 71%;
-    margin-left: 6em;
+.login-button{
+    margin: auto;
+    display: block;
+    border: 1pt solid #283337;
+    color: #283337;
+    background-color: transparent;
 }
 
-/*.login{
-    padding-left: 200px;
+.login-button:hover, .login-button:active,.login-button:focus{
+    background-color: #283337;
+    color: white;
 }
 
-.label-login {
-    padding-left: 100px
-}*/
-
-body {
-    background-image: url("../../img/pexels-photo.jpg");
-    
-    height: 100%;
-    margin: 0px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
+.login-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 95vh;
+    width: 90vw;
 }
 
-html{
-    margin: 0px;
-    height: 100%;
-    
+.card-center{
+    margin: auto;
+    width: 36rem;
 }
 
-.input-field{
-    
-}
-
-.btn {
-    margin-left: 13.5em;
-}
-
-.input-field input[type=text]:focus {
-    color:#0288d1;
-    border-bottom: #0288d1;
-    box-shadow: #0288d1
-}
-
-.input-field :focus + label {
-    color:#0288d1;
-    border-bottom: #0288d1;
-    box-shadow: #0288d1
+.input-field .label-login.active {
+    color: #0288d1 !important;
   }
+
+.input-field input:focus {
+    color:#213031;
+    border-bottom-color: #0288d1 !important;
+    box-shadow: 0 1px 0 0 #0288d1;
+}
 
 .input-field .prefix.active {
     color: #0288d1;
     border-bottom: #0288d1;
     box-shadow: #0288d1
-  }
+  } 

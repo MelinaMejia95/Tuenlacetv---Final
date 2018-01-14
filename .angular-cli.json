@@ -19,9 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
         "../node_modules/materialize-css/dist/css/materialize.css",
-        "../node_modules/sweetalert2/dist/sweetalert2.css"
+        "../node_modules/sweetalert2/dist/sweetalert2.css",
+        "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

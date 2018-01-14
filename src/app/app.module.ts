@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { NavbarPrincipalComponent } from './navbar-principal/navbar-principal.component';
 import { CitiesComponent } from './cities/cities.component';
+import { SuscriptorComponent } from './suscriptor/suscriptor.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CitiesComponent } from './cities/cities.component';
     NavbarComponent,
     PrincipalComponent,
     NavbarPrincipalComponent,
-    CitiesComponent
+    CitiesComponent,
+    SuscriptorComponent
   ],
   imports: [
     BrowserModule,

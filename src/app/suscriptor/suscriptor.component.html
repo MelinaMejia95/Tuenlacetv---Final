@@ -1,0 +1,70 @@
+<div class="row bradcrum-position">
+    <div class="col s12 m6">
+        <a class="breadcrumb black-text">First</a>
+        <a class="breadcrumb black-text">Second</a>
+        <a class="breadcrumb black-text">Third</a>
+      </div>
+
+    <div class="col s12 m6 right-align">
+      <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">more_vert</i></a>
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown1' class='dropdown-content dropdown-options'>
+        <li><a href="#!">Pagos</a></li>
+        <li><a href="#!">Órdenes técnicas</a></li>
+        <li><a href="#!">Generar factura</a></li>
+        <li><a href="#!">PQR</a></li>
+      </ul>
+    </div>
+            
+</div>
+
+
+
+<table class="striped highlight">
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        <label for="codigo">Código:</label>
+        <input id="codigo" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="documento">Documento:</label>
+        <input id="documento" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="direccion">Dirección:</label>
+        <input id="direccion" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="telefono">Teléfono:</label>
+        <input id="telefono" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="saldo">Saldo:</label>
+        <input id="saldo" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="estado">Estado:</label>
+        <input id="estado" type="text" class="input-custom">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let suscriptor of ['','','','','','']; let i = index">
+      <td></td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+    </tr>
+  </tbody>
+</table>

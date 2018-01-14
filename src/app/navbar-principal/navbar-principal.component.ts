@@ -11,10 +11,10 @@ export class NavbarPrincipalComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    jQuery('#modal1').modal({
-      startingTop: '10%'
-    });
+  ngOnInit() {}
+
+  toggleShow() {
+    document.querySelector('#slide-out').classList.toggle('show');
   }
 
 }

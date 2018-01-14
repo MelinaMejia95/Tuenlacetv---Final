@@ -1,4 +1,137 @@
-nav{
+.background{
+    background-color: #468EBC;
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.img-user{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    display: inline-block
+}
+
+.background ul a {
+   display: inline-block;
+}
+
+.background .brand-logo{
+    font-size: 1rem;
+    padding-left: 1em;
+    background-color: #407FA9;
+    padding-right: 1em;
+    width: 15em;
+    text-align: center;
+}
+
+.background .material-icons{
+    height: auto;
+    line-height: 3rem;
+}
+
+.background .button-collapse{
+    display: block;
+    left: 14.5rem;
+    cursor: pointer;
+    height: 3rem;
+}
+
+.background .button-collapse:hover {
+    background-color: #213030;
+}
+
+.side-nav{
+    width:  15em;
+    background-color: #213030;
+    top: 44px;
+    transform: translateX(-100%);
+}
+
+.side-nav.show {
+    transform: translateY(0);
+}
+
+.side-nav .background{
+    background-color: #213030
+}
+
+.side-nav .main-background{
+    background-color: #407fa9;
+    height: 3.3em;
+}
+
+.side-nav h6{
+    margin-top: 0px;
+    vertical-align: middle;
+    padding-top: 0.7em;
+    font-size: 1.3em;
+}
+
+.side-nav .img-user {
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    align-content: center
+}
+
+.side-nav span{
+    text-align: center
+}
+
+.side-nav .icon{
+    color: #64dd17
+}
+
+.side-nav .icon-list{
+    color: white
+}
+
+.side-nav .second-icon{
+    padding-right: 0.5em;
+    line-height: 2.2rem;
+    font-size: 1.4rem;
+}
+
+.side-nav li > a > i.material-icons {
+    margin: 0 5px 0 0;
+}
+
+.side-nav .second-level{
+    margin-left: 1em
+}
+
+.side-nav .divider {
+    height: 1px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+
+.side-nav li > a {
+    font-weight: 300;
+    width: 100%;
+    height: auto;
+    line-height: 1rem;
+    font-size: 13px;
+}
+
+.side-nav li > a:hover {
+    font-weight: 700;
+}
+
+.side-nav li {
+    line-height: 0;
+}
+
+.side-nav .collapsible-body>ul:not(.collapsible)>li.active, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active {
+    background-color: black;
+}
+
+.collapsible-header i, .collapsible-body i, .prefix {
+    vertical-align: middle;
+}
+
+
+/*nav{
     width: 74.54em;
     padding-left: 2em;
     margin-left: 16.5em;
@@ -41,4 +174,4 @@ span{
 
 .btn{
     background-color: #de4a3a
-}
+}*/
