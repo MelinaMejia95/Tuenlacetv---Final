@@ -13,3 +13,32 @@
 .dropdown-content li {
     min-height: 36px;
 }
+
+input[type=text]:not(.browser-default){
+    height: 2em;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+}
+
+table.striped > tbody > tr > td {
+    border-radius: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: center;
+
+}
+
+td, th {
+    padding: 0.5px 5px;
+}
+
+.tr-background{
+    background-color: #dfdee5
+}
+
+.label-color{
+    color: black;
+}
