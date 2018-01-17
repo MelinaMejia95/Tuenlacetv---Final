@@ -1,5 +1,35 @@
 .button-options{
-    background-color: #407FA9
+    background-color: #407FA9;
+    margin-bottom: 13px;
+}
+
+.btn-floating.btn-large {
+    width: 40px;
+    height: 40px;
+}
+
+.btn-crear {
+    width: 133%;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 1em;
+}
+
+.btn-señal{
+    width: 118%;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.btn-eliminar{
+    width: 122%;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 1em;
+}
+
+.icon-horizontal{
+    align-content: center;
 }
 
 .dropdown-options{
