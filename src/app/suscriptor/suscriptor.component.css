@@ -10,6 +10,7 @@
 
 .btn-crear {
     width: 133%;
+    background-color: #5aa8cb;
     border-radius: 3px;
     text-align: center;
     margin-right: 1em;
@@ -17,6 +18,7 @@
 
 .btn-señal{
     width: 118%;
+    background-color: #5aa8cb;
     border-radius: 3px;
     text-align: center;
 }
@@ -24,12 +26,13 @@
 .btn-eliminar{
     width: 122%;
     border-radius: 3px;
+    background-color: #5aa8cb;
     text-align: center;
     margin-left: 1em;
 }
 
 .icon-horizontal{
-    align-content: center;
+    align-content: center; 
 }
 
 .dropdown-options{
@@ -72,3 +75,21 @@ td, th {
 .label-color{
     color: black;
 }
+
+.ul-button{
+    padding-bottom: 4.5em
+}
+
+.li-button{
+    margin-right: 2em !important;
+}
+
+.btn-floating.btn-large i {
+    line-height: normal;
+    display: inline-block;
+}
+
+.button-crud{
+    background-color: #407FA9;
+}
+

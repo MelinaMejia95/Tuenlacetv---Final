@@ -37,14 +37,26 @@
 }
 
 .background .button-collapse:hover {
-    background-color: #213030;
+    background-color: #3f7fa9;
+    width: 2em;
+    padding-left: 0;
 }
 
 .side-nav{
-    width:  15em;
+    /*width:  15em;
     background-color: #213030;
     top: 44px;
-    transform: translateX(-100%);
+    transform: translateX(-100%);*/
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 44px;
+    left: 0;
+    background-color: #213030;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
 }
 
 .side-nav.show {
@@ -72,6 +84,10 @@
     height: 60px;
     vertical-align: middle;
     align-content: center
+}
+
+.nav-view{
+    margin-top: 0 !important;
 }
 
 .side-nav span{
@@ -128,6 +144,10 @@
 
 .collapsible-header i, .collapsible-body i, .prefix {
     vertical-align: middle;
+}
+
+.user-nav {
+    padding-top: 0 !important;
 }
 
 

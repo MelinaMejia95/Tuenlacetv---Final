@@ -1,33 +1,95 @@
-.card .card-content {
-    height: 0.5em;
+.button-options{
+    background-color: #407FA9;
+    margin-bottom: 13px;
 }
 
-.card .card-content .card-title {
-    line-height: 2px;
-    margin-bottom: 0px;
-    font-size: 16px;
+.btn-floating.btn-large {
+    width: 40px;
+    height: 40px;
 }
 
-.swal2-confirm{
-    padding-right: 1em
+.btn-crear {
+    width: 133%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 1em;
 }
 
-.card{
-    width: 70em;
-    height: 10em;
+.btn-señal{
+    width: 118%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
 }
 
-a{
-    display: inline-flex;
-    font-size: 0.7em;
-    width: 9em;
-    padding-left: 1em;
+.btn-eliminar{
+    width: 122%;
+    border-radius: 3px;
+    background-color: #5aa8cb;
+    text-align: center;
+    margin-left: 1em;
 }
 
-.btn i, .btn-large i, .btn-floating i, .btn-large i, .btn-flat i {
-    font-size: 1rem;
+.icon-horizontal{
+    align-content: center; 
 }
 
-select {
-    font-size: 11px
+.dropdown-options{
+    min-width: 10rem;
 }
+
+.dropdown-content li > a, .dropdown-content li > span{
+    font-size: 13px;
+}
+
+.dropdown-content li {
+    min-height: 36px;
+}
+
+input[type=text]:not(.browser-default){
+    height: 2em;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+}
+
+table.striped > tbody > tr > td {
+    border-radius: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: center;
+
+}
+
+td, th {
+    padding: 0.5px 5px;
+}
+
+.tr-background{
+    background-color: #dfdee5
+}
+
+.label-color{
+    color: black;
+}
+
+.ul-button{
+    padding-bottom: 4.5em
+}
+
+.li-button{
+    margin-right: 2em !important;
+}
+
+.btn-floating.btn-large i {
+    line-height: normal;
+    display: inline-block;
+}
+
+.button-crud{
+    background-color: #407FA9;
+}
+

@@ -14,9 +14,11 @@ html {
 }
 
 .principal-container{
-    border: 1pt solid red;
+    /*border: 1pt solid red;
     padding-left: 1em;
-    padding-right: 1em;
+    padding-right: 1em;*/
+    transition: margin-left .5s;
+    padding: 16px;
 }
 
 .breadcrumb:before{

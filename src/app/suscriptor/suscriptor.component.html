@@ -70,12 +70,94 @@
 </table>
 
 <div class="fixed-action-btn horizontal">
-  <a class="btn-floating btn-large red">
+  <a class="btn-floating btn-large button-crud">
     <i class="large material-icons icon-horizontal">add</i>
   </a>
-  <ul>
-    <li><a class="btn-floating red btn-crear">Crear</a></li>
-    <li><a class="btn-floating yellow darken-1 btn-señal">Adicionar Señal</a></li>
-    <li><a class="btn-floating green btn-eliminar">Eliminar</a></li>
+  <ul class="ul-button">
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+    <li><a class="btn-floating btn-señal">Adicionar Señal</a></li>
+    <li><a class="btn-floating btn-eliminar red">Eliminar</a></li>
   </ul>
+</div>
+
+<div id="modal-crear" class="modal">
+  <div class="modal-content">
+    <h4>Crear</h4>
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="" id="codigo" type="text" class="validate">
+            <label for="codigo">Código</label>
+          </div>
+          <div class="input-field col s6">
+            <select>
+              <option value="1">Cédula</option>
+              <option value="2">NIT</option>
+              <option value="3">Cédula de extranjería</option>
+            </select>
+            <label>Tipo de documento</label>
+          </div>
+        </div>
+        <div class="row col s12">
+          <div class="input-field col s4">
+            <input placeholder="" id="nombre1" type="text" class="validate">
+            <label for="nombre1">Nombre 1</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="" id="nombre2" type="text" class="validate">
+            <label for="nombre2">Nombre 2</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="" id="apellido1" type="text" class="validate">
+            <label for="apellido1">Apellido 1</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="" id="apellido2" type="text" class="validate">
+            <label for="apellido2">Apellido 2</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <input placeholder="" id="direccion" type="text" class="validate">
+            <label for="direccion">Dirección</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="" id="telefono1" type="text" class="validate">
+            <label for="telefono1">Teléfono 1</label>
+          </div>
+          <div class="input-field col s4">
+            <input placeholder="" id="telefono2" type="text" class="validate">
+            <label for="telefono2">Teléfono 2</label>
+          </div>
+          <select>
+            <option value="1">Barrio1</option>
+            <option value="2">Barrio2</option>
+            <option value="3">Barrio3</option>
+          </select>
+          <label>Barrio</label>
+        </div>
+        <div class="row">
+          <select>
+            <option value="1">Zona1</option>
+            <option value="2">Zona2</option>
+            <option value="3">Zona3</option>
+          </select>
+          <label>Zonas</label>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            This is an inline input field:
+            <div class="input-field inline">
+              <input placeholder="" id="email" type="email" class="validate">
+              <label for="email" data-error="wrong" data-success="right">Email</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
 </div>

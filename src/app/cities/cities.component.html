@@ -1,159 +1,136 @@
-<app-navbar></app-navbar>
-<app-navbar-principal></app-navbar-principal>
-
-<div class="row">
+<div class="row bradcrum-position">
   <div class="col s12 m6">
-    <div class="card grey lighten-5">
-      <div class="card-content white-text">
-        <span class="card-title black-text">Ciudades</span>
-      </div>
-      <div class="card-action">
-        <div class="row">
-          <div class="col s12 m6">
-            <div class="row">
-              <div class="input-field col s12 m4">
-                <select id="select-search">
-                  <option value="" disabled selected>Buscar por </option>
-                  <option value="codigo">Código</option>
-                  <option value="nombre">Nombre</option>
-                </select>
-              </div>
-              <div class="input-field col s12 m4">
-                <input id="value" type="text" class="validate">
-              </div>
-              <div class="input-field col s12 m4">
-                <a class="waves-effect waves-light btn cyan darken-3"><i class="material-icons left">search</i>Buscar</a>
-                <!--<a class="btn-floating btn-large waves-effect waves-light orange lighten-2" href="">
-                  <i class="material-icons">search</i>
-                </a>-->
-              </div>
-            </div>
-          </div>
-          <div class="col s12 m6">
-            <div class="row">
-              <div class="input-field col s3 m1 button-right mt-0">
-                <a class="waves-effect waves-light btn  light-green darken-2" href="#modal-add">Crear
-                  <i class="material-icons left">person_add</i>
-                </a>
-              </div>
-              <div class="input-field col s3 m1 button-right mt-0">
-                <a class="waves-effect waves-light btn lime darken-1" href="#modal-edit">Editar
-                  <i class="material-icons left">edit</i>
-                </a>
-              </div>
-              <div class="input-field col s3 m1 button-right mt-0">
-                <a class="waves-effect waves-light btn orange accent-4" href="#modal-see">Ver
-                  <i class="material-icons left">
-                    folder_shared</i>
-                </a>
-              </div>
-              <div class="input-field col s3 m1 button-right mt-0">
-                <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-                    confirmButtonText: 'Si', cancelButtonText: 'No' ,showCancelButton: 'true', type: 'warning' }" type="info"></swal>
-                <a class="waves-effect waves-light btn red darken-4" (click)="dialog.show()">Eliminar
-                  <i class="material-icons left">delete</i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <table class="bordered centered">
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Ciudad</th>
-                </tr>
-              </thead>
-              <tbody>
+      <a class="breadcrumb black-text">First</a>
+      <a class="breadcrumb black-text">Second</a>
+      <a class="breadcrumb black-text">Third</a>
+    </div>
 
-              </tbody>
-            </table>
+  <div class="col s12 m6 right-align">
+    <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">more_vert</i></a>
+
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content dropdown-options'>
+      <li><a href="#!">Pagos</a></li>
+      <li><a href="#!">Órdenes técnicas</a></li>
+      <li><a href="#!">Generar factura</a></li>
+      <li><a href="#!">PQR</a></li>
+    </ul>
+  </div>
+          
+</div>
+
+
+<table class="striped highlight">
+  <thead>
+    <tr class="tr-background">
+      <th></th>
+      <th>
+        <label for="codigo" class="label-color">Código:</label>
+        <input id="codigo" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="documento" class="label-color">Nombre:</label>
+        <input id="documento" type="text" class="input-custom">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let suscriptor of ['','','','','','']; let i = index">
+      <td></td>
+      <td>aaaa</td>
+      <td>aaaa</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="fixed-action-btn horizontal">
+<a class="btn-floating btn-large button-crud">
+  <i class="large material-icons icon-horizontal">add</i>
+</a>
+<ul class="ul-button">
+  <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+  <li><a class="btn-floating btn-eliminar red">Eliminar</a></li>
+</ul>
+</div>
+
+<div id="modal-crear" class="modal">
+<div class="modal-content">
+  <h4>Crear</h4>
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="codigo" type="text" class="validate">
+          <label for="codigo">Código</label>
+        </div>
+        <div class="input-field col s6">
+          <select>
+            <option value="1">Cédula</option>
+            <option value="2">NIT</option>
+            <option value="3">Cédula de extranjería</option>
+          </select>
+          <label>Tipo de documento</label>
+        </div>
+      </div>
+      <div class="row col s12">
+        <div class="input-field col s4">
+          <input placeholder="" id="nombre1" type="text" class="validate">
+          <label for="nombre1">Nombre 1</label>
+        </div>
+        <div class="input-field col s4">
+          <input placeholder="" id="nombre2" type="text" class="validate">
+          <label for="nombre2">Nombre 2</label>
+        </div>
+        <div class="input-field col s4">
+          <input placeholder="" id="apellido1" type="text" class="validate">
+          <label for="apellido1">Apellido 1</label>
+        </div>
+        <div class="input-field col s4">
+          <input placeholder="" id="apellido2" type="text" class="validate">
+          <label for="apellido2">Apellido 2</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <input placeholder="" id="direccion" type="text" class="validate">
+          <label for="direccion">Dirección</label>
+        </div>
+        <div class="input-field col s4">
+          <input placeholder="" id="telefono1" type="text" class="validate">
+          <label for="telefono1">Teléfono 1</label>
+        </div>
+        <div class="input-field col s4">
+          <input placeholder="" id="telefono2" type="text" class="validate">
+          <label for="telefono2">Teléfono 2</label>
+        </div>
+        <select>
+          <option value="1">Barrio1</option>
+          <option value="2">Barrio2</option>
+          <option value="3">Barrio3</option>
+        </select>
+        <label>Barrio</label>
+      </div>
+      <div class="row">
+        <select>
+          <option value="1">Zona1</option>
+          <option value="2">Zona2</option>
+          <option value="3">Zona3</option>
+        </select>
+        <label>Zonas</label>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          This is an inline input field:
+          <div class="input-field inline">
+            <input placeholder="" id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right">Email</label>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
-
-<!-- Modal Crear Ciudad -->
-<div id="modal-add" class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <h4>Crear Ciudad</h4>
-    <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input disabled id="codigo" type="text" class="validate">
-            <label for="codigo">Código</label>
-          </div>
-          <div class="input-field col s6">
-            <input id="nombre" type="text" class="validate">
-            <label for="nombre">Nombre</label>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <swal #dialog2 [options]="{ title: '¿Desea grabar el registro?', 
-      confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question', confirmButtonColor: '#aaa' }" type="info"></swal>
-    <a class="waves-effect waves-light btn light-green lighten-1" (click)="dialog2.show()">Aceptar</a>
-    <a class="waves-effect waves-light btn orange darken-1">Cancelar</a>
-    <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
-  </div>
+<div class="modal-footer">
+  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 </div>
-
-<!-- Modal Actualizar Ciudad -->
-<div id="modal-edit" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4>Actualizar Ciudad</h4>
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s6">
-              <input disabled id="codigo" type="text" class="validate">
-              <label for="codigo">Código</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="nombre" type="text" class="validate">
-              <label for="nombre">Nombre</label>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <swal #dialog3 [options]="{ title: '¿Desea actualizar el registro?', 
-        confirmButtonText: 'Si', cancelButtonText: 'No' , showCancelButton: 'true', type: 'question',
-        cancelButtonColor: '#0288d1' }" type="info"></swal>
-      <a class="waves-effect waves-light btn light-green lighten-1" (click)="dialog3.show()">Aceptar</a>
-      <a class="waves-effect waves-light btn orange darken-1">Cancelar</a>
-      <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
-    </div>
-  </div>
-
-  <!-- Modal Ver Ciudad -->
-<div id="modal-see" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4>Ciudad</h4>
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s6">
-              <input disabled id="codigo" type="text" class="validate">
-              <label for="codigo">Código</label>
-            </div>
-            <div class="input-field col s6">
-              <input disabled id="nombre" type="text" class="validate">
-              <label for="nombre">Nombre</label>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a class="waves-effect waves-light btn light-green lighten-1 disabled">Aceptar</a>
-      <a class="waves-effect waves-light btn orange darken-1 disabled">Cancelar</a>
-      <a class="waves-effect waves-light btn light-blue darken-2">Imprimir</a>
-    </div>
-  </div>
+</div>

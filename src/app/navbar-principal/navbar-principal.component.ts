@@ -7,14 +7,30 @@ declare let jQuery: any;
   templateUrl: './navbar-principal.component.html',
   styleUrls: ['./navbar-principal.component.css']
 })
-export class NavbarPrincipalComponent implements OnInit {
+export class NavbarPrincipalComponent implements OnInit { 
 
-  constructor() { }
+  ban:number = 0;
 
-  ngOnInit() {}
+  constructor() {
+  }
+ 
+  ngOnInit() {
+  }
 
   toggleShow() {
-    document.querySelector('#slide-out').classList.toggle('show');
+    if (this.ban == 0) {
+      console.log('hola');
+      document.querySelector('#slide-out').classList.toggle('show');
+      document.getElementById("slide-out").style.width = "15em";
+      document.getElementById('main').style.marginLeft = "16em";
+      this.ban = 1;
+    } else if (this.ban == 1) {
+      console.log('bye');
+      document.getElementById("slide-out").style.width = "0";
+      document.getElementById("slide-out").style.marginRight = "0";
+      document.getElementById('main').style.marginLeft = "0";
+      this.ban = 0;
+    }
   }
 
 }
