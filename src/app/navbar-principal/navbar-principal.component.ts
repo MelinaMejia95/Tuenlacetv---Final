@@ -15,6 +15,10 @@ export class NavbarPrincipalComponent implements OnInit {
   }
  
   ngOnInit() {
+    jQuery('.modal').modal({
+      startingTop: '2%',
+      opacity: 0,
+    });
   }
 
   toggleShow() {
@@ -31,6 +35,10 @@ export class NavbarPrincipalComponent implements OnInit {
       document.getElementById('main').style.marginLeft = "0";
       this.ban = 0;
     }
+  }
+
+  closeModal() {
+    jQuery('#modal1').modal('close');
   }
 
 }
