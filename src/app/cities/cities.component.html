@@ -1,3 +1,4 @@
+<!-- Breadcrum-->
 <div class="row bradcrum-position">
   <div class="col s12 m6">
       <a class="breadcrumb black-text">First</a>
@@ -19,6 +20,7 @@
           
 </div>
 
+<!-- Table -->
 <table class="striped highlight">
   <thead>
     <tr class="tr-background">
@@ -48,6 +50,7 @@
   </tbody>
 </table>
 
+<!-- Pagination -->
 <div class="row right">
   <ul class="pagination">
       <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -60,7 +63,7 @@
     </ul>
 </div>
 
-
+<!-- Footer Button -->
 <div class="fixed-action-btn horizontal">
 <a class="btn-floating btn-large button-crud">
   <i class="large material-icons icon-horizontal">add</i>
@@ -74,45 +77,50 @@
 </ul>
 </div>
 
+<!--Modal Crear -->
 <div id="modal-crear" class="modal">
-    <div class="modal-title">
-      <div class="row">
-        <h4>Crear</h4>
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Crear</h4>
+      </div>
+      <div class="col s6 right-align">
         <a class="btn-floating btn-large btn-print">
-            <i class="large material-icons icon-horizontal">local_printshop</i>
-          </a>
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
       </div>
     </div>
-<div class="modal-content">
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="" id="codigo" type="text" class="validate">
-          <label for="codigo">Código</label>
-        </div>
-        <div class="col s6 select-pais">
-            <label>País</label>
-            <select class="browser-default select-city">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="" id="nombre1" type="text" class="validate">
-          <label for="nombre1">Nombre</label>
-        </div>
-
-      </div>
-    </form>
   </div>
-</div>
-<div class="modal-footer">
-  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-</div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="" id="codigo" type="text" class="validate">
+            <label for="codigo">Código</label>
+          </div>
+          <div class="col s6 select-pais">
+              <label>País</label>
+              <select class="browser-default select-city">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="" id="nombre1" type="text" class="validate">
+            <label for="nombre1">Nombre</label>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+  </div>
 </div>

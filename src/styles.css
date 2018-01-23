@@ -82,6 +82,20 @@ html {
 
 .btn-print{
     display: inline-block;
+    background-color: #478fbc;    
+    margin-top: 4%;
+    box-shadow: none;
+}
+
+.btn-print:hover, .btn-print:active{
+    display: inline-block;
+    background-color: white;    
+    margin-top: 4%;
+    box-shadow: none;
+}
+
+.icon-print:hover, .icon-print:active{
+    color:#478fbc;
 }
 
 .pagination li.active {
