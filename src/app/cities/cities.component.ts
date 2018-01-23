@@ -13,8 +13,8 @@ export class CitiesComponent implements OnInit {
 
   ngOnInit() {
     jQuery('select').material_select();
-    //jQuery('.modal').modal();
-    jQuery('#modal-add').modal();
+    jQuery('#modal-crear').modal();
+     
     /*jQuery('#modal-edit').modal();
     jQuery('#modal-see').modal();*/
   }

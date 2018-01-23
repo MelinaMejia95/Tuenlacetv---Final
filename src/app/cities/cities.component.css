@@ -81,7 +81,7 @@ td, th {
 }
 
 .li-button{
-    margin-right: 2em !important;
+    margin-right: 1em !important;
 }
 
 .btn-floating.btn-large i {
@@ -91,5 +91,41 @@ td, th {
 
 .button-crud{
     background-color: #407FA9;
+}
+
+.select-city {
+    height: 2.2em;
+    width: 18em;
+    font-size: 14px;
+    padding-bottom: 0em;
+    margin-top: 0px;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+}
+
+.select-wrapper {
+    border: 1px solid;
+    border-color: red;
+    background: white;
+    border-radius: 8px;
+    height: 1.7em;
+}
+
+.select-pais{
+    height: 1em;
+    line-height: 1em;
+}
+
+#modal-crear{
+    width: 36%;
+}
+
+.modal .modal-content {
+    padding: 24px;
+    padding-bottom: 0 !important;
+    height: 16em;
 }
 

@@ -208,6 +208,9 @@
     opacity: none !important;
 }
 
+.li-button {
+    margin-right: 1em !important;
+}
 
 /*nav{
     width: 74.54em;

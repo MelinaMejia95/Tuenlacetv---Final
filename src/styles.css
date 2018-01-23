@@ -35,3 +35,76 @@ html {
     margin-top: 3.5em;
     margin-bottom: 0;
 }
+
+.modal-title{
+    background-color: #478fbc;
+    color: white;
+    height: 4em;
+}
+
+.modal h4 {
+    margin-top: 0;
+    vertical-align: middle;
+    margin-left: 1em;
+    padding-top: 0.3em;
+}
+
+.modal .modal-footer {
+    border-radius: 0 0 2px 2px;
+    background-color: #5aa8cb;
+    padding: 4px 6px;
+    height: 56px;
+    width: 100%;
+    color: white;
+    text-align: right;
+}
+
+.modal .modal-footer .btn-flat {
+    margin: 6px 0;
+    margin-left: 0em;
+    color: white;
+    border: 1px solid;
+    font-size: 12px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.modal .modal-footer .btn-flat:hover {
+    margin: 6px 0;
+    margin-left: 0em;
+    color: #5aa8cb;
+    background-color: white;
+    border: 1px solid;
+    font-size: 12px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.btn-print{
+    display: inline-block;
+}
+
+.pagination li.active {
+    background-color: #407fa9;
+}
+
+[type="checkbox"].filled-in:checked + label:after {
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #5aa8cb;
+    background-color: #5aa8cb;
+    z-index: 0;
+}
+
+.first-column{
+    width: 2em;
+}
+
+#filled-in-box{
+    margin-left: 1em;
+}
+
+table.striped[_ngcontent-c2] > tbody[_ngcontent-c2] > tr[_ngcontent-c2] > td[_ngcontent-c2] {
+    padding-bottom: 0 !important;
+}
