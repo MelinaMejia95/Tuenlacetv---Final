@@ -102,23 +102,19 @@ html {
     background-color: #407fa9;
 }
 
-[type="checkbox"].filled-in:checked + label:after {
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #5aa8cb;
-    background-color: #5aa8cb;
-    z-index: 0;
-}
-
 .first-column{
     width: 2em;
 }
 
-#filled-in-box{
-    margin-left: 1em;
-}
-
 table.striped[_ngcontent-c2] > tbody[_ngcontent-c2] > tr[_ngcontent-c2] > td[_ngcontent-c2] {
     padding-bottom: 0 !important;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+[type="checkbox"].filled-in:checked + label:after {
+    border: 2px solid #5fbdb3;
+    background-color: #5fbdb3;
 }
