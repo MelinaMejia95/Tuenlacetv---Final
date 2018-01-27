@@ -123,9 +123,14 @@ td, th {
     width: 36%;
 }
 
+#modal-see{
+    width: 36%
+}
+
 .modal .modal-content {
     padding: 24px;
     padding-bottom: 0 !important;
     height: 16em;
 }
+
 

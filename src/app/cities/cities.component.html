@@ -39,9 +39,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let city of cities; let i = index" >
+    <tr *ngFor="let city of cities; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i"/>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
           <label [attr.for]="'radio_'+i"> </label>
       </td>
       <td (click)="openModal()" href="#modal-see">aaaa</td>

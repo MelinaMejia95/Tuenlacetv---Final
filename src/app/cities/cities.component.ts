@@ -10,6 +10,7 @@ declare let jQuery: any;
 export class CitiesComponent implements OnInit {
 
   cities: any[] = ['Medellín', 'Bogotá', 'Cali']
+  
 
   constructor() { }
 
@@ -47,18 +48,38 @@ export class CitiesComponent implements OnInit {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
     var cantidad = document.getElementsByName('group1');
+    var rows = <HTMLInputElement><any>document.getElementsByName('rows');
     
     if (radios[0].checked){
       console.log(cantidad.length)
       for(var i = 0; i < cantidad.length; i++ ) {
         console.log(check[i]);
         check[i].checked = true;
+        rows[i].setAttribute("style", "background-color : #9ad1ea");
       }
     } else {
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = false;
+        rows[i].setAttribute("style", "background-color : none");
       }
     }
+  }
+
+  selectRow() {
+    var rows = <HTMLInputElement><any>document.getElementsByName('rows');
+    var radios = <HTMLInputElement><any>document.getElementsByName('group2');
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    
+      for(var i = 0; i < cantidad.length; i++ ){
+        if(check[i].checked){
+          console.log('Works')
+          rows[i].setAttribute("style", "background-color : #9ad1ea");
+        } else{
+          rows[i].setAttribute("style", "background-color : none");
+        }
+      }    
+    
   }
 
 }
