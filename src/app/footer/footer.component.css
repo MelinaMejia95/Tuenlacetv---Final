@@ -1,0 +1,13 @@
+.page-footer {
+    padding-top: 0 !important;
+    color: black !important;
+    background-color: #edf0f5 !important;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    
+}
+
+.page-footer .footer-copyright {
+    color: black !important;
+}
