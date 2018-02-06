@@ -7,7 +7,7 @@
     </div>
 
   <div class="col s12 m6 right-align">
-    <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">more_vert</i></a>
+    <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
 
     <!-- Dropdown Structure -->
     <ul id='dropdown1' class='dropdown-content dropdown-options'>
@@ -133,6 +133,9 @@
           <h4>Ciudad</h4>
       </div>
       <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print" (click)="edit()">
+            <i class="large material-icons icon-horizontal icon-print">edit</i>
+        </a>
         <a class="btn-floating btn-large btn-print">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
@@ -144,12 +147,12 @@
       <form class="col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input placeholder="" id="codigo" type="text" class="validate">
-            <label for="codigo">Código</label>
+            <input disabled placeholder="" id="codigoEdit" type="text" class="validate">
+            <label for="codigoEdit">Código</label>
           </div>
           <div class="col s6 select-pais">
               <label>País</label>
-              <select class="browser-default select-city">
+              <select disabled class="browser-default select-city" id="selectEdit">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
@@ -159,8 +162,8 @@
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input placeholder="" id="nombre1" type="text" class="validate">
-            <label for="nombre1">Nombre</label>
+            <input disabled placeholder="" id="nombreEdit" type="text" class="validate">
+            <label for="nombreEdit">Nombre</label>
           </div>
 
         </div>

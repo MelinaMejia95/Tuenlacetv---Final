@@ -21,6 +21,11 @@ html {
     padding: 16px;
 }
 
+.main-footer{
+    transition: margin-left .5s;
+    padding-left: 12px;
+}
+
 .breadcrumb:before{
     color: black;
     font-size: 15px;
@@ -87,6 +92,13 @@ html {
     box-shadow: none;
 }
 
+.btn-edit {
+    display: inline-block;
+    background-color: #478fbc;    
+    margin-top: 4%;
+    box-shadow: none;
+}
+
 .btn-print:hover, .btn-print:active{
     display: inline-block;
     background-color: white;    
@@ -106,8 +118,11 @@ html {
     width: 2em;
 }
 
-table.striped[_ngcontent-c2] > tbody[_ngcontent-c2] > tr[_ngcontent-c2] > td[_ngcontent-c2] {
+table.striped[_ngcontent-c3] > tbody[_ngcontent-c3] > tr[_ngcontent-c3] > td[_ngcontent-c3] {
+    border-radius: 0;
+    padding-top: 0.5em;
     padding-bottom: 0 !important;
+    text-align: center;
 }
 
 .clickable {
@@ -119,3 +134,13 @@ table.striped[_ngcontent-c2] > tbody[_ngcontent-c2] > tr[_ngcontent-c2] > td[_ng
     background-color: #3f7fa9;
 }
 
+select:disabled{
+    background-color:#f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+}
+
+input[type=text]:not(.browser-default):disabled{
+    background-color: #f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+    margin: 2px 0 7px 0 !important;
+}

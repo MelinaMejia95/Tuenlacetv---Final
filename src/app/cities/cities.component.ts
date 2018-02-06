@@ -17,7 +17,11 @@ export class CitiesComponent implements OnInit {
   ngOnInit() {
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
-    jQuery('#modal-see').modal();
+    jQuery('#modal-see').modal({ complete: function() { 
+        jQuery('#codigoEdit').prop('disabled',true);
+        jQuery('#nombreEdit').prop('disabled',true);
+        jQuery('#selectEdit').prop('disabled',true);
+       }});
 
     /*var elements = document.getElementsByClassName('clickable');
     for (var i = 0; i < elements.length; i++) {
@@ -42,6 +46,7 @@ export class CitiesComponent implements OnInit {
 
   closeModal () {
     jQuery('#modal-see').modal('close');
+    
   }
 
   selectAll() {
@@ -80,6 +85,14 @@ export class CitiesComponent implements OnInit {
         }
       }    
     
+  }
+
+  edit () {
+    jQuery('#codigoEdit').prop('disabled',false);
+    jQuery('#nombreEdit').prop('disabled',false);
+    jQuery('#selectEdit').prop('disabled',false);
+    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
   }
 
 }
