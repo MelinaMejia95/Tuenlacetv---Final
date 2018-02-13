@@ -69,11 +69,11 @@
   <i class="large material-icons icon-horizontal">add</i>
 </a>
 <ul class="ul-button">
-  <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
   confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
   confirmButtonColor: '#407FA9' }" (confirm)="deleteCity()"></swal>
-  <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()">Eliminar</a></li>
+  <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+  <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
 </ul>
 </div>
 
@@ -120,8 +120,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
 
@@ -171,8 +171,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
-    <a class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</a>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
 
