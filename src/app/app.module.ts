@@ -15,6 +15,7 @@ import { NavbarPrincipalComponent } from './navbar-principal/navbar-principal.co
 import { CitiesComponent } from './cities/cities.component';
 import { SuscriptorComponent } from './suscriptor/suscriptor.component';
 import { FooterComponent } from './footer/footer.component';
+import { CountriesComponent } from './countries/countries.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FooterComponent } from './footer/footer.component';
     NavbarPrincipalComponent,
     CitiesComponent,
     SuscriptorComponent,
-    FooterComponent
+    FooterComponent,
+    CountriesComponent
   ],
   imports: [
     BrowserModule,
