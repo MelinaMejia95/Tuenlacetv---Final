@@ -60,6 +60,12 @@ input[type=text]:not(.browser-default){
     margin: 0px 0 7px 0;
 }
 
+input[type=text]:not(.browser-default):disabled{
+    background-color: #f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+    margin: 2px 0 7px 0 !important;
+}
+
 table.striped > tbody > tr > td {
     border-radius: 0;
     padding-top: 0.5em;

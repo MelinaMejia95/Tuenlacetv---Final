@@ -4,12 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component'
 import { CitiesComponent } from './cities/cities.component'
 import { SuscriptorComponent } from './suscriptor/suscriptor.component'
+import { CountriesComponent } from './countries/countries.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'principal', component: PrincipalComponent },
   { path: 'cities', component: CitiesComponent },
-  { path: 'suscriptor', component: SuscriptorComponent }
+  { path: 'suscriptor', component: SuscriptorComponent },
+  { path: 'countries', component: CountriesComponent}
 ];
 
 @NgModule({
