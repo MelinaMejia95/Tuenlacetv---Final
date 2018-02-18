@@ -6,6 +6,7 @@ import { CitiesComponent } from './cities/cities.component'
 import { SuscriptorComponent } from './suscriptor/suscriptor.component'
 import { CountriesComponent } from './countries/countries.component';
 import { ZonesComponent } from './zones/zones.component';
+import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'cities', component: CitiesComponent },
   { path: 'suscriptor', component: SuscriptorComponent },
   { path: 'countries', component: CountriesComponent},
-  { path: 'zones', component: ZonesComponent }
+  { path: 'zones', component: ZonesComponent },
+  { path: 'neighborhoods', component: NeighborhoodsComponent }
 ];
 
 @NgModule({

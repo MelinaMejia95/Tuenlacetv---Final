@@ -17,6 +17,7 @@ import { SuscriptorComponent } from './suscriptor/suscriptor.component';
 import { FooterComponent } from './footer/footer.component';
 import { CountriesComponent } from './countries/countries.component';
 import { ZonesComponent } from './zones/zones.component';
+import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ZonesComponent } from './zones/zones.component';
     SuscriptorComponent,
     FooterComponent,
     CountriesComponent,
-    ZonesComponent
+    ZonesComponent,
+    NeighborhoodsComponent
   ],
   imports: [
     BrowserModule,
