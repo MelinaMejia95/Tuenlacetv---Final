@@ -7,22 +7,6 @@
     min-width: 10rem;
 }
 
-.tr-background{
-    background-color: #dfdee5
-}
-
-table.striped > tbody > tr > td {
-    border-radius: 0;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    text-align: center;
-
-}
-
-td, th {
-    padding: 0.5px 5px;
-}
-
 input[type=text]:not(.browser-default){
     height: 2em;
     font-size: 0.8em;

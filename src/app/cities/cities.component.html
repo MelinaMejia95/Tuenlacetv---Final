@@ -64,16 +64,16 @@
 
 <!-- Footer Button -->
 <div class="fixed-action-btn horizontal">
-<a class="btn-floating btn-large button-crud">
-  <i class="large material-icons icon-horizontal">add</i>
-</a>
-<ul class="ul-button">
-  <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-  confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-  confirmButtonColor: '#407FA9' }" (confirm)="deleteCity()"></swal>
-  <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
-  <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
-</ul>
+  <a class="btn-floating btn-large button-crud">
+    <i class="large material-icons icon-horizontal">add</i>
+  </a>
+  <ul class="ul-button">
+    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
+    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
+    confirmButtonColor: '#407FA9' }" (confirm)="deleteCity()"></swal>
+    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+  </ul>
 </div>
 
 <!--Modal Crear -->
@@ -94,12 +94,12 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s6">
-            <label for="codigo">Código</label>
-            <input placeholder="" id="codigo" type="text" class="validate">
+          <div class="col s6">
+              <label for="codigo" class="label-color">Código:</label>
+              <input placeholder=""  id="codigo" type="text">
           </div>
-          <div class="col s6 select-pais">
-              <label>País</label>
+          <div class="col s6">
+              <label class="label-color">País</label>
               <select class="browser-default select-city">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="1">Option 1</option>
@@ -109,11 +109,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
-            <label for="nombre1">Nombre</label>
-            <input placeholder="" id="nombre1" type="text" class="validate">
+          <div class="col s6">
+              <label for="nombre" class="label-color">Nombre:</label>
+              <input placeholder="" id="nombre" type="text">
           </div>
-
         </div>
       </form>
     </div>
@@ -145,11 +144,11 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s6">
-            <input disabled placeholder="" id="codigoEdit" type="text" class="validate">
-            <label for="codigoEdit">Código</label>
+          <div class="col s6">
+            <label class="label-color">Código:</label>
+            <input placeholder="" disabled id="codigoEdit" type="text">
           </div>
-          <div class="col s6 select-pais">
+          <div class="col s6">
               <label>País</label>
               <select disabled class="browser-default select-city" id="selectEdit">
                 <option value="" disabled selected>Choose your option</option>
@@ -160,11 +159,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
-            <input disabled placeholder="" id="nombreEdit" type="text" class="validate">
-            <label for="nombreEdit">Nombre</label>
+          <div class="col s6">
+            <label for="nombreEdit" class="label-color">Nombre:</label>
+            <input placeholder="" disabled id="nombreEdit" type="text">
           </div>
-
         </div>
       </form>
     </div>

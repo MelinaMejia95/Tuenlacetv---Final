@@ -5,13 +5,15 @@ import { PrincipalComponent } from './principal/principal.component'
 import { CitiesComponent } from './cities/cities.component'
 import { SuscriptorComponent } from './suscriptor/suscriptor.component'
 import { CountriesComponent } from './countries/countries.component';
+import { ZonesComponent } from './zones/zones.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'principal', component: PrincipalComponent },
   { path: 'cities', component: CitiesComponent },
   { path: 'suscriptor', component: SuscriptorComponent },
-  { path: 'countries', component: CountriesComponent}
+  { path: 'countries', component: CountriesComponent},
+  { path: 'zones', component: ZonesComponent }
 ];
 
 @NgModule({

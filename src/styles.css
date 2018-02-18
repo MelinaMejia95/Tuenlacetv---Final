@@ -118,11 +118,19 @@ html {
     width: 2em;
 }
 
-table.striped[_ngcontent-c3] > tbody[_ngcontent-c3] > tr[_ngcontent-c3] > td[_ngcontent-c3] {
+table.striped > tbody > tr > td {
     border-radius: 0;
     padding-top: 0.5em;
     padding-bottom: 0 !important;
     text-align: center;
+}
+
+td, th {
+    padding: 0.5px 5px;
+}
+
+.tr-background{
+    background-color: #dfdee5
 }
 
 .clickable {
@@ -138,4 +146,5 @@ select:disabled{
     background-color:#f5f2f0 !important;
     border-color: rgb(95, 90, 90) !important;
 }
+
 

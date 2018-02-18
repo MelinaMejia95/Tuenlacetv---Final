@@ -86,8 +86,8 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s6">
-            <label for="nombre">Nombre</label>
+          <div class="col s6">
+            <label for="nombre" class="label-color">Nombre</label>
             <input placeholder=" " id="nombre" type="text" class="validate">
           </div>
         </div>
@@ -105,7 +105,7 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Ciudad</h4>
+          <h4>País</h4>
       </div>
       <div class="col s6 right-align">
         <a class="btn-floating btn-large btn-print" (click)="edit()">
@@ -121,13 +121,13 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s6">
-            <label for="codigoEdit">Código</label>
-            <input disabled placeholder="" id="codigoEdit" type="text" class="validate">
+          <div class="col s6">
+            <label for="codigoEdit" class="label-color">Código:</label>
+            <input disabled placeholder="" id="codigoEdit" type="text">
           </div>
-          <div class="input-field col s6">
-            <label for="nombreEdit">Nombre</label>
-            <input disabled placeholder="" id="nombreEdit" type="text" class="validate">
+          <div class="col s6">
+            <label for="nombreEdit" class="label-color">Nombre:</label>
+            <input disabled placeholder="" id="nombreEdit" type="text">
           </div>
         </div>
         <div class="row">

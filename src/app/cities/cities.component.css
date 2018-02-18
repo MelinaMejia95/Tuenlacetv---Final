@@ -66,22 +66,6 @@ input[type=text]:not(.browser-default):disabled{
     margin: 2px 0 7px 0 !important;
 }
 
-table.striped > tbody > tr > td {
-    border-radius: 0;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    text-align: center;
-
-}
-
-td, th {
-    padding: 0.5px 5px;
-}
-
-.tr-background{
-    background-color: #dfdee5
-}
-
 .label-color{
     color: black;
 }
@@ -142,5 +126,6 @@ td, th {
     padding-bottom: 0 !important;
     height: 16em;
 }
+
 
 
