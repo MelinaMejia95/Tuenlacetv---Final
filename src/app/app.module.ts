@@ -18,6 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CountriesComponent } from './countries/countries.component';
 import { ZonesComponent } from './zones/zones.component';
 import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
+import { BanksComponent } from './banks/banks.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component'
     FooterComponent,
     CountriesComponent,
     ZonesComponent,
-    NeighborhoodsComponent
+    NeighborhoodsComponent,
+    BanksComponent
   ],
   imports: [
     BrowserModule,
