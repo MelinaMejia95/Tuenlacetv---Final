@@ -1,3 +1,231 @@
-<p>
-  banks works!
-</p>
+<!-- Breadcrum-->
+<div class="row bradcrum-position">
+  <div class="col s12 m6">
+      <a class="breadcrumb black-text">First</a>
+      <a class="breadcrumb black-text">Second</a>
+      <a class="breadcrumb black-text">Third</a>
+    </div>
+
+  <div class="col s12 m6 right-align">
+    <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
+
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content dropdown-options'>
+      <li><a href="#!">Pagos</a></li>
+      <li><a href="#!">Órdenes técnicas</a></li>
+      <li><a href="#!">Generar factura</a></li>
+      <li><a href="#!">PQR</a></li>
+    </ul> 
+  </div>
+</div>
+  
+  <!-- Table -->
+<table class="striped highlight">
+  <thead>
+    <tr class="tr-background">
+      <th class="first-column">
+        <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+        <label for="all"> </label>
+      </th>
+      <th>
+        <label for="codigo" class="label-color">Código:</label>
+        <input id="codigo" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="nit" class="label-color">NIT:</label>
+        <input id="nit" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="banco" class="label-color">Banco:</label>
+        <input id="banco" type="text" class="input-custom">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bank of banks; let i = index" name="rows" (click)="selectRow()">
+      <td>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <label [attr.for]="'radio_'+i"> </label>
+      </td>
+      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal()" href="#modal-see">aaaa</td>
+    </tr>
+  </tbody>
+</table>
+  
+<!-- Pagination -->
+<div class="row right">
+  <ul class="pagination">
+      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+      <li class="active"><a href="#!">1</a></li>
+      <li class="waves-effect"><a href="#!">2</a></li>
+      <li class="waves-effect"><a href="#!">3</a></li>
+      <li class="waves-effect"><a href="#!">4</a></li>
+      <li class="waves-effect"><a href="#!">5</a></li>
+      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+</div>
+  
+<!-- Footer Button -->
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large button-crud">
+    <i class="large material-icons icon-horizontal">add</i>
+  </a>
+  <ul class="ul-button">
+    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
+    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
+    confirmButtonColor: '#407FA9' }" (confirm)="deleteCity()"></swal>
+    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+  </ul>
+</div>
+  
+<!--Modal Crear -->
+<div id="modal-crear" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Crear</h4>
+      </div>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="col s4">
+            <label for="codigo" class="label-color">Código:</label>
+            <input placeholder=""  id="codigo" type="text">
+          </div>
+          <div class="col s4">
+            <label for="nit" class="label-color">NIT:</label>
+            <input placeholder="" id="nit" type="text">
+          </div>
+          <div class="col s4">
+            <label for="direccion" class="label-color">Dirección:</label>
+            <input placeholder="" id="direccion" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <label for="tel1" class="label-color">Teléfono 1</label>
+            <input placeholder="" id="tel1" type="text">
+          </div>
+          <div class="col s4">
+            <label for="tel2" class="label-color">Teléfono 2</label>
+            <input placeholder="" id="tel2" type="text">
+          </div>
+          <div class="col s4">
+            <label class="label-color">Ciudad</label>
+            <select class="browser-default select-city">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <label for="contacto" class="label-color">Contacto</label>
+            <input placeholder="" id="contacto" type="text">
+          </div>
+          <div class="col s4">
+            <label for="cuenta_ban" class="label-color">Cuenta bancaria</label>
+            <input placeholder="" id="cuenta_ban" type="text">
+          </div>
+          <div class="col s4">
+            <label for="cuenta_con" class="label-color">Cuenta contable</label>
+            <input placeholder="" id="cuenta_con" type="text">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+  </div>
+</div>
+  
+<!-- Modal See -->
+<div id="modal-see" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Banco</h4>
+      </div>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print" (click)="edit()">
+            <i class="large material-icons icon-horizontal icon-print">edit</i>
+        </a>
+        <a class="btn-floating btn-large btn-print">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+            <div class="col s4">
+              <label for="codigoEdit" class="label-color">Código:</label>
+              <input disabled placeholder="" id="codigoEdit" type="text">
+            </div>
+            <div class="col s4">
+              <label for="nitEdit" class="label-color">NIT:</label>
+              <input disabled placeholder="" id="nitEdit" type="text">
+            </div>
+            <div class="col s4">
+              <label for="direccionEdit" class="label-color">Dirección:</label>
+              <input disabled placeholder="" id="direccionEdit" type="text">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4">
+              <label for="tel1Edit" class="label-color">Teléfono 1</label>
+              <input disabled placeholder="" id="tel1Edit" type="text">
+            </div>
+            <div class="col s4">
+              <label for="tel2Edit" class="label-color">Teléfono 2</label>
+              <input disabled placeholder="" id="tel2Edit" type="text">
+            </div>
+            <div class="col s4">
+              <label class="label-color">Ciudad</label>
+              <select disabled class="browser-default select-city" id="ciudadEdit">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4">
+              <label for="contactoEdit" class="label-color">Contacto</label>
+              <input disabled placeholder="" id="contactoEdit" type="text">
+            </div>
+            <div class="col s4">
+              <label for="cuenta_banEdit" class="label-color">Cuenta bancaria</label>
+              <input disabled placeholder="" id="cuenta_banEdit" type="text">
+            </div>
+            <div class="col s4">
+              <label for="cuenta_conEdit" class="label-color">Cuenta contable</label>
+              <input disabled placeholder="" id="cuenta_conEdit" type="text">
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+  </div>
+</div>

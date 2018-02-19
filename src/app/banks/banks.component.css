@@ -1,0 +1,131 @@
+.button-options{
+    background-color: #407FA9;
+    margin-bottom: 13px;
+}
+
+.btn-floating.btn-large {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 2.5em;
+}
+
+.btn-crear {
+    width: 133%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 1em;
+}
+
+.btn-señal{
+    width: 118%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.btn-eliminar{
+    width: 100%;
+    border-radius: 3px;
+    background-color: #5aa8cb;
+    text-align: center;
+    margin-left: 5%;
+    padding: 0 1em !important;
+    visibility: hidden;
+}
+
+.icon-horizontal{
+    align-content: center; 
+}
+
+.dropdown-options{
+    min-width: 10rem;
+}
+
+.dropdown-content li > a, .dropdown-content li > span{
+    font-size: 13px;
+}
+
+.dropdown-content li {
+    min-height: 36px;
+}
+
+input[type=text]:not(.browser-default){
+    height: 2em;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+    margin: 0px 0 7px 0;
+}
+
+input[type=text]:not(.browser-default):disabled{
+    background-color: #f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+    margin: 2px 0 7px 0 !important;
+}
+
+.label-color{
+    color: black;
+}
+
+.ul-button{
+    padding-bottom: 7em
+}
+
+.li-button{
+    margin-right: 1em !important;
+}
+
+.btn-floating.btn-large i {
+    line-height: normal;
+    display: inline-block;
+}
+
+.button-crud{
+    background-color: #407FA9;
+}
+
+.select-city {
+    height: 2.2em;
+    width: 15.2em;
+    font-size: 14px;
+    padding-bottom: 0em;
+    margin-top: 0px;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+}
+
+.select-wrapper {
+    border: 1px solid;
+    border-color: red;
+    background: white;
+    border-radius: 8px;
+    height: 1.7em;
+}
+
+.select-pais{
+    height: 1em;
+    line-height: 1em;
+}
+
+#modal-crear{
+    width: 50%;
+}
+
+#modal-see{
+    width: 50%
+}
+
+.modal .modal-content {
+    padding: 24px;
+    padding-bottom: 0 !important;
+    height: 20em;
+}
+
+
+
