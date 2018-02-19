@@ -20,6 +20,7 @@ import { ZonesComponent } from './zones/zones.component';
 import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 import { BanksComponent } from './banks/banks.component';
 import { CompanyComponent } from './company/company.component';
+import { RatesComponent } from './rates/rates.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CompanyComponent } from './company/company.component';
     ZonesComponent,
     NeighborhoodsComponent,
     BanksComponent,
-    CompanyComponent
+    CompanyComponent,
+    RatesComponent
   ],
   imports: [
     BrowserModule,
