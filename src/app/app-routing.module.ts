@@ -8,6 +8,7 @@ import { CountriesComponent } from './countries/countries.component';
 import { ZonesComponent } from './zones/zones.component';
 import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 import { BanksComponent } from './banks/banks.component';
+import { CompanyComponent } from './company/company.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'countries', component: CountriesComponent},
   { path: 'zones', component: ZonesComponent },
   { path: 'neighborhoods', component: NeighborhoodsComponent },
-  { path: 'banks', component: BanksComponent }
+  { path: 'banks', component: BanksComponent },
+  { path: 'company', component: CompanyComponent } 
 ];
 
 @NgModule({

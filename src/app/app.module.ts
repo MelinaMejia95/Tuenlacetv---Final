@@ -19,6 +19,7 @@ import { CountriesComponent } from './countries/countries.component';
 import { ZonesComponent } from './zones/zones.component';
 import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 import { BanksComponent } from './banks/banks.component';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BanksComponent } from './banks/banks.component';
     CountriesComponent,
     ZonesComponent,
     NeighborhoodsComponent,
-    BanksComponent
+    BanksComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
