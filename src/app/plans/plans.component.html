@@ -1,3 +1,172 @@
-<p>
-  plans works!
-</p>
+<!-- Breadcrum-->
+<div class="row bradcrum-position">
+  <div class="col s12 m6">
+      <a class="breadcrumb black-text">First</a>
+      <a class="breadcrumb black-text">Second</a>
+      <a class="breadcrumb black-text">Third</a>
+    </div>
+
+  <div class="col s12 m6 right-align">
+    <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
+
+  </div>
+</div>
+    
+  <!-- Table -->
+<table class="striped highlight">
+  <thead>
+    <tr class="tr-background">
+      <th class="first-column">
+        <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+        <label for="all"> </label>
+      </th>
+      <th>
+        <label for="codigo" class="label-color">Código:</label>
+        <input id="nit" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="servicio" class="label-color">Servicio:</label>
+        <input id="servicio" type="text" class="input-custom">
+      </th>
+      <th>
+        <label for="nombre" class="label-color">Nombre:</label>
+        <input id="nombre" type="text" class="input-custom">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let plan of plans; let i = index" name="rows" (click)="selectRow()">
+      <td>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <label [attr.for]="'radio_'+i"> </label>
+      </td>
+      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal()" href="#modal-see">aaaa</td>
+    </tr>
+  </tbody>
+</table>
+    
+<!-- Pagination -->
+<div class="row right">
+  <ul class="pagination">
+      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+      <li class="active"><a href="#!">1</a></li>
+      <li class="waves-effect"><a href="#!">2</a></li>
+      <li class="waves-effect"><a href="#!">3</a></li>
+      <li class="waves-effect"><a href="#!">4</a></li>
+      <li class="waves-effect"><a href="#!">5</a></li>
+      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+</div>
+    
+<!-- Footer Button -->
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large button-crud">
+    <i class="large material-icons icon-horizontal">add</i>
+  </a>
+  <ul class="ul-button">
+    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
+    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
+    confirmButtonColor: '#407FA9' }" (confirm)="deleteCity()"></swal>
+    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+  </ul>
+</div>
+    
+<!--Modal Crear -->
+<div id="modal-crear" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Crear</h4>
+      </div>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="col s6">
+            <label for="codigo" class="label-color">Código:</label>
+            <input placeholder="" id="codigo" type="text">
+          </div>
+          <div class="col s6">
+            <label class="label-color">Tipo servicio:</label>
+            <select class="browser-default select-city">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label for="nombre" class="label-color">Nombre:</label>
+            <input placeholder="" id="nombre" type="text">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+  </div>
+</div>
+    
+<!-- Modal See -->
+<div id="modal-see" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Plan</h4>
+      </div>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print" (click)="edit()">
+            <i class="large material-icons icon-horizontal icon-print">edit</i>
+        </a>
+        <a class="btn-floating btn-large btn-print">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="col s6">
+            <label for="codigoEdit" class="label-color">Código:</label>
+            <input disabled placeholder="" id="codigoEdit" type="text">
+          </div>
+          <div class="col s6">
+            <label class="label-color">Tipo servicio:</label>
+            <select disabled class="browser-default select-city" id="tiposervicioEdit">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label for="nombreEdit" class="label-color">Nombre:</label>
+            <input disabled placeholder="" id="nombreEdit" type="text">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+  </div>
+</div>
