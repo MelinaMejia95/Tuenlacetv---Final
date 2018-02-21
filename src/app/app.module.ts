@@ -23,6 +23,7 @@ import { CompanyComponent } from './company/company.component';
 import { RatesComponent } from './rates/rates.component';
 import { ConceptsComponent } from './concepts/concepts.component';
 import { PlansComponent } from './plans/plans.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PlansComponent } from './plans/plans.component';
     CompanyComponent,
     RatesComponent,
     ConceptsComponent,
-    PlansComponent
+    PlansComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
