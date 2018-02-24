@@ -10,16 +10,67 @@ declare let jQuery:any;
 export class SuscriptorComponent implements OnInit {
 
   toogleDelete:boolean = false;
+  tipoUsuario:string;
   suscriptors: any[] = ['Jeni', 'Meli', 'Aleja'];
 
   constructor() { }
 
   ngOnInit() {
+    document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
+    document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
     jQuery('#modal-crear').modal();
-    jQuery('#modal-see').modal();
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
+    jQuery('#modal-see').modal({ complete: function() { 
+      jQuery('#codigoEdit').prop('disabled',true);
+      jQuery('#nomusuarioEdit').prop('disabled',true);
+      jQuery('#nomapeEdit').prop('disabled',true);
+      jQuery('#passwordEdit').prop('disabled',true);
+      jQuery('#nivelEdit').prop('disabled',true);
+      jQuery('#estadoEdit').prop('disabled',true);
+      jQuery('#impresoraEdit').prop('disabled',true);
+    }});
+    jQuery('#funcion').on('change', () => {
+      this.tipoUsuario = jQuery('#funcion').val();
+      if ( this.tipoUsuario == '1') {
+        jQuery('#ciudad').prop('disabled',true);
+      } else if ( this.tipoUsuario != '1') {
+        jQuery('#ciudad').prop('disabled',false);
+      }
+    });
+    jQuery('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15, // Creates a dropdown of 15 years to control year,
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Ok',
+      closeOnSelect: false, // Close upon selecting a date,
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
+      format: 'dd/mm/yyyy'
+    });
+    jQuery('#television').on('change', () =>{
+      var changeTv = <HTMLInputElement><any>document.getElementById('television');
+      if(changeTv.checked == true) {
+        document.getElementById('collapsible-television').setAttribute('style', 'visibility: visible');
+        //jQuery('#collapsible-television').prop('visibility','visible');
+      } else {
+        //jQuery('#collapsible-television').collapsible('visibility', 'hidden');
+        document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
+      }
+    });
+    jQuery('#internet').on('change', () =>{
+      var changeTv = <HTMLInputElement><any>document.getElementById('internet');
+      if(changeTv.checked == true) {
+        document.getElementById('collapsible-internet').setAttribute('style', 'visibility: visible');
+        //jQuery('#collapsible-internet').collapsible('open', 0);
+      } else {
+        document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
+        //jQuery('#collapsible-internet').collapsible('close', 0);
+      }
+    });
   }
 
   openModal () {
@@ -28,7 +79,7 @@ export class SuscriptorComponent implements OnInit {
   }
 
   closeModal () {
-    jQuery('#modal-see').modal('close');
+    jQuery('#modal-see').modal('close'); 
     
   }
 
@@ -78,18 +129,19 @@ export class SuscriptorComponent implements OnInit {
   }
 
   edit () {
-    /*jQuery('#nomusuarioEdit').prop('disabled',false);
+    jQuery('#nomusuarioEdit').prop('disabled',false);
     jQuery('#nomapeEdit').prop('disabled',false);
     jQuery('#passwordEdit').prop('disabled',false);
     jQuery('#nivelEdit').prop('disabled',false);
     jQuery('#estadoEdit').prop('disabled',false);
-    jQuery('#tipoimpresoraEdit').prop('disabled',false);
+    jQuery('#impresoraEdit').prop('disabled',false);
+    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nomusuarioEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nomapeEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#passwordEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nivelEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#estadoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#tipoimpresoraEdit').attr({style:' margin: 2px 0 7px 0 !important;'});*/
+    jQuery('#impresoraEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
   }
 
 }

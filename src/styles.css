@@ -90,6 +90,10 @@ html {
     padding-right: 1em;
 }
 
+.modal.modal-fixed-footer .modal-footer{
+    z-index: 1;
+}
+
 .btn-print{
     display: inline-block;
     background-color: #478fbc;    

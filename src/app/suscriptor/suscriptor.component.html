@@ -87,7 +87,7 @@
       <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
     </ul>
 </div>
-
+ 
 <!-- Footer Button -->
 <div class="fixed-action-btn horizontal">
   <a class="btn-floating btn-large button-crud">
@@ -104,72 +104,544 @@
 </div>
 
 <!--Modal Crear -->
-<div id="modal-crear" class="modal">
-    <div class="modal-title">
-      <div class="row">
-        <div class="col s6">
-            <h4>Crear</h4>
-        </div>
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-large btn-print">
-              <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-          </a>
-        </div>
+<div id="modal-crear" class="modal modal-fixed-footer">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Crear</h4>
       </div>
-    </div>
-    <div class="modal-content">
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="col s6">
-              <label for="codigo" class="label-color">Código:</label>
-              <input placeholder="" id="codigo" type="text">
-            </div>
-            <div class="col s6">
-              <label for="nomusuario" class="label-color">Nombre de usuario:</label>
-              <input placeholder="" id="nomusuario" type="text">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s6">
-              <label for="nomape" class="label-color">Nombres y apellidos:</label>
-              <input placeholder="" id="nomape" type="text">
-            </div>
-            <div class="col s6">
-              <label for="password" class="label-color">Contraseña</label>
-              <input id="password" type="password" class="validate">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s6">
-              <label for="nivel" class="label-color">Nivel:</label>
-              <input placeholder="" id="nivel" type="text">
-            </div>
-            <div class="col s6">
-              <label class="label-color">Estado:</label>
-              <select class="browser-default select-city" id="tiposervicioEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s6">
-              <label class="label-color">Tipo impresora:</label>
-              <select class="browser-default select-city" id="tiposervicioEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Laser</option>
-                <option value="2">Post</option>
-              </select>
-            </div>
-          </div>
-        </form>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
     </div>
   </div>
+  <div class="modal-content">
+      <form>
+        <div class="row">
+          <div class="col s4">
+            <label class="label-color">Tipo función:</label>
+            <select class="browser-default select-city" id="funcion">
+              <option value="" selected>Choose your option</option>
+              <option value="1">Suscriptor</option>
+              <option value="2">Proveedor</option>
+              <option value="3">Cliente</option>
+              <option value="4">Empleado</option>
+              <option value="5">Vendedor</option>
+              <option value="6">Esal</option>
+              <option value="7">Técnico</option>
+            </select>
+          </div>
+          <div class="col s4">
+            <label for="tipodoc" class="label-color">Tipo documento:</label>
+            <input placeholder="" id="tipodoc" type="text">
+          </div>
+          <div class="col s4">
+            <label for="documentopersona" class="label-color">Número de documento:</label>
+            <input placeholder="" id="documentopersona" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="nombre1" class="label-color">Primer nombre:</label>
+            <input placeholder="" id="nombre1" type="text">
+          </div>
+          <div class="col s3">
+            <label for="nombre2" class="label-color">Segundo nombre:</label>
+            <input id="nombre2" type="text" class="validate">
+          </div>
+          <div class="col s3">
+            <label for="apellido1" class="label-color">Primer apellido:</label>
+            <input id="apellido1" type="text" class="validate">
+          </div>
+          <div class="col s3">
+            <label for="apellido2" class="label-color">Segundo apellido:</label>
+            <input id="apellido2" type="text" class="validate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="tel1" class="label-color">Teléfono 1:</label>
+            <input placeholder="" id="tel1" type="text">
+          </div>
+          <div class="col s3">
+            <label for="tel2" class="label-color">Teléfono 2:</label>
+            <input placeholder="" id="tel2" type="text">
+          </div>
+          <div class="col s3">
+            <label for="direccionpersona" class="label-color">Dirección:</label>
+            <input placeholder="" id="direccionpersona" type="text">
+          </div>
+          <div class="col s3">
+            <label class="label-color">Barrio:</label>
+            <select class="browser-default select-city" id="barrio">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label class="label-color">Zona:</label>
+            <select class="browser-default select-city" id="zona">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Ciudad:</label>
+            <select class="browser-default select-city" id="ciudad">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label for="correo" class="label-color">Correo:</label>
+            <input placeholder="" id="correo" type="text">
+          </div>
+          <div class="col s3">
+            <label for="fechanacimiento" class="label-color">Fecha de nacimiento:</label>
+            <input placeholder="" id="fechanacimiento" type="text" class="datepicker">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label class="label-color">Tipo persona:</label>
+            <select class="browser-default select-city" id="tipopersona">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Jurídica</option>
+              <option value="2">Natural</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Estrato:</label>
+            <select class="browser-default select-city" id="estrato">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Condición física:</label>
+            <select class="browser-default select-city" id="condicion">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Normal</option>
+              <option value="2">Discapacitado</option>
+            </select>
+          </div>
+          <div class="col s3 check-type">
+            <input type="checkbox" class="filled-in" id="television" name="group3"/>
+            <label for="television" class="check-label">Televisión</label>
+            <input type="checkbox" class="filled-in" id="internet" name="group3"/>
+            <label for="internet" class="check-label">Internet</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <ul class="collapsible" data-collapsible="accordion" id="collapsible-television">
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">live_tv</i>
+                  Televisión
+                </div>
+                <div class="collapsible-body">
+                  <form action="">
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="numcontrato" class="label-color">Número de contrato:</label>
+                        <input placeholder="" id="numcontrato" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="dirtv" class="label-color">Dirección:</label>
+                        <input placeholder="" id="dirtv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="urbanizacion" class="label-color">Urbanización:</label>
+                        <input placeholder="" id="urbanizacion" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="torre" class="label-color">Torre:</label>
+                        <input placeholder="" id="torre" type="text" class="datepicker">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="apartamento" class="label-color">Apartamento:</label>
+                        <input placeholder="" id="apartamento" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Barrio:</label>
+                        <select class="browser-default select-city" id="barriotv">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Option 1</option>
+                          <option value="2">Option 2</option>
+                          <option value="3">Option 3</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Zona:</label>
+                        <select class="browser-default select-city" id="zonatv">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Option 1</option>
+                          <option value="2">Option 2</option>
+                          <option value="3">Option 3</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="tel1tv" class="label-color">Teléfono 1:</label>
+                        <input placeholder="" id="tel1tv" type="text" class="datepicker">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="te21tv" class="label-color">Teléfono 2:</label>
+                        <input placeholder="" id="tel2tv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="contactotv" class="label-color">Contacto:</label>
+                        <input placeholder="" id="contactotv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Estrato:</label>
+                        <select class="browser-default select-city" id="estratotv">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Tipo vivienda:</label>
+                        <select class="browser-default select-city" id="tipoviviendatv">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Propia</option>
+                          <option value="2">Alquilada</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="observaciontv" class="label-color">Observación:</label>
+                        <input placeholder="" id="observaciontv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Estado:</label>
+                        <select class="browser-default select-city" id="estadotv">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
+                        <input placeholder="" id="fechacontratotv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="numtv" class="label-color">Número de televisores:</label>
+                        <input placeholder="" id="numtv" type="text" class="datepicker">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="numdecotv" class="label-color">Número de decodificadores:</label>
+                        <input placeholder="" id="numdecotv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="permanenciatv" class="label-color">Permanencia:</label>
+                        <input placeholder="" id="permanenciatv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Vendedor:</label>
+                        <select class="browser-default select-city" id="vendedortv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="precintotv" class="label-color">Precinto:</label>
+                        <input placeholder="" id="precintotv" type="text" class="datepicker">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label class="label-color">Tipo instalación:</label>
+                        <select class="browser-default select-city" id="tipoinstalaciontv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Tipo tecnología:</label>
+                        <select class="browser-default select-city" id="tipotecnologiatv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Tipo de servicio:</label>
+                        <select class="browser-default select-city" id="tiposerviciotv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">Residencial</option>
+                          <option value="2">Comercial</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Área de instalación:</label>
+                        <select class="browser-default select-city" id="areainstalaciontv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">Urbana</option>
+                          <option value="2">Rural</option>
+                          <option value="2">Extrarural</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label class="label-color">Planes:</label>
+                        <select class="browser-default select-city" id="planestv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Tarifas:</label>
+                        <select class="browser-default select-city" id="tarifastv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Valor afiliación:</label>
+                        <select class="browser-default select-city" id="valorafiliaciontv">
+                          <option value="" selected>Choose your option</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="descuentotv" class="label-color">Valor descuento:</label>
+                        <input placeholder="" id="descuentotv" type="text" class="datepicker">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <ul class="collapsible" data-collapsible="accordion" id="collapsible-internet">
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">signal_wifi_4_bar</i>
+                  Internet
+                </div>
+                <div class="collapsible-body">
+                  <form action="">
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="dirip" class="label-color">Dirección IP:</label>
+                        <input placeholder="" id="dirip" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Velocidad:</label>
+                        <select class="browser-default select-city" id="velocidad">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">2mbps</option>
+                          <option value="2">100mbps</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="mac1" class="label-color">MAC 1:</label>
+                        <input placeholder="" id="mac1" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label for="mac2" class="label-color">MAC 2:</label>
+                        <input placeholder="" id="mac2" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="modem" class="label-color">Serial módem:</label>
+                        <input placeholder="" id="modem" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label for="marcamodem" class="label-color">Marca módem:</label>
+                        <input placeholder="" id="marcamodem" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label for="mascara" class="label-color">Máscara subred:</label>
+                        <input placeholder="" id="mascara" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label for="dns" class="label-color">DNS:</label>
+                        <input placeholder="" id="dns" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="gateway" class="label-color">Gateway:</label>
+                        <input placeholder="" id="gateway" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label for="nodo" class="label-color">Nodo:</label>
+                        <input placeholder="" id="nodo" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label for="clavewifi" class="label-color">Clave Wi-Fi:</label>
+                        <input placeholder="" id="clavewifi" type="text">
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Equipo:</label>
+                        <select class="browser-default select-city" id="equipo">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Si</option>
+                          <option value="2">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label class="label-color">Planes:</label>
+                        <select class="browser-default select-city" id="planesinternet">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Si</option>
+                          <option value="2">No</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Tarifas:</label>
+                        <select class="browser-default select-city" id="tarifasinternet">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Si</option>
+                          <option value="2">No</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label class="label-color">Valor afiliación:</label>
+                        <select class="browser-default select-city" id="valorinternet">
+                          <option value=""  selected>Choose your option</option>
+                          <option value="1">Si</option>
+                          <option value="2">No</option>
+                        </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="descuentointernet" class="label-color">Valor descuento:</label>
+                        <input placeholder="" id="descuentointernet" type="text">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+  </div>
+</div>
+
+<!--Modal see -->
+<div id="modal-see" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h4>Suscriptor</h4>
+      </div>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print" (click)="edit()">
+            <i class="large material-icons icon-horizontal icon-print">edit</i>
+        </a>
+        <a class="btn-floating btn-large btn-print">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="col s6">
+            <label for="codigoEdit" class="label-color">Código:</label>
+            <input disabled placeholder="" id="codigoEdit" type="text">
+          </div>
+          <div class="col s6">
+            <label for="nomusuarioEdit" class="label-color">Nombre de usuario:</label>
+            <input disabled placeholder="" id="nomusuarioEdit" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label for="nomapeEdit" class="label-color">Nombres y apellidos:</label>
+            <input disabled placeholder="" id="nomapeEdit" type="text">
+          </div>
+          <div class="col s6">
+            <label for="passwordEdit" class="label-color">Contraseña</label>
+            <input disabled id="passwordEdit" type="password" class="validate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label for="nivelEdit" class="label-color">Nivel:</label>
+            <input disabled placeholder="" id="nivelEdit" type="text">
+          </div>
+          <div class="col s6">
+            <label class="label-color">Estado:</label>
+            <select disabled class="browser-default select-city" id="estadoEdit">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <label class="label-color">Tipo impresora:</label>
+            <select disabled class="browser-default select-city" id="impresoraEdit">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Laser</option>
+              <option value="2">Post</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+  </div>
+</div>
