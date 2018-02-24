@@ -42,7 +42,7 @@ html {
 }
 
 .bradcrum-position{
-    margin-top: 3.5em;
+    margin-top: 0.5em;
     margin-bottom: 0;
 }
 
@@ -150,6 +150,20 @@ td, th {
 [type="checkbox"].filled-in:checked + label:after {
     border: 2px solid #3f7fa9;
     background-color: #3f7fa9;
+}
+
+.process{
+    margin-bottom: 0 !important;
+}
+
+.process-title{
+    font-size: 2em;
+}
+
+.separator{
+    background-color: black;
+    height: 2px;
+    margin-bottom: 2em;
 }
 
 select:disabled{

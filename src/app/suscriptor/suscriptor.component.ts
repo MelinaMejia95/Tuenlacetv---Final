@@ -64,6 +64,7 @@ export class SuscriptorComponent implements OnInit {
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
       format: 'dd/mm/yyyy'
     });
+    jQuery('.collapsible').collapsible();
     jQuery('#television').on('change', () =>{
       var changeTv = <HTMLInputElement><any>document.getElementById('television');
       if(changeTv.checked == true) {
@@ -73,7 +74,7 @@ export class SuscriptorComponent implements OnInit {
         //jQuery('#collapsible-television').collapsible('visibility', 'hidden');
         document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
       }
-    });
+    }); 
     jQuery('#internet').on('change', () =>{
       var changeTv = <HTMLInputElement><any>document.getElementById('internet');
       if(changeTv.checked == true) {
@@ -117,7 +118,7 @@ export class SuscriptorComponent implements OnInit {
       }
     }
   }
-
+ 
   selectRow() {
     var rows = <HTMLInputElement><any>document.getElementsByName('rows');
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
