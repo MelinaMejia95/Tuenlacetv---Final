@@ -23,13 +23,26 @@ export class SuscriptorComponent implements OnInit {
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
     jQuery('#modal-see').modal({ complete: function() { 
-      jQuery('#codigoEdit').prop('disabled',true);
-      jQuery('#nomusuarioEdit').prop('disabled',true);
-      jQuery('#nomapeEdit').prop('disabled',true);
-      jQuery('#passwordEdit').prop('disabled',true);
-      jQuery('#nivelEdit').prop('disabled',true);
-      jQuery('#estadoEdit').prop('disabled',true);
-      jQuery('#impresoraEdit').prop('disabled',true);
+      jQuery('#funcionEdit').prop('disabled',true);
+      jQuery('#tipodocEdit').prop('disabled',true);
+      jQuery('#documentopersonaEdit').prop('disabled',true);
+      jQuery('#nombre1Edit').prop('disabled',true);
+      jQuery('#nombre2Edit').prop('disabled',true);
+      jQuery('#apellido1Edit').prop('disabled',true);
+      jQuery('#apellido2Edit').prop('disabled',true);
+      jQuery('#tel1Edit').prop('disabled',true);
+      jQuery('#tel2Edit').prop('disabled',true);
+      jQuery('#direccionpersonaEdit').prop('disabled',true);
+      jQuery('#barrioEdit').prop('disabled',true);
+      jQuery('#zonaEdit').prop('disabled',true);
+      jQuery('#ciudadEdit').prop('disabled',true);
+      jQuery('#correoEdit').prop('disabled',true);
+      jQuery('#fechanacimientoEdit').prop('disabled',true);
+      jQuery('#tipopersonaEdit').prop('disabled',true);
+      jQuery('#estratoEdit').prop('disabled',true);
+      jQuery('#condicionEdit').prop('disabled',true);
+      jQuery('#televisionEdit').prop('disabled',true);
+      jQuery('#internetEdit').prop('disabled',true);
     }});
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
@@ -128,20 +141,34 @@ export class SuscriptorComponent implements OnInit {
     }    
   }
 
-  edit () {
-    jQuery('#nomusuarioEdit').prop('disabled',false);
-    jQuery('#nomapeEdit').prop('disabled',false);
-    jQuery('#passwordEdit').prop('disabled',false);
-    jQuery('#nivelEdit').prop('disabled',false);
-    jQuery('#estadoEdit').prop('disabled',false);
-    jQuery('#impresoraEdit').prop('disabled',false);
-    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+  edit() {
+    jQuery('#funcionEdit').prop('disabled',false);
+    jQuery('#tipodocEdit').prop('disabled',false);
+    jQuery('#documentopersonaEdit').prop('disabled',false);
+    jQuery('#nombre1Edit').prop('disabled',false);
+    jQuery('#nombre2Edit').prop('disabled',false);
+    jQuery('#apellido1Edit').prop('disabled',false);
+    jQuery('#apellido2Edit').prop('disabled',false);
+    jQuery('#tel1Edit').prop('disabled',false);
+    jQuery('#tel2Edit').prop('disabled',false);
+    jQuery('#direccionpersonaEdit').prop('disabled',false);
+    jQuery('#barrioEdit').prop('disabled',false);
+    jQuery('#zonaEdit').prop('disabled',false);
+    jQuery('#ciudadEdit').prop('disabled',false);
+    jQuery('#correoEdit').prop('disabled',false);
+    jQuery('#fechanacimientoEdit').prop('disabled',false);
+    jQuery('#tipopersonaEdit').prop('disabled',false);
+    jQuery('#estratoEdit').prop('disabled',false);
+    jQuery('#condicionEdit').prop('disabled',false);
+    jQuery('#televisionEdit').prop('disabled',false);
+    jQuery('#internetEdit').prop('disabled',false);
+    /*jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nomusuarioEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nomapeEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#passwordEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nivelEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#estadoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#impresoraEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#impresoraEdit').attr({style:' margin: 2px 0 7px 0 !important;'});*/
   }
 
 }

@@ -97,8 +97,9 @@ html {
 .btn-print{
     display: inline-block;
     background-color: #478fbc;    
-    margin-top: 4%;
+    margin-top: 0.5rem;
     box-shadow: none;
+    margin-bottom: 0 !important;
 }
 
 .btn-edit {
