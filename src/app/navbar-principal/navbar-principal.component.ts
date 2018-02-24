@@ -41,4 +41,9 @@ export class NavbarPrincipalComponent implements OnInit {
     jQuery('#modal1').modal('close');
   }
 
+  changePassword(){
+    jQuery('#modal-password').modal('open');
+    jQuery('#modal1').modal('close');
+  }
+
 }

@@ -17,6 +17,7 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
+    jQuery('#modal-changePassword').modal();
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery('#nomusuarioEdit').prop('disabled',true);
       jQuery('#nomapeEdit').prop('disabled',true);

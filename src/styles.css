@@ -9,6 +9,11 @@ html {
     color: #213031 !important;
 }
 
+.dropdown-content li > a, .dropdown-content li > span {
+    line-height: 7px;
+    color: #213031;
+}
+
 .color-dark-principal {
     color: #455a64;
 }

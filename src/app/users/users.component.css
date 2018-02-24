@@ -17,6 +17,14 @@
     margin-right: 1em;
 }
 
+.btn-pssword{
+    width: 104%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 1em;
+}
+
 .btn-señal{
     width: 118%;
     background-color: #5aa8cb;
@@ -135,6 +143,14 @@ input[type=password]:not(.browser-default):disabled{
 
 #modal-see{
     width: 40%
+}
+
+#modal-changePassword{
+    width: 30%;
+}
+
+#modal-changePassword .modal-content{
+    height: 15em;
 }
 
 .modal .modal-content {
