@@ -24,6 +24,7 @@ import { RatesComponent } from './rates/rates.component';
 import { ConceptsComponent } from './concepts/concepts.component';
 import { PlansComponent } from './plans/plans.component';
 import { UsersComponent } from './users/users.component';
+import { CountriesService } from './services/countries.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { UsersComponent } from './users/users.component';
   HttpModule,
   FormsModule
   ],
-  providers: [ LoginService ],
+  providers: [ LoginService, CountriesService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

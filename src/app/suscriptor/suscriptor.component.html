@@ -5,22 +5,46 @@
       <span class="process-title">Suscriptores</span>
     </div>
   </div>
-  <div class="separator z-depth-3"></div>
-  <div class="col s12 m6">
-    <a class="breadcrumb black-text">Maestros</a>
-    <a class="breadcrumb black-text">Suscriptores</a>
+  <div class="row">
+    <div class="separator z-depth-3"></div>
   </div>
-  <div class="col s12 m6 right-align">
-    <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">more_vert</i></a>
-    <!-- Dropdown Structure --> 
-    <ul id='dropdown1' class='dropdown-content dropdown-options'>
-      <li><a href="#!">Pagos</a></li>
-      <li><a href="#!">Órdenes técnicas</a></li>
-      <li><a href="#!">Generar factura</a></li>
-      <li><a href="#!">PQR</a></li>
-    </ul>
-  </div>    
+  <div class="row">
+    <div class="col s12 m6">
+      <a class="breadcrumb black-text">Maestros</a>
+      <a class="breadcrumb black-text">Suscriptores</a>
+    </div>
+    <div class="col s12 m6 right-align">
+      <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">more_vert</i></a>
+      <!-- Dropdown Structure --> 
+      <ul id='dropdown1' class='dropdown-content dropdown-options'>
+        <li><a href="#!">Pagos</a></li>
+        <li><a href="#!">Órdenes técnicas</a></li>
+        <li><a href="#!">Generar factura</a></li>
+        <li><a href="#!">PQR</a></li>
+      </ul>
+    </div>    
+  </div>
+  <div class="row filter">
+      <div class="col s12 m4">
+          <label class="label-color">Mostrar:</label>
+          <select class="browser-default select-city" id="mostrar">
+            <option value="" selected>Choose your option</option>
+            <option value="1">Suscriptor</option>
+            <option value="2">Proveedor</option>
+            <option value="3">Cliente</option>
+            <option value="4">Empleado</option>
+            <option value="5">Vendedor</option>
+            <option value="6">Esal</option>
+            <option value="7">Técnico</option>
+          </select>
+        </div>
+  </div>
 </div>
+
+<!-- Filter -->
+<div class="row filter">
+   
+  </div>
 
 <!--Table-->
 <table class="striped highlight">
