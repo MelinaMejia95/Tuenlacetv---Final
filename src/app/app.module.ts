@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.service';
+import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { NavbarPrincipalComponent } from './navbar-principal/navbar-principal.component';
@@ -24,7 +25,6 @@ import { RatesComponent } from './rates/rates.component';
 import { ConceptsComponent } from './concepts/concepts.component';
 import { PlansComponent } from './plans/plans.component';
 import { UsersComponent } from './users/users.component';
-import { CountriesService } from './services/countries.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,7 @@ import { CountriesService } from './services/countries.service';
   HttpModule,
   FormsModule
   ],
-  providers: [ LoginService, CountriesService ],
+  providers: [ LoginService, AppGlobals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

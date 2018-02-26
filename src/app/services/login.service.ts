@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { AppGlobals } from '../shared/app.global'
 
 @Injectable (
 
 )
 export class LoginService{
 
-    constructor(private _http:Http){
+    constructor(private _http:Http, private _global: AppGlobals){
         console.log("Servicio listo")
+        console.log(_global.url);
      }
 
      /*login(user, clave) {

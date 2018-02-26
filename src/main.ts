@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-var service = 'localhost:3000/api/v1'
+const service = 'localhost:3000/api/v1'
 
 if (environment.production) {
   enableProdMode();
