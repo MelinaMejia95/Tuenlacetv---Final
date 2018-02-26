@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CountriesService } from '../services/countries.service';
 
 declare let jQuery:any;
 
@@ -9,12 +10,15 @@ declare let jQuery:any;
 })
 export class CountriesComponent implements OnInit {
 
-  countries: any[] = ['Colombia', 'Brasil', 'Venezuela'];
+  countries: any[] = [];
   toogleDelete:boolean = false;
 
-  constructor() { }
+  constructor(private _countrieservice: CountriesService) { }
 
   ngOnInit() {
+    this._countrieservice.getCountries().subscribe(data => {
+      this.countries = data.paises;
+    });
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
         jQuery('#codigoEdit').prop('disabled',true);

@@ -10,7 +10,6 @@ export class LoginService{
 
     constructor(private _http:Http, private _global: AppGlobals){
         console.log("Servicio listo")
-        console.log(_global.url);
      }
 
      /*login(user, clave) {

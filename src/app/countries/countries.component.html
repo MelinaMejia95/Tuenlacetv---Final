@@ -39,8 +39,8 @@
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal()" href="#modal-see">{{ country.id }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ country.nombre }}</td>
     </tr>
   </tbody>
 </table>
