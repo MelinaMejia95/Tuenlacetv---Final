@@ -36,11 +36,11 @@
   <tbody>
     <tr *ngFor="let country of countries; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(country)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">{{ country.id }}</td>
-      <td (click)="openModal()" href="#modal-see">{{ country.nombre }}</td>
+      <td (click)="openModal(country)" href="#modal-see">{{ country.id }}</td>
+      <td (click)="openModal(country)" href="#modal-see">{{ country.nombre }}</td>
     </tr>
   </tbody>
 </table>
@@ -66,7 +66,7 @@
   <ul class="ul-button">
     <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
     confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
+    confirmButtonColor: '#407FA9' }" (confirm)="deleteCountry()"></swal>
     <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
@@ -92,14 +92,14 @@
         <div class="row">
           <div class="col s6">
             <label for="nombre" class="label-color">Nombre</label>
-            <input placeholder=" " id="nombre" type="text" class="validate">
+            <input placeholder=" " id="nombre" type="text" class="validate" #nameCountry>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createCountry(nameCountry.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -124,23 +124,23 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row">
+        <div class="row" *ngIf="countriesEdit">
           <div class="col s6">
             <label for="codigoEdit" class="label-color">Código:</label>
-            <input disabled placeholder="" id="codigoEdit" type="text">
+            <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="countriesEdit.id" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s6">
             <label for="nombreEdit" class="label-color">Nombre:</label>
-            <input disabled placeholder="" id="nombreEdit" type="text">
+            <input disabled placeholder="" id="nombreEdit" type="text" class="validate" [(ngModel)]="countriesEdit.nombre" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <swal #actualizar [options]="{ title: 'País actualizado con éxito', 
+    confirmButtonText: 'Aceptar'}" type="info"></swal>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateCountry()" (click)="actualizar.show()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

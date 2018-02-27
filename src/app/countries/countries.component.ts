@@ -12,6 +12,7 @@ export class CountriesComponent implements OnInit {
 
   countries: any[] = [];
   toogleDelete:boolean = false;
+  countriesEdit:any;
 
   constructor(private _countrieservice: CountriesService) { }
 
@@ -27,14 +28,47 @@ export class CountriesComponent implements OnInit {
        }});
   }
 
-  openModal () {
+  selectData(country){
+    this.countriesEdit = country;
+  }
+
+  openModal (country) {
     jQuery('#modal-see').modal('open');
+    this.countriesEdit = country;
+    console.log(this.countriesEdit)
     //document.getElementsByClassName('table-radio');
+  }
+
+  createCountry(name){
+    if (name) {
+      this._countrieservice.createCountries({ 'nombre': name }).subscribe(
+        data => {
+          console.log(data);
+        });
+    }
+  }
+
+  updateCountry(){
+    if(this.countriesEdit){
+      this._countrieservice.updateCountries(this.countriesEdit).subscribe(
+        data => {
+          console.log(data);
+        }
+      );
+    }
+  }
+
+  deleteCountry(){
+    if (this.countriesEdit) {
+      this._countrieservice.deleteCountries(this.countriesEdit.id).subscribe(
+        data => {
+          console.log(data);
+        });
+    }
   }
 
   closeModal () {
     jQuery('#modal-see').modal('close');
-    
   }
 
   selectAll() {
@@ -83,7 +117,6 @@ export class CountriesComponent implements OnInit {
   }
 
   edit () {
-    jQuery('#codigoEdit').prop('disabled',false);
     jQuery('#nombreEdit').prop('disabled',false);
     jQuery('#selectEdit').prop('disabled',false);
     jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
