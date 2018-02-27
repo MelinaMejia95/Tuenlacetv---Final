@@ -13,11 +13,16 @@ declare let jQuery: any;
 export class LoginComponent implements OnInit {
 
   conect: any = [];
+  bd:string;
 
   constructor(private _LoginService: LoginService, private route: Router) { }
 
   ngOnInit() {
     jQuery('select').material_select(); 
+    jQuery('#select-bd').on('change', () => {
+      this.bd = jQuery('#select-bd').val();
+      console.log(this.bd);
+    });
   }
 
   loginUser(user, password){
@@ -27,15 +32,12 @@ export class LoginComponent implements OnInit {
         console.log(data)
         localStorage.setItem('usuario_id', data.usuario_id);
         localStorage.setItem('auth_token', data.auth_token);
+        localStorage.setItem('db', this.bd);
         if (data.auth_token) {
           this.route.navigate(['/suscriptor']);
         } 
       });
     }
-  }
-
-  logoutUser(){
-    
   }
 
 } 
