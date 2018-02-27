@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global'
+import { Headers } from '@angular/http';
 
 @Injectable (
 
@@ -19,6 +20,9 @@ export class LoginService{
 
     logout(token: string){
         const url = this._global.url+ '/signout';
-        return this._http.delete(url, token).map(response => response.json());
+        let header = new Headers();
+        header.append('Authorization', 'Bearer ' + token);
+        let options = new RequestOptions({ headers: header });
+        return this._http.delete(url, options).map(response => response.json());
     }
 }   

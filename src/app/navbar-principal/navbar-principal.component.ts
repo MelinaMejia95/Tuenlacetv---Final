@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 declare let jQuery: any;
 
@@ -12,7 +13,7 @@ export class NavbarPrincipalComponent implements OnInit {
 
   ban:number = 0;
 
-  constructor(private _loginservice: LoginService) {
+  constructor(private _loginservice: LoginService, private route: Router) {
   }
  
   ngOnInit() {
@@ -39,7 +40,16 @@ export class NavbarPrincipalComponent implements OnInit {
   }
 
   closeModal() {
-    jQuery('#modal1').modal('close');
+    //jQuery('#modal1').modal('close');
+    let token = localStorage.getItem('auth_token');
+    console.log(token)
+    this._loginservice.logout(token).subscribe(data => {
+      console.log(data);
+      if (data.status == "deleted") {
+        this.route.navigate(['/login']);
+        localStorage.removeItem('auth_token');
+      }
+    });
   }
 
   changePassword(){

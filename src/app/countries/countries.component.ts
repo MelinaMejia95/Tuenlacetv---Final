@@ -25,7 +25,7 @@ export class CountriesComponent implements OnInit {
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
-       }});
+       }}); 
   }
 
   selectData(country){

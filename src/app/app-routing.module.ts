@@ -16,6 +16,7 @@ import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'principal', component: PrincipalComponent },
   { path: 'cities', component: CitiesComponent },
   { path: 'suscriptor', component: SuscriptorComponent },
