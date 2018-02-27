@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/login.service';
 
 declare let jQuery: any;
 
@@ -11,7 +12,7 @@ export class NavbarPrincipalComponent implements OnInit {
 
   ban:number = 0;
 
-  constructor() {
+  constructor(private _loginservice: LoginService) {
   }
  
   ngOnInit() {

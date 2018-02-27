@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 declare let jQuery: any;
 
@@ -11,10 +12,30 @@ declare let jQuery: any;
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _LoginService: LoginService) { }
+  conect: any = [];
+
+  constructor(private _LoginService: LoginService, private route: Router) { }
 
   ngOnInit() {
     jQuery('select').material_select(); 
+  }
+
+  loginUser(user, password){
+    if (user && password) {
+      this.conect = {'login': user, 'password': password};
+      this._LoginService.login(this.conect).subscribe(data =>{
+        console.log(data)
+        localStorage.setItem('usuario_id', data.usuario_id);
+        localStorage.setItem('auth_token', data.auth_token);
+        if (data.auth_token) {
+          this.route.navigate(['/suscriptor']);
+        } 
+      });
+    }
+  }
+
+  logoutUser(){
+    
   }
 
 } 

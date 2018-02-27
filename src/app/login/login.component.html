@@ -1,40 +1,3 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col s12 m7 offset-m2">
-      <div class="card white z-depth-4">
-        <div class="header-card blue-grey darken-4">
-          <h5 class="white-text">ENLACE INFORMÁTICO</h5>
-        </div>
-        <h6 class="center color-dark-principal welcome">BIENVENIDO</h6>
-        <form class="row">
-          <div class="input-field col s12 m6">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="email" type="email" class="validate">
-            <label for="email" class="label-login">Nombre de usuario</label>
-          </div>
-          <div class="input-field col s6">
-            <i class="material-icons prefix">vpn_key</i>
-            <input id="password" type="tel" class="validate">
-            <label for="password" class="label-login">Contraseña</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <select>
-              <option value="" disabled selected id="select">Seleccione la filial a trabajar</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
-          <button class="btn waves-effect waves-light col s12 light-blue darken-3" type="submit" (click)="conectar(usuario.value, password.value)">
-            Conectar
-            <i class="material-icons right">send</i>
-          </button>
-
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="row login-center">
   <div class="col s12">
     <div class="card white z-depth-4 card-center">
@@ -45,12 +8,12 @@
         <form class="row"> 
           <div class="input-field col s12 m6">
             <i class="material-icons prefix">account_circle</i>
-            <input id="email" type="email" class="validate">
+            <input id="email" type="email" class="validate" #user>
             <label for="email" class="label-login">Nombre de usuario</label>
           </div>
           <div class="input-field col s12 m6">
             <i class="material-icons prefix">vpn_key</i>
-            <input id="password" type="tel" class="validate">
+            <input id="password" type="tel" class="validate" #pss>
             <label for="password" class="label-login">Contraseña</label>
           </div>
           <div class="input-field col s12 m6 offset-m3">
@@ -62,7 +25,7 @@
             </select>
           </div>
           <div class="col s12">
-            <button class="btn waves-effect waves-light login-button" type="submit">
+            <button class="btn waves-effect waves-light login-button" type="submit" (click)="loginUser(user.value, pss.value)">
               Conectar
               <i class="material-icons right">send</i>
             </button>
