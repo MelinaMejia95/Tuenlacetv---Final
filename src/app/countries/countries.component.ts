@@ -60,23 +60,40 @@ export class CountriesComponent implements OnInit {
   }
 
   deleteCountry(){
-    if (this.countriesEdit) {
-      this._countrieservice.deleteCountries(this.countriesEdit.id).subscribe(
-        data => {
-          if ( data.status == "deleted") {
-            swal(
-              'País eliminado con éxito!',
-              'success'
-            )
-          } else {
-            swal({
-              type: 'error',
-              title: 'No se pudo eliminar el país',
-              text: '',
-            })
-          }
-        });
-    }
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.countriesEdit) {
+          this._countrieservice.deleteCountries(this.countriesEdit.id).subscribe(
+            data => {
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else {
+                swal(
+                  'No se pudo eliminar el registro',
+                  '',
+                  'warning'
+                )
+              }
+            });
+        } 
+      }
+    })
   }
 
   closeModal () {
