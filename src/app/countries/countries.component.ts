@@ -53,7 +53,22 @@ export class CountriesComponent implements OnInit {
     if(this.countriesEdit){
       this._countrieservice.updateCountries(this.countriesEdit).subscribe(
         data => {
-          console.log(data);
+          if ( data.status == "updated") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo eactualizar el registro',
+              '',
+              'warning'
+            )
+          }
         }
       );
     }
