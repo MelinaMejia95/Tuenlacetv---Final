@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from '../services/countries.service';
+import swal from 'sweetalert2';
 
 declare let jQuery:any;
 
@@ -41,12 +42,12 @@ export class CountriesComponent implements OnInit {
 
   createCountry(name){
     if (name) {
-      this._countrieservice.createCountries({ 'nombre': name }).subscribe(
+      this._countrieservice.createCountries({ 'pais': name }).subscribe(
         data => {
           console.log(data);
         });
     }
-  }
+  } 
 
   updateCountry(){
     if(this.countriesEdit){
@@ -62,7 +63,18 @@ export class CountriesComponent implements OnInit {
     if (this.countriesEdit) {
       this._countrieservice.deleteCountries(this.countriesEdit.id).subscribe(
         data => {
-          console.log(data);
+          if ( data.status == "deleted") {
+            swal(
+              'País eliminado con éxito!',
+              'success'
+            )
+          } else {
+            swal({
+              type: 'error',
+              title: 'No se pudo eliminar el país',
+              text: '',
+            })
+          }
         });
     }
   }

@@ -12,9 +12,10 @@ export class CountriesService {
    }
 
   getCountries(){
-    const url = this._global.url + `/paises`;
+    const url = this._global.url + `/paises/bd/` + localStorage.getItem('db');
     let header = new Headers();
-    header.append('Authorization', 'Bearer ' +  this._global.token);
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    console.log(header)
     let options = new RequestOptions({ headers: header });
     return this._http.get(url, options).map(response =>{
         return response.json();
@@ -24,7 +25,7 @@ export class CountriesService {
  updateCountries(content: object){
   const url = this._global.url + `/paises/` + content['id'];
   let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  this._global.token);
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header });
   return this._http.put(url, content, options).map(response => response.json());
  }
@@ -32,16 +33,16 @@ export class CountriesService {
  deleteCountries(code: string){
   const url = this._global.url + `/paises/` + code;
   let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  this._global.token);
-  let options = new RequestOptions({ headers: header });
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
   return this._http.delete(url, options).map(response => response.json());
  }
 
  createCountries(content: object){
   const url = this._global.url + `/paises`;
   let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  this._global.token);
-  let options = new RequestOptions({ headers: header });
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db') } });
   return this._http.post(url, content, options).map(response => response.json());
  }
 
