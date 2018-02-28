@@ -24,6 +24,7 @@ html {
     padding-right: 1em;*/
     transition: margin-left .5s;
     padding: 16px;
+    margin-bottom: 1%;
 }
 
 .main-footer{
@@ -118,6 +119,10 @@ html {
 
 .icon-print:hover, .icon-print:active{
     color:#478fbc;
+}
+
+.pagination{
+   
 }
 
 .pagination li.active {
