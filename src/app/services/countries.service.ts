@@ -39,10 +39,11 @@ export class CountriesService {
  }
 
  createCountries(content: object){
+   console.log(content)
   const url = this._global.url + `/paises`;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db') } });
+  let options = new RequestOptions({ headers: header, body: content });
   return this._http.post(url, content, options).map(response => response.json());
  }
 

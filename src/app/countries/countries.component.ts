@@ -42,9 +42,24 @@ export class CountriesComponent implements OnInit {
 
   createCountry(name){
     if (name) {
-      this._countrieservice.createCountries({ 'pais': name }).subscribe(
+      this._countrieservice.createCountries({ 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
-          console.log(data);
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
         });
     }
   } 
