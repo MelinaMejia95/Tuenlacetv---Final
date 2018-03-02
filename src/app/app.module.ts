@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.service';
 import { CountriesService } from './services/countries.service';
+import { CitiesService } from './services/cities.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -59,7 +60,7 @@ import { UsersComponent } from './users/users.component';
   HttpModule,
   FormsModule
   ],
-  providers: [ LoginService, AppGlobals, CountriesService],
+  providers: [ LoginService, AppGlobals, CountriesService, CitiesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

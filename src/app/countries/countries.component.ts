@@ -15,10 +15,10 @@ export class CountriesComponent implements OnInit {
   toogleDelete:boolean = false;
   countriesEdit:any;
 
-  constructor(private _countrieservice: CountriesService) { }
+  constructor(private _countryservice: CountriesService) { }
 
   ngOnInit() {
-    this._countrieservice.getCountries().subscribe(data => {
+    this._countryservice.getCountries().subscribe(data => {
       this.countries = data.paises;
     });
     jQuery('#modal-crear').modal();
@@ -42,7 +42,7 @@ export class CountriesComponent implements OnInit {
 
   createCountry(name){
     if (name) {
-      this._countrieservice.createCountries({ 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+      this._countryservice.createCountries({ 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({
@@ -63,10 +63,11 @@ export class CountriesComponent implements OnInit {
         });
     }
   } 
-
+ 
   updateCountry(){
     if(this.countriesEdit){
-      this._countrieservice.updateCountries(this.countriesEdit).subscribe(
+      this._countryservice.updateCountries({ 'id': this.countriesEdit.id,'nombre': this.countriesEdit.nombre, 'usuario_id': localStorage.getItem('usuario_id'),
+                                            'db': localStorage.getItem('db') }).subscribe(
         data => {
           if ( data.status == "updated") {
             swal({
@@ -102,7 +103,7 @@ export class CountriesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         if (this.countriesEdit) {
-          this._countrieservice.deleteCountries(this.countriesEdit.id).subscribe(
+          this._countryservice.deleteCountries(this.countriesEdit.id).subscribe(
             data => {
               if ( data.status == "deleted") {
                 swal({

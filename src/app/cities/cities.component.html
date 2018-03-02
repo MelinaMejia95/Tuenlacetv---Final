@@ -28,8 +28,8 @@
         <input id="codigo" type="text" class="input-custom">
       </th>
       <th>
-        <label for="documento" class="label-color">Nombre:</label>
-        <input id="documento" type="text" class="input-custom">
+        <label for="nombre" class="label-color">Nombre:</label>
+        <input id="nombre" type="text" class="input-custom">
       </th>
     </tr>
   </thead>
@@ -39,8 +39,8 @@
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(city)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal(city)" href="#modal-see">aaaa</td>
-      <td (click)="openModal(city)" href="#modal-see">aaaa</td>
+      <td (click)="openModal(city)" href="#modal-see">{{ city.id }}</td>
+      <td (click)="openModal(city)" href="#modal-see">{{ city.nombre }}</td>
     </tr>
   </tbody>
 </table>
@@ -64,10 +64,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteCity()" id="btn-footer-delete">Eliminar</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
 </div>
@@ -98,7 +95,7 @@
               <label class="label-color">País</label>
               <select class="browser-default select-city" id="select-country">
                 <option value="" disabled selected>Choose your option</option>
-                <option [value]="country.id" *ngFor="let country of countries">{{ country.id }}</option>
+                <option [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
               </select>
           </div>
         </div>
@@ -137,32 +134,32 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row">
-          <div class="col s6">
-            <label class="label-color">Código:</label>
-            <input placeholder="" disabled id="codigoEdit" type="text">
+        <div class="row" *ngIf="citiesEdit">
+          <div class="row">
+            <div class="col s6">
+              <label for="codigoEdit" class="label-color">Código:</label>
+              <input placeholder="" disabled id="codigoEdit" type="text" class="validate" [(ngModel)]="citiesEdit.id" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s6">
+                <label>País</label>
+                <select disabled class="browser-default select-city" id="selectEdit">
+                  <option value="nodisplay" disabled selected >{{ countryEdit }}</option>
+                  <option value="1" [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
+                </select>
+            </div>
           </div>
-          <div class="col s6">
-              <label>País</label>
-              <select disabled class="browser-default select-city" id="selectEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="nombreEdit" class="label-color">Nombre:</label>
-            <input placeholder="" disabled id="nombreEdit" type="text">
+          <div class="row">
+            <div class="col s6">
+              <label for="nombreEdit" class="label-color">Nombre:</label>
+              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" [(ngModel)]="citiesEdit.nombre" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateCity()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
