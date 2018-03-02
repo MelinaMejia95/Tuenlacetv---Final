@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ZonesService } from '../services/zones.service';
 
 declare let jQuery:any;
 
@@ -12,7 +13,7 @@ export class ZonesComponent implements OnInit {
   zones: any[] = ['01','02','03'];
   toogleDelete:boolean = false;
 
-  constructor() { }
+  constructor(private _zoneservice: ZonesService) { }
 
   ngOnInit() {
     jQuery('select').material_select();
