@@ -100,7 +100,7 @@ export class CitiesComponent implements OnInit {
   deleteCity() {
     swal({
       title: '¿Desea eliminar el registro?',
-      text: "You won't be able to revert this!",
+      text: "",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -112,6 +112,7 @@ export class CitiesComponent implements OnInit {
         if (this.citiesEdit) {
           this._cityservice.deleteCities(this.citiesEdit.id).subscribe(
             data => {
+              console.log(data)
               if ( data.status == "deleted") {
                 swal({
                   title: 'Registro eliminado con éxito',
