@@ -35,10 +35,10 @@ export class CitiesComponent implements OnInit {
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
        }});
-       jQuery('#select-country').on('change', () => {
-        this.createCountry = jQuery('#select-country').val();
-        console.log(this.createCountry)
-      });
+    jQuery('#select-country').on('change', () => {
+      this.createCountry = jQuery('#select-country').val();
+      console.log(this.createCountry)
+    });
   }
 
   selectData(city){
@@ -122,14 +122,15 @@ export class CitiesComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } else {
-                swal(
-                  'No se pudo eliminar el registro',
-                  '',
-                  'warning'
-                )
-              }
-            });
+              } 
+            },
+          error =>{
+            swal(
+              'No se pudo eliminar el registro',
+              '',
+              'warning'
+            )
+          })
         } 
       }
     })
