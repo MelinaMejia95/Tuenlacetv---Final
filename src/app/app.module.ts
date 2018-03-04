@@ -13,6 +13,7 @@ import { CountriesService } from './services/countries.service';
 import { CitiesService } from './services/cities.service';
 import { ZonesService } from './services/zones.service';
 import { NeighborhoodsService } from './services/neighborhoods.service';
+import { BanksService } from './services/banks.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -62,7 +63,8 @@ import { UsersComponent } from './users/users.component';
   HttpModule,
   FormsModule
   ],
-  providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService],
+  providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
+              BanksComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
