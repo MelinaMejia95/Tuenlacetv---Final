@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BanksService } from '../services/banks.service';
+import swal from 'sweetalert2';
 
 declare let jQuery:any;
 
@@ -9,12 +11,22 @@ declare let jQuery:any;
 })
 export class BanksComponent implements OnInit {
 
-  banks: any[] = ['Bancolombia', 'Bancopopular', 'Bogotá'];
+  banks: any[] = [];
   toogleDelete:boolean = false;
+  cities: string;
+  cityEdit: any;
+  bankEdit: any;
+  bank: any;
+  createCity: string;
 
-  constructor() { }
+  constructor(private _bankservice: BanksService) { }
 
   ngOnInit() {
+    this._bankservice.getBanks().subscribe(data => {
+      this.banks = data.bancos;
+      this.cities = data.ciudades;
+      console.log(this.cities[0]['nombre'])
+    });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -29,9 +41,20 @@ export class BanksComponent implements OnInit {
       jQuery('#cuenta_conEdit').prop('disabled',false);
       jQuery('#selectEdit').prop('disabled',false);
      }});
-  }
+     jQuery('#select-cities').on('change', () => {
+      this.createCity = jQuery('#select-cities').val();
+      console.log(this.createCity)
+    });
+    }
 
-  openModal () {
+  openModal (bank) {
+    for (let i = 0; i < this.cities.length; i++) {
+      if ( bank.ciudad == this.cities[i]['nombre']) {
+        this.cityEdit = this.cities[i]['nombre'];
+        console.log(this.cityEdit)
+      }
+    }
+    this.bankEdit = bank;
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
     //jQuery('.table-radio').attr('checked');
@@ -40,6 +63,105 @@ export class BanksComponent implements OnInit {
   closeModal () {
     jQuery('#modal-see').modal('close');
     
+  }
+
+  selectData(bank){
+    this.bankEdit = bank;
+  }
+
+  createBank(nit, nombre, direccion, tel1, tel2, contacto, cuentaban, cuentacon){
+    if (nit) {
+      this._bankservice.createBanks({ 'nit': nit, 'nombre': nombre, 'direccion': direccion,
+                                      'ciudad_id': this.createCity, 'telefono1': tel1, 'telefono2': tel2, 
+                                      'contacto': contacto, 'cuentaBancaria': cuentaban, 'cuentaContable': cuentacon, 
+                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    }
+  } 
+
+  updateBank() {
+    if(this.bankEdit){
+      this._bankservice.updateBanks({'id': this.bankEdit.id, 'nit': this.bankEdit.nit, 'nombre': this.bankEdit.nombre, 'direccion': this.bankEdit.direccion,
+                                    'ciudad_id': this.bank, 'telefono1': this.bankEdit.telefono1, 'telefono2': this.bankEdit.telefono2, 
+                                    'contacto': this.bankEdit.contacto, 'cuentaBancaria': this.bankEdit.cuentaBancaria, 
+                                    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.status == "updated") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo eactualizar el registro',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }
+  }
+
+  deleteBank() {
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.bankEdit) {
+          this._bankservice.deleteBanks(this.bankEdit.id).subscribe(
+            data => {
+              console.log(data)
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } 
+            },
+          error =>{
+            swal(
+              'No se pudo eliminar el registro',
+              '',
+              'warning'
+            )
+          })
+        } 
+      }
+    })
   }
 
   selectAll() {
@@ -88,7 +210,6 @@ export class BanksComponent implements OnInit {
   }
 
   edit () {
-    jQuery('#codigoEdit').prop('disabled',false);
     jQuery('#nitEdit').prop('disabled',false);
     jQuery('#direccionEdit').prop('disabled',false);
     jQuery('#tel1Edit').prop('disabled',false);
@@ -107,6 +228,11 @@ export class BanksComponent implements OnInit {
     jQuery('#contactoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#cuenta_banEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#cuenta_conEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#selectEdit').on('change', () => {
+      this.bank = jQuery('#selectEdit').val();
+      console.log(this.bank)
+    });
   }
 
 }

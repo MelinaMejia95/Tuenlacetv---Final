@@ -39,7 +39,7 @@ export class NeighborhoodsService {
   return this._http.delete(url, options).map(response => response.json());
  }
 
- createNeighborhoodss(content: object){
+ createNeighborhoods(content: object){
    console.log(content)
   const url = this._global.url + `/barrios`;
   let header = new Headers();

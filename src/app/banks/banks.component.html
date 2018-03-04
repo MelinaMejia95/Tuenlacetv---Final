@@ -40,12 +40,12 @@
   <tbody>
     <tr *ngFor="let bank of banks; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(bank)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal(bank)" href="#modal-see">{{ bank.id }}</td>
+      <td (click)="openModal(bank)" href="#modal-see">{{ bank.nit }}</td>
+      <td (click)="openModal(bank)" href="#modal-see">{{ bank.nombre }}</td>
     </tr>
   </tbody>
 </table>
@@ -69,10 +69,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteBank()" id="btn-footer-delete">Eliminar</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
 </div>
@@ -95,57 +92,60 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="col s4">
+          <div class="col s3">
             <label for="codigo" class="label-color">Código:</label>
-            <input placeholder=""  id="codigo" type="text">
+            <input placeholder="" id="codigo" type="text" disabled>
           </div>
-          <div class="col s4">
+          <div class="col s3">
             <label for="nit" class="label-color">NIT:</label>
-            <input placeholder="" id="nit" type="text">
+            <input placeholder="" id="nit" type="text" class="validate" #nit>
           </div>
-          <div class="col s4">
+          <div class="col s3">
+              <label for="nombre" class="label-color">Nombre:</label>
+              <input placeholder="" id="nombre" type="text" class="validate" #nombre>
+            </div>
+          <div class="col s3">
             <label for="direccion" class="label-color">Dirección:</label>
-            <input placeholder="" id="direccion" type="text">
+            <input placeholder="" id="direccion" type="text" class="validate" #direccion>
           </div>
         </div>
         <div class="row">
           <div class="col s4">
             <label for="tel1" class="label-color">Teléfono 1</label>
-            <input placeholder="" id="tel1" type="text">
+            <input placeholder="" id="tel1" type="text" class="validate" #tel1>
           </div>
           <div class="col s4">
             <label for="tel2" class="label-color">Teléfono 2</label>
-            <input placeholder="" id="tel2" type="text">
+            <input placeholder="" id="tel2" type="text" class="validate" #tel2>
           </div>
           <div class="col s4">
             <label class="label-color">Ciudad</label>
-            <select class="browser-default select-city">
+            <select class="browser-default select-city" id="select-cities">
               <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="col s4">
             <label for="contacto" class="label-color">Contacto</label>
-            <input placeholder="" id="contacto" type="text">
+            <input placeholder="" id="contacto" type="text" class="validate" #contacto>
           </div>
           <div class="col s4">
             <label for="cuenta_ban" class="label-color">Cuenta bancaria</label>
-            <input placeholder="" id="cuenta_ban" type="text">
+            <input placeholder="" id="cuenta_ban" type="text" class="validate" #cuentaban>
           </div>
           <div class="col s4">
             <label for="cuenta_con" class="label-color">Cuenta contable</label>
-            <input placeholder="" id="cuenta_con" type="text">
+            <input placeholder="" id="cuenta_con" type="text" class="validate" #cuentacon>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createBank(nit.value, nombre.value, direccion.value,
+    tel1.value, tel2.value, contacto.value, cuentaban.value, cuentacon.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -170,58 +170,58 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row">
-            <div class="col s4">
-              <label for="codigoEdit" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigoEdit" type="text">
-            </div>
-            <div class="col s4">
-              <label for="nitEdit" class="label-color">NIT:</label>
-              <input disabled placeholder="" id="nitEdit" type="text">
-            </div>
-            <div class="col s4">
-              <label for="direccionEdit" class="label-color">Dirección:</label>
-              <input disabled placeholder="" id="direccionEdit" type="text">
-            </div>
-          </div>
+        <div class="row" *ngIf="bankEdit">
           <div class="row">
-            <div class="col s4">
-              <label for="tel1Edit" class="label-color">Teléfono 1</label>
-              <input disabled placeholder="" id="tel1Edit" type="text">
+              <div class="col s4">
+                <label for="codigoEdit" class="label-color">Código:</label>
+                <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="bankEdit.id" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s4">
+                <label for="nitEdit" class="label-color">NIT:</label>
+                <input disabled placeholder="" id="nitEdit" type="text" class="validate" [(ngModel)]="bankEdit.nit" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s4">
+                <label for="direccionEdit" class="label-color">Dirección:</label>
+                <input disabled placeholder="" id="direccionEdit" type="text" class="validate" [(ngModel)]="bankEdit.direccion" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
-            <div class="col s4">
-              <label for="tel2Edit" class="label-color">Teléfono 2</label>
-              <input disabled placeholder="" id="tel2Edit" type="text">
+            <div class="row">
+              <div class="col s4">
+                <label for="tel1Edit" class="label-color">Teléfono 1</label>
+                <input disabled placeholder="" id="tel1Edit" type="text" class="validate" [(ngModel)]="bankEdit.telefono1" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s4">
+                <label for="tel2Edit" class="label-color">Teléfono 2</label>
+                <input disabled placeholder="" id="tel2Edit" type="text" class="validate" [(ngModel)]="bankEdit.telefono2" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s4">
+                <label class="label-color">Ciudad</label>
+                <select disabled class="browser-default select-city" id="selectEdit">
+                    <option value="nodisplay" disabled selected>{{ cityEdit }}</option>
+                    <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
+                </select>
+              </div>
             </div>
-            <div class="col s4">
-              <label class="label-color">Ciudad</label>
-              <select disabled class="browser-default select-city" id="ciudadEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
+            <div class="row">
+              <div class="col s4">
+                <label for="contactoEdit" class="label-color">Contacto</label>
+                <input disabled placeholder="" id="contactoEdit" type="text" class="validate" [(ngModel)]="bankEdit.contacto" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s4">
+                <label for="cuenta_banEdit" class="label-color">Cuenta bancaria</label>
+                <input disabled placeholder="" id="cuenta_banEdit" type="text" class="validate" [(ngModel)]="bankEdit.cuentaBancaria" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s4">
+                <label for="cuenta_conEdit" class="label-color">Cuenta contable</label>
+                <input disabled placeholder="" id="cuenta_conEdit" type="text" class="validate" [(ngModel)]="bankEdit.cuentaContable" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col s4">
-              <label for="contactoEdit" class="label-color">Contacto</label>
-              <input disabled placeholder="" id="contactoEdit" type="text">
-            </div>
-            <div class="col s4">
-              <label for="cuenta_banEdit" class="label-color">Cuenta bancaria</label>
-              <input disabled placeholder="" id="cuenta_banEdit" type="text">
-            </div>
-            <div class="col s4">
-              <label for="cuenta_conEdit" class="label-color">Cuenta contable</label>
-              <input disabled placeholder="" id="cuenta_conEdit" type="text">
-            </div>
-          </div>
+        </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateBank()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

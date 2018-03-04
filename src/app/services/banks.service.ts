@@ -11,8 +11,8 @@ export class BanksService {
     console.log('working')
    }
 
-  getNeighborhoods(){
-    const url = this._global.url + `/barrios/bd/` + localStorage.getItem('db');
+  getBanks(){
+    const url = this._global.url + `/bancos/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     console.log(header)
@@ -22,26 +22,26 @@ export class BanksService {
     })
  }
 
- updateNeighborhoods(content: object){
+ updateBanks(content: object){
    //console.log(content)
-  const url = this._global.url + `/barrios/` + content['id'];
+  const url = this._global.url + `/bancos/` + content['id'];
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header });
   return this._http.put(url, content, options).map(response => response.json());
  }
 
- deleteNeighborhoods(code: string){
-  const url = this._global.url + `/barrios/` + code;
+ deleteBanks(code: string){
+  const url = this._global.url + `/bancos/` + code;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
   return this._http.delete(url, options).map(response => response.json());
  }
 
- createNeighborhoodss(content: object){
+ createBanks(content: object){
    console.log(content)
-  const url = this._global.url + `/barrios`;
+  const url = this._global.url + `/bancos`;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: content });

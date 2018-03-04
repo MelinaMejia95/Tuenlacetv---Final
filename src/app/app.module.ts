@@ -64,7 +64,7 @@ import { UsersComponent } from './users/users.component';
   FormsModule
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
-              BanksComponent ],
+              BanksService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

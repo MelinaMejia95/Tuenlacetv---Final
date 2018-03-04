@@ -46,7 +46,7 @@ export class NeighborhoodsComponent implements OnInit {
 
   createNeighborhood(name){
     if (name) {
-      this._neighborhoodservice.createNeighborhoodss({ 'zona_id': this.createZone, 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+      this._neighborhoodservice.createNeighborhoods({ 'zona_id': this.createZone, 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({
