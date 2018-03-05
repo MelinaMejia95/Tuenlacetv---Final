@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RatesService } from '../services/rates.service';
+import swal from 'sweetalert2';
 
 declare let jQuery:any;
 
@@ -11,10 +13,22 @@ export class RatesComponent implements OnInit {
 
   toogleDelete:boolean = false;
   rates: any[] = ['1', '2', '3'];
+  zones:string;
+  concepts:string; 
+  plans:string;
+  states:string;
+  zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any;
 
-  constructor() { }
+  constructor(private _rateservice: RatesService) { }
 
   ngOnInit() {
+    this._rateservice.getRates().subscribe(data => {
+      this.rates = data.tarifas;
+      this.zones = data.zonas;
+      this.concepts = data.conceptos;
+      this.plans = data.planes;
+      this.states = data.estados;
+    });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -41,14 +55,63 @@ export class RatesComponent implements OnInit {
     });
   }
 
-  openModal () {
+  openModal (rate) {
+    for (let i = 0; i < this.zones.length; i++) {
+      if ( rate.zona == this.zones[i]['nombre']) {
+        this.zoneEdit = this.zones[i]['nombre'];
+      }
+    }
+    for (let i = 0; i < this.concepts.length; i++) {
+      if ( rate.concepto == this.concepts[i]['nombre']) {
+        this.conceptEdit = this.concepts[i]['nombre'];
+      }
+    }
+    for (let i = 0; i < this.plans.length; i++) {
+      if ( rate.plan == this.plans[i]['nombre']) {
+        this.planEdit = this.plans[i]['nombre'];
+      }
+    }
+    for (let i = 0; i < this.states.length; i++) {
+      if ( rate.estado == this.states[i]['nombre']) {
+        this.stateEdit = this.states[i]['nombre'];
+      }
+    }
+    this.rateEdit = rate;
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
 
   closeModal () {
     jQuery('#modal-see').modal('close');
-    
+  }
+
+  updateRate() {
+    /*if(this.bankEdit){
+      this._bankservice.updateBanks({'id': this.bankEdit.id, 'nit': this.bankEdit.nit, 'nombre': this.bankEdit.nombre, 'direccion': this.bankEdit.direccion,
+                                    'ciudad_id': this.bank, 'telefono1': this.bankEdit.telefono1, 'telefono2': this.bankEdit.telefono2, 
+                                    'contacto': this.bankEdit.contacto, 'cuentaBancaria': this.bankEdit.cuentaBancaria, 
+                                    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.status == "updated") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo eactualizar el registro',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }*/
   }
 
   selectAll() {

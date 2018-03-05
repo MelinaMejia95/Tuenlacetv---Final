@@ -11,8 +11,8 @@ export class RatesService {
     console.log('working')
    }
 
-  getBanks(){
-    const url = this._global.url + `/bancos/bd/` + localStorage.getItem('db');
+  getRates(){
+    const url = this._global.url + `/tarifas/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     console.log(header)
@@ -22,26 +22,26 @@ export class RatesService {
     })
  }
 
- updateBanks(content: object){
+ updateRates(content: object){
    //console.log(content)
-  const url = this._global.url + `/bancos/` + content['id'];
+  const url = this._global.url + `/tarifas/` + content['id'];
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header });
   return this._http.put(url, content, options).map(response => response.json());
  }
 
- deleteBanks(code: string){
-  const url = this._global.url + `/bancos/` + code;
+ deleteRates(code: string){
+  const url = this._global.url + `/tarifas/` + code;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
   return this._http.delete(url, options).map(response => response.json());
  }
 
- createBanks(content: object){
+ createRates(content: object){
    console.log(content)
-  const url = this._global.url + `/bancos`;
+  const url = this._global.url + `/tarifas`;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: content });
