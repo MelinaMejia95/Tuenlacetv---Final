@@ -40,18 +40,18 @@
   <tbody>
     <tr *ngFor="let concept of concepts; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(concept)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal(concept)" href="#modal-see">{{ concept.id }}</td>
+      <td (click)="openModal(concept)" href="#modal-see">{{ concept.servicio }}</td>
+      <td (click)="openModal(concept)" href="#modal-see">{{ concept.nombre }}</td>
     </tr>
   </tbody>
 </table>
     
 <!-- Pagination -->
-<div class="row right">
+<div class="row center">
   <ul class="pagination">
       <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
       <li class="active"><a href="#!">1</a></li>
@@ -82,7 +82,7 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Crear</h4>
+          <h5>Crear</h5>
       </div>
       <div class="col s6 right-align">
         <a class="btn-floating btn-large btn-print">
@@ -94,42 +94,44 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row">
-          <div class="col s6">
-            <label for="codigo" class="label-color">Código:</label>
-            <input placeholder="" id="codigo" type="text">
+        <div class="row" >
+          <div class="row">
+            <div class="col s4">
+              <label for="codigo" class="label-color">Código:</label>
+              <input disabled placeholder="" id="codigo" type="text" class="validate">
+            </div>
+            <div class="col s4">
+              <label class="label-color">Tipo servicio:</label>
+              <select class="browser-default select-city" id="select-cities">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s4">
+              <label for="nombre" class="label-color">Nombre:</label>
+              <input placeholder="" id="nombre" type="text" #nombre>
+            </div>
           </div>
-          <div class="col s6">
-            <label class="label-color">Tipo servicio:</label>
-            <select class="browser-default select-city">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
+          <div class="row">
+            <div class="col s4">
+              <label for="nombre" class="label-color">Abreviatura:</label>
+              <input placeholder="" id="abreviatura" type="text" #abreviatura>
+            </div>
+            <div class="col s4">
+              <label for="iva" class="label-color">Porcentaje IVA:</label>
+              <input placeholder="" id="iva" type="text" #poriva>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="nombre" class="label-color">Nombre:</label>
-            <input placeholder="" id="nombre" type="text">
-          </div>
-          <div class="col s6">
-            <label for="iva" class="label-color">Porcentaje IVA:</label>
-            <input placeholder="" id="iva" type="text">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <label for="operacion" class="label-color">Operación:</label>
-            <input placeholder="" id="operacion" type="text">
+            <input placeholder="" id="operacion" type="text" #operacion>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createConcept(nombre.value, poriva.value, operacion.value, abreviatura.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -153,43 +155,45 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form class="col s12" *ngIf="conceptEdit">
         <div class="row">
-          <div class="col s6">
-            <label for="codigoEdit" class="label-color">Código:</label>
-            <input disabled placeholder="" id="codigoEdit" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="codigoEdit" class="label-color">Código:</label>
+              <input disabled placeholder="" id="codigoEdit" type="text" [(ngModel)]="conceptEdit.codigo" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label class="label-color">Tipo servicio:</label>
+              <select disabled class="browser-default select-city" id="selectEdit">
+                <option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
+                <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s4">
+              <label for="nombreEdit" class="label-color">Nombre:</label>
+              <input disabled placeholder="" id="nombreEdit" type="text" class="validate" [(ngModel)]="conceptEdit.nombre" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
-          <div class="col s6">
-            <label class="label-color">Tipo servicio:</label>
-            <select disabled class="browser-default select-city" id="tiposervicioEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="nombreEdit" class="label-color">Nombre:</label>
-            <input disabled placeholder="" id="nombreEdit" type="text">
-          </div>
-          <div class="col s6">
-            <label for="ivaEdit" class="label-color">Porcentaje IVA:</label>
-            <input disabled placeholder="" id="ivaEdit" type="text">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="operacionEdit" class="label-color">Operación:</label>
-            <input disabled placeholder="" id="operacionEdit" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="nombreEdit" class="label-color">Abreviatura:</label>
+              <input disabled placeholder="" id="abreviaturaEdit" type="text" class="validate" [(ngModel)]="conceptEdit.abreviatura" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="ivaEdit" class="label-color">Porcentaje IVA:</label>
+              <input disabled placeholder="" id="ivaEdit" type="text" class="validate" [(ngModel)]="conceptEdit.porcentajeIva" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="operacionEdit" class="label-color">Operación:</label>
+              <input disabled placeholder="" id="operacionEdit" type="text" class="validate" [(ngModel)]="conceptEdit.operacion" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateConcept()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

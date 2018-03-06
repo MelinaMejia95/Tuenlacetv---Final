@@ -23,7 +23,7 @@ export class ConceptsService {
  }
 
  updateConcepts(content: object){
-   //console.log(content)
+   console.log(content)
   const url = this._global.url + `/conceptos/` + content['id'];
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));

@@ -5,6 +5,10 @@ html {
     font-family: 'Istok Web', sans-serif !important;
 }
 
+.row{
+    margin-bottom: 4px !important;
+}
+
 .dropdown-content li > span {
     color: #213031 !important;
 }
@@ -122,7 +126,7 @@ html {
 }
 
 .pagination{
-   
+   font-size: 5em;
 }
 
 .pagination li.active {

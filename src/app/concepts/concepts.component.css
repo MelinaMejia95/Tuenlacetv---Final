@@ -114,17 +114,17 @@ input[type=text]:not(.browser-default):disabled{
 }
 
 #modal-crear{
-    width: 40%;
+    width: 50%;
 }
 
 #modal-see{
-    width: 40%
+    width: 50%
 }
 
 .modal .modal-content {
     padding: 24px;
     padding-bottom: 0 !important;
-    height: 17em;
+    height: 15em;
 }
 
 
