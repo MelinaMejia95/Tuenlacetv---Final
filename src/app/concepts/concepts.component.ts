@@ -59,9 +59,13 @@ export class ConceptsComponent implements OnInit {
     jQuery('#modal-see').modal('close');
   }
 
-  createConcept(nombre, porcentajeIva, operacion, abreviatura){
+  selectData(concept){
+    this.conceptEdit = concept;
+  }
+
+  createConcept(codigo, nombre, porcentajeIva, operacion, abreviatura){
     if (nombre) {
-      this._conceptservice.createConcepts({ 'servicio_id': this.createService, 'nombre': nombre, 'abreviatura': abreviatura, 'porcentajeIva': porcentajeIva,
+      this._conceptservice.createConcepts({ 'codigo': codigo, 'servicio_id': this.createService, 'nombre': nombre, 'abreviatura': abreviatura, 'porcentajeIva': porcentajeIva,
                                       'operacion': operacion, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           if ( data.status == "created") {
@@ -86,7 +90,7 @@ export class ConceptsComponent implements OnInit {
 
   updateConcept() {
     if(this.conceptEdit){
-      this._conceptservice.updateConcepts({'servicio_id': this.concept, 'id': this.conceptEdit.id, 'nombre': this.conceptEdit.nombre, 'abreviatura': this.conceptEdit.abreviatura,
+      this._conceptservice.updateConcepts({'codigo': this.conceptEdit.codigo, 'servicio_id': this.concept, 'id': this.conceptEdit.id, 'nombre': this.conceptEdit.nombre, 'abreviatura': this.conceptEdit.abreviatura,
                                     'porcentajeIva': this.conceptEdit.porcentajeIva, 'operacion': this.conceptEdit.operacion,  
                                     'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
@@ -110,6 +114,43 @@ export class ConceptsComponent implements OnInit {
         }
       );
     }
+  }
+
+  deleteConcept(){
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.conceptEdit) {
+          this._conceptservice.deleteConcepts(this.conceptEdit.id).subscribe(
+            data => {
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else {
+                swal(
+                  'No se pudo eliminar el registro',
+                  '',
+                  'warning'
+                )
+              }
+            });
+        } 
+      }
+    })
   }
 
   selectAll() {
@@ -158,6 +199,7 @@ export class ConceptsComponent implements OnInit {
   }
 
   edit () {
+    jQuery('#codigoEdit').prop('disabled',false);
     jQuery('#tiposervicioEdit').prop('disabled',false);
     jQuery('#nombreEdit').prop('disabled',false);
     jQuery('#ivaEdit').prop('disabled',false);

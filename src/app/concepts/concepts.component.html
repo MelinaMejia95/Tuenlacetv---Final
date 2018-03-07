@@ -43,7 +43,7 @@
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(concept)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal(concept)" href="#modal-see">{{ concept.id }}</td>
+      <td (click)="openModal(concept)" href="#modal-see">{{ concept.codigo }}</td>
       <td (click)="openModal(concept)" href="#modal-see">{{ concept.servicio }}</td>
       <td (click)="openModal(concept)" href="#modal-see">{{ concept.nombre }}</td>
     </tr>
@@ -69,10 +69,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteConcept()" id="btn-footer-delete">Eliminar</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
 </div>
@@ -98,7 +95,7 @@
           <div class="row">
             <div class="col s4">
               <label for="codigo" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigo" type="text" class="validate">
+              <input placeholder="" id="codigo" type="text" class="validate" #codigo>
             </div>
             <div class="col s4">
               <label class="label-color">Tipo servicio:</label>
@@ -121,17 +118,17 @@
               <label for="iva" class="label-color">Porcentaje IVA:</label>
               <input placeholder="" id="iva" type="text" #poriva>
             </div>
-          </div>
-          <div class="col s4">
-            <label for="operacion" class="label-color">Operación:</label>
-            <input placeholder="" id="operacion" type="text" #operacion>
+            <div class="col s4">
+              <label for="operacion" class="label-color">Operación:</label>
+              <input placeholder="" id="operacion" type="text" #operacion>
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createConcept(nombre.value, poriva.value, operacion.value, abreviatura.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createConcept(codigo.value, nombre.value, poriva.value, operacion.value, abreviatura.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
