@@ -30,16 +30,16 @@ export class BanksComponent implements OnInit {
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
-      jQuery('#codigoEdit').prop('disabled',false);
-      jQuery('#nitEdit').prop('disabled',false);
-      jQuery('#direccionEdit').prop('disabled',false);
-      jQuery('#tel1Edit').prop('disabled',false);
-      jQuery('#tel2Edit').prop('disabled',false);
-      jQuery('#ciudadEdit').prop('disabled',false);
-      jQuery('#contactoEdit').prop('disabled',false);
-      jQuery('#cuenta_banEdit').prop('disabled',false);
-      jQuery('#cuenta_conEdit').prop('disabled',false);
-      jQuery('#selectEdit').prop('disabled',false);
+      jQuery('#codigoEdit').prop('disabled',true);
+      jQuery('#nitEdit').prop('disabled',true);
+      jQuery('#direccionEdit').prop('disabled',true);
+      jQuery('#tel1Edit').prop('disabled',true);
+      jQuery('#tel2Edit').prop('disabled',true);
+      jQuery('#ciudadEdit').prop('disabled',true);
+      jQuery('#contactoEdit').prop('disabled',true);
+      jQuery('#cuenta_banEdit').prop('disabled',true);
+      jQuery('#cuenta_conEdit').prop('disabled',true);
+      jQuery('#selectEdit').prop('disabled',true);
      }});
      jQuery('#select-cities').on('change', () => {
       this.createCity = jQuery('#select-cities').val();
@@ -100,7 +100,7 @@ export class BanksComponent implements OnInit {
     if(this.bankEdit){
       this._bankservice.updateBanks({'id': this.bankEdit.id, 'nit': this.bankEdit.nit, 'nombre': this.bankEdit.nombre, 'direccion': this.bankEdit.direccion,
                                     'ciudad_id': this.bank, 'telefono1': this.bankEdit.telefono1, 'telefono2': this.bankEdit.telefono2, 
-                                    'contacto': this.bankEdit.contacto, 'cuentaBancaria': this.bankEdit.cuentaBancaria, 
+                                    'contacto': this.bankEdit.contacto, 'cuentaBancaria': this.bankEdit.cuentaBancaria, 'cuentaContable': this.bankEdit.cuentaContable,
                                     'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
