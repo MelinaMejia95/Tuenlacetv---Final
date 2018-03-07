@@ -18,7 +18,11 @@ export class CitiesComponent implements OnInit {
   countryEdit: any;
   country:any;
   createCountry:string;
+  createDep:string;
   countries:string;
+  departments:string;
+  department:any;
+  depEdit:any;
 
   constructor(private _cityservice: CitiesService) { }
 
@@ -26,6 +30,7 @@ export class CitiesComponent implements OnInit {
     this._cityservice.getCities().subscribe(data => {
       this.cities = data.ciudades;
       this.countries = data.paises;
+      this.departments = data.departamentos;
       console.log(this.countries[0]['nombre'])
     });
     jQuery('select').material_select();
@@ -34,7 +39,14 @@ export class CitiesComponent implements OnInit {
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
+        jQuery('#selectDep').prop('disabled',true);
+        jQuery('#coddaneEdit').prop('disabled',true);
+        jQuery('#codalternoEdit').prop('disabled',true);
        }});
+    jQuery('#select-depart').on('change', () => {
+      this.createDep = jQuery('#select-depart').val();
+      console.log(this.createDep)
+    });
     jQuery('#select-country').on('change', () => {
       this.createCountry = jQuery('#select-country').val();
       console.log(this.createCountry)
@@ -46,9 +58,10 @@ export class CitiesComponent implements OnInit {
     console.log(this.citiesEdit.id)
   }
 
-  createCity(name){
+  createCity(name, coddane, codalt){
     if (name) {
-      this._cityservice.createCities({ 'pais_id': this.createCountry, 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+      this._cityservice.createCities({ 'pais_id': this.createCountry, 'nombre': name, 'departamento_id': this.createDep,
+      'codigoAlterno': codalt, 'codigoDane': coddane, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({
@@ -72,7 +85,8 @@ export class CitiesComponent implements OnInit {
 
   updateCity(){
     if(this.citiesEdit){
-      this._cityservice.updateCities({'pais_id': this.country, 'nombre': this.citiesEdit.nombre, 'id': this.citiesEdit.id, 'usuario_id': localStorage.getItem('usuario_id'),
+      this._cityservice.updateCities({'pais_id': this.country, 'nombre': this.citiesEdit.nombre, 'id': this.citiesEdit.id, 'codigoDane': this.citiesEdit.codigoDane, 
+      'codigoAlterno': this.citiesEdit.codigoAlterno, 'usuario_id': localStorage.getItem('usuario_id'),
                                     'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
@@ -142,6 +156,11 @@ export class CitiesComponent implements OnInit {
         this.countryEdit = this.countries[i]['nombre'];
       }
     }
+    for (let i = 0; i < this.departments.length; i++) {
+      if ( city.departamento == this.departments[i]['nombre']) {
+        this.depEdit = this.countries[i]['nombre'];
+      }
+    }
     jQuery('#modal-see').modal('open');
     this.citiesEdit = city;
     document.getElementsByClassName('table-radio');
@@ -200,12 +219,22 @@ export class CitiesComponent implements OnInit {
   edit () {
     jQuery('#nombreEdit').prop('disabled',false);
     jQuery('#selectEdit').prop('disabled',false);
+    jQuery('#selectDep').prop('disabled',false);
+    jQuery('#coddaneEdit').prop('disabled',false);
+    jQuery('#codalternoEdit').prop('disabled',false);
     jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#coddaneEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#codalternoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#selectDep').children('option[value="nodisplay"]').css('display','none');
     jQuery('#selectEdit').on('change', () => {
       this.country = jQuery('#selectEdit').val();
       console.log(this.country)
+    });
+    jQuery('#selectDep').on('change', () => {
+      this.department = jQuery('#selectDep').val();
+      console.log(this.department)
     });
   }
 

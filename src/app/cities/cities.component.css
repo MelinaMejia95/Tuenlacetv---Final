@@ -89,7 +89,7 @@ input[type=text]:not(.browser-default):disabled{
 
 .select-city {
     height: 2.2em;
-    width: 18em;
+    width: 100%;
     font-size: 14px;
     padding-bottom: 0em;
     margin-top: 0px;
