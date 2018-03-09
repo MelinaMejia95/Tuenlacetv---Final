@@ -28,7 +28,7 @@
         <input id="codigo" type="text" class="input-custom">
       </th>
       <th>
-        <label for="nombre" class="label-color">Nombre:</label>
+        <label for="nombre" class="label-color">Nombre usuario:</label>
         <input id="nombre" type="text" class="input-custom">
       </th>
       <th>
@@ -40,18 +40,18 @@
   <tbody>
     <tr *ngFor="let user of users; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(user)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal(user)" href="#modal-see">{{ user.id }}</td>
+      <td (click)="openModal(user)" href="#modal-see">{{ user.login }}</td>
+      <td (click)="openModal(user)" href="#modal-see">{{ user.nombre }}</td>
     </tr>
   </tbody>
 </table>
     
 <!-- Pagination -->
-<div class="row right">
+<div class="row center">
   <ul class="pagination">
       <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
       <li class="active"><a href="#!">1</a></li>
@@ -168,50 +168,52 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form class="col s12" *ngIf="userEdit">
         <div class="row">
-          <div class="col s6">
-            <label for="codigo" class="label-color">Código:</label>
-            <input disabled placeholder="" id="codigo" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="codigo" class="label-color">Código:</label>
+              <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="userEdit.id" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="nomusuarioEdit" class="label-color">Nombre de usuario:</label>
+              <input disabled placeholder="" id="nomusuarioEdit" type="text" [(ngModel)]="userEdit.login" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="nomapeEdit" class="label-color">Nombres y apellidos:</label>
+              <input disabled placeholder="" id="nomapeEdit" type="text" [(ngModel)]="userEdit.nombre" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
-          <div class="col s6">
-            <label for="nomusuarioEdit" class="label-color">Nombre de usuario:</label>
-            <input disabled placeholder="" id="nomusuarioEdit" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="passwordEdit" class="label-color">Contraseña</label>
+              <input disabled id="passwordEdit" type="password" class="validate">
+            </div>
+            <div class="col s4">
+                <label for="conpasswordEdit" class="label-color">Confirmar contraseña:</label>
+                <input disabled id="conpasswordEdit" type="password" class="validate">
+              </div>
+            <div class="col s4">
+              <label for="nivelEdit" class="label-color">Nivel:</label>
+              <input disabled placeholder="" id="nivelEdit" type="text" [(ngModel)]="userEdit.nivel" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="nomapeEdit" class="label-color">Nombres y apellidos:</label>
-            <input disabled placeholder="" id="nomapeEdit" type="text">
-          </div>
-          <div class="col s6">
-            <label for="passwordEdit" class="label-color">Contraseña</label>
-            <input disabled id="passwordEdit" type="password" class="validate">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="nivelEdit" class="label-color">Nivel:</label>
-            <input disabled placeholder="" id="nivelEdit" type="text">
-          </div>
-          <div class="col s6">
-            <label class="label-color">Estado:</label>
-            <select disabled class="browser-default select-city" id="estadoEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label class="label-color">Tipo impresora:</label>
-            <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Laser</option>
-              <option value="2">Post</option>
-            </select>
+          <div class="row">
+            <div class="col s4">
+              <label class="label-color">Estado:</label>
+              <select disabled class="browser-default select-city" id="estadoEdit">
+                <option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
+                <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s4">
+              <label class="label-color">Tipo impresora:</label>
+              <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="L">Laser</option>
+                <option value="P">Post</option>
+              </select>
+            </div>
           </div>
         </div>
       </form>

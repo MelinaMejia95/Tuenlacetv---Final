@@ -138,11 +138,11 @@ input[type=password]:not(.browser-default):disabled{
 }
 
 #modal-crear{
-    width: 40%;
+    width: 50%;
 }
 
 #modal-see{
-    width: 40%
+    width: 50%
 }
 
 #modal-changePassword{
@@ -156,5 +156,5 @@ input[type=password]:not(.browser-default):disabled{
 .modal .modal-content {
     padding: 24px;
     padding-bottom: 0 !important;
-    height: 22em;
+    height: 16em;
 }

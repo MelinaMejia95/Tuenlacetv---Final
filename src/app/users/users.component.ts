@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../services/users.service';
 
 declare let jQuery:any;
 
@@ -10,11 +11,16 @@ declare let jQuery:any;
 export class UsersComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  users: any[] = ['Jeni', 'Meli', 'Aleja'];
+  users: any[] = []; userEdit: any;
+  states: string;
 
-  constructor() { }
+  constructor(private _userservie: UsersService) { }
 
   ngOnInit() {
+    this._userservie.getUsers().subscribe(data => {
+      this.users = data.usuarios;
+      this.states = data.estados;
+    });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-changePassword').modal();
@@ -28,7 +34,8 @@ export class UsersComponent implements OnInit {
      }});
   }
 
-  openModal () {
+  openModal (user) {
+    this.userEdit = user;
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
