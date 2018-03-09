@@ -11,7 +11,7 @@ export class PlansService {
     console.log('working')
    }
 
-  getConcepts(){
+  getPlans(){
     const url = this._global.url + `/planes/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
@@ -22,7 +22,7 @@ export class PlansService {
     })
  }
 
- updateConcepts(content: object){
+ updatePlans(content: object){
    console.log(content)
   const url = this._global.url + `/planes/` + content['id'];
   let header = new Headers();
@@ -31,7 +31,7 @@ export class PlansService {
   return this._http.put(url, content, options).map(response => response.json());
  }
  
- deleteConcepts(code: string){
+ deletePlans(code: string){
   const url = this._global.url + `/planes/` + code;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
@@ -39,7 +39,7 @@ export class PlansService {
   return this._http.delete(url, options).map(response => response.json());
  }
 
- createConcepts(content: object){
+ createPlans(content: object){
    console.log(content)
   const url = this._global.url + `/planes`;
   let header = new Headers();
