@@ -124,7 +124,7 @@ input[type=text]:not(.browser-default):disabled{
 .modal .modal-content {
     padding: 24px;
     padding-bottom: 0 !important;
-    height: 22.5em;
+    height: 20em;
 }
 
 .picker__date-display { background-color: rgb(121,134,203); }

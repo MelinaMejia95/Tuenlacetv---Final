@@ -100,8 +100,8 @@
             <div class="col s4">
               <label class="label-color">Tipo servicio:</label>
               <select class="browser-default select-city" id="select-cities">
-                  <option value="" disabled selected>Choose your option</option>
-                  <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
+                <option value="" disabled selected>Choose your option</option>
+                <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
               </select>
             </div>
             <div class="col s4">

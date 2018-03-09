@@ -30,7 +30,7 @@ export class ConceptsService {
   let options = new RequestOptions({ headers: header });
   return this._http.put(url, content, options).map(response => response.json());
  }
-
+ 
  deleteConcepts(code: string){
   const url = this._global.url + `/conceptos/` + code;
   let header = new Headers();

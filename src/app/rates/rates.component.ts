@@ -12,17 +12,18 @@ declare let jQuery:any;
 export class RatesComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  rates: any[] = ['1', '2', '3'];
+  rates: any[] = [];
   zones:string;
   concepts:string; 
-  plans:string;
-  states:string;
-  zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any;
+  plans:string; fecha: string; states:string; createZone: string; createConcept: string; createPlan: string; createState: string;
+  zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any; fechaEdit: any; zona: any; concepto: any; plan: any; estado: any; picker: any;
+  fechainicio: any; fechaven: any;
 
   constructor(private _rateservice: RatesService) { }
 
   ngOnInit() {
     this._rateservice.getRates().subscribe(data => {
+      console.log(data)
       this.rates = data.tarifas;
       this.zones = data.zonas;
       this.concepts = data.conceptos;
@@ -41,7 +42,7 @@ export class RatesComponent implements OnInit {
       jQuery('#fechainicioEdit').prop('disabled',true);
       jQuery('#fechafinEdit').prop('disabled',true);
      }});
-     jQuery('.datepicker').pickadate({
+    jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
       today: 'Hoy',
@@ -51,11 +52,35 @@ export class RatesComponent implements OnInit {
       monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
       weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'dd/mm/yyyy'
+      format: 'yyyy-mm-dd'
+    });
+    jQuery('#select-zone').on('change', () => {
+      this.createZone = jQuery('#select-zone').val();
+    });
+    jQuery('#select-concept').on('change', () => {
+      this.createConcept = jQuery('#select-concept').val();
+    });
+    jQuery('#select-plan').on('change', () => {
+      this.createPlan = jQuery('#select-plan').val();
+    });
+    jQuery('#select-state').on('change', () => {
+      this.createState = jQuery('#select-state').val();
     });
   }
 
   openModal (rate) {
+    jQuery('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15, // Creates a dropdown of 15 years to control year,
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Ok',
+      closeOnSelect: false, // Close upon selecting a date,
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
+      format: 'yyyy-mm-dd'
+    });
     for (let i = 0; i < this.zones.length; i++) {
       if ( rate.zona == this.zones[i]['nombre']) {
         this.zoneEdit = this.zones[i]['nombre'];
@@ -77,6 +102,11 @@ export class RatesComponent implements OnInit {
       }
     }
     this.rateEdit = rate;
+    this.rateEdit['fechas']= this.rateEdit.fechas;
+    //this.picker = jQuery('.datepicker').pickadate();
+    //console.log(this.picker)
+    //this.picker.set('select', this.rateEdit['fechas'][0].fechainicio , { format: 'yyyy-mm-dd' })
+    console.log(this.rateEdit)
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
@@ -85,12 +115,42 @@ export class RatesComponent implements OnInit {
     jQuery('#modal-see').modal('close');
   }
 
+  selectData(rate){
+    this.rateEdit = rate;
+  }
+
+  createRate(codigo, valor, fechaini, fechaven){
+    if (valor) {
+      this._rateservice.createRates({ 'codigo': codigo, 'valor': valor, 'fechainicio': fechaini, 'fechaven': fechaven, 
+                                      'zona_id': this.createZone, 'concepto_id': this.createConcept, 'plan_id': this.createPlan, 'estado_id': this.createState,
+                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    }
+  } 
+
+  //Fix
   updateRate() {
-    /*if(this.bankEdit){
-      this._bankservice.updateBanks({'id': this.bankEdit.id, 'nit': this.bankEdit.nit, 'nombre': this.bankEdit.nombre, 'direccion': this.bankEdit.direccion,
-                                    'ciudad_id': this.bank, 'telefono1': this.bankEdit.telefono1, 'telefono2': this.bankEdit.telefono2, 
-                                    'contacto': this.bankEdit.contacto, 'cuentaBancaria': this.bankEdit.cuentaBancaria, 
-                                    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+    if(this.rateEdit){
+      this._rateservice.updateRates({ 'id': this.rateEdit.id, 'zona_id': this.zona, 'concepto_id': this.concepto, 'plan_id': this.plan, 'valor': this.rateEdit.valor,
+                                    'fechainicio': this.fechainicio, 'fechaven': this.fechaven,
+                                    'estado_id': this.estado, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
           if ( data.status == "updated") {
@@ -111,8 +171,46 @@ export class RatesComponent implements OnInit {
           }
         }
       );
-    }*/
+    }
   }
+
+  deleteRate(){
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.rateEdit) {
+          this._rateservice.deleteRates(this.rateEdit.id).subscribe(
+            data => {
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else {
+                swal(
+                  'No se pudo eliminar el registro',
+                  '',
+                  'warning'
+                )
+              }
+            });
+        } 
+      }
+    })
+  }
+
 
   selectAll() {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
@@ -176,6 +274,42 @@ export class RatesComponent implements OnInit {
     jQuery('#estadoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#fechainicioEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#fechafinEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#zonaEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#conceptoEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#planEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#estadoEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#zonaEdit').on('change', () => {
+      this.zona = jQuery('#zonaEdit').val();
+    });
+    jQuery('#conceptoEdit').on('change', () => {
+      this.concepto = jQuery('#conceptoEdit').val();
+    });
+    jQuery('#planEdit').on('change', () => {
+      this.plan = jQuery('#planEdit').val();
+    });
+    jQuery('#estadoEdit').on('change', () => {
+      this.estado = jQuery('#estadoEdit').val();
+    });
+    jQuery('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15, // Creates a dropdown of 15 years to control year,
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Ok',
+      closeOnSelect: false, // Close upon selecting a date,
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
+      format: 'yyyy-mm-dd'
+    });
+    jQuery('#fechainicioEdit').on('change', () =>{
+      this.fechainicio = jQuery('#fechainicioEdit').val();
+      console.log(this.fechainicio)
+    });
+    jQuery('#fechafinEdit').on('change', () =>{
+      this.fechaven = jQuery('#fechafinEdit').val();
+      console.log(this.fechaven)
+    });
   }
 
 

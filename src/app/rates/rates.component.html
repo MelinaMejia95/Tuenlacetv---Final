@@ -61,7 +61,7 @@
 </table>
     
 <!-- Pagination -->
-<div class="row right">
+<div class="row center">
   <ul class="pagination">
       <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
       <li class="active"><a href="#!">1</a></li>
@@ -79,10 +79,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteRate()" id="btn-footer-delete">Eliminar</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
 </div>
@@ -107,68 +104,61 @@
         <div class="row">
           <div class="col s6">
               <label for="codigo" class="label-color">Código:</label>
-              <input placeholder="" id="codigo" type="text">
+              <input disabled placeholder="" id="codigo" type="text" #codigo>
           </div>
           <div class="col s6">
             <label class="label-color">Zona:</label>
-            <select class="browser-default select-city">
+            <select class="browser-default select-city" id="select-zone">
               <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="col s6">
               <label class="label-color">Concepto:</label>
-              <select class="browser-default select-city">
+              <select class="browser-default select-city" id="select-concept">
                 <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
             </div>
           <div class="col s6">
             <label class="label-color">Plan:</label>
-            <select class="browser-default select-city">
+            <select class="browser-default select-city" id="select-plan">
               <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="col s6">
             <label for="valor" class="label-color">Valor:</label>
-            <input placeholder="" id="valor" type="text">
+            <input placeholder="" id="valor" type="text" #valor>
           </div>
           <div class="col s6">
             <label class="label-color">Estado:</label>
-            <select class="browser-default select-city">
+            <select class="browser-default select-city" id="select-state">
               <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="col s6">
             <label for="fechainicio" class="label-color">Fecha inicio:</label>
-            <input placeholder="" id="fechainicio" type="text" class="datepicker">
+            <input placeholder="" id="fechainicio" type="text" class="datepicker" #fechaini>
           </div>
           <div class="col s6">
             <label for="fechafin" class="label-color">Fecha fin:</label>
-            <input placeholder="" id="fechafin" type="text" class="datepicker">
+            <input placeholder="" id="fechafin" type="text" class="datepicker" #fechaven>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createRate(codigo.value, valor.value,
+      fechaini.value, fechaven.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -179,7 +169,7 @@
     <div class="row">
       <div class="col s6">
           <h4>Tarifa</h4>
-      </div>
+      </div> 
       <div class="col s6 right-align">
         <a class="btn-floating btn-large btn-print" (click)="edit()">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
@@ -193,19 +183,17 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row" *ngIf="ratesEdit">
+        <div class="row" *ngIf="rateEdit">
           <div class="row">
             <div class="col s6">
                 <label for="codigoEdit" class="label-color">Código:</label>
-                <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="ratesEdit.id" [ngModelOptions]="{standalone: true}">
+                <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="rateEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s6">
               <label class="label-color">Zona:</label>
               <select disabled class="browser-default select-city" id="zonaEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="nodisplay" disabled selected>{{ zoneEdit }}</option>
+                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
               </select>
             </div>
           </div>
@@ -213,45 +201,39 @@
             <div class="col s6">
                 <label class="label-color">Concepto:</label>
                 <select disabled class="browser-default select-city" id="conceptoEdit">
-                  <option value="" disabled selected>Choose your option</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
+                  <option value="nodisplay" disabled selected>{{ conceptEdit }}</option>
+                  <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
                 </select>
               </div>
             <div class="col s6">
               <label class="label-color">Plan:</label>
               <select disabled class="browser-default select-city" id="planEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="nodisplay" disabled selected>{{ planEdit }}</option>
+                <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
               </select>
             </div>
           </div>
           <div class="row">
             <div class="col s6">
               <label for="valorEdit" class="label-color">Valor:</label>
-              <input disabled placeholder="" id="valorEdit" type="text" class="validate" [(ngModel)]="ratesEdit.valor" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" id="valorEdit" type="text" class="validate" [(ngModel)]="rateEdit.valor" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s6">
               <label class="label-color">Estado:</label>
               <select disabled class="browser-default select-city" id="estadoEdit">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
+                <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
               </select>
             </div>
           </div>
           <div class="row">
             <div class="col s6">
               <label for="fechainicioEdit" class="label-color">Fecha inicio:</label>
-              <input disabled id="fechainicioEdit" type="text" class="datepicker">
+              <input disabled id="fechainicioEdit" type="text" class="datepicker" [(ngModel)]="rateEdit['fechas'][0].fechainicio" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s6">
-              <label for="fechafinEdit" class="label-color">Fecha fin:</label>
-              <input disabled id="fechafinEdit" type="text" class="datepicker">
+              <label for="fechafinEdit" class="label-color">Fecha vencimiento:</label>
+              <input disabled id="fechafinEdit" type="text" class="datepicker" [(ngModel)]="rateEdit['fechas'][0].fechavence" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
         </div>
@@ -259,7 +241,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateRate()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
