@@ -16,6 +16,7 @@ import { NeighborhoodsService } from './services/neighborhoods.service';
 import { BanksService } from './services/banks.service';
 import { RatesService } from './services/rates.service';
 import { ConceptsService } from './services/concepts.service';
+import { PlansService } from './services/plan.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -66,7 +67,7 @@ import { UsersComponent } from './users/users.component';
   FormsModule
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
-              BanksService, RatesService, ConceptsService ],
+              BanksService, RatesService, ConceptsService, PlansService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
