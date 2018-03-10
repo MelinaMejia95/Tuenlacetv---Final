@@ -6,7 +6,7 @@ html {
 }
 
 .row{
-    margin-bottom: 4px !important;
+    margin-bottom: 0px !important;
 }
 
 .dropdown-content li > span {
@@ -54,7 +54,7 @@ html {
 .modal-title{
     background-color: #478fbc;
     color: white;
-    height: 4em;
+    height: 3em;
 }
 
 .modal h4 {
@@ -68,31 +68,42 @@ html {
     border-radius: 0 0 2px 2px;
     background-color: #5aa8cb;
     padding: 4px 6px;
-    height: 56px;
+    height: 3em;
     width: 100%;
     color: white;
     text-align: right;
 }
 
 .modal .modal-footer .btn-flat {
-    margin: 6px 0;
+    /*margin: 6px 0;
     margin-left: 0em;
     color: white;
     border: 1px solid;
     font-size: 12px;
     padding-left: 1em;
+    padding-right: 1em;*/
+    margin: 0.5% auto;
+    color: white;
+    border: 1px solid;
+    font-size: 12px;
+    padding-left: 1em;
     padding-right: 1em;
+    padding-top: 0em;
+    height: 2.5em;
+    line-height: 1em;
 }
 
 .modal .modal-footer .btn-flat:hover {
-    margin: 6px 0;
-    margin-left: 0em;
+    margin:  0.5% auto;
     color: #5aa8cb;
     background-color: white;
     border: 1px solid;
     font-size: 12px;
     padding-left: 1em;
     padding-right: 1em;
+    padding-top: 0em;
+    height: 2.5em;
+    line-height: 1em;
 }
 
 .modal.modal-fixed-footer .modal-footer{
@@ -173,6 +184,13 @@ td, th {
     background-color: black;
     height: 2px;
     margin-bottom: 2em;
+}
+
+#btn-modal{
+    width: 32px;
+    height: 32px;
+    margin-top: 1.5%;
+    line-height: 3em;
 }
 
 select:disabled{

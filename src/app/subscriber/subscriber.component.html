@@ -10,8 +10,23 @@
   </div>
   <div class="row">
     <div class="col s12 m6">
-      <a class="breadcrumb black-text">Maestros</a>
-      <a class="breadcrumb black-text">Suscriptores</a>
+      <div class="row">
+        <a class="breadcrumb black-text">Maestros</a>
+        <a class="breadcrumb black-text">Suscriptores</a>
+      </div>
+      <div class="row">
+        <label class="label-color">Mostrar:</label>
+        <select class="browser-default select-city" id="mostrar">
+          <option value="" selected>Choose your option</option>
+          <option value="1">Suscriptor</option>
+          <option value="2">Proveedor</option>
+          <option value="3">Cliente</option>
+          <option value="4">Empleado</option>
+          <option value="5">Vendedor</option>
+          <option value="6">Esal</option>
+          <option value="7">Técnico</option>
+        </select>
+      </div>
     </div>
     <div class="col s12 m6 right-align">
       <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">more_vert</i></a>
@@ -24,21 +39,21 @@
       </ul>
     </div>    
   </div> 
-  <div class="row filter">
+  <!--<div class="row filter">
       <div class="col s12 m4">
-          <label class="label-color">Mostrar:</label>
-          <select class="browser-default select-city" id="mostrar">
-            <option value="" selected>Choose your option</option>
-            <option value="1">Suscriptor</option>
-            <option value="2">Proveedor</option>
-            <option value="3">Cliente</option>
-            <option value="4">Empleado</option>
-            <option value="5">Vendedor</option>
-            <option value="6">Esal</option>
-            <option value="7">Técnico</option>
-          </select>
-        </div>
-  </div>
+        <label class="label-color">Mostrar:</label>
+        <select class="browser-default select-city" id="mostrar">
+          <option value="" selected>Choose your option</option>
+          <option value="1">Suscriptor</option>
+          <option value="2">Proveedor</option>
+          <option value="3">Cliente</option>
+          <option value="4">Empleado</option>
+          <option value="5">Vendedor</option>
+          <option value="6">Esal</option>
+          <option value="7">Técnico</option>
+        </select>
+      </div>
+  </div>-->
 </div>
 
 <!-- Filter -->
@@ -54,15 +69,15 @@
         <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
         <label for="all"> </label>
       </th>
-      <th>
+      <th class="codigo-th">
         <label for="codigo" class="label-color">Código:</label>
         <input id="codigo" type="text" class="input-custom">
       </th>
-      <th>
+      <th class="documento-th">
         <label for="documento" class="label-color">Documento:</label>
         <input id="documento" type="text" class="input-custom">
       </th>
-      <th>
+      <th class="nombre-th">
         <label for="nombre" class="label-color">Nombre:</label>
         <input id="nombre" type="text" class="input-custom">
       </th>
@@ -85,24 +100,24 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let suscriptor of suscriptors; let i = index" name="rows" (click)="selectRow()">
+    <tr *ngFor="let subscriber of subscribers; let i = index" name="rows" (click)="selectRow()">
       <td>
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.id }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.documento }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.nombres }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.direccion }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.telefono1P }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.saldo }}</td>
+      <td (click)="openModal()" href="#modal-see">{{ subscriber.estado }}</td>
     </tr>
   </tbody>
 </table>
 
 <!-- Pagination -->
-<div class="row right">
+<div class="row center">
   <ul class="pagination">
       <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
       <li class="active"><a href="#!">1</a></li>
@@ -134,10 +149,10 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Crear</h4>
+          <h5>Crear</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -270,8 +285,151 @@
               <option value="2">Discapacitado</option>
             </select>
           </div>
+        </div>
+        <div class="row">
+          <div class="row service-subs">
+            <div class="col s12 m6">
+              <span class="service-title">Información general servicio</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="separator-subs z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="numcontrato" class="label-color">Número de contrato:</label>
+            <input placeholder="" id="numcontrato" type="text">
+          </div>
+          <div class="col s3">
+            <label for="dirtv" class="label-color">Dirección:</label>
+            <input placeholder="" id="dirtv" type="text">
+          </div>
+          <div class="col s3">
+            <label for="urbanizacion" class="label-color">Urbanización:</label>
+            <input placeholder="" id="urbanizacion" type="text">
+          </div>
+          <div class="col s3">
+            <label for="torre" class="label-color">Torre:</label>
+            <input placeholder="" id="torre" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="apartamento" class="label-color">Apartamento:</label>
+            <input placeholder="" id="apartamento" type="text">
+          </div>
+          <div class="col s3">
+            <label class="label-color">Barrio:</label>
+            <select class="browser-default select-city" id="barriotv">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Zona:</label>
+            <select class="browser-default select-city" id="zonatv">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label for="tel1tv" class="label-color">Teléfono 1:</label>
+            <input placeholder="" id="tel1tv" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="te21tv" class="label-color">Teléfono 2:</label>
+            <input placeholder="" id="tel2tv" type="text">
+          </div>
+          <div class="col s3">
+            <label for="contactotv" class="label-color">Contacto:</label>
+            <input placeholder="" id="contactotv" type="text" >
+          </div>
+          <div class="col s3">
+            <label class="label-color">Estrato:</label>
+            <select class="browser-default select-city" id="estratotv">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Tipo vivienda:</label>
+            <select class="browser-default select-city" id="tipoviviendatv">
+              <option value=""  selected>Choose your option</option>
+              <option value="1">Propia</option>
+              <option value="2">Alquilada</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="observacion" class="label-color">Observación:</label>
+            <input placeholder="" id="observacion" type="text" class="datepicker">
+          </div>
+          <div class="col s3">
+            <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
+            <input placeholder="" id="fechacontratotv" type="text" class="datepicker">
+          </div>
+          <div class="col s3">
+            <label class="label-color">Vendedor:</label>
+            <select class="browser-default select-city" id="vendedortv">
+              <option value="" selected>Choose your option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Tipo instalación:</label>
+            <select class="browser-default select-city" id="tipoinstalaciontv">
+              <option value="" selected>Choose your option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label class="label-color">Tipo tecnología:</label>
+            <select class="browser-default select-city" id="tipotecnologiatv">
+              <option value="" selected>Choose your option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Tipo de servicio:</label>
+            <select class="browser-default select-city" id="tiposerviciotv">
+              <option value="" selected>Choose your option</option>
+              <option value="1">Residencial</option>
+              <option value="2">Comercial</option>
+            </select>
+          </div>
+          <div class="col s3">
+            <label class="label-color">Área de instalación:</label>
+            <select class="browser-default select-city" id="areainstalaciontv">
+              <option value="" selected>Choose your option</option>
+              <option value="1">Urbana</option>
+              <option value="2">Rural</option>
+              <option value="2">Extrarural</option>
+            </select>
+          </div>
           <div class="col s3 check-type">
-            <input type="checkbox" class="filled-in" id="television" name="group3"/>
+            <input type="checkbox" class="filled-in" id="television" name="group3" checked="checked"/>
             <label for="television" class="check-label">Televisión</label>
             <input type="checkbox" class="filled-in" id="internet" name="group3"/>
             <label for="internet" class="check-label">Internet</label>
@@ -289,90 +447,6 @@
                   <form action="">
                     <div class="row">
                       <div class="col s3">
-                        <label for="numcontrato" class="label-color">Número de contrato:</label>
-                        <input placeholder="" id="numcontrato" type="text">
-                      </div>
-                      <div class="col s3">
-                        <label for="dirtv" class="label-color">Dirección:</label>
-                        <input placeholder="" id="dirtv" type="text">
-                      </div>
-                      <div class="col s3">
-                        <label for="urbanizacion" class="label-color">Urbanización:</label>
-                        <input placeholder="" id="urbanizacion" type="text">
-                      </div>
-                      <div class="col s3">
-                        <label for="torre" class="label-color">Torre:</label>
-                        <input placeholder="" id="torre" type="text">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col s3">
-                        <label for="apartamento" class="label-color">Apartamento:</label>
-                        <input placeholder="" id="apartamento" type="text">
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Barrio:</label>
-                        <select class="browser-default select-city" id="barriotv">
-                          <option value=""  selected>Choose your option</option>
-                          <option value="1">Option 1</option>
-                          <option value="2">Option 2</option>
-                          <option value="3">Option 3</option>
-                        </select>
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Zona:</label>
-                        <select class="browser-default select-city" id="zonatv">
-                          <option value=""  selected>Choose your option</option>
-                          <option value="1">Option 1</option>
-                          <option value="2">Option 2</option>
-                          <option value="3">Option 3</option>
-                        </select>
-                      </div>
-                      <div class="col s3">
-                        <label for="tel1tv" class="label-color">Teléfono 1:</label>
-                        <input placeholder="" id="tel1tv" type="text">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col s3">
-                        <label for="te21tv" class="label-color">Teléfono 2:</label>
-                        <input placeholder="" id="tel2tv" type="text">
-                      </div>
-                      <div class="col s3">
-                        <label for="contactotv" class="label-color">Contacto:</label>
-                        <input placeholder="" id="contactotv" type="text">
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Estrato:</label>
-                        <select class="browser-default select-city" id="estratotv">
-                          <option value=""  selected>Choose your option</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                        </select>
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Tipo vivienda:</label>
-                        <select class="browser-default select-city" id="tipoviviendatv">
-                          <option value=""  selected>Choose your option</option>
-                          <option value="1">Propia</option>
-                          <option value="2">Alquilada</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col s3">
-                        <label for="observaciontv" class="label-color">Observación:</label>
-                        <input placeholder="" id="observaciontv" type="text">
-                      </div>
-                      <div class="col s3">
                         <label class="label-color">Estado:</label>
                         <select class="browser-default select-city" id="estadotv">
                           <option value=""  selected>Choose your option</option>
@@ -381,17 +455,11 @@
                         </select>
                       </div>
                       <div class="col s3">
-                        <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
-                        <input placeholder="" id="fechacontratotv" type="text" class="datepicker">
-                      </div>
-                      <div class="col s3">
-                        <label for="numtv" class="label-color">Número de televisores:</label>
+                        <label for="numtv" class="label-color">Televisores:</label>
                         <input placeholder="" id="numtv" type="text">
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col s3">
-                        <label for="numdecotv" class="label-color">Número de decodificadores:</label>
+                        <label for="numdecotv" class="label-color">Decodificadores:</label>
                         <input placeholder="" id="numdecotv" type="text">
                       </div>
                       <div class="col s3">
@@ -436,55 +504,12 @@
                             <option value="36">36</option>
                           </select>
                       </div>
-                      <div class="col s3">
-                        <label class="label-color">Vendedor:</label>
-                        <select class="browser-default select-city" id="vendedortv">
-                          <option value="" selected>Choose your option</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
-                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col s3">
                         <label for="precintotv" class="label-color">Precinto:</label>
                         <input placeholder="" id="precintotv" type="text">
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col s3">
-                        <label class="label-color">Tipo instalación:</label>
-                        <select class="browser-default select-city" id="tipoinstalaciontv">
-                          <option value="" selected>Choose your option</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Tipo tecnología:</label>
-                        <select class="browser-default select-city" id="tipotecnologiatv">
-                          <option value="" selected>Choose your option</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                        </select>
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Tipo de servicio:</label>
-                        <select class="browser-default select-city" id="tiposerviciotv">
-                          <option value="" selected>Choose your option</option>
-                          <option value="1">Residencial</option>
-                          <option value="2">Comercial</option>
-                        </select>
-                      </div>
-                      <div class="col s3">
-                        <label class="label-color">Área de instalación:</label>
-                        <select class="browser-default select-city" id="areainstalaciontv">
-                          <option value="" selected>Choose your option</option>
-                          <option value="1">Urbana</option>
-                          <option value="2">Rural</option>
-                          <option value="2">Extrarural</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
                       <div class="col s3">
                         <label class="label-color">Planes:</label>
                         <select class="browser-default select-city" id="planestv">
@@ -500,6 +525,20 @@
                           <option value="1">1</option>
                           <option value="2">2</option>
                         </select>
+                      </div>
+                      <div class="col s3">
+                        <label for="saldotv" class="label-color">Saldo:</label>
+                        <input placeholder="" id="saldotv" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s3">
+                        <label for="fechapagotv" class="label-color">Fecha último pago:</label>
+                        <input id="fechapagotv" type="text" class="datepicker">
+                      </div>
+                      <div class="col s3">
+                        <label for="estadotv" class="label-color">Estado:</label>
+                        <input placeholder="" id="estadotv" type="text">
                       </div>
                       <div class="col s3">
                         <label class="label-color">Valor afiliación:</label>
@@ -641,13 +680,13 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Suscriptor</h4>
+          <h5>Suscriptor</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" (click)="edit()">
+        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -789,6 +828,149 @@
             </div>-->
           </div>
           <div class="row">
+            <div class="row service-subs">
+              <div class="col s12 m6">
+                <span class="service-title">Información general servicio</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="separator-subs z-depth-3"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s3">
+              <label for="numcontratoEdit" class="label-color">Número de contrato:</label>
+              <input placeholder="" id="numcontratoEdit" type="text">
+            </div>
+            <div class="col s3">
+              <label for="dirtvEdit" class="label-color">Dirección:</label>
+              <input placeholder="" id="dirtvEdit" type="text">
+            </div>
+            <div class="col s3">
+              <label for="urbanizacionEdit" class="label-color">Urbanización:</label>
+              <input placeholder="" id="urbanizacionEdit" type="text">
+            </div>
+            <div class="col s3">
+              <label for="torreEdit" class="label-color">Torre:</label>
+              <input placeholder="" id="torreEdit" type="text">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s3">
+              <label for="apartamentoEdit" class="label-color">Apartamento:</label>
+              <input placeholder="" id="apartamentoEdit" type="text">
+            </div>
+            <div class="col s3">
+              <label class="label-color">Barrio:</label>
+              <select class="browser-default select-city" id="barriotvEdit">
+                <option value=""  selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+            <div class="col s3">
+              <label class="label-color">Zona:</label>
+              <select class="browser-default select-city" id="zonatvEdit">
+                <option value=""  selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+            <div class="col s3">
+              <label for="tel1tvEdit" class="label-color">Teléfono 1:</label>
+              <input placeholder="" id="tel1tvEdit" type="text">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s3">
+              <label for="te21tvEdit" class="label-color">Teléfono 2:</label>
+              <input placeholder="" id="tel2tvEdit" type="text">
+            </div>
+            <div class="col s3">
+              <label for="contactotvEdit" class="label-color">Contacto:</label>
+              <input placeholder="" id="contactotvEdit" type="text" >
+            </div>
+            <div class="col s3">
+              <label class="label-color">Estrato:</label>
+              <select class="browser-default select-city" id="estratotvEdit">
+                <option value=""  selected>Choose your option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="col s3">
+              <label class="label-color">Tipo vivienda:</label>
+              <select class="browser-default select-city" id="tipoviviendatvEdit">
+                <option value=""  selected>Choose your option</option>
+                <option value="1">Propia</option>
+                <option value="2">Alquilada</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s3">
+              <label for="observacionEdit" class="label-color">Observación:</label>
+              <input placeholder="" id="observacionEdit" type="text" class="datepicker">
+            </div>
+            <div class="col s3">
+              <label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
+              <input placeholder="" id="fechacontratotvEdit" type="text" class="datepicker">
+            </div>
+            <div class="col s3">
+              <label class="label-color">Vendedor:</label>
+              <select class="browser-default select-city" id="vendedortvEdit">
+                <option value="" selected>Choose your option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            <div class="col s3">
+              <label class="label-color">Tipo instalación:</label>
+              <select class="browser-default select-city" id="tipoinstalaciontvEdit">
+                <option value="" selected>Choose your option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col s3">
+                  <label class="label-color">Tipo tecnología:</label>
+                  <select class="browser-default select-city" id="tipotecnologiatvEdit">
+                    <option value="" selected>Choose your option</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </div>
+                <div class="col s3">
+                  <label class="label-color">Tipo de servicio:</label>
+                  <select class="browser-default select-city" id="tiposerviciotvEdit">
+                    <option value="" selected>Choose your option</option>
+                    <option value="1">Residencial</option>
+                    <option value="2">Comercial</option>
+                  </select>
+                </div>
+                <div class="col s3">
+                    <label class="label-color">Área de instalación:</label>
+                    <select class="browser-default select-city" id="areainstalaciontvEdit">
+                      <option value="" selected>Choose your option</option>
+                      <option value="1">Urbana</option>
+                      <option value="2">Rural</option>
+                      <option value="2">Extrarural</option>
+                    </select>
+                  </div>
+          </div>
+          <div class="row">
             <div class="col s12">
               <ul class="collapsible" data-collapsible="accordion" id="collapsible-television">
                 <li>
@@ -800,90 +982,6 @@
                     <form action="">
                       <div class="row">
                         <div class="col s3">
-                          <label for="numcontratoEdit" class="label-color">Número de contrato:</label>
-                          <input placeholder="" id="numcontratoEdit" type="text">
-                        </div>
-                        <div class="col s3">
-                          <label for="dirtvEdit" class="label-color">Dirección:</label>
-                          <input placeholder="" id="dirtvEdit" type="text">
-                        </div>
-                        <div class="col s3">
-                          <label for="urbanizacionEdit" class="label-color">Urbanización:</label>
-                          <input placeholder="" id="urbanizacionEdit" type="text">
-                        </div>
-                        <div class="col s3">
-                          <label for="torreEdit" class="label-color">Torre:</label>
-                          <input placeholder="" id="torreEdit" type="text">
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col s3">
-                          <label for="apartamentoEdit" class="label-color">Apartamento:</label>
-                          <input placeholder="" id="apartamentoEdit" type="text">
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Barrio:</label>
-                          <select class="browser-default select-city" id="barriotvEdit">
-                            <option value=""  selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                          </select>
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Zona:</label>
-                          <select class="browser-default select-city" id="zonatvEdit">
-                            <option value=""  selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                          </select>
-                        </div>
-                        <div class="col s3">
-                          <label for="tel1tvEdit" class="label-color">Teléfono 1:</label>
-                          <input placeholder="" id="tel1tvEdit" type="text">
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col s3">
-                          <label for="te21tvEdit" class="label-color">Teléfono 2:</label>
-                          <input placeholder="" id="tel2tvEdit" type="text">
-                        </div>
-                        <div class="col s3">
-                          <label for="contactotvEdit" class="label-color">Contacto:</label>
-                          <input placeholder="" id="contactotvEdit" type="text" >
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Estrato:</label>
-                          <select class="browser-default select-city" id="estratotvEdit">
-                            <option value=""  selected>Choose your option</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                          </select>
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Tipo vivienda:</label>
-                          <select class="browser-default select-city" id="tipoviviendatvEdit">
-                            <option value=""  selected>Choose your option</option>
-                            <option value="1">Propia</option>
-                            <option value="2">Alquilada</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col s3">
-                          <label for="observaciontvEdit" class="label-color">Observación:</label>
-                          <input placeholder="" id="observaciontvEdit" type="text">
-                        </div>
-                        <div class="col s3">
                           <label class="label-color">Estado:</label>
                           <select class="browser-default select-city" id="estadotvEdit">
                             <option value=""  selected>Choose your option</option>
@@ -892,17 +990,11 @@
                           </select>
                         </div>
                         <div class="col s3">
-                          <label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
-                          <input placeholder="" id="fechacontratotvEdit" type="text" class="datepicker">
-                        </div>
-                        <div class="col s3">
-                          <label for="numtvEdit" class="label-color">Número de televisores:</label>
+                          <label for="numtvEdit" class="label-color">Televisores:</label>
                           <input placeholder="" id="numtvEdit" type="text">
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col s3">
-                          <label for="numdecotvEdit" class="label-color">Número de decodificadores:</label>
+                          <label for="numdecotvEdit" class="label-color">Decodificadores:</label>
                           <input placeholder="" id="numdecotvEdit" type="text">
                         </div>
                         <div class="col s3">
@@ -947,55 +1039,12 @@
                               <option value="36">36</option>
                             </select>
                         </div>
-                        <div class="col s3">
-                          <label class="label-color">Vendedor:</label>
-                          <select class="browser-default select-city" id="vendedortvEdit">
-                            <option value="" selected>Choose your option</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
-                        </div>
+                      </div>
+                      <div class="row">
                         <div class="col s3">
                           <label for="precintotvEdit" class="label-color">Precinto:</label>
                           <input placeholder="" id="precintotvEdit" type="text">
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col s3">
-                          <label class="label-color">Tipo instalación:</label>
-                          <select class="browser-default select-city" id="tipoinstalaciontvEdit">
-                            <option value="" selected>Choose your option</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Tipo tecnología:</label>
-                          <select class="browser-default select-city" id="tipotecnologiatvEdit">
-                            <option value="" selected>Choose your option</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Tipo de servicio:</label>
-                          <select class="browser-default select-city" id="tiposerviciotvEdit">
-                            <option value="" selected>Choose your option</option>
-                            <option value="1">Residencial</option>
-                            <option value="2">Comercial</option>
-                          </select>
-                        </div>
-                        <div class="col s3">
-                          <label class="label-color">Área de instalación:</label>
-                          <select class="browser-default select-city" id="areainstalaciontvEdit">
-                            <option value="" selected>Choose your option</option>
-                            <option value="1">Urbana</option>
-                            <option value="2">Rural</option>
-                            <option value="2">Extrarural</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
                         <div class="col s3">
                           <label class="label-color">Planes:</label>
                           <select class="browser-default select-city" id="planestvEdit">
@@ -1003,7 +1052,7 @@
                             <option value="1">1</option>
                             <option value="2">2</option>
                           </select>
-                        </div>
+                        </div>         
                         <div class="col s3">
                           <label class="label-color">Tarifas:</label>
                           <select class="browser-default select-city" id="tarifastvEdit">
@@ -1013,16 +1062,18 @@
                           </select>
                         </div>
                         <div class="col s3">
-                          <label class="label-color">Valor afiliación:</label>
-                          <select class="browser-default select-city" id="valorafiliaciontvEdit">
-                            <option value="" selected>Choose your option</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                          </select>
+                          <label for="estadotvEdit" class="label-color">Estado:</label>
+                          <input placeholder="" id="estadotvEdit" type="text">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s3">
+                          <label for="saldotvEdit" class="label-color">Saldo:</label>
+                          <input placeholder="" id="saldotvEdit" type="text">
                         </div>
                         <div class="col s3">
-                          <label for="descuentotvEdit" class="label-color">Valor descuento:</label>
-                          <input placeholder="" id="descuentotvEdit" type="text">
+                          <label for="fechapagotvEdit" class="label-color">Fecha último pago:</label>
+                          <input id="fechapagotvEdit" type="text" class="datepicker">
                         </div>
                       </div>
                     </form>
@@ -1119,18 +1170,20 @@
                             <option value="1">Si</option>
                             <option value="2">No</option>
                           </select>
+                        </div>         
+                        <div class="col s3">
+                          <label for="estadointEdit" class="label-color">Estado:</label>
+                          <input placeholder="" id="estadointEdit" type="text">
                         </div>
                         <div class="col s3">
-                          <label class="label-color">Valor afiliación:</label>
-                          <select class="browser-default select-city" id="valorinternetEdit">
-                            <option value=""  selected>Choose your option</option>
-                            <option value="1">Si</option>
-                            <option value="2">No</option>
-                          </select>
+                          <label for="saldointEdit" class="label-color">Saldo:</label>
+                          <input placeholder="" id="estadointEdit" type="text">
                         </div>
+                      </div>
+                      <div class="row">
                         <div class="col s3">
-                          <label for="descuentointernetEdit" class="label-color">Valor descuento:</label>
-                          <input placeholder="" id="descuentointernetEdit" type="text">
+                          <label for="fechapagointEdit" class="label-color">Fecha último pago:</label>
+                          <input id="fechapagointEdit" type="text" class="datepicker">
                         </div>
                       </div>
                     </form>

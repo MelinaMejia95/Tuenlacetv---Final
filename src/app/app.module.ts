@@ -18,12 +18,13 @@ import { RatesService } from './services/rates.service';
 import { ConceptsService } from './services/concepts.service';
 import { PlansService } from './services/plan.service';
 import { UsersService } from './services/users.service';
+import { SubscribersService } from './services/subscribers.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { NavbarPrincipalComponent } from './navbar-principal/navbar-principal.component';
 import { CitiesComponent } from './cities/cities.component';
-import { SuscriptorComponent } from './suscriptor/suscriptor.component';
+import { SubscriberComponent } from './subscriber/subscriber.component';
 import { FooterComponent } from './footer/footer.component';
 import { CountriesComponent } from './countries/countries.component';
 import { ZonesComponent } from './zones/zones.component';
@@ -43,7 +44,7 @@ import { UsersComponent } from './users/users.component';
     PrincipalComponent,
     NavbarPrincipalComponent,
     CitiesComponent,
-    SuscriptorComponent,
+    SubscriberComponent,
     FooterComponent,
     CountriesComponent,
     ZonesComponent,
@@ -68,7 +69,7 @@ import { UsersComponent } from './users/users.component';
   FormsModule
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
-              BanksService, RatesService, ConceptsService, PlansService, UsersService ],
+              BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

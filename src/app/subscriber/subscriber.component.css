@@ -156,3 +156,35 @@ input[type=password]:not(.browser-default):disabled{
 .filter{
     margin-top: -1em;
 }
+
+#mostrar{
+    width: 40%;
+    margin-bottom: 2%;
+}
+
+.codigo-th {
+    width: 5%;
+}
+
+.documento-th {
+    width: 10%;
+}
+
+.nombre-th {
+    width: 20%;
+}
+
+.service-title{
+    font-size: 1em;
+    font-weight: 800;
+}
+
+.service-subs{
+    padding-top: 2%;
+}
+
+.separator-subs{
+    background-color: black;
+    height: 2px;
+    margin-bottom: 1em;
+}

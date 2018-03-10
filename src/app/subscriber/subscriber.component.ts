@@ -1,22 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { SubscribersService } from '../services/subscribers.service';
+import swal from 'sweetalert2';
 
 declare let jQuery:any; 
 
 @Component({
   selector: 'app-suscriptor',
-  templateUrl: './suscriptor.component.html',
-  styleUrls: ['./suscriptor.component.css']
+  templateUrl: './subscriber.component.html',
+  styleUrls: ['./subscriber.component.css']
 })
-export class SuscriptorComponent implements OnInit {
+export class SubscriberComponent implements OnInit {
 
   toogleDelete:boolean = false;
   tipoUsuario:string;
-  suscriptors: any[] = ['Jeni', 'Meli', 'Aleja'];
+  subscribers: any[] = [];
 
-  constructor() { }
+  constructor(private _suscriberservice: SubscribersService) { }
 
   ngOnInit() {
-    document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
+    this._suscriberservice.getSubscribers().subscribe(data => {
+      this.subscribers = data.senales;
+      console.log(data.servicios)
+    });
+    //document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
     document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
     jQuery('#modal-crear').modal();
     jQuery('ul.tabs').tabs();
@@ -62,7 +68,7 @@ export class SuscriptorComponent implements OnInit {
       monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
       weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'dd/mm/yyyy'
+      format: 'yyyy-mm-dd'
     });
     jQuery('.collapsible').collapsible();
     jQuery('#television').on('change', () =>{
@@ -88,6 +94,18 @@ export class SuscriptorComponent implements OnInit {
   }
 
   openModal () {
+    jQuery('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15, // Creates a dropdown of 15 years to control year,
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Ok',
+      closeOnSelect: false, // Close upon selecting a date,
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
+      format: 'yyyy-mm-dd'
+    });
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
@@ -170,6 +188,18 @@ export class SuscriptorComponent implements OnInit {
     jQuery('#nivelEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#estadoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#impresoraEdit').attr({style:' margin: 2px 0 7px 0 !important;'});*/
+    jQuery('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15, // Creates a dropdown of 15 years to control year,
+      today: 'Hoy',
+      clear: 'Limpiar',
+      close: 'Ok',
+      closeOnSelect: false, // Close upon selecting a date,
+      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
+      format: 'yyyy-mm-dd'
+    });
   }
 
 }

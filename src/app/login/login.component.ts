@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('auth_token', data.auth_token);
         localStorage.setItem('db', this.bd);
         if (data.auth_token) {
-          this.route.navigate(['/suscriptor']);
+          this.route.navigate(['/subscriber']);
         } 
       });
     }
