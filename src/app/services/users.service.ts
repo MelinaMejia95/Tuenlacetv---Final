@@ -48,4 +48,13 @@ export class UsersService {
   return this._http.post(url, content, options).map(response => response.json());
  }
 
+ changePassowrd(content: object){
+  console.log(content)
+ const url = this._global.url + `/usuarios/cambiar_password/`+ content['id'];
+ let header = new Headers();
+ header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+ let options = new RequestOptions({ headers: header, body: content });
+ return this._http.post(url, content, options).map(response => response.json());
+}
+
 }

@@ -106,7 +106,7 @@ export class ConceptsComponent implements OnInit {
             })
           } else {
             swal(
-              'No se pudo eactualizar el registro',
+              'No se pudo actualizar el registro',
               '',
               'warning'
             )

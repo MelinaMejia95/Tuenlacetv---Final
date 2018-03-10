@@ -42,6 +42,10 @@
     visibility: hidden;
 }
 
+.btn-pssword{
+    visibility: hidden;
+}
+
 .icon-horizontal{
     align-content: center; 
 }

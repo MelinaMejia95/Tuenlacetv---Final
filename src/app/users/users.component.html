@@ -69,11 +69,8 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
-    <li class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-changePassword">Cambiar contraseña</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteUser()" id="btn-footer-delete">Eliminar</a></li>
+    <li class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-changePassword" id="btn-footer-pss">Cambiar contraseña</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
 </div>
@@ -96,47 +93,43 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="col s6">
-            <label for="codigo" class="label-color">Código:</label>
-            <input placeholder="" id="codigo" type="text">
+          <div class="col s4">
+            <label for="codigoU" class="label-color">Código:</label>
+            <input disabled placeholder="" id="codigoU" type="text">
           </div>
-          <div class="col s6">
+          <div class="col s4">
             <label for="nomusuario" class="label-color">Nombre de usuario:</label>
-            <input placeholder="" id="nomusuario" type="text">
+            <input placeholder="" id="nomusuario" type="text" #nomusuario>
+          </div>
+          <div class="col s4">
+            <label for="nomapeU" class="label-color">Nombres y apellidos:</label>
+            <input placeholder="" id="nomapeU" type="text" #nombres>
           </div>
         </div>
         <div class="row">
-          <div class="col s6">
-            <label for="nomape" class="label-color">Nombres y apellidos:</label>
-            <input placeholder="" id="nomape" type="text">
-          </div>
-          <div class="col s6">
+          <div class="col s4">
             <label for="password" class="label-color">Contraseña</label>
-            <input id="password" type="password" class="validate">
+            <input id="password" type="password" class="validate" #password>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <label for="nivel" class="label-color">Nivel:</label>
-            <input placeholder="" id="nivel" type="text">
+            <input placeholder="" id="nivel" type="text" #nivel>
           </div>
-          <div class="col s6">
+          <div class="col s4">
             <label class="label-color">Estado:</label>
-            <select class="browser-default select-city" id="tiposervicioEdit">
+            <select class="browser-default select-city" id="estadoU">
               <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
           </div>
         </div>
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <label class="label-color">Tipo impresora:</label>
-            <select class="browser-default select-city" id="tiposervicioEdit">
+            <select class="browser-default select-city" id="impresoraU">
               <option value="" disabled selected>Choose your option</option>
-              <option value="1">Laser</option>
-              <option value="2">Post</option>
+              <option value="L">Laser</option>
+              <option value="P">Post</option>
             </select>
           </div>
         </div>
@@ -144,7 +137,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createUser(nomusuario.value,
+    nombres.value, password.value, nivel.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -154,13 +148,13 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Usuario</h4>
+          <h5>Usuario</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" (click)="edit()">
+        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -186,30 +180,20 @@
           </div>
           <div class="row">
             <div class="col s4">
-              <label for="passwordEdit" class="label-color">Contraseña</label>
-              <input disabled id="passwordEdit" type="password" class="validate">
-            </div>
-            <div class="col s4">
-                <label for="conpasswordEdit" class="label-color">Confirmar contraseña:</label>
-                <input disabled id="conpasswordEdit" type="password" class="validate">
-              </div>
-            <div class="col s4">
               <label for="nivelEdit" class="label-color">Nivel:</label>
               <input disabled placeholder="" id="nivelEdit" type="text" [(ngModel)]="userEdit.nivel" [ngModelOptions]="{standalone: true}">
             </div>
-          </div>
-          <div class="row">
             <div class="col s4">
               <label class="label-color">Estado:</label>
               <select disabled class="browser-default select-city" id="estadoEdit">
-                <option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
+                <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
                 <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
               </select>
             </div>
             <div class="col s4">
               <label class="label-color">Tipo impresora:</label>
               <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
-                <option value="" disabled selected>Choose your option</option>
+                  <option value="nodisplay" disabled selected>{{ impEdit }}</option>
                 <option value="L">Laser</option>
                 <option value="P">Post</option>
               </select>
@@ -220,7 +204,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateUser()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
@@ -240,20 +224,20 @@
         <div class="row">
           <div class="col s12">
             <label for="passwordChange" class="label-color">Antigua contraseña:</label>
-            <input placeholder="" id="passwordChange" type="text">
+            <input placeholder="" id="passwordChange" type="password" #antigua>
           </div>
         </div>
         <div class="row">
           <div class="col s12">
             <label for="newpassword" class="label-color">Nueva contraseña:</label>
-            <input placeholder="" id="newpassword" type="text">
+            <input placeholder="" id="newpassword" type="password" #nueva>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="changePassword(antigua.value, nueva.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

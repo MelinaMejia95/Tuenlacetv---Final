@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
+import swal from 'sweetalert2';
 
 declare let jQuery:any;
 
@@ -11,8 +12,8 @@ declare let jQuery:any;
 export class UsersComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  users: any[] = []; userEdit: any;
-  states: string;
+  users: any[] = []; userEdit: any; stateEdit: any; user: any; impEdit: any;
+  states: string; createState: string; createImp: string;
 
   constructor(private _userservie: UsersService) { }
 
@@ -32,10 +33,28 @@ export class UsersComponent implements OnInit {
       jQuery('#estadoEdit').prop('disabled',true);
       jQuery('#tipoimpresoraEdit').prop('disabled',true);
      }});
+    jQuery('#estadoU').on('change', () => {
+      this.createState = jQuery('#estadoU').val();
+    });
+    jQuery('#impresoraU').on('change', () => {
+      this.createImp = jQuery('#impresoraU').val();
+    });
   }
 
   openModal (user) {
     this.userEdit = user;
+    for (let i = 0; i < this.states.length; i++) {
+      if ( user.estado == this.states[i]['nombre']) {
+        this.stateEdit = this.states[i]['nombre'];
+      }
+    }
+    for (let i = 0; i < 2; i++) {
+      if ( user.tipoImpresora == 'L' ) {
+        this.impEdit = 'Láser';
+      } else if ( user.tipoImpresora == 'P' ){
+        this.impEdit = 'Post';
+      }
+    }
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
@@ -43,6 +62,134 @@ export class UsersComponent implements OnInit {
   closeModal () {
     jQuery('#modal-see').modal('close');
     
+  }
+
+  updateUser() {
+    if(this.userEdit){
+      this._userservie.updateUsers({'id': this.userEdit.id, 'login': this.userEdit.login, 'nombre': this.userEdit.nombre, 'password': this.userEdit.password, 
+                                    'password_confirmation': this.userEdit.password,'nivel': this.userEdit.nivel, 'estado_id': this.user,  
+                                    'tipoImpresora': this.impEdit ,'usuariocre': "admin",'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.status == "updated") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo actualizar el registro',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }
+  }
+
+  createUser(login, nombres, password, nivel){
+    if (nombres) {
+      this._userservie.createUsers({ 'login': login, 'nombre': nombres, 'password': password, 'password_confirmation': password,
+                                     'nivel': nivel, 'usuariocre': "admin", 'estado_id': this.createState,
+                                     'tipoImpresora': this.createImp, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    }
+  } 
+
+  deleteUser(){
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.userEdit) {
+          this._userservie.deleteUsers(this.userEdit.id).subscribe(
+            data => {
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else {
+                swal(
+                  'No se pudo eliminar el registro',
+                  '',
+                  'warning'
+                )
+              }
+            });
+        } 
+      }
+    })
+  }
+
+  changePassword(antigua, nueva) {
+    if(antigua){
+      this._userservie.changePassowrd({'id': this.userEdit.id, 'antiguaP': antigua, 'nuevaP': nueva,  
+                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.message == "Contraseña actualizada!") {
+            swal({
+              title: 'Contraseña actualizada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else  if ( data.message == "Error!") {
+            swal(
+              'No se pudo actualizar la contraseña',
+              '',
+              'warning'
+            )
+          } if ( data.message == "Contraseña antigua incorrecta!") {
+            swal(
+              'Contraseña antigua incorrecta!',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }
+  }
+
+  selectData(user){
+    this.userEdit = user;
   }
 
   selectAll() {
@@ -53,6 +200,7 @@ export class UsersComponent implements OnInit {
     
     if (radios[0].checked){
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+      document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');
       console.log(cantidad.length)
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = true;
@@ -60,6 +208,7 @@ export class UsersComponent implements OnInit {
       }
     } else {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = false;
         rows[i].setAttribute("style", "background-color : none");
@@ -75,6 +224,7 @@ export class UsersComponent implements OnInit {
 
     if (this.toogleDelete == true) {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');
       this.toogleDelete = false;
     }
     
@@ -83,6 +233,7 @@ export class UsersComponent implements OnInit {
         console.log('false');
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+        document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");
@@ -103,6 +254,14 @@ export class UsersComponent implements OnInit {
     jQuery('#nivelEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#estadoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#tipoimpresoraEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#estadoEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#tipoimpresoraEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#estadoEdit').on('change', () => {
+      this.user = jQuery('#estadoEdit').val();
+    });
+    jQuery('#tipoimpresoraEdit').on('change', () => {
+      this.impEdit = jQuery('#tipoimpresoraEdit').val();
+    });
   }
 
 }
