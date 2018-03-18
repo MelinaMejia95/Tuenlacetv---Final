@@ -44,13 +44,13 @@
   <tbody>
     <tr *ngFor="let company of companies; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" />
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(company)"/>
           <label [attr.for]="'radio_'+i"> </label>
       </td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
-      <td (click)="openModal()" href="#modal-see">aaaa</td>
+      <td (click)="openModal(company)" href="#modal-see">{{ company.nit }}</td>
+      <td (click)="openModal(company)" href="#modal-see">{{ company.razonsocial }}</td>
+      <td (click)="openModal(company)" href="#modal-see">{{ company.direccion }}</td>
+      <td (click)="openModal(company)" href="#modal-see">{{ company.telefono1 }}</td>
     </tr>
   </tbody>
 </table>
@@ -74,10 +74,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-    confirmButtonColor: '#407FA9' }"></swal>
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteCompany()" id="btn-footer-delete">Eliminar</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
 </div>
@@ -102,44 +99,40 @@
         <div class="row">
           <div class="col s4">
               <label for="nit" class="label-color">NIT:</label>
-              <input placeholder="" id="nit" type="text">
+              <input placeholder="" id="nit" type="text" #nit>
           </div>
           <div class="col s4">
             <label for="razon" class="label-color">Razón social:</label>
-            <input placeholder="" id="razon" type="text">
+            <input placeholder="" id="razon" type="text" #razon>
           </div>
           <div class="col s4">
             <label for="direccion" class="label-color">Dirección:</label>
-            <input placeholder="" id="direccion" type="text">
+            <input placeholder="" id="direccion" type="text" #direccion>
           </div>
         </div>
         <div class="row">
           <div class="col s4">
             <label for="tel1" class="label-color">Teléfono 1:</label>
-            <input placeholder="" id="tel1" type="text">
+            <input placeholder="" id="tel1" type="text" #tel1>
           </div>
           <div class="col s4">
             <label for="tel2" class="label-color">Teléfono 2:</label>
-            <input placeholder="" id="tel2" type="text">
+            <input placeholder="" id="tel2" type="text" #tel2>
           </div>
           <div class="col s4">
             <label class="label-color">Ciudad:</label>
-            <select class="browser-default select-city">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+            <select class="browser-default select-city" id="select-cities">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="col s4">
             <label class="label-color">Representante:</label>
-            <select class="browser-default select-city">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+            <select class="browser-default select-city" id="select-entity">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="pple.id" *ngFor="let pple of people">{{ pple.nombres }}</option>
             </select>
           </div>
           <div class="col s8">
@@ -157,36 +150,37 @@
         <div class="row">
           <div class="col s4">
             <label for="correo" class="label-color">Correo:</label>
-            <input placeholder="" id="correo" type="text">
+            <input placeholder="" id="correo" type="text" #correo>
           </div>
           <div class="col s4">
             <label class="label-color">Régimen:</label>
-            <select class="browser-default select-city">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Simplificado</option>
-              <option value="2">Común</option>
+            <select class="browser-default select-city" id="select-regi">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option value="S">Simplificado</option>
+              <option value="C">Común</option>
             </select>
           </div>
           <div class="col s4">
             <label class="label-color">Contribuyente:</label>
-            <select class="browser-default select-city">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Sí</option>
-              <option value="2">No</option>
+            <select class="browser-default select-city" id="select-contr">
+              <option value="" disabled selected>Seleccione</option>
+              <option value="S">Sí</option>
+              <option value="N">No</option>
             </select>
           </div>
         </div>
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <label for="centro" class="label-color">Centro de costo:</label>
-            <input placeholder="" id="centro" type="text">
+            <input placeholder="" id="centro" type="text" #centro>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createCompany(nit.value, razon.value, direccion.value,
+    tel1.value, tel2.value, correo.value, centro.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -202,7 +196,7 @@
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -211,94 +205,92 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row">
-          <div class="col s4">
-              <label for="nitEdit" class="label-color">NIT:</label>
-              <input disabled placeholder="" id="nitEdit" type="text">
+        <div class="row" *ngIf="companyEdit">
+          <div class="row">
+            <div class="col s4">
+                <label for="nitEdit" class="label-color">NIT:</label>
+                <input disabled placeholder="" id="nitEdit" type="text" [(ngModel)]="companyEdit.nit" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="razonEdit" class="label-color">Razón social:</label>
+              <input disabled placeholder="" id="razonEdit" type="text" [(ngModel)]="companyEdit.razonsocial" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="direccionEdit" class="label-color">Dirección:</label>
+              <input disabled placeholder="" id="direccionEdit" type="text" [(ngModel)]="companyEdit.direccion" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
-          <div class="col s4">
-            <label for="razonEdit" class="label-color">Razón social:</label>
-            <input disabled placeholder="" id="razonEdit" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="tel1Edit" class="label-color">Teléfono 1:</label>
+              <input disabled placeholder="" id="tel1Edit" type="text" [(ngModel)]="companyEdit.telefono1" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label for="tel2Edit" class="label-color">Teléfono 2:</label>
+              <input disabled placeholder="" id="tel2Edit" type="text" [(ngModel)]="companyEdit.telefono2" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label class="label-color">Ciudad:</label>
+              <select disabled class="browser-default select-city" id="ciudadEdit">
+                <option value="nodisplay" disabled selected>{{ cityEdit }}</option>
+                <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
+              </select>
+            </div>
           </div>
-          <div class="col s4">
-            <label for="direccionEdit" class="label-color">Dirección:</label>
-            <input disabled placeholder="" id="direccionEdit" type="text">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
-            <label for="tel1Edit" class="label-color">Teléfono 1:</label>
-            <input disabled placeholder="" id="tel1Edit" type="text">
-          </div>
-          <div class="col s4">
-            <label for="tel2Edit" class="label-color">Teléfono 2:</label>
-            <input disabled placeholder="" id="tel2Edit" type="text">
-          </div>
-          <div class="col s4">
-            <label class="label-color">Ciudad:</label>
-            <select disabled class="browser-default select-city" id="ciudadEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
-            <label class="label-color">Representante:</label>
-            <select disabled class="browser-default select-city" id="representanteEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-          </div>
-          <div class="col s8">
-            <div class="file-field">
-              <div class="btn btn-logo">
-                <span>Logo</span>
-                <input disabled type="file" id="fileEdit">
-              </div>
-              <div class="file-path-wrapper">
-                <input disabled class="file-path validate" type="text" id="logoEdit">
+          <div class="row">
+            <div class="col s4">
+              <label class="label-color">Representante:</label>
+              <select disabled class="browser-default select-city" id="representanteEdit">
+                  <option value="nodisplay" disabled selected>{{ rep[0]['nombres'] }}</option>
+                  <option [value]="pple.id" *ngFor="let pple of people">{{ pple.nombres }}</option>
+              </select>
+            </div>
+            <div class="col s8">
+              <div class="file-field">
+                <div class="btn btn-logo">
+                  <span>Logo</span>
+                  <input disabled type="file" id="fileEdit">
+                </div>
+                <div class="file-path-wrapper">
+                  <input disabled class="file-path validate" type="text" id="logoEdit">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
-            <label for="correoEdit" class="label-color">Correo:</label>
-            <input disabled placeholder="" id="correoEdit" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="correoEdit" class="label-color">Correo:</label>
+              <input disabled placeholder="" id="correoEdit" type="text" [(ngModel)]="companyEdit.correo" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s4">
+              <label class="label-color">Régimen:</label>
+              <select disabled class="browser-default select-city" id="regimenEdit">
+                <option value="nodisplay" disabled selected>{{ companyEdit.regimen }}</option>
+                <option value="S">Simplificado</option>
+                <option value="C">Común</option>
+              </select>
+            </div>
+            <div class="col s4">
+              <label class="label-color">Contribuyente:</label>
+              <select disabled class="browser-default select-city" id="contribuyenteEdit">
+                <option value="nodisplay" disabled selected>{{ companyEdit.contribuyente }}</option>
+                <option value="S">Sí</option>
+                <option value="N">No</option>
+              </select>
+            </div>
           </div>
-          <div class="col s4">
-            <label class="label-color">Régimen:</label>
-            <select disabled class="browser-default select-city" id="regimenEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Simplificado</option>
-              <option value="2">Común</option>
-            </select>
-          </div>
-          <div class="col s4">
-            <label class="label-color">Contribuyente:</label>
-            <select disabled class="browser-default select-city" id="contribuyenteEdit">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="1">Sí</option>
-              <option value="2">No</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
-            <label for="centroEdit" class="label-color">Centro de costo:</label>
-            <input disabled placeholder="" id="centroEdit" type="text">
+          <div class="row">
+            <div class="col s4">
+              <label for="centroEdit" class="label-color">Centro de costo:</label>
+              <input disabled placeholder="" id="centroEdit" type="text" [(ngModel)]="companyEdit.centrocosto" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateCompany()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

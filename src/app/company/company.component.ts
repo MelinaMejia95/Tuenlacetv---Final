@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CompaniesService } from '../services/companies.service';
+import swal from 'sweetalert2';
 
 declare let jQuery:any;
 
@@ -10,11 +12,19 @@ declare let jQuery:any;
 export class CompanyComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  companies: any[] = ['Socia', 'Yuxi', 'Globant'];
+  companies: any[] = []; rep: any[] = [];
+  companyEdit: any; cityEdit: any; city: any; entity: any; contr: any; regi: any;
+  cities: string; people: string; createCity: string; createEntity: string; createRegi: string; createContr: string;
 
-  constructor() { }
+  constructor(private _companyservice: CompaniesService) { }
 
   ngOnInit() {
+    this._companyservice.getCompanies().subscribe(data => {
+      this.companies = data.empresas;
+      this.cities = data.ciudades;
+      this.people = data.representantes;
+      console.log(data.empresas)
+    });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -32,11 +42,134 @@ export class CompanyComponent implements OnInit {
       jQuery('#regimenEdit').prop('disabled',true);
       jQuery('#centroEdit').prop('disabled',true);
      }});
-  }
+    jQuery('#select-cities').on('change', () => {
+      this.createCity = jQuery('#select-cities').val();
+    });
+    jQuery('#select-entity').on('change', () => {
+      this.createEntity = jQuery('#select-entity').val();
+    });
+    jQuery('#select-regi').on('change', () => {
+      this.createRegi = jQuery('#select-regi').val();
+    });
+    jQuery('#select-contr').on('change', () => {
+      this.createContr = jQuery('#select-contr').val();
+    });
+    }
 
-  openModal () {
+  openModal (company) {
+    this.companyEdit = company;
+    this.rep = company.representante;
+    console.log(this.rep)
+    for (let i = 0; i < this.cities.length; i++) {
+      if ( company.ciudad == this.cities[i]['nombre']) {
+        this.cityEdit = this.cities[i]['nombre'];
+      }
+    }
+    for (let i = 0; i < this.people.length; i++) {
+      if ( company.representante == this.people[i]['nombres']) {
+        this.cityEdit = this.people[i]['nombres'];
+      }
+    }
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
+  }
+
+  selectData(company){
+    this.companyEdit = company;
+    this.rep = company.representante;
+  }
+
+  updateCompany() {
+    if(this.companyEdit){
+      this._companyservice.updateCompanies({ 'id': this.companyEdit.id, 'nit': this.companyEdit.nit, 'razonsocial': this.companyEdit.razonsocial, 'direccion': this.companyEdit.direccion,
+                                    'telefono1': this.companyEdit.telefono1, 'telefono2': this.companyEdit.telefono2, 'ciudad_id': this.city,
+                                    'entidad_id':  this.entity, 'correo': this.companyEdit.correo, 'regimen': this.regi, 'contribuyente': this.contr, 'centrocosto': this.companyEdit.centrocosto,
+                                    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.status == "updated") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo actualizar el registro',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }
+  }
+
+  createCompany (nit, razon, direccion, tel1, tel2, correo, centro) {
+    if (nit) {
+      this._companyservice.createCompanies({ 'nit': nit, 'razonsocial': razon, 'direccion': direccion, 'telefono1': tel1, 'telefono2': tel2, 
+                                            'ciudad_id': this.createCity, 'entidad_id': this.createEntity, 'correo': correo, 'regimen': this.createRegi,
+                                            'contribuyente': this.createContr, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    }
+  }
+
+  deleteCompany(){
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.companyEdit) {
+          this._companyservice.deleteCompanies(this.companyEdit.id).subscribe(
+            data => {
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } 
+            },
+            error =>{
+              swal(
+                'No se pudo eliminar el registro',
+                '',
+                'warning'
+              )
+            })
+        } 
+      }
+    })
   }
 
   closeModal () {
@@ -117,6 +250,19 @@ export class CompanyComponent implements OnInit {
     jQuery('#contribuyenteEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#regimenEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#centroEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#ciudadEdit').on('change', () => {
+      this.city = jQuery('#ciudadEdit').val();
+    });
+    jQuery('#representanteEdit').on('change', () => {
+      this.entity = jQuery('#representanteEdit').val();
+    });
+    jQuery('#regimenEdit').on('change', () => {
+      this.regi = jQuery('#regimenEdit').val();
+    });
+    jQuery('#contribuyenteEdit').on('change', () => {
+      this.contr = jQuery('#contribuyenteEdit').val();
+    });
   }
 
 }
