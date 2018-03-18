@@ -23,38 +23,47 @@ export class UsersService {
  }
 
  updateUsers(content: object){
-   console.log(content)
-  const url = this._global.url + `/usuarios/` + content['id'];
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header });
-  return this._http.put(url, content, options).map(response => response.json());
+    console.log(content)
+    const url = this._global.url + `/usuarios/` + content['id'];
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header });
+    return this._http.put(url, content, options).map(response => response.json());
  }
  
  deleteUsers(code: string){
-  const url = this._global.url + `/usuarios/` + code;
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
-  return this._http.delete(url, options).map(response => response.json());
+    const url = this._global.url + `/usuarios/` + code;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
+    return this._http.delete(url, options).map(response => response.json());
  }
 
  createUsers(content: object){
-   console.log(content)
-  const url = this._global.url + `/usuarios`;
+    console.log(content)
+    const url = this._global.url + `/usuarios`;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: content });
+    return this._http.post(url, content, options).map(response => response.json());
+ }
+
+ changePassword(content: object){
+    console.log(content)
+    const url = this._global.url + `/usuarios/cambiar_password/`+ content['id'];
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: content });
+    return this._http.post(url, content, options).map(response => response.json());
+ }
+
+ resetPassword(content: object){
+  console.log(content)
+  const url = this._global.url + `/usuarios/resetear_password/`+ content['id'];
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: content });
   return this._http.post(url, content, options).map(response => response.json());
- }
-
- changePassowrd(content: object){
-  console.log(content)
- const url = this._global.url + `/usuarios/cambiar_password/`+ content['id'];
- let header = new Headers();
- header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
- let options = new RequestOptions({ headers: header, body: content });
- return this._http.post(url, content, options).map(response => response.json());
 }
 
 }

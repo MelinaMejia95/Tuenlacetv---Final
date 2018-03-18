@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-changePassword').modal();
+    jQuery('#modal-resetPassword').modal();
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery('#nomusuarioEdit').prop('disabled',true);
       jQuery('#nomapeEdit').prop('disabled',true);
@@ -157,11 +158,44 @@ export class UsersComponent implements OnInit {
 
   changePassword(antigua, nueva) {
     if(antigua){
-      this._userservie.changePassowrd({'id': this.userEdit.id, 'antiguaP': antigua, 'nuevaP': nueva,  
+      this._userservie.changePassword({'id': this.userEdit.id, 'antiguaP': antigua, 'nuevaP': nueva,  
                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
           if ( data.message == "Contraseña actualizada!") {
+            swal({
+              title: 'Contraseña actualizada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else  if ( data.message == "Error!") {
+            swal(
+              'No se pudo actualizar la contraseña',
+              '',
+              'warning'
+            )
+          } if ( data.message == "Contraseña antigua incorrecta!") {
+            swal(
+              'Contraseña antigua incorrecta!',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }
+  }
+
+  resetPassword(nueva) {
+    if(nueva){
+      this._userservie.resetPassword({'id': this.userEdit.id,  'nuevaP': nueva,  
+                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.message == "Contraseña cambiada!") {
             swal({
               title: 'Contraseña actualizada con éxito',
               text: '',
@@ -201,6 +235,7 @@ export class UsersComponent implements OnInit {
     if (radios[0].checked){
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
       document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');
+      document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: visible');
       console.log(cantidad.length)
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = true;
@@ -209,6 +244,7 @@ export class UsersComponent implements OnInit {
     } else {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
       document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: hidden');
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = false;
         rows[i].setAttribute("style", "background-color : none");
@@ -225,6 +261,7 @@ export class UsersComponent implements OnInit {
     if (this.toogleDelete == true) {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
       document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: hidden');
       this.toogleDelete = false;
     }
     
@@ -234,6 +271,7 @@ export class UsersComponent implements OnInit {
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');
+        document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");

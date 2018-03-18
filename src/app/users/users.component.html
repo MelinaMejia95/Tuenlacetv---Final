@@ -70,6 +70,7 @@
   </a>
   <ul class="ul-button">
     <li><a class="btn-floating btn-eliminar red" (click)="deleteUser()" id="btn-footer-delete">Eliminar</a></li>
+    <li class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-resetPassword" id="btn-footer-reset">Resetear contraseña</a></li>
     <li class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-changePassword" id="btn-footer-pss">Cambiar contraseña</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
@@ -80,10 +81,10 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Crear</h4>
+          <h5>Crear</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -214,7 +215,7 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s12">
-          <h4>Cambiar contraseña</h4>
+          <h5>Cambiar contraseña</h5>
       </div>
     </div>
   </div>
@@ -241,3 +242,31 @@
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
+
+<!--Modal Reset Password -->
+<div id="modal-resetPassword" class="modal">
+    <div class="modal-title">
+      <div class="row">
+        <div class="col s12">
+            <h4>Resetear contraseña</h4>
+        </div>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="col s12">
+              <label for="resetpassword" class="label-color">Nueva contraseña:</label>
+              <input placeholder="" id="resetpassword" type="password" #resetear>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetPassword(resetear.value)">Aceptar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    </div>
+  </div>
+  
