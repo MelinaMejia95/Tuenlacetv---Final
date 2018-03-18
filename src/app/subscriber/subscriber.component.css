@@ -140,6 +140,7 @@ input[type=password]:not(.browser-default):disabled{
 .modal .modal-content {
     padding: 24px;
     padding-bottom: 0 !important;
+    top: 100px;
     /*height: 70em;*/
 }
 
@@ -171,7 +172,11 @@ input[type=password]:not(.browser-default):disabled{
 }
 
 .nombre-th {
-    width: 20%;
+    width: 30%;
+}
+
+.direccion-th{
+    width: 17%;
 }
 
 .service-title{
@@ -187,4 +192,8 @@ input[type=password]:not(.browser-default):disabled{
     background-color: black;
     height: 2px;
     margin-bottom: 1em;
+}
+
+#btn-options{
+    visibility: hidden;
 }

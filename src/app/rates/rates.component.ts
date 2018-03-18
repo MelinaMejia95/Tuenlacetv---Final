@@ -145,7 +145,7 @@ export class RatesComponent implements OnInit {
     }
   } 
 
-  //Fix
+  //Fix 
   updateRate() {
     if(this.rateEdit){
       this._rateservice.updateRates({ 'id': this.rateEdit.id, 'zona_id': this.zona, 'concepto_id': this.concepto, 'plan_id': this.plan, 'valor': this.rateEdit.valor,
