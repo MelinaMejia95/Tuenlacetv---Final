@@ -315,7 +315,6 @@
           <div class="col s3">
             <label class="label-color">Barrio:</label>
             <select class="browser-default select-city" id="barriotv">
-              <option value="nodisplay" selected>Seleccione</option>
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
             </select>
@@ -378,7 +377,7 @@
           <div class="col s3">
             <label class="label-color">Vendedor:</label>
             <select class="browser-default select-city" id="vendedortv">
-              <option value="nodisplay" selected>Seleccione</option>
+              <option value="nodisplay" selected disabled>Seleccione</option>
               <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
             </select>
           </div>
