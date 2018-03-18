@@ -19,6 +19,7 @@ import { ConceptsService } from './services/concepts.service';
 import { PlansService } from './services/plan.service';
 import { UsersService } from './services/users.service';
 import { SubscribersService } from './services/subscribers.service';
+import { BillService } from './services/bills.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -71,7 +72,7 @@ import { BillsComponent } from './bills/bills.component';
   FormsModule
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
-              BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService ],
+              BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

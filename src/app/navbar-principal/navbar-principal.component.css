@@ -44,6 +44,10 @@
     margin-left: 13px;
 }
 
+ul.side-nav.fixed {
+    overflow: hidden !important;
+}
+
 .side-nav{
     height: 100%;
     width: 0;
