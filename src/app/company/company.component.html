@@ -56,7 +56,7 @@
 </table>
     
 <!-- Pagination -->
-<div class="row right">
+<div class="row center">
   <ul class="pagination">
       <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
       <li class="active"><a href="#!">1</a></li>
@@ -90,7 +90,7 @@
           <h4>Crear</h4>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -199,7 +199,7 @@
           <h4>Empresa</h4>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" (click)="edit()">
+        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
         <a class="btn-floating btn-large btn-print">
