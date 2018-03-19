@@ -134,7 +134,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <li><a class="btn-floating btn-eliminar red" (click)="dialog.show()" id="btn-footer-delete">Eliminar</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteSubs()" id="btn-footer-delete">Eliminar</a></li>
     <!--<li><a class="btn-floating btn-señal">Adicionar Señal</a></li>-->
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
   </ul>
@@ -160,7 +160,7 @@
           <div class="col s4">
             <label class="label-color">Tipo función:</label>
             <select class="browser-default select-city" id="funcion">
-              <option value="" selected>Choose your option</option>
+              <option value="" disabled selected>Seleccione</option>
               <option value="1">Suscriptor</option>
               <option value="2">Proveedor</option>
               <option value="3">Cliente</option>
@@ -172,7 +172,7 @@
           </div>
           <div class="col s4">
               <label class="label-color">Tipo documento:</label>
-              <select class="browser-default select-city select-disabled" id="tipodoc">
+              <select class="browser-default select-city" id="tipodoc">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
               </select>
@@ -257,7 +257,7 @@
           <div class="col s3">
             <label class="label-color">Estrato:</label>
             <select class="browser-default select-city" id="estrato">
-              <option value="nodisplay" selected>Seleccione</option>
+              <option value="nodisplay" selected disabled>Seleccione</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -273,7 +273,7 @@
           <div class="col s3">
             <label class="label-color">Condición física:</label>
             <select class="browser-default select-city" id="condicion">
-              <option value="nodisplay" selected>Seleccione</option>
+              <option value="nodisplay" selected disabled>Seleccione</option>
               <option value="N">Normal</option>
               <option value="D">Discapacitado</option>
             </select>
@@ -343,7 +343,7 @@
           <div class="col s3">
             <label class="label-color">Estrato:</label>
             <select class="browser-default select-city" id="estratotv">
-              <option value="nodisplay" selected>Seleccione</option>
+              <option value="nodisplay" selected disabled>Seleccione</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -359,7 +359,7 @@
           <div class="col s3">
             <label class="label-color">Tipo vivienda:</label>
             <select class="browser-default select-city" id="tipoviviendatv">
-              <option value=""  selected>Seleccione</option>
+              <option value="" disabled selected>Seleccione</option>
               <option value="P">Propia</option>
               <option value="A">Alquilada</option>
             </select>
@@ -383,7 +383,7 @@
           </div>
           <div class="col s3">
               <label class="label-color">Técnicos:</label>
-              <select class="browser-default select-city select-disabled" id="tecnicotv">
+              <select class="browser-default select-city" id="tecnicotv">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
               </select>
@@ -393,14 +393,14 @@
             <div class="col s3">
               <label class="label-color">Tipo instalación:</label>
               <select class="browser-default select-city" id="tipoinstalaciontv">
-                <option value="nodisplay" selected>Seleccione</option>
+                <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
               </select>
             </div>
           <div class="col s3">
             <label class="label-color">Tipo tecnología:</label>
             <select class="browser-default select-city" id="tipotecnologiatv">
-              <option value="nodisplay" selected>Seleccione</option>
+              <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
             </select>
           </div>
@@ -415,7 +415,7 @@
           <div class="col s3">
             <label class="label-color">Área de instalación:</label>
             <select class="browser-default select-city" id="areainstalaciontv">
-              <option value="npdisplay" selected>Seleccione</option>
+              <option value="npdisplay" disabled selected>Seleccione</option>
               <option value="U">Urbana</option>
               <option value="R">Rural</option>
               <option value="E">Extrarural</option>
@@ -425,7 +425,7 @@
         <div class="row">
           <div class="col s3">
             <label class="label-color">Tipo facturación:</label>
-            <select class="browser-default select-city select-disabled" id="tipofacturacion">
+            <select class="browser-default select-city" id="tipofacturacion">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
             </select>
@@ -507,14 +507,14 @@
                       <div class="col s3">
                         <label class="label-color">Planes:</label>
                         <select class="browser-default select-city" id="planestv">
-                          <option value="nodisplay" selected>Seleccione</option>
+                          <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="plantv.id" *ngFor="let plantv of planstv">{{ plantv.nombre }}</option>
                         </select>
                       </div>
                       <div class="col s3">
                         <label class="label-color">Tarifas:</label>
                         <select class="browser-default select-city" id="tarifastv">
-                          <option value="nodisplay" selected>Seleccione</option>
+                          <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
                         </select>
                       </div>
@@ -668,14 +668,14 @@
               <div class="col s4">
                 <label class="label-color">Tipo función:</label>
                 <select disabled class="browser-default select-city select-disabled" id="funcionEdit">
-                  <option value="nodisplay" disabled selected>{{ typedocEdit  }}</option>
+                  <option value="nodisplay" disabled selected>{{ funEdit }}</option>
                   <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
                 </select>
               </div>
               <div class="col s4">
                   <label class="label-color">Tipo documento:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipodocEdit">
-                  <option value="nodisplay" disabled selected>{{ funEdit }}</option>
+                  <option value="nodisplay" disabled selected>{{ typedocEdit }}</option>
                   <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
                 </select>
               </div>

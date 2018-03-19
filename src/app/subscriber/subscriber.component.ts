@@ -65,10 +65,7 @@ export class SubscriberComponent implements OnInit {
         this.valorafiint = Number(data.valor_afi_int);
       }
     });
-    //document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
     document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
-    //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: hidden');
-    //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: hidden');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
     jQuery('ul.tabs').tabs();
@@ -76,16 +73,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('.dropdown-button').dropdown();
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery(".select-disabled:enabled").prop('disabled',true);
-      /*jQuery('#modal-content-see').on('beforeunload', function(){
-        jQuery('#modal-content-see').scrollTop(0);
-      });*/
-      //jQuery('#modal-content-see').scrollTo(0, 0)
-      //jQuery('.modal-content').scrollTop(0);
     }});
-    /*jQuery('#modal-see').on('show', () => {
-      jQuery('#modal-content-see').scrollTop(0);
-      console.log('yes')
-    });*/
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
       if ( this.tipoUsuario == '1') {
@@ -231,8 +219,28 @@ export class SubscriberComponent implements OnInit {
     });
   }
   
+  selectData(subs){
+    this.subsEdit = subs;
+    if (this.subsEdit.int == 1) {
+      console.log('Internet')
+      this.template_fact_int = this.subsEdit['info_internet'][0].plantilla_fact_int;
+      let k = 0;
+      for (let i=0; i < this.ratestv.length ; i++) {
+        if( this.template_fact_int[0]['plan_int'] == this.ratestv[i]['plan']){
+          this.ratesintEdit[k] =  this.ratestv[i];
+          k++;
+        }
+      }
+    } else if (this.subsEdit.int == 0) {
+      console.log('No internet')
+      this.subsEdit['info_internet'][0] = '0';
+      console.log(subs)
+      this.ratesint = '0';
+      this.template_fact_int= '0';
+    } 
+  }
+
   openModal (subscriber) {
-    console.log(subscriber)
     jQuery('#modal-see').modal('open');
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
@@ -248,20 +256,33 @@ export class SubscriberComponent implements OnInit {
     });
     this.subsEdit = subscriber;
     console.log(this.subsEdit.tv)
+    console.log(this.subsEdit.int)
 
     if (this.subsEdit.tv == 1){
       jQuery('#coltv').addClass('active');
-      jQuery('#televisionEdit').prop('checked', 'checked');
-      console.log('Television')
+      jQuery('#televisionEdit').prop('checked', true);
+      document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: visible');
+      let j = 0;
+      for (let i=0; i < this.ratestv.length ; i++) {
+        if( this.subsEdit['plantilla_fact_tv'][0].plan_tv == this.ratestv[i]['plan']){
+          this.ratestvEdit[j] =  this.ratestv[i];
+          j++;
+        }
+      }
     } else if (this.subsEdit.tv == 0){
       jQuery('#coltv').removeClass('active');
       document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: hidden');
-      jQuery('#televisionEdit').prop('checked', null);
+      jQuery('#televisionEdit').prop('checked', false);
+      this.subsEdit['plantilla_fact_tv'][0] = '0';
+      for (let i=0; i < this.ratestv.length ; i++) {
+          this.ratestvEdit[i] =  '0';
+      }
     }
 
     if (this.subsEdit.int == 1) {
       jQuery('#colint').addClass('active');
-      jQuery('#internetEdit').prop('checked', 'checked');
+      jQuery('#internetEdit').prop('checked', true);
+      document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: visible');
       console.log('Internet')
       this.template_fact_int = this.subsEdit['info_internet'][0].plantilla_fact_int;
       let k = 0;
@@ -274,21 +295,17 @@ export class SubscriberComponent implements OnInit {
     } else if (this.subsEdit.int == 0) {
       jQuery('#colint').removeClass('active');
       document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: hidden');
-      jQuery('#internetEdit').prop('checked', null);
+      jQuery('#internetEdit').prop('checked', false);
       this.subsEdit['info_internet'][0] = '0';
       this.ratesint = '0';
       this.template_fact_int= '0';
+      for (let i=0; i < this.ratestv.length ; i++) {
+          this.ratesintEdit[i] =  '0';
+      }
     } 
 
     jQuery('.collapsible').collapsible();
-    console.log(this.subsEdit['info_internet'][0].clavewifi)
-    let j = 0;
-    for (let i=0; i < this.ratestv.length ; i++) {
-      if( this.subsEdit['plantilla_fact_tv'][0].plan_tv == this.ratestv[i]['plan']){
-        this.ratestvEdit[j] =  this.ratestv[i];
-        j++;
-      }
-    }
+    
     if (subscriber.tipopersona == 'N'){
       this.typeper = 'Natural';
     } else  if (subscriber.tipopersona == 'J') {
@@ -462,8 +479,15 @@ export class SubscriberComponent implements OnInit {
               'warning'
             )
           }
+        },
+        error =>{
+          swal(
+            'No se pudo eliminar el registro',
+            '',
+            'warning'
+          )
         }
-      );
+      )
     }
   }
 
@@ -550,7 +574,7 @@ export class SubscriberComponent implements OnInit {
     }).subscribe(
         data => {
           console.log(data)
-          if ( data.status == "created") {
+          if (data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet") {
             swal({
               title: 'Registro creado con éxito',
               text: '',
@@ -569,6 +593,51 @@ export class SubscriberComponent implements OnInit {
         });
     }
   } 
+
+  deleteSubs(){
+    swal({
+      title: '¿Desea eliminar el registro?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.subsEdit) {
+          this._suscriberservice.deleteSubscribers(this.subsEdit.id).subscribe(
+            data => {
+              console.log(data)
+              if ( data.status == "deleted") {
+                swal({
+                  title: 'Registro eliminado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else if ( data.error = "El suscriptor no se puede eliminar" ) {
+                swal(
+                  'No se pudo eliminar el registro',
+                  '',
+                  'warning'
+                )
+              }
+            },
+            error =>{
+              swal(
+                'No se pudo eliminar el registro',
+                '',
+                'warning'
+              )
+            })
+        } 
+      }
+    })
+  }
 
   closeModal () {
     jQuery('#modal-see').modal('close'); 
