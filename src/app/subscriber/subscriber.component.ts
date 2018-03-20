@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SubscribersService } from '../services/subscribers.service';
 import swal from 'sweetalert2';
+import { ExcelService } from '../services/excel.service';
+//import 'jspdf-autotable';
+//import * as jsPDF from 'jspdf-autotable';
+//import * as jsPDFTable from 'jspdf-autotable';
 
 declare let jQuery:any; 
+declare let jsPDF;
 
 @Component({
   selector: 'app-suscriptor',
@@ -12,7 +17,7 @@ declare let jQuery:any;
 export class SubscriberComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string;
+  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string;
   planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any;
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string;
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string;
@@ -20,13 +25,26 @@ export class SubscriberComponent implements OnInit {
   createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string;
   sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
   subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; typeper: any; cond: any; neighEditP: any; zoneEditP: any;
-  viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = [];
-  template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any;
+  viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
+  template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any;
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = [];
+  columns: any[] = [ {title: "Contrato", dataKey: "contrato"},
+  {title: "Código", dataKey: "codigo"}, 
+  {title: "Documento", dataKey: "documento"}, 
+  {title: "Nombres", dataKey: "nombres"}, 
+  {title: "Dirección", dataKey: "direccion"}, 
+  {title: "Barrio", dataKey: "barrio"}, 
+  {title: "Zona", dataKey: "zona"}, 
+  {title: "Teléfono 1", dataKey: "tel1"}, 
+  {title: "Fecha contrato", dataKey: "fechacon"}, 
+  {title: "Precinto", dataKey: "precinto"}, 
+  {title: "Estado tv", dataKey: "estado_tv"}, 
+  {title: "Saldo tv", dataKey: "saldo_tv"}];
 
-  constructor(private _suscriberservice: SubscribersService) { }
+  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService) { 
+  }
 
   ngOnInit() {
     this._suscriberservice.getSubscribers().subscribe(data => {
@@ -238,6 +256,63 @@ export class SubscriberComponent implements OnInit {
       this.ratesint = '0';
       this.template_fact_int= '0';
     } 
+  }
+
+  downloadPDF(){
+    this._suscriberservice.downloadSubscriber().subscribe(data => {
+      this.listado = data.senales;
+      for(let i = 0; i < 5 ; i++){
+        this.rows[i] = {"contrato": this.listado[i]['contrato'], "codigo": this.listado[i]['codigo'], "documento": this.listado[i]['documento'],
+                        "nombres": this.listado[i]['nombres'], "direccion": this.listado[i]['direccion'], "barrio": this.listado[i]['barrio'],
+                        "zona": this.listado[i]['zona'], "tel1": this.listado[i]['telefono1'], "fechacon": this.listado[i]['fechacontrato'],
+                        "precinto": this.listado[i]['precinto'], "estado_tv": this.listado[i]['plantilla_fact_tv'][0]['estado_tv'],
+                        "saldo_tv": this.listado[i]['plantilla_fact_tv'][1]['saldo_tv']}
+      }
+    });
+    var rows1 = [
+      {"id": 1, "name": "Shaw", "country": "Tanzania"},
+      {"id": 2, "name": "Nelson", "country": "Kazakhstan"},
+      {"id": 3, "name": "Garcia", "country": "Madagascar"},
+    ];
+    var doc = new jsPDF('p', 'pt');
+    doc.autoTable(this.columns, this.rows);
+    doc.save('table.pdf');
+    console.log(rows1)
+    console.log(this.rows)
+  }
+
+  exportToExcel(event){
+    this._suscriberservice.downloadSubscriber().subscribe(data => {
+      this.listado = data.senales;
+      for(let i = 0; i < 5 ; i++){
+        this.rows[i] = {contrato: this.listado[i]['contrato'], codigo: this.listado[i]['codigo'], documento: this.listado[i]['documento'],
+                        nombres: this.listado[i]['nombres'], direccion: this.listado[i]['direccion'], barrio: this.listado[i]['barrio'],
+                        zona: this.listado[i]['zona'], tel1: this.listado[i]['telefono1'], fechacon: this.listado[i]['fechacontrato'],
+                        precinto: this.listado[i]['precinto'], estado_tv: this.listado[i]['plantilla_fact_tv'][0]['estado_tv'],
+                        saldo_tv: this.listado[i]['plantilla_fact_tv'][1]['saldo_tv']}
+      }
+    });
+    this.data = [   {
+      id: 1,
+      name: 'Thomas',
+      surname: 'Novicky',
+      age: 21
+  },
+  {
+      id: 2,
+      name: 'Adam',
+      surname: 'Tracz',
+      age: 12
+  },
+  {
+      id: 3,
+      name: 'Steve',
+      surname: 'Laski',
+      age: 38
+  }]
+    console.log(this.rows)
+    console.log(this.data)
+    this.excelService.exportAsExcelFile(this.rows, 'Suscriptores');
   }
 
   openModal (subscriber) {

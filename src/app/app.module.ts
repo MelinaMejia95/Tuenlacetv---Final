@@ -20,6 +20,7 @@ import { PlansService } from './services/plan.service';
 import { UsersService } from './services/users.service';
 import { SubscribersService } from './services/subscribers.service';
 import { BillService } from './services/bills.service';
+import { ExcelService } from './services/excel.service';
 import { CompaniesService } from './services/companies.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -74,7 +75,7 @@ import { BillsComponent } from './bills/bills.component';
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,
-              CompaniesService ],
+              CompaniesService, ExcelService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
