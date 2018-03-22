@@ -39,6 +39,7 @@ import { ConceptsComponent } from './concepts/concepts.component';
 import { PlansComponent } from './plans/plans.component';
 import { UsersComponent } from './users/users.component';
 import { BillsComponent } from './bills/bills.component';
+import { DepartmentsComponent } from './departments/departments.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { BillsComponent } from './bills/bills.component';
     ConceptsComponent,
     PlansComponent,
     UsersComponent,
-    BillsComponent
+    BillsComponent,
+    DepartmentsComponent
   ],
   imports: [
     BrowserModule,
