@@ -17,7 +17,7 @@
       <div class="row">
         <label class="label-color">Mostrar:</label>
         <select class="browser-default select-city" id="mostrar">
-          <option value="" selected>Choose your option</option>
+          <option value="" selected>Seleccione</option>
           <option value="1">Suscriptor</option>
           <option value="2">Proveedor</option>
           <option value="3">Cliente</option>
@@ -460,7 +460,7 @@
                       <div class="col s3">
                           <label class="label-color">Permanencia:</label>
                           <select class="browser-default select-city" id="permanencia">
-                            <option value="" selected>Choose your option</option>
+                            <option value="" disabled selected>Seleccione</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="2">3</option>
@@ -596,7 +596,7 @@
                       <div class="col s3">
                         <label class="label-color">Equipo:</label>
                         <select class="browser-default select-city" id="equipo">
-                          <option value="nodisplay" selected>Seleccione</option>
+                          <option value="nodisplay" disabled selected>Seleccione</option>
                           <option value="S">Si</option>
                           <option value="N">No</option>
                         </select>
@@ -606,14 +606,14 @@
                       <div class="col s3">
                         <label class="label-color">Planes:</label>
                         <select class="browser-default select-city" id="planesinternet">
-                          <option value="nodisplay" selected>Seleccione</option>
+                          <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="planint.id" *ngFor="let planint of plansint">{{ planint.nombre }}</option>
                         </select>
                       </div>
                       <div class="col s3">
                         <label class="label-color">Tarifas:</label>
                         <select class="browser-default select-city" id="tarifasinternet">
-                          <option value="nodiplay" selected>Choose your option</option>
+                          <option value="nodiplay" disabled selected>Seleccione</option>
                           <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                         </select>
                       </div>

@@ -9,6 +9,15 @@ html {
     margin-bottom: 0px !important;
 }
 
+.side-nav .user-view .email, .side-nav .userView .email {
+    padding-bottom: 3px;
+    font-weight: 400;
+}
+
+.side-nav .user-view  {
+    padding: 12px 5em 0 !important;
+}
+
 .dropdown-content li > span {
     color: #213031 !important;
 }
@@ -42,12 +51,12 @@ html {
 }
 
 .breadcrumb{
-    font-size: 1em;
+    font-size: 0.8em;
     
 }
 
 .bradcrum-position{
-    margin-top: 0.5em;
+    margin-top: -1em;
     margin-bottom: 0;
 }
 
@@ -153,6 +162,11 @@ table.striped > tbody > tr > td {
     padding-top: 0.5em;
     padding-bottom: 0 !important;
     text-align: center;
+    font-size: 0.9em;
+}
+
+table.highlight > tbody > tr {
+    line-height: 1em !important;
 }
 
 td, th {
@@ -177,13 +191,13 @@ td, th {
 }
 
 .process-title{
-    font-size: 2em;
+    font-size: 1.3em;
 }
 
 .separator{
     background-color: black;
     height: 2px;
-    margin-bottom: 2em;
+    margin-bottom: 0.5em;
 }
 
 #btn-modal{
