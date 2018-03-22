@@ -36,7 +36,7 @@ export class CitiesService {
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
-  return this._http.delete(url, options).map(response => response.json().catch())
+  return this._http.delete(url, options).map(response => response.json());
  }
 
  createCities(content: object){

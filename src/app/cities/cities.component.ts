@@ -124,6 +124,7 @@ export class CitiesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         if (this.citiesEdit) {
+          console.log(this.citiesEdit.id)
           this._cityservice.deleteCities(this.citiesEdit.id).subscribe(
             data => {
               console.log(data)
@@ -158,7 +159,7 @@ export class CitiesComponent implements OnInit {
     }
     for (let i = 0; i < this.departments.length; i++) {
       if ( city.departamento == this.departments[i]['nombre']) {
-        this.depEdit = this.countries[i]['nombre'];
+        this.depEdit = this.departments[i]['nombre'];
       }
     }
     jQuery('#modal-see').modal('open');

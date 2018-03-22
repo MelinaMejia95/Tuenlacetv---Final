@@ -69,6 +69,8 @@ export class RatesComponent implements OnInit {
   }
 
   openModal (rate) {
+    this.rateEdit = rate;
+    console.log(rate)
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -84,29 +86,31 @@ export class RatesComponent implements OnInit {
     for (let i = 0; i < this.zones.length; i++) {
       if ( rate.zona == this.zones[i]['nombre']) {
         this.zoneEdit = this.zones[i]['nombre'];
+        console.log(this.zoneEdit)
       }
     }
     for (let i = 0; i < this.concepts.length; i++) {
       if ( rate.concepto == this.concepts[i]['nombre']) {
         this.conceptEdit = this.concepts[i]['nombre'];
+        console.log(this.conceptEdit)
       }
     }
     for (let i = 0; i < this.plans.length; i++) {
       if ( rate.plan == this.plans[i]['nombre']) {
         this.planEdit = this.plans[i]['nombre'];
+        console.log(this.planEdit)
       }
     }
     for (let i = 0; i < this.states.length; i++) {
       if ( rate.estado == this.states[i]['nombre']) {
         this.stateEdit = this.states[i]['nombre'];
+        console.log(this.stateEdit)
       }
     }
-    this.rateEdit = rate;
     this.rateEdit['fechas']= this.rateEdit.fechas;
     //this.picker = jQuery('.datepicker').pickadate();
     //console.log(this.picker)
     //this.picker.set('select', this.rateEdit['fechas'][0].fechainicio , { format: 'yyyy-mm-dd' })
-    console.log(this.rateEdit)
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
@@ -169,6 +173,13 @@ export class RatesComponent implements OnInit {
               'warning'
             )
           }
+        },
+        error => {
+          swal(
+            'No se pudo eactualizar el registro',
+            '',
+            'warning'
+          )
         }
       );
     }

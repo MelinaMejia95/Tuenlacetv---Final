@@ -77,10 +77,10 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>Crear</h4>
+          <h5>Crear</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
@@ -90,6 +90,10 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
+          <div class="col s6">
+            <label for="codigo" class="label-color">Código</label>
+            <input placeholder=" " id="codigo" type="text" class="validate" disabled>
+          </div>
           <div class="col s6">
             <label for="nombre" class="label-color">Nombre</label>
             <input placeholder=" " id="nombre" type="text" class="validate" #nameCountry>
@@ -109,13 +113,13 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h4>País</h4>
+          <h5>País</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" (click)="edit()">
+        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>

@@ -111,7 +111,7 @@ export class CompanyComponent implements OnInit {
   createCompany (nit, razon, direccion, tel1, tel2, correo, centro) {
     if (nit) {
       this._companyservice.createCompanies({ 'nit': nit, 'razonsocial': razon, 'direccion': direccion, 'telefono1': tel1, 'telefono2': tel2, 
-                                            'ciudad_id': this.createCity, 'entidad_id': this.createEntity, 'correo': correo, 'regimen': this.createRegi,
+                                            'ciudad_id': this.createCity, 'entidad_id': this.createEntity, 'correo': correo, 'regimen': this.createRegi, 'centrocosto': centro,
                                             'contribuyente': this.createContr, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           if ( data.status == "created") {
