@@ -23,9 +23,9 @@ export class SubscriberComponent implements OnInit {
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string;
   createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string;
   createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string;
-  sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
+  seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
   subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; typeper: any; cond: any; neighEditP: any; zoneEditP: any;
-  viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
+  viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
   template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any;
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any;
@@ -279,7 +279,7 @@ export class SubscriberComponent implements OnInit {
     doc.save('table.pdf');
     console.log(rows1)
     console.log(this.rows)
-  }
+  } 
 
   exportToExcel(event){
     this._suscriberservice.downloadSubscriber().subscribe(data => {
@@ -292,27 +292,28 @@ export class SubscriberComponent implements OnInit {
                         saldo_tv: this.listado[i]['plantilla_fact_tv'][1]['saldo_tv']}
       }
     });
-    this.data = [   {
-      id: 1,
-      name: 'Thomas',
-      surname: 'Novicky',
-      age: 21
-  },
-  {
-      id: 2,
-      name: 'Adam',
-      surname: 'Tracz',
-      age: 12
-  },
-  {
-      id: 3,
-      name: 'Steve',
-      surname: 'Laski',
-      age: 38
-  }]
+      /*this.data = [   {
+        id: 1,
+        name: 'Thomas',
+        surname: 'Novicky',
+        age: 21
+    },
+    {
+        id: 2,
+        name: 'Adam',
+        surname: 'Tracz',
+        age: 12
+    },
+    {
+        id: 3,
+        name: 'Steve',
+        surname: 'Laski',
+        age: 38
+    }]*/
+    this.data = [ this.rows ];
     console.log(this.rows)
     console.log(this.data)
-    this.excelService.exportAsExcelFile(this.rows, 'Suscriptores');
+    this.excelService.exportAsExcelFile(this.data, 'Suscriptores');
   }
 
   openModal (subscriber) {
@@ -330,8 +331,13 @@ export class SubscriberComponent implements OnInit {
       format: 'yyyy-mm-dd'
     });
     this.subsEdit = subscriber;
-    console.log(this.subsEdit.tv)
-    console.log(this.subsEdit.int)
+    console.log(this.subsEdit.funcion)
+    this.tech = this.subsEdit['tecnico'][0];
+    this.seller = this.subsEdit['vendedor'][0];
+
+    if(this.subsEdit.funcion == 'Suscriptor') {
+      jQuery('#ciudadEdit').prop('disabled',true);
+    }
 
     if (this.subsEdit.tv == 1){
       jQuery('#coltv').addClass('active');
@@ -350,7 +356,7 @@ export class SubscriberComponent implements OnInit {
       jQuery('#televisionEdit').prop('checked', false);
       this.subsEdit['plantilla_fact_tv'][0] = '0';
       for (let i=0; i < this.ratestv.length ; i++) {
-          this.ratestvEdit[i] =  '0';
+          this.ratestvEdit[i] =  ' ';
       }
     }
 
@@ -440,8 +446,9 @@ export class SubscriberComponent implements OnInit {
       }
     }
     for (let i = 0; i < this.sellers.length; i++) {
-      if ( subscriber.vendedor['nombre'] == this.sellers[i]['nombre']) {
+      if ( this.seller.nombres == this.sellers[i]['nombres']) {
         this.sellerEdit = this.sellers[i]['nombres'];
+        console.log(this.sellerEdit)
       }
     }
     for (let i = 0; i < this.typeinst.length; i++) {
@@ -455,8 +462,9 @@ export class SubscriberComponent implements OnInit {
       }
     }
     for (let i = 0; i < this.techs.length; i++) {
-      if ( subscriber.tecnico == this.techs[i]['nombres']) {
+      if ( this.tech[0]['nombres'] == this.techs[i]['nombres']) {
         this.techEdit = this.techs[i]['nombres'];
+        console.log(this.techEdit)
       }
     }
   }
@@ -769,8 +777,9 @@ export class SubscriberComponent implements OnInit {
   }
 
   edit() {
+    jQuery("input:disabled").prop('disabled',false);
+    jQuery("select:disabled").prop('disabled',false);
     jQuery('#funcionEdit').on('change', () => {
-      console.log('Konichiwa')
       this.tipoUsuarioEdit = jQuery('#funcionEdit').val();
       if ( this.tipoUsuarioEdit == '1') {
         jQuery('#ciudadEdit').prop('disabled',true);
@@ -778,8 +787,9 @@ export class SubscriberComponent implements OnInit {
         jQuery('#ciudadEdit').prop('disabled',false);
       }
     });
-    jQuery("input:disabled").prop('disabled',false);
-    jQuery("select:disabled").prop('disabled',false);
+    if(this.subsEdit.funcion == 'Suscriptor') {
+      jQuery('#ciudadEdit').prop('disabled',true);
+    }
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month

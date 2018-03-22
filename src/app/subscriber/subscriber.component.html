@@ -735,10 +735,8 @@
               <div class="col s3">
                 <label class="label-color">Ciudad:</label>
                 <select disabled class="browser-default select-city select-disabled" id="ciudadEdit">
-                  <option value=""  selected>Choose your option</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
+                  <option value="nodisplay" disabled selected>{{ zoneEditP }}</option>
+                  <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
                 </select>
               </div>
               <div class="col s3">
