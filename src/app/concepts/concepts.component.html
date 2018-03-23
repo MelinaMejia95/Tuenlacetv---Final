@@ -94,15 +94,15 @@
         <div class="row" >
           <div class="row">
             <div class="col s4">
-              <label for="codigo" class="label-color">Código:</label>
-              <input placeholder="" id="codigo" type="text" class="validate" #codigo>
-            </div>
-            <div class="col s4">
               <label class="label-color">Tipo servicio:</label>
               <select class="browser-default select-city" id="select-cities">
                 <option value="" disabled selected>Choose your option</option>
                 <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
               </select>
+            </div>
+            <div class="col s4">
+              <label for="codigo" class="label-color">Código:</label>
+              <input placeholder="" id="codigo" type="text" class="validate" #codigo>
             </div>
             <div class="col s4">
               <label for="nombre" class="label-color">Nombre:</label>
@@ -156,15 +156,15 @@
         <div class="row">
           <div class="row">
             <div class="col s4">
-              <label for="codigoEdit" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigoEdit" type="text" [(ngModel)]="conceptEdit.codigo" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s4">
               <label class="label-color">Tipo servicio:</label>
               <select disabled class="browser-default select-city" id="selectEdit">
                 <option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
                 <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
               </select>
+            </div>
+            <div class="col s4">
+              <label for="codigoEdit" class="label-color">Código:</label>
+              <input disabled placeholder="" id="codigoEdit" type="text" [(ngModel)]="conceptEdit.codigo" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s4">
               <label for="nombreEdit" class="label-color">Nombre:</label>

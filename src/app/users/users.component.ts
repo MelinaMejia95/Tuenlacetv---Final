@@ -12,8 +12,8 @@ declare let jQuery:any;
 export class UsersComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  users: any[] = []; userEdit: any; stateEdit: any; user: any; impEdit: any;
-  states: string; createState: string; createImp: string;
+  users: any[] = []; userEdit: any; stateEdit: any; user: any; impEdit: any; levelEdit: any;
+  states: string; createState: string; createImp: string; createLevel: any;
 
   constructor(private _userservie: UsersService) { }
 
@@ -39,6 +39,9 @@ export class UsersComponent implements OnInit {
     });
     jQuery('#impresoraU').on('change', () => {
       this.createImp = jQuery('#impresoraU').val();
+    });
+    jQuery('#nivel').on('change', () => {
+      this.createLevel = jQuery('#nivel').val();
     });
   }
 
@@ -68,7 +71,7 @@ export class UsersComponent implements OnInit {
   updateUser() {
     if(this.userEdit){
       this._userservie.updateUsers({'id': this.userEdit.id, 'login': this.userEdit.login, 'nombre': this.userEdit.nombre, 'password': this.userEdit.password, 
-                                    'password_confirmation': this.userEdit.password,'nivel': this.userEdit.nivel, 'estado_id': this.user,  
+                                    'password_confirmation': this.userEdit.password,'nivel': this.levelEdit, 'estado_id': this.user,  
                                     'tipoImpresora': this.impEdit ,'usuariocre': "admin",'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
@@ -96,7 +99,7 @@ export class UsersComponent implements OnInit {
   createUser(login, nombres, password, nivel){
     if (nombres) {
       this._userservie.createUsers({ 'login': login, 'nombre': nombres, 'password': password, 'password_confirmation': password,
-                                     'nivel': nivel, 'usuariocre': "admin", 'estado_id': this.createState,
+                                     'nivel': this.createLevel, 'usuariocre': "admin", 'estado_id': this.createState,
                                      'tipoImpresora': this.createImp, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           if ( data.status == "created") {
@@ -299,6 +302,9 @@ export class UsersComponent implements OnInit {
     });
     jQuery('#tipoimpresoraEdit').on('change', () => {
       this.impEdit = jQuery('#tipoimpresoraEdit').val();
+    });
+    jQuery('#nivelEdit').on('change', () => {
+      this.levelEdit = jQuery('#nivelEdit').val();
     });
   }
 

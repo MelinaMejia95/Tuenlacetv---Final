@@ -99,7 +99,7 @@
             <input disabled placeholder="" id="codigoU" type="text">
           </div>
           <div class="col s4">
-            <label for="nomusuario" class="label-color">Nombre de usuario:</label>
+            <label for="nomusuario" class="label-color">Usuario:</label>
             <input placeholder="" id="nomusuario" type="text" #nomusuario>
           </div>
           <div class="col s4">
@@ -114,12 +114,20 @@
           </div>
           <div class="col s4">
             <label for="nivel" class="label-color">Nivel:</label>
-            <input placeholder="" id="nivel" type="text" #nivel>
+            <select class="browser-default select-city" id="nivel">
+              <option value="" disabled selected>Seleccione</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
           </div>
           <div class="col s4">
             <label class="label-color">Estado:</label>
             <select class="browser-default select-city" id="estadoU">
-              <option value="" disabled selected>Choose your option</option>
+              <option value="" disabled selected>Seleccione</option>
               <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
           </div>
@@ -139,7 +147,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createUser(nomusuario.value,
-    nombres.value, password.value, nivel.value)">Aceptar</button>
+    nombres.value, password.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -166,23 +174,31 @@
       <form class="col s12" *ngIf="userEdit">
         <div class="row">
           <div class="row">
-            <div class="col s4">
+            <div class="col s2">
               <label for="codigo" class="label-color">Código:</label>
               <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="userEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s4">
-              <label for="nomusuarioEdit" class="label-color">Nombre de usuario:</label>
+              <label for="nomusuarioEdit" class="label-color">Usuario:</label>
               <input disabled placeholder="" id="nomusuarioEdit" type="text" [(ngModel)]="userEdit.login" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s6">
               <label for="nomapeEdit" class="label-color">Nombres y apellidos:</label>
               <input disabled placeholder="" id="nomapeEdit" type="text" [(ngModel)]="userEdit.nombre" [ngModelOptions]="{standalone: true}">
             </div>
           </div> 
           <div class="row">
-            <div class="col s4">
+            <div class="col s2">
               <label for="nivelEdit" class="label-color">Nivel:</label>
-              <input disabled placeholder="" id="nivelEdit" type="text" [(ngModel)]="userEdit.nivel" [ngModelOptions]="{standalone: true}">
+              <select disabled class="browser-default select-city" id="nivelEdit">
+                <option  value="nodisplay" disabled selected>{{ userEdit.nivel }}</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
             </div>
             <div class="col s4">
               <label class="label-color">Estado:</label>

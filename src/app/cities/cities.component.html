@@ -156,7 +156,7 @@
               <input placeholder="" disabled id="codigoEdit" type="text" class="validate" [(ngModel)]="citiesEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s4">
-              <label>País</label>
+              <label  class="label-color">País</label>
               <select disabled class="browser-default select-city" id="selectEdit">
                 <option value="nodisplay" disabled selected >{{ countryEdit }}</option>
                 <option value="1" [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
@@ -169,7 +169,7 @@
           </div>
           <div class="row">
             <div class="col s4">
-              <label>Departamento</label>
+              <label class="label-color">Departamento</label>
               <select disabled class="browser-default select-city" id="selectDep">
                 <option value="nodisplay" disabled selected >{{ depEdit }}</option>
                 <option value="1" [value]="dep.id" *ngFor="let dep of departments">{{ dep.nombre }}</option>

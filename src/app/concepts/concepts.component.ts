@@ -77,14 +77,24 @@ export class ConceptsComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else  {
             swal(
               'No se pudo crear el registro',
               '',
               'warning'
             )
           }
-        });
+        },
+        error => {
+          if ( error.contenido == "has already been taken") {
+            swal(
+              'El código ya existe',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
     }
   } 
 

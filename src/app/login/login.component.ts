@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 declare let jQuery: any;
 
@@ -36,6 +37,14 @@ export class LoginComponent implements OnInit {
         if (data.auth_token) {
           this.route.navigate(['/subscriber']);
         } 
+      },
+      error => {
+        swal(
+          'Error con tu nombre de usuario y/o contraseña',
+          '',
+          'warning'
+        )
+        
       });
     }
   }
