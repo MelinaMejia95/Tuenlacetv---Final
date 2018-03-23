@@ -176,7 +176,7 @@ export class RatesComponent implements OnInit {
         },
         error => {
           swal(
-            'No se pudo eactualizar el registro',
+            'No se pudo actualizar el registro',
             '',
             'warning'
           )

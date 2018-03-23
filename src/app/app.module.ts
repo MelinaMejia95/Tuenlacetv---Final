@@ -22,6 +22,7 @@ import { SubscribersService } from './services/subscribers.service';
 import { BillService } from './services/bills.service';
 import { ExcelService } from './services/excel.service';
 import { CompaniesService } from './services/companies.service';
+import { DepartmentsService } from './services/departments.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -77,7 +78,7 @@ import { DepartmentsComponent } from './departments/departments.component';
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,
-              CompaniesService, ExcelService ],
+              CompaniesService, ExcelService, DepartmentsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

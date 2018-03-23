@@ -14,6 +14,7 @@ import { ConceptsComponent } from './concepts/concepts.component';
 import { PlansComponent } from './plans/plans.component';
 import { UsersComponent } from './users/users.component';
 import { BillsComponent } from './bills/bills.component';
+import { DepartmentsComponent } from './departments/departments.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'concepts', component: ConceptsComponent },
   { path: 'plans', component: PlansComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'bills', component: BillsComponent }   
+  { path: 'bills', component: BillsComponent },
+  { path: 'departments', component: DepartmentsComponent}   
 ];
 
 @NgModule({
