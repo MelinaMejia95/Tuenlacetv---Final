@@ -25,6 +25,15 @@ html {
 .dropdown-content li > a, .dropdown-content li > span {
     line-height: 7px;
     color: #213031;
+    font-size: 13px;
+}
+
+.dropdown-options{
+    min-width: 10rem;
+}
+
+.dropdown-content li {
+    min-height: 36px;
 }
 
 .color-dark-principal {
@@ -146,7 +155,16 @@ html {
 }
 
 .pagination{
-   font-size: 0.5em;
+    font-size: 2px;
+    margin-top: 1%;
+}
+
+.pagination li {
+    height: 26px;
+}
+
+.pagination li a {
+    font-size: 13px;
 }
 
 .pagination li.active {
@@ -157,12 +175,96 @@ html {
     width: 2em;
 }
 
+.fixed-action-btn.horizontal ul {
+    top: 55%;
+    right: 94%;
+}
+
+.btn, .btn-large, .btn-floating, .btn-large, .btn-flat {
+    font-size: 13px;
+}
+
+.btn-crear {
+    width: 133%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 1em;
+}
+
+.btn-señal{
+    width: 118%;
+    background-color: #5aa8cb;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.btn-eliminar{
+    width: 100%;
+    border-radius: 3px;
+    background-color: #5aa8cb;
+    text-align: center;
+    margin-left: 5%;
+    padding: 0 1em !important;
+    visibility: hidden;
+}
+
+.icon-horizontal{
+    align-content: center; 
+}
+
+.button-options{
+    width: 35px;
+    height: 35px;
+    background-color: #407FA9;
+    margin-bottom: 13px;
+}
+
+.btn-floating.btn-large {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 2.5em;
+}
+
+.btn-floating{
+    height: 36px;
+}
+
+.btn-floating.btn-large i {
+    line-height: normal;
+    display: inline-block;
+}
+
+.btn-floating i {
+    line-height: 35px;
+}
+
+.button-crud{
+    background-color: #407FA9;
+}
+
+.input-custom {
+    font-size: 0.7em !important;
+}
+
+.label-color{
+    color: black;
+}
+
+.ul-button{
+    padding-bottom: 7em
+}
+
+.li-button{
+    margin-right: 1em !important;
+}
+
 table.striped > tbody > tr > td {
     border-radius: 0;
-    padding-top: 0.5em;
+    padding-top: 0.1em;
     padding-bottom: 0 !important;
     text-align: center;
-    font-size: 0.9em;
+    font-size: 13px;
 }
 
 table.highlight > tbody > tr {
@@ -181,9 +283,67 @@ td, th {
     cursor: pointer;
 }
 
+[type="checkbox"] + label {
+    padding-left: 20px;
+}
+
+[type="checkbox"].filled-in:not(:checked) + label:after {
+    height: 14px !important;
+    width: 14px !important;
+    top: 20%
+}
+
+[type="checkbox"].filled-in:not(:checked) + label:before {
+    height: 14px !important;
+    width: 14px !important;
+    margin-top: 20% !important;
+}
+
+[type="checkbox"].filled-in:checked + label:before {
+    top: 20%;
+    left: 1px;
+    width: 5px;
+    height: 9px;
+}
+
 [type="checkbox"].filled-in:checked + label:after {
-    border: 2px solid #3f7fa9;
-    background-color: #3f7fa9;
+    top: 20%;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #468ebc;
+    background-color: #468ebc;
+}
+
+input[type=text]:not(.browser-default){
+    height: 2em;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+    margin: 0px 0 7px 0;
+}
+
+input[type=text]:not(.browser-default):disabled{
+    background-color: #f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+    margin: 2px 0 7px 0 !important;
+}
+
+input[type=password]:not(.browser-default){
+    height: 2em;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+    margin: 0px 0 7px 0;
+}
+
+input[type=password]:not(.browser-default):disabled{
+    background-color: #f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+    margin: 2px 0 7px 0 !important;
 }
 
 .process{
@@ -191,7 +351,7 @@ td, th {
 }
 
 .process-title{
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
 
 .separator{
@@ -205,6 +365,27 @@ td, th {
     height: 32px;
     margin-top: 1.5%;
     line-height: 3em;
+}
+
+.select-city {
+    height: 2.2em;
+    width: 100%;
+    font-size: 14px;
+    padding-bottom: 0em;
+    margin-top: 0px;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+}
+
+.select-wrapper {
+    border: 1px solid;
+    border-color: red;
+    background: white;
+    border-radius: 8px;
+    height: 1.7em;
 }
 
 select:disabled{
