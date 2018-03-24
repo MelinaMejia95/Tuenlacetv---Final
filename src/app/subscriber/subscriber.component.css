@@ -46,11 +46,19 @@
 }
 
 .nombre-th {
-    width: 30%;
+    width: 26%;
 }
 
 .direccion-th{
-    width: 17%;
+    width: 29%;
+}
+
+.telefono-th {
+    width: 11%
+}
+
+.saldo-th {
+    width: 8%
 }
 
 .service-title{

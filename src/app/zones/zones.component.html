@@ -97,7 +97,7 @@
             <input placeholder=" " id="codigo" type="text" disabled class="validate">
           </div>
           <div class="col s6">
-            <label>Ciudad</label>
+            <label class="label-color">Ciudad</label>
             <select class="browser-default select-city" id="select-cities">
               <option value="" disabled selected>Seleccione</option>
               <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>

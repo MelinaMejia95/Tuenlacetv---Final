@@ -322,6 +322,7 @@ input[type=text]:not(.browser-default){
     background-color: white;
     border-color: #478fbc;
     margin: 0px 0 7px 0;
+    padding-left: 3px;
 }
 
 input[type=text]:not(.browser-default):disabled{
