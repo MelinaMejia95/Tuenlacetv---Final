@@ -216,22 +216,22 @@ select:disabled{
     width: 350px !important;
 }
 
-.swal2-icon {
+/*.swal2-icon {
     width: 60px !important;
     height: 60px !important;
     margin: 15px auto 20px !important;
-}
+}*/
 
 .swal2-icon.swal2-warning {
     font-size: 56px !important;
-    line-height: 60px !important;
+    line-height: 72px !important;
 }
 
-.swal2-icon.swal2-success .swal2-success-ring {
+/*.swal2-icon.swal2-success .swal2-success-ring {
     width: 60px !important;
     height: 60px !important;
     margin: 15px auto 20px !important;
-}
+}*/
 
 .swal2-popup .swal2-title {
     font-size: 20px !important;
