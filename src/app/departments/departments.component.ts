@@ -14,8 +14,8 @@ export class DepartmentsComponent implements OnInit {
   departments: any[] = [];
   selected: number;
   toogleDelete:boolean = false;
-  countries:string;
-  depEdit:any;
+  countries:string; countryEdit: string;
+  depEdit:any; country: any; createCountry: any;
 
   constructor(private _departmentservice: DepartmentsService) { }
 
@@ -23,26 +23,18 @@ export class DepartmentsComponent implements OnInit {
     this._departmentservice.getDepartments().subscribe(data => {
       this.departments = data.departamentos;
       this.countries = data.paises;
-      console.log(this.countries[0]['nombre'])
+      console.log(this.departments)
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
-        jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
-        jQuery('#selectEdit').prop('disabled',true);
-        jQuery('#selectDep').prop('disabled',true);
-        jQuery('#coddaneEdit').prop('disabled',true);
-        jQuery('#codalternoEdit').prop('disabled',true);
+        jQuery('#selectPais').prop('disabled',true);
+        jQuery('#codpaisEdit').prop('disabled',true);
        }});
-    /*jQuery('#select-depart').on('change', () => {
-      this.createDep = jQuery('#select-depart').val();
-      console.log(this.createDep)
-    });
     jQuery('#select-country').on('change', () => {
       this.createCountry = jQuery('#select-country').val();
-      console.log(this.createCountry)
-    });*/
+    });
   }
 
   selectData(dep){
@@ -50,9 +42,10 @@ export class DepartmentsComponent implements OnInit {
     console.log(this.depEdit.id)
   }
 
-  createCity(name, coddane, codalt){
+  createDep(nameCountry, codCountry){
     if (name) {
-      this._departmentservice.createDepartments({ 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+      this._departmentservice.createDepartments({ 'nombre': nameCountry, "codigo": codCountry, "pais_id": this.createCountry, 
+                                                  'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({
@@ -74,10 +67,10 @@ export class DepartmentsComponent implements OnInit {
     }
   } 
 
-  updateCity(){
+  updateDep(dep){
     if(this.depEdit){
-      this._departmentservice.updateDepartments({ 'usuario_id': localStorage.getItem('usuario_id'),
-                                    'db': localStorage.getItem('db')}).subscribe(
+      this._departmentservice.updateDepartments({ 'nombre': this.depEdit.nombre, 'id': this.depEdit.id, 'pais_id': this.country,
+                                                  'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
           if ( data.status == "updated") {
@@ -101,7 +94,7 @@ export class DepartmentsComponent implements OnInit {
     }
   }
 
-  deleteCity() {
+  deleteDep() {
     swal({
       title: '¿Desea eliminar el registro?',
       text: "",
@@ -142,16 +135,11 @@ export class DepartmentsComponent implements OnInit {
   }
 
   openModal (dep) {
-    /*for (let i = 0; i < this.countries.length; i++) {
-      if ( city.pais == this.countries[i]['nombre']) {
+    for (let i = 0; i < this.countries.length; i++) {
+      if ( dep.pais == this.countries[i]['nombre']) {
         this.countryEdit = this.countries[i]['nombre'];
       }
     }
-    for (let i = 0; i < this.departments.length; i++) {
-      if ( city.departamento == this.departments[i]['nombre']) {
-        this.depEdit = this.departments[i]['nombre'];
-      }
-    }*/
     jQuery('#modal-see').modal('open');
     this.depEdit = dep;
     document.getElementsByClassName('table-radio');
@@ -209,24 +197,15 @@ export class DepartmentsComponent implements OnInit {
 
   edit () {
     jQuery('#nombreEdit').prop('disabled',false);
-    jQuery('#selectEdit').prop('disabled',false);
-    jQuery('#selectDep').prop('disabled',false);
-    jQuery('#coddaneEdit').prop('disabled',false);
-    jQuery('#codalternoEdit').prop('disabled',false);
-    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#coddaneEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#selectPais').prop('disabled',false);
+    jQuery('#codpaisEdit').prop('disabled',false);
     jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#codalternoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
-    jQuery('#selectDep').children('option[value="nodisplay"]').css('display','none');
-    /*jQuery('#selectEdit').on('change', () => {
-      this.country = jQuery('#selectEdit').val();
-      console.log(this.country)
+    jQuery('#selectPais').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#codpaisEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#selectPais').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#selectPais').on('change', () => {
+      this.country = jQuery('#selectPais').val();
     });
-    jQuery('#selectDep').on('change', () => {
-      this.department = jQuery('#selectDep').val();
-      console.log(this.department)
-    });*/
   }
 
 }
