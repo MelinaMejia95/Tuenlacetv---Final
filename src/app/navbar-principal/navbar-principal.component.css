@@ -240,3 +240,23 @@ input[type=text]:not(.browser-default){
     width: 55% !important;
     padding: 0 !important;
 }
+
+.text-header {
+    line-height: 2.8rem !important;
+    margin-right: 8px !important;
+}
+
+.header-option{
+    padding-left: 2% !important;
+}
+
+.body-option {
+    padding-left: 4% !important;
+}
+
+.background[_ngcontent-c1][_ngcontent-c1] .material-icons[_ngcontent-c1][_ngcontent-c1] {
+    height: auto;
+    line-height: 2rem;
+    margin-left: 0px;
+    margin-right: 0px;
+}

@@ -32,7 +32,7 @@
     </div>
     <div class="modal-footer">
         <a class="waves-effect waves-light btn blue btn-pssword" (click)="changePassword()">Cambiar contraseña</a>
-        <a class="waves-effect waves-light btn red" (click)="closeModal()">Salir</a>
+        <a class="waves-effect waves-light btn blue" (click)="closeModal()">Salir</a>
     </div>
 </div>
 
@@ -87,105 +87,169 @@
   <li class="no-padding background">
     <ul class="collapsible collapsible-accordion">
       <li>
-        <a class="collapsible-header white-text" >
+        <a class="collapsible-header white-text header-option">
           <div>
-            <i class="material-icons prefix">view_list</i>Maestros
+            <i class="material-icons prefix text-header">view_list</i>Maestros
           </div>
         </a>
         <div class="collapsible-body background">
           <ul>
             <li>
-              <a class="second-level white-text" routerLink="/countries">
+              <a class="second-level white-text body-option" routerLink="/countries">
                 <div>
                   <i class="material-icons prefix second-icon">location_city</i>País
                 </div>
               </a>
             </li>
             <li>
-                <a class="second-level white-text" routerLink="/departments">
+                <a class="second-level white-text body-option" routerLink="/departments">
                   <div>
                     <i class="material-icons prefix second-icon">location_city</i>Departamento
                   </div>
                 </a>
               </li>
             <li>
-              <a class="second-level white-text" routerLink="/cities">
+              <a class="second-level white-text body-option" routerLink="/cities">
                 <div>
                   <i class="material-icons prefix second-icon">location_city</i>Ciudades
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/company">
+              <a class="second-level white-text body-option" routerLink="/company">
                 <div>
                   <i class="material-icons prefix second-icon">domain</i>Empresa
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/banks">
+              <a class="second-level white-text body-option" routerLink="/banks">
                 <div>
                   <i class="material-icons prefix second-icon">attach_money</i>Bancos
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/zones">
+              <a class="second-level white-text body-option" routerLink="/zones">
                 <div>
                   <i class="material-icons prefix second-icon">home</i>Zonas
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/neighborhoods">
+              <a class="second-level white-text body-option" routerLink="/neighborhoods">
                 <div>
                   <i class="material-icons prefix second-icon">store</i>Barrios
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/concepts">
+              <a class="second-level white-text body-option" routerLink="/concepts">
                 <div>
                   <i class="material-icons prefix second-icon">local_atm</i>Conceptos
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/plans">
+              <a class="second-level white-text body-option" routerLink="/plans">
                 <div>
                   <i class="material-icons prefix second-icon">local_atm</i>Planes
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/rates">
+              <a class="second-level white-text body-option" routerLink="/rates">
                 <div>
                   <i class="material-icons prefix second-icon">local_atm</i>Tarifas
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/subscriber">
+              <a class="second-level white-text body-option" routerLink="/subscriber">
                 <div>
                   <i class="material-icons prefix second-icon">people_outline</i>Suscriptores
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/bills">
+              <a class="second-level white-text body-option" routerLink="/bills">
                 <div>
                   <i class="material-icons prefix second-icon">person_outline</i>Tipo Facturación
                 </div>
               </a>
             </li>
             <li>
-              <a class="second-level white-text" routerLink="/users">
+              <a class="second-level white-text body-option" routerLink="/users">
                 <div>
                   <i class="material-icons prefix second-icon">person_outline</i>Usuarios
                 </div>
               </a>
             </li>
           </ul>
+        </div>
+      </li>
+      <li>
+        <a class="collapsible-header white-text header-option">
+          <div>
+            <i class="material-icons prefix text-header">view_list</i>Facturación
+          </div>
+        </a>
+        <div class="collapsible-body background">
+          <ul>
+            <li>
+              <a class="second-level white-text body-option" routerLink="/countries">
+                <div>
+                  <i class="material-icons prefix second-icon">location_city</i>Facturaciones generadas
+                </div>
+              </a>
+            </li>
+            <li>
+                <a class="second-level white-text body-option" routerLink="/departments">
+                  <div>
+                    <i class="material-icons prefix second-icon">location_city</i>Generación facturas de venta
+                  </div>
+                </a>
+              </li>
+            <li>
+              <a class="second-level white-text body-option" routerLink="/cities">
+                <div>
+                  <i class="material-icons prefix second-icon">location_city</i>Generación factura manual
+                </div>
+              </a>
+            </li>
+          </ul>  
+        </div>
+      </li>
+      <li>
+        <a class="collapsible-header white-text header-option">
+          <div>
+            <i class="material-icons prefix text-header">view_list</i>Técnicos
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="collapsible-header white-text header-option">
+          <div>
+            <i class="material-icons prefix text-header">view_list</i>Tesorería
+          </div>
+        </a>
+        <div class="collapsible-body background">
+          <ul>
+            <li>
+              <a class="second-level white-text body-option" routerLink="/countries">
+                <div>
+                  <i class="material-icons prefix second-icon">location_city</i>Pagos
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="second-level white-text body-option" routerLink="/departments">
+                <div>
+                  <i class="material-icons prefix second-icon">location_city</i>Pagos anticipados
+                </div>
+              </a>
+            </li>
+            </ul>  
         </div>
       </li>
     </ul>
