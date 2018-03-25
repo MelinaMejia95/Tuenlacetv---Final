@@ -43,7 +43,7 @@ export class DepartmentsComponent implements OnInit {
   }
 
   createDep(nameCountry, codCountry){
-    if (name) {
+    if (nameCountry) {
       this._departmentservice.createDepartments({ 'nombre': nameCountry, "codigo": codCountry, "pais_id": this.createCountry, 
                                                   'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
@@ -69,7 +69,7 @@ export class DepartmentsComponent implements OnInit {
 
   updateDep(dep){
     if(this.depEdit){
-      this._departmentservice.updateDepartments({ 'nombre': this.depEdit.nombre, 'id': this.depEdit.id, 'pais_id': this.country,
+      this._departmentservice.updateDepartments({ 'nombre': this.depEdit.nombre, 'id': this.depEdit.id, 'pais_id': this.country, 'codigo': this.depEdit.codigo,
                                                   'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
