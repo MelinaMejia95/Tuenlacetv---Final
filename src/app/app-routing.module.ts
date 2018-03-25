@@ -17,6 +17,7 @@ import { BillsComponent } from './bills/bills.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { GbillingsComponent } from './gbillings/gbillings.component';
 import { AutomaticbillsComponent } from './automaticbills/automaticbills.component'
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -36,7 +37,8 @@ const routes: Routes = [
   { path: 'bills', component: BillsComponent },
   { path: 'departments', component: DepartmentsComponent},
   { path: 'gbillings', component: GbillingsComponent},
-  { path: 'autobills', component: AutomaticbillsComponent}   
+  { path: 'autobills', component: AutomaticbillsComponent},
+  { path: 'payments', component: PaymentComponent}   
 ];
 
 @NgModule({

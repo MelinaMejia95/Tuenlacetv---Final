@@ -44,6 +44,7 @@ import { BillsComponent } from './bills/bills.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { GbillingsComponent } from './gbillings/gbillings.component';
 import { AutomaticbillsComponent } from './automaticbills/automaticbills.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { AutomaticbillsComponent } from './automaticbills/automaticbills.compone
     BillsComponent,
     DepartmentsComponent,
     GbillingsComponent,
-    AutomaticbillsComponent
+    AutomaticbillsComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
