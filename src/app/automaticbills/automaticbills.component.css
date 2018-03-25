@@ -1,0 +1,49 @@
+.container  {
+    display: flex;
+    position: absolute;
+    top: 21%;
+    left: 12%;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .container .row {
+    margin: 0 auto;
+  }
+
+.card {
+    width: 140%;
+    margin-left: 30%;
+    margin-top: 4%;
+}
+
+.card-action {
+    background-color: #407ea3
+}
+
+.card-content {
+    background-color: #fafafa;
+}
+
+.btn-flat {
+    font-size: 13px;
+    color: white;
+    border-color: white;
+    border: 2px solid;
+    border-radius: 0 0 2px 2px;
+    /* text-align: right; */
+}
+
+.btn-flat:hover {
+    font-size: 13px;
+    color: #407ea3;
+    background-color: white;
+    border-color: white;
+    border: 2px solid;
+    border-radius: 0 0 2px 2px;
+    /* text-align: right; */
+}
+
+.card-footer {
+    text-align: right;
+}
