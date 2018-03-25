@@ -15,6 +15,7 @@ import { PlansComponent } from './plans/plans.component';
 import { UsersComponent } from './users/users.component';
 import { BillsComponent } from './bills/bills.component';
 import { DepartmentsComponent } from './departments/departments.component';
+import { GbillingsComponent } from './gbillings/gbillings.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'plans', component: PlansComponent },
   { path: 'users', component: UsersComponent },
   { path: 'bills', component: BillsComponent },
-  { path: 'departments', component: DepartmentsComponent}   
+  { path: 'departments', component: DepartmentsComponent},
+  { path: 'gbillings', component: GbillingsComponent}   
 ];
 
 @NgModule({

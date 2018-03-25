@@ -41,6 +41,7 @@ import { PlansComponent } from './plans/plans.component';
 import { UsersComponent } from './users/users.component';
 import { BillsComponent } from './bills/bills.component';
 import { DepartmentsComponent } from './departments/departments.component';
+import { GbillingsComponent } from './gbillings/gbillings.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DepartmentsComponent } from './departments/departments.component';
     PlansComponent,
     UsersComponent,
     BillsComponent,
-    DepartmentsComponent
+    DepartmentsComponent,
+    GbillingsComponent
   ],
   imports: [
     BrowserModule,
