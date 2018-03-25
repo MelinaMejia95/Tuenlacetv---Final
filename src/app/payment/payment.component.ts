@@ -26,6 +26,7 @@ export class PaymentComponent implements OnInit {
     });
     jQuery('select').material_select();*/
     jQuery('#modal-crear').modal();
+    jQuery('#modal-see').modal();
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -105,8 +106,8 @@ export class PaymentComponent implements OnInit {
     //this.picker = jQuery('.datepicker').pickadate();
     //console.log(this.picker)
     //this.picker.set('select', this.rateEdit['fechas'][0].fechainicio , { format: 'yyyy-mm-dd' })
-    jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');*/
+    jQuery('#modal-see').modal('open');
   }
 
   closeModal () {
