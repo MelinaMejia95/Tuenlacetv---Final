@@ -23,6 +23,7 @@ import { BillService } from './services/bills.service';
 import { ExcelService } from './services/excel.service';
 import { CompaniesService } from './services/companies.service';
 import { DepartmentsService } from './services/departments.service';
+import { GBillingsService } from './services/gbillings.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -80,7 +81,7 @@ import { GbillingsComponent } from './gbillings/gbillings.component';
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,
-              CompaniesService, ExcelService, DepartmentsService ],
+              CompaniesService, ExcelService, DepartmentsService, GBillingsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

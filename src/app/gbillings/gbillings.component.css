@@ -1,0 +1,22 @@
+.select-pais{
+    height: 1em;
+    line-height: 1em;
+}
+
+#modal-crear{
+    width: 40%;
+}
+
+#modal-see{
+    width: 40%
+}
+
+.modal .modal-content {
+    padding: 24px;
+    padding-bottom: 0 !important;
+    height: 12em;
+}
+
+
+
+
