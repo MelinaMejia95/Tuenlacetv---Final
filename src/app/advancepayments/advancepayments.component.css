@@ -1,0 +1,54 @@
+.select-pais{
+    height: 1em;
+    line-height: 1em;
+}
+
+.pago-th, .codigo-th {
+    width: 8%;
+}
+
+.nombres-th {
+    width: 35%;
+}
+
+.fecha-th {
+    width: 20%;
+}
+
+.valor-th {
+    width: 10%;
+}
+
+.banco-th {
+    width: 25%;
+}
+
+#modal-crear{
+    width: 80%;
+}
+
+#modal-see{
+    width: 60%
+}
+
+.modal .modal-content {
+    padding: 24px;
+    padding-top: 2px;
+    padding-bottom: 20px !important;
+    height: 100%;
+}
+
+.service-payment{
+    padding-top: 1%;
+}
+
+.separator-payment{
+    background-color: black;
+    height: 2px;
+    margin-bottom: 1em;
+}
+
+.picker__date-display { background-color: rgb(121,134,203); }
+
+
+

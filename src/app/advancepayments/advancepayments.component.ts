@@ -4,11 +4,11 @@ import swal from 'sweetalert2';
 declare let jQuery:any;
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  selector: 'app-advancepayments',
+  templateUrl: './advancepayments.component.html',
+  styleUrls: ['./advancepayments.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class AdvancepaymentsComponent implements OnInit {
 
   toogleDelete:boolean = false;
   payments: any[] = ['1', '2', '3'];
@@ -39,28 +39,6 @@ export class PaymentComponent implements OnInit {
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
       format: 'yyyy-mm-dd'
     });
-    /*jQuery('#modal-see').modal({ complete: function() { 
-      jQuery('#codigoEdit').prop('disabled',true);
-      jQuery('#zonaEdit').prop('disabled',true);
-      jQuery('#conceptoEdit').prop('disabled',true);
-      jQuery('#planEdit').prop('disabled',true);
-      jQuery('#valorEdit').prop('disabled',true);
-      jQuery('#estadoEdit').prop('disabled',true);
-      jQuery('#fechainicioEdit').prop('disabled',true);
-      jQuery('#fechafinEdit').prop('disabled',true);
-     }});
-    jQuery('#select-zone').on('change', () => {
-      this.createZone = jQuery('#select-zone').val();
-    });
-    jQuery('#select-concept').on('change', () => {
-      this.createConcept = jQuery('#select-concept').val();
-    });
-    jQuery('#select-plan').on('change', () => {
-      this.createPlan = jQuery('#select-plan').val();
-    });
-    jQuery('#select-state').on('change', () => {
-      this.createState = jQuery('#select-state').val();
-    });*/
   }
 
   openModal (rate) {
@@ -188,6 +166,5 @@ export class PaymentComponent implements OnInit {
       }
     }    
   }
-
 
 }
