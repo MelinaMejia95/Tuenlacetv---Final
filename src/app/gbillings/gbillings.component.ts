@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GBillingsService } from '../services/gbillings.service';
 import swal from 'sweetalert2';
 
 declare let jQuery:any;
@@ -11,120 +12,20 @@ declare let jQuery:any;
 export class GbillingsComponent implements OnInit {
 
   toogleDelete:boolean = false;
+  gbillings: any[] = [];
+  gbillingEdit: any;
 
-  constructor() { }
+  constructor(private _gbillingservice: GBillingsService) { }
 
   ngOnInit() {
+    this._gbillingservice.getGbillings().subscribe(data => {
+      this.gbillings = data.facturaciones;
+    });
   }
 
-  openModal (plan) {
-    /*for (let i = 0; i < this.services.length; i++) {
-      if ( plan.servicio == this.services[i]['nombre']) {
-        this.serviceEdit = this.services[i]['nombre'];
-      }
-    }
-    this.planEdit = plan;
-    jQuery('#modal-see').modal('open');
-    document.getElementsByClassName('table-radio');*/
+  selectData(bill){
+    this.gbillingEdit = bill;
   }
-
-  closeModal () {
-    jQuery('#modal-see').modal('close');
-  }
-
-  selectData(plan){
-    //this.planEdit = plan;
-  }
-
-  createPlan(nombre){
-    /*if (nombre) {
-      this._planservice.createPlans({  'servicio_id': this.createService, 'nombre': nombre, 
-                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
-        data => {
-          if ( data.status == "created") {
-            swal({
-              title: 'Registro creado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
-            swal(
-              'No se pudo crear el registro',
-              '',
-              'warning'
-            )
-          }
-        });
-    }*/
-  } 
-
-  updatePlan() {
-    /*if(this.planEdit){
-      this._planservice.updatePlans({ 'servicio_id': this.plan, 'id': this.planEdit.id, 'nombre': this.planEdit.nombre,
-                                    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
-        data => {
-          console.log(data)
-          if ( data.status == "updated") {
-            swal({
-              title: 'Registro actualizado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
-            swal(
-              'No se pudo eactualizar el registro',
-              '',
-              'warning'
-            )
-          }
-        }
-      );
-    }*/
-  }
-
-  deletePlan(){
-    /*swal({
-      title: '¿Desea eliminar el registro?',
-      text: "",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.value) {
-        if (this.planEdit) {
-          this._planservice.deletePlans(this.planEdit.id).subscribe(
-            data => {
-              if ( data.status == "deleted") {
-                swal({
-                  title: 'Registro eliminado con éxito',
-                  text: '',
-                  type: 'success',
-                  onClose: function reload() {
-                            location.reload();
-                          }
-                })
-              } else {
-                swal(
-                  'No se pudo eliminar el registro',
-                  '',
-                  'warning'
-                )
-              }
-            });
-        } 
-      }
-    })*/
-  }
-
 
   selectAll() {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
@@ -169,18 +70,6 @@ export class GbillingsComponent implements OnInit {
         rows[i].setAttribute("style", "background-color : none");
       }
     }    
-  }
-
-  edit () {
-    jQuery('#tiposervicioEdit').prop('disabled',false);
-    jQuery('#nombreEdit').prop('disabled',false);
-    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#tiposervicioEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#tiposervicioEdit').children('option[value="nodisplay"]').css('display','none');
-    jQuery('#tiposervicioEdit').on('change', () => {
-      //this.plan = jQuery('#tiposervicioEdit').val();
-    });
   }
 
 
