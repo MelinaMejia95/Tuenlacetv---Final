@@ -33,28 +33,13 @@
       <a class='btn-floating dropdown-button btn button-options' id="btn-print" (click)="exportToExcel()"><i class="material-icons">local_printshop</i></a>
       <!-- Dropdown Structure --> 
       <ul id='dropdown1' class='dropdown-content dropdown-options'>
-        <li><a href="#!">Pagos</a></li>
+        <li><a href="#">Pagos</a></li>
         <li><a href="#!">Órdenes técnicas</a></li>
-        <li><a href="#!">Generar factura</a></li>
+        <li><a class="modal-trigger" href="#modal-factura">Generar factura</a></li>
         <li><a href="#!">PQR</a></li>
       </ul>
     </div>    
   </div> 
-  <!--<div class="row filter">
-      <div class="col s12 m4">
-        <label class="label-color">Mostrar:</label>
-        <select class="browser-default select-city" id="mostrar">
-          <option value="" selected>Seleccione</option>
-          <option value="1">Suscriptor</option>
-          <option value="2">Proveedor</option>
-          <option value="3">Cliente</option>
-          <option value="4">Empleado</option>
-          <option value="5">Vendedor</option>
-          <option value="6">Esal</option>
-          <option value="7">Técnico</option>
-        </select>
-      </div>
-  </div>-->
 </div>
 
 <!-- Filter -->
@@ -1155,3 +1140,72 @@
     <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeCollapsible()">Cancelar</button>
   </div>
 </div>
+
+<!--Modal Generar factura -->
+<div id="modal-factura" class="modal">
+    <div class="modal-title">
+      <div class="row">
+        <div class="col s6">
+            <h5>Generación factura</h5>
+        </div>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="row">
+        <form class="col s12">
+          <div class="row" >
+            <div class="row">
+              <div class="col s4">
+                <label class="label-color">Tipo facturación</label>
+                <select class="browser-default select-city" id="select-tipofac">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
+                </select>
+              </div>
+              <div class="col s4">
+                <label class="label-color">Factura de</label>
+                <select class="browser-default select-city" id="select-fac">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s4">
+                <label for="elaboracion" class="label-color">Elaboración</label>
+                <input placeholder="" id="elaboracion" type="text" #elaboracion>
+              </div>
+              <div class="col s4">
+                <label for="inicioperiodo" class="label-color">Inicio periodo de facturación</label>
+                <input placeholder="" id="inicioperiodo" type="text" class="datepicker" #iniperiodo>
+              </div>
+              <div class="col s4">
+                <label for="finperiodo" class="label-color">Fin periodo de facturación</label>
+                <input placeholder="" id="finperiodo" type="text" class="datepicker" #finperiodo>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s8">
+                <label for="nombresus" class="label-color">Nombres del suscriptor</label>
+                <input placeholder="" id="nombresus" type="text" #sus>
+              </div>
+              <div class="col s4">
+                <label for="valorfac" class="label-color">Valor facturación</label>
+                <input placeholder="" id="valorfac" type="text" #valorfac>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label for="obs" class="label-color">Observaciones</label>
+                <input placeholder="" id="obs" type="text" #observac>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createConcept(codigo.value, nombre.value, poriva.value, operacion.value, abreviatura.value)">Aceptar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    </div>
+  </div>

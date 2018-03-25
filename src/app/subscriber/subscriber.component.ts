@@ -86,6 +86,7 @@ export class SubscriberComponent implements OnInit {
     document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
+    jQuery('#modal-factura').modal();
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
