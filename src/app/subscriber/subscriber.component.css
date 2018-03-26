@@ -15,8 +15,20 @@
     width: 50%;
 }
 
+
 #modal-factura .modal-content {
     height: 17em;
+}
+
+#modal-orden {
+    width: 70%;
+}
+
+#modal-orden .modal-content {
+    padding: 24px;
+    padding-bottom: 16px !important;
+    padding-top: 1px;
+    height: 100%;
 }
 
 .modal .modal-content {
@@ -82,6 +94,24 @@
     background-color: black;
     height: 2px;
     margin-bottom: 1em;
+}
+
+.service-order{
+    padding-top: 1%;
+}
+
+.separator-order{
+    background-color: black;
+    height: 2px;
+    margin-bottom: 0.3em;
+}
+
+.table-btn {
+    width: 30px;
+    height: 30px;
+    margin-top: 10%;
+    margin-bottom: 0;
+    font-size: 0;
 }
 
 #btn-options{

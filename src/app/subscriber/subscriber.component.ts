@@ -87,6 +87,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
     jQuery('#modal-factura').modal();
+    jQuery('#modal-orden').modal()
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();

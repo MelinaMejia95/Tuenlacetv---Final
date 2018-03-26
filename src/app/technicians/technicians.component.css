@@ -1,0 +1,30 @@
+.select-pais{
+    height: 1em;
+    line-height: 1em;
+}
+
+
+#modal-see{
+    width: 70%
+}
+
+.modal .modal-content {
+    padding: 24px;
+    padding-bottom: 16px !important;
+    padding-top: 16px;
+    height: 100%;
+}
+
+.service-subs{
+    padding-top: 0%;
+}
+
+.separator-subs{
+    background-color: black;
+    height: 2px;
+    margin-bottom: 0.5em;
+}
+
+
+
+

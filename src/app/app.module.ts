@@ -46,6 +46,7 @@ import { GbillingsComponent } from './gbillings/gbillings.component';
 import { AutomaticbillsComponent } from './automaticbills/automaticbills.component';
 import { PaymentComponent } from './payment/payment.component';
 import { AdvancepaymentsComponent } from './advancepayments/advancepayments.component';
+import { TechniciansComponent } from './technicians/technicians.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { AdvancepaymentsComponent } from './advancepayments/advancepayments.comp
     GbillingsComponent,
     AutomaticbillsComponent,
     PaymentComponent,
-    AdvancepaymentsComponent
+    AdvancepaymentsComponent,
+    TechniciansComponent
   ],
   imports: [
     BrowserModule,
