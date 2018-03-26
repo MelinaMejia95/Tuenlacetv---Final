@@ -97,15 +97,14 @@
     <li><a class="btn-floating btn-eliminar red" (click)="deletePlan()" id="btn-footer-delete">Anular</a></li>
     <li class="li-button"><a class="btn-floating btn-crear" routerLink="/subscriber">Crear</a></li>
   </ul>
-</div>
-      
+</div>     
       
 <!-- Modal See -->
 <div id="modal-see" class="modal">
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h5>Plan</h5>
+          <h5>Orden</h5>
       </div>
       <div class="col s6 right-align">
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
@@ -120,25 +119,170 @@
   <div class="modal-content">
     <div class="row">
       <form class="col s12">
-        <div class="row" *ngIf="planEdit">
-          <div class="row">
-            <div class="col s6">
-              <label for="codigoEdit" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigoEdit" type="text" [(ngModel)]="planEdit.id" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s6">
-              <label class="label-color">Tipo servicio:</label>
-              <select disabled class="browser-default select-city" id="tiposervicioEdit">
-                <option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
-                <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
-              </select>
+        <div class="row">
+          <div class="row service-order">
+            <div class="col s12 m6">
+              <span class="service-title">Suscriptor</span>
             </div>
           </div>
           <div class="row">
-            <div class="col s6">
-              <label for="nombreEdit" class="label-color">Nombre:</label>
-              <input disabled placeholder="" id="nombreEdit" type="text" [(ngModel)]="planEdit.nombre" [ngModelOptions]="{standalone: true}">
+            <div class="separator-order z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2">
+            <label for="codigo" class="label-color">Código</label>
+            <input disabled placeholder="" id="codigo" type="text">
+          </div>
+          <div class="col s5">
+            <label for="nombres" class="label-color">Nombres</label>
+            <input disabled placeholder="" id="nombres" type="text" #nombres>
+          </div>
+          <div class="col s5">
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input disabled placeholder="" id="telefonos" type="text" #telefonos>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <label for="direccion" class="label-color">Dirección</label>
+            <input disabled placeholder="" id="direccion" type="text" #direccion>
+          </div>
+          <div class="col s4">
+            <label class="label-color">Barrio</label>
+            <select disabled class="browser-default select-city" id="select-neigh">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s4">
+            <label class="label-color">Zona</label>
+            <select disabled class="browser-default select-city" id="select-zone">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="estado" class="label-color">Estado</label>
+            <input disabled placeholder="" id="estado" type="text" #estado>
+          </div>
+          <div class="col s3">
+            <label for="fechaafi" class="label-color">Fecha afiliación</label>
+            <input disabled placeholder="" id="fechaafi" type="text" #fechaafi>
+          </div>
+          <div class="col s6">
+            <label for="observaciones" class="label-color">Observaciones</label>
+            <input disabled placeholder="" id="observaciones" type="text" #observaciones>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="precinto" class="label-color">Precinto</label>
+            <input disabled placeholder="" id="precinto" type="text" #precinto>
+          </div>
+          <div class="col s3">
+            <label for="fechapago" class="label-color">Fecha último pago</label>
+            <input disabled placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
+          </div>
+          <div class="col s3">
+            <label for="saldo" class="label-color">Saldo</label>
+            <input disabled placeholder="" id="saldo" type="text" #saldo>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row service-order">
+            <div class="col s12 m6">
+              <span class="service-title">Orden</span>
             </div>
+          </div>
+          <div class="row">
+            <div class="separator-order z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <label class="label-color">Tipo orden a generar</label>
+            <select disabled class="browser-default select-city" id="select-order">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s2">
+            <label for="abreviatura" class="label-color">Abreviatura</label>
+            <input disabled placeholder="" id="abreviatura" type="text" #abreviatura>
+          </div>
+          <div class="col s3">
+            <label for="numorden" class="label-color">Número orden</label>
+            <input disabled placeholder="" id="numorden" type="text" #numorden>
+          </div>
+          <div class="col s3">
+            <label for="fechaorden" class="label-color">Fecha orden</label>
+            <input disabled placeholder="" id="fechaorden" type="text" class="datepicker" #fechaorden>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s5">
+            <label for="solicitado" class="label-color">Solicitado por</label>
+            <input disabled placeholder="" id="solicitado" type="text" #solicitado>
+          </div>
+          <div class="col s5">
+            <label class="label-color">Empleado/Técnico</label>
+            <select disabled class="browser-default select-city" id="select-employee">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s2">
+            <label for="valortotal" class="label-color">Valor total</label>
+            <input disabled placeholder="" id="valortotal" type="text" #valortotal>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s5">
+            <label for="observorden" class="label-color">Observaciones</label>
+            <input disabled placeholder="" id="observorden" type="text" #observorden>
+          </div>
+          <div class="col s3">
+            <label for="estadoorden" class="label-color">Estado orden</label>
+            <input disabled placeholder="" id="estadoorden" type="text" #estadoorden>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row service-order">
+            <div class="col s12 m6">
+              <span class="service-title">Detalle artículos</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="separator-order z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2">
+            <label for="grupoart" class="label-color">Grupo artículos</label>
+            <input disabled placeholder="" id="grupoart" type="text" #grupoart>
+          </div>
+          <div class="col s2">
+            <label for="articulos" class="label-color">Artículos</label>
+            <input disabled placeholder="" id="articulos" type="text" #articulos>
+          </div>
+          <div class="col s2">
+            <label for="valor" class="label-color">Valor</label>
+            <input disabled placeholder="" id="valor" type="text" #valor>
+          </div>
+          <div class="col s2">
+            <label for="cantidad" class="label-color">Cantidad</label>
+            <input disabled placeholder="" id="cantidad" type="text" #cantidad>
+          </div>
+          <div class="col s2">
+            <label for="iva" class="label-color">%IVA</label>
+            <input disabled placeholder="" id="iva" type="text" #iva>
+          </div>
+          <div class="col s2">
+            <label for="valoriva" class="label-color">Valor IVA</label>
+            <input disabled placeholder="" id="valoriva" type="text" #valoriva>
           </div>
         </div>
       </form>

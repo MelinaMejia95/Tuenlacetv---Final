@@ -11,18 +11,18 @@
 .modal .modal-content {
     padding: 24px;
     padding-bottom: 16px !important;
-    padding-top: 16px;
+    padding-top: 2px;
     height: 100%;
 }
 
-.service-subs{
-    padding-top: 0%;
+.service-order{
+    padding-top: 1%;
 }
 
-.separator-subs{
+.separator-order{
     background-color: black;
     height: 2px;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3em;
 }
 
 
