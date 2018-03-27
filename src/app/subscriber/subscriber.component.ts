@@ -24,7 +24,7 @@ export class SubscriberComponent implements OnInit {
   createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string;
   createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string;
   seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
-  subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; typeper: any; cond: any; neighEditP: any; zoneEditP: any;
+  subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any;
   viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
   template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any;
@@ -67,14 +67,14 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      for(let i=0; i < this.subscribers.length; i++ ) {
+      /*for(let i=0; i < this.subscribers.length; i++ ) {
         if (this.subscribers[i]['tv'] == 1) {
           this.template[i] = this.subscribers[i]['plantilla_fact_tv'][1].saldo_tv;
           this.estados[i] = this.subscribers[i]['plantilla_fact_tv'][0].estado_tv
         } else if (this.subscribers[i]['tv'] == 0) {
           this.template[i] = 0;
         }
-      }
+      }*/
       if (this.paramafi == 'N') {
         jQuery("#valorinternet").prop('disabled',true);
         jQuery("#valorafiliaciontv").prop('disabled',true);
@@ -319,6 +319,49 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
+    this.subsEdit = subscriber;
+    if (this.subsEdit.tv == '1'){
+      jQuery('#coltv').addClass('active');
+      jQuery('#televisionEdit').prop('checked', true);
+      //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: visible');
+      let j = 0;
+      for (let i=0; i < this.ratestv.length ; i++) {
+        if( this.subsEdit.plan_tv == this.ratestv[i]['plan']){
+          this.ratestvEdit[j] =  this.ratestv[i];
+          j++;
+        }
+      }
+    } else if (this.subsEdit.tv =='0'){
+      jQuery('#coltv').removeClass('active');
+      //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: hidden');
+      jQuery('#televisionEdit').prop('checked', false);
+      this.subsEdit['plantilla_fact_tv'][0] = '0';
+      for (let i=0; i < this.ratestv.length ; i++) {
+          this.ratestvEdit[i] =  ' ';
+      }
+    }
+    if (this.subsEdit.internet == '1') {
+      jQuery('#colint').addClass('active');
+      jQuery('#internetEdit').prop('checked', true);
+      //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: visible');
+      console.log('Internet')
+      let k = 0;
+      for (let i=0; i < this.ratestv.length ; i++) {
+        if( this.subsEdit.tarifa_int == this.ratesint[i]['valor']){
+          this.ratesintEdit[k] =  this.ratesint[i];
+          k++;
+        }
+      }
+    } else if (this.subsEdit.internet == '0') {
+      console.log('No internet')
+      jQuery('#colint').removeClass('active');
+      //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: hidden');
+      jQuery('#internetEdit').prop('checked', false);
+      this.ratesint = '0';
+      for (let i=0; i < this.ratestv.length ; i++) {
+          this.ratesintEdit[i] =  '0';
+      }
+    } 
     jQuery('#modal-see').modal('open');
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
@@ -332,105 +375,48 @@ export class SubscriberComponent implements OnInit {
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
       format: 'yyyy-mm-dd'
     });
-    this.subsEdit = subscriber;
-    console.log(this.subsEdit.funcion)
-    this.tech = this.subsEdit['tecnico'][0];
-    this.seller = this.subsEdit['vendedor'][0];
+    //this.seller = this.subsEdit['vendedor'][0];
 
     if(this.subsEdit.funcion == 'Suscriptor') {
       jQuery('#ciudadEdit').prop('disabled',true);
     }
 
-    if (this.subsEdit.tv == 1){
-      jQuery('#coltv').addClass('active');
-      jQuery('#televisionEdit').prop('checked', true);
-      document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: visible');
-      let j = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( this.subsEdit['plantilla_fact_tv'][0].plan_tv == this.ratestv[i]['plan']){
-          this.ratestvEdit[j] =  this.ratestv[i];
-          j++;
-        }
-      }
-    } else if (this.subsEdit.tv == 0){
-      jQuery('#coltv').removeClass('active');
-      document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: hidden');
-      jQuery('#televisionEdit').prop('checked', false);
-      this.subsEdit['plantilla_fact_tv'][0] = '0';
-      for (let i=0; i < this.ratestv.length ; i++) {
-          this.ratestvEdit[i] =  ' ';
-      }
-    }
-
-    if (this.subsEdit.int == 1) {
-      jQuery('#colint').addClass('active');
-      jQuery('#internetEdit').prop('checked', true);
-      document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: visible');
-      console.log('Internet')
-      this.template_fact_int = this.subsEdit['info_internet'][0].plantilla_fact_int;
-      let k = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( this.template_fact_int[0]['plan_int'] == this.ratestv[i]['plan']){
-          this.ratesintEdit[k] =  this.ratestv[i];
-          k++;
-        }
-      }
-    } else if (this.subsEdit.int == 0) {
-      jQuery('#colint').removeClass('active');
-      document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: hidden');
-      jQuery('#internetEdit').prop('checked', false);
-      this.subsEdit['info_internet'][0] = '0';
-      this.ratesint = '0';
-      this.template_fact_int= '0';
-      for (let i=0; i < this.ratestv.length ; i++) {
-          this.ratesintEdit[i] =  '0';
-      }
-    } 
-
     jQuery('.collapsible').collapsible();
-    
-    if (subscriber.tipopersona == 'N'){
-      this.typeper = 'Natural';
-    } else  if (subscriber.tipopersona == 'J') {
-      this.typeper = 'Jurídica';
-    }
-    if (subscriber.condicion_fisica == 'N') {
-      this.cond = 'Normal';
-    } else if (subscriber.condicion_fisica == 'D') {
-      this.cond = 'Discapacitado';
-    }
-    if (subscriber.vivienda == 'P') {
+    //Borrar
+    /*if (subscriber.vivienda == 'P') {
       this.viv = 'Propia';
     } else if (subscriber.condicion_fisica == 'A') {
       this.viv = 'Alquilada';
-    }
-    if (subscriber.tiposervicio == 'R') {
-      this.serv = 'Residencial';
-    } else if (subscriber.condicion_fisica == 'C') {
-      this.serv = 'Comercial';
-    }
-    if (subscriber.areainstalacion == 'R') {
-      this.area = 'Rural';
-    } else if (subscriber.areainstalacion == 'U') {
-      this.area = 'Urbana';
-    } else if (subscriber.areainstalacion == 'E'){
-      this.area = 'Extrarural';
-    }
-    if (this.subsEdit['info_internet'][0].equipo == 'S') {
+      if (subscriber.tiposervicio == 'R') {
+        this.serv = 'Residencial';
+      } else if (subscriber.condicion_fisica == 'C') {
+        this.serv = 'Comercial';
+      }
+      if (subscriber.areainstalacion == 'R') {
+        this.area = 'Rural';
+      } else if (subscriber.areainstalacion == 'U') {
+        this.area = 'Urbana';
+      } else if (subscriber.areainstalacion == 'E'){
+        this.area = 'Extrarural';
+      }
+    }*/
+    if (this.subsEdit.equipo == 'S') {
       this.equipo = 'Si';
-    } else if (this.subsEdit['info_internet'][0].equipo  == 'N') {
+    } else if (this.subsEdit.equipo  == 'N') {
       this.equipo = 'No';
     }
     for (let i = 0; i < this.functions.length; i++) {
-      if ( subscriber.funcion == this.functions[i]['nombre']) {
+      if ( subscriber.funcion == this.functions[i]['id']) {
         this.funEdit = this.functions[i]['nombre'];
       }
     }
-    for (let i = 0; i < this.typedoc.length; i++) {
+    //Borrar
+    /*for (let i = 0; i < this.typedoc.length; i++) {
       if ( subscriber.tipo_documento == this.typedoc[i]['nombre']) {
         this.typedocEdit = this.typedoc[i]['nombre'];
       }
     }
+    
     for (let i = 0; i < this.neighborhoods.length; i++) {
       if ( subscriber.barrioP == this.neighborhoods[i]['nombre']) {
         this.neighEditP = this.neighborhoods[i]['nombre'];
@@ -446,27 +432,27 @@ export class SubscriberComponent implements OnInit {
       if ( subscriber.zona == this.zones[i]['nombre']) {
         this.zoneEdit = this.zones[i]['nombre'];
       }
-    }
-    for (let i = 0; i < this.sellers.length; i++) {
-      if ( this.seller.nombres == this.sellers[i]['nombres']) {
-        this.sellerEdit = this.sellers[i]['nombres'];
-        console.log(this.sellerEdit)
+      for (let i = 0; i < this.sellers.length; i++) {
+        if ( this.seller.nombres == this.sellers[i]['nombres']) {
+          this.sellerEdit = this.sellers[i]['nombres'];
+          console.log(this.sellerEdit)
+        }
       }
-    }
-    for (let i = 0; i < this.typeinst.length; i++) {
-      if ( subscriber.tipo_instalacion == this.typeinst[i]['nombre']) {
-        this.instEdit = this.typeinst[i]['nombre'];
+      for (let i = 0; i < this.techs.length; i++) {
+        if ( this.tech[0]['nombres'] == this.techs[i]['nombres']) {
+          this.techEdit = this.techs[i]['nombres'];
+          console.log(this.techEdit)
+        }
       }
-    }
+      for (let i = 0; i < this.typeinst.length; i++) {
+        if ( subscriber.tipo_instalacion == this.typeinst[i]['nombre']) {
+          this.instEdit = this.typeinst[i]['nombre'];
+        }
+      }
+    }*/   
     for (let i = 0; i < this.planstv.length; i++) {
       if ( subscriber.plan_tv == this.planstv[i]['nombre']) {
         this.plantvEdit = this.planstv[i]['nombre'];
-      }
-    }
-    for (let i = 0; i < this.techs.length; i++) {
-      if ( this.tech[0]['nombres'] == this.techs[i]['nombres']) {
-        this.techEdit = this.techs[i]['nombres'];
-        console.log(this.techEdit)
       }
     }
   }
@@ -789,7 +775,7 @@ export class SubscriberComponent implements OnInit {
         jQuery('#ciudadEdit').prop('disabled',false);
       }
     });
-    if(this.subsEdit.funcion == 'Suscriptor') {
+    if(this.subsEdit.funcion == 1) {
       jQuery('#ciudadEdit').prop('disabled',true);
     }
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
