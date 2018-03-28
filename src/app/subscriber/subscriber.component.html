@@ -738,8 +738,8 @@
                 <label class="label-color">Tipo persona:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipopersonaEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipopersona }}</option>
-                  <option value="1">Jurídica</option>
-                  <option value="2">Natural</option>
+                  <option value="J">Jurídica</option>
+                  <option value="N">Natural</option>
                 </select>
               </div>
               <div class="col s3">
@@ -913,7 +913,7 @@
             <div class="row">
               <div class="col s3">
                 <label class="label-color">Tipo facturación:</label>
-                <select disabled class="browser-default select-city select-disabled" id="tipotecnologiatvEdit">
+                <select disabled class="browser-default select-city select-disabled" id="tipofacturaciontvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipo_facturacion }}</option>
                   <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
                 </select>
@@ -1010,15 +1010,15 @@
                         <div class="row">
                           <div class="col s4">
                             <label for="estadotvEdit" class="label-color">Estado:</label>
-                            <input disabled placeholder="" id="estadotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+                            <input disabled placeholder="" id="estadotvEdit" type="text" class="validate" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
                           </div>
                           <div class="col s4">
                             <label for="saldotvEdit" class="label-color">Saldo:</label>
-                            <input disabled placeholder="" id="saldotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+                            <input disabled placeholder="" id="saldotvEdit" type="text" class="validate" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
                           </div>
                           <div class="col s4">
                             <label for="fechapagotvEdit" class="label-color">Fecha último pago:</label>
-                            <input disabled id="fechapagotvEdit" type="text" class="datepicker select-disabled">
+                            <input disabled id="fechapagotvEdit" type="text" class="datepicker">
                           </div>
                         </div>
                       </form>
@@ -1122,7 +1122,7 @@
                         <div class="row">
                           <div class="col s3">
                             <label for="fechapagointEdit" class="label-color">Fecha último pago:</label>
-                            <input disabled id="fechapagointEdit" type="text" class="datepicker select-disabled">
+                            <input disabled id="fechapagointEdit" type="text" class="datepicker">
                           </div>
                         </div>
                       </form>

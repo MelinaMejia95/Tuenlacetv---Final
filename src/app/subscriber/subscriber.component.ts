@@ -24,7 +24,7 @@ export class SubscriberComponent implements OnInit {
   createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string;
   createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string;
   seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
-  subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any;
+  subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any; tipofacturaciontvEdit: any;
   viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
   template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any;
@@ -485,6 +485,7 @@ export class SubscriberComponent implements OnInit {
                 "tecnologia_id": this.tipotecnologiatvEdit,
                 "tiposervicio": this.tiposerviciotvEdit,
                 "areainstalacion": this.areainstalaciontvEdit,
+                "tipo_facturacion_id": this.tipofacturaciontvEdit,
                 "usuario_id": localStorage.getItem('usuario_id')
             },
         "persona": 
@@ -509,17 +510,17 @@ export class SubscriberComponent implements OnInit {
             },
         "info_internet": 
             {
-                "direccionip": this.subsEdit['info_internet'][0].direccionip,
-                "velocidad": this.subsEdit['info_internet'][0].velocidad,
-                "mac1": this.subsEdit['info_internet'][0].mac1,
-                "mac2": this.subsEdit['info_internet'][0].mac2,
-                "serialm": this.subsEdit['info_internet'][0].serialm,
-                "marcam": this.subsEdit['info_internet'][0].marcam,
-                "mascarasub": this.subsEdit['info_internet'][0].mascarasub,
-                "dns": this.subsEdit['info_internet'][0].dns,
-                "gateway": this.subsEdit['info_internet'][0].gateway,
-                "nodo": this.subsEdit['info_internet'][0].nodo,
-                "clavewifi": this.subsEdit['info_internet'][0].clavewifi,
+                "direccionip": this.subsEdit.direccionip,
+                "velocidad": this.subsEdit.velocidad,
+                "mac1": this.subsEdit.mac1,
+                "mac2": this.subsEdit.mac2,
+                "serialm": this.subsEdit.serialm,
+                "marcam": this.subsEdit.marcam,
+                "mascarasub": this.subsEdit.mascarasub,
+                "dns": this.subsEdit.dns,
+                "gateway": this.subsEdit.gateway,
+                "nodo": this.subsEdit.nodo,
+                "clavewifi": this.subsEdit.clavewifi,
                 "equipo": this.equipoEdit,
                 "usuario_id":  localStorage.getItem('usuario_id')
             },
@@ -877,6 +878,9 @@ export class SubscriberComponent implements OnInit {
     });
     jQuery('#tipodocEdit').on('change', () => {
       this.tipodocEdit = jQuery('#tipodocEdit').val();
+    });
+    jQuery('#tipofacturaciontvEdit').on('change', () => {
+      this.tipofacturaciontvEdit = jQuery('#tipofacturaciontvEdit').val();
     });
   }
 
