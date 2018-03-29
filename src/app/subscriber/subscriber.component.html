@@ -93,7 +93,7 @@
       <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.id }}</td>
       <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.documento }}</td>
       <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.nombres }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccion }}</td>
+      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccionP }}</td>
       <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.telefono1P }}</td>
       <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.saldo_tv }}</td>
       <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.estado_tv }}</td>
@@ -918,11 +918,15 @@
                   <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
                 </select>
               </div>
+              <div class="col s3">
+                <label for="fechapagoEdit" class="label-color">Fecha último pago:</label>
+                <input disabled id="fechapagoEdit" type="text" class="datepicker not-disabled" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+              </div>
               <div class="col s3 check-type">
-                <input disabled type="checkbox" class="filled-in select-disabled" id="televisionEdit" name="group3" checked=""/>
-                <label for="television" class="check-label">Televisión</label>
-                <input disabled type="checkbox" class="filled-in select-disabled" id="internetEdit" name="group3" checked=""/>
-                <label for="internet" class="check-label">Internet</label>
+                <input disabled type="checkbox" class="filled-in" id="televisionEdit" name="group4" />
+                <label for="televisionEdit" class="check-label">Televisión</label>
+                <input disabled  type="checkbox" class="filled-in" id="internetEdit" name="group4"/>
+                <label for="internetEdit" class="check-label">Internet</label>
               </div>
             </div>
             <div class="row">
@@ -1010,15 +1014,11 @@
                         <div class="row">
                           <div class="col s4">
                             <label for="estadotvEdit" class="label-color">Estado:</label>
-                            <input disabled placeholder="" id="estadotvEdit" type="text" class="validate" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+                            <input disabled placeholder="" id="estadotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
                           </div>
                           <div class="col s4">
                             <label for="saldotvEdit" class="label-color">Saldo:</label>
-                            <input disabled placeholder="" id="saldotvEdit" type="text" class="validate" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
-                          </div>
-                          <div class="col s4">
-                            <label for="fechapagotvEdit" class="label-color">Fecha último pago:</label>
-                            <input disabled id="fechapagotvEdit" type="text" class="datepicker">
+                            <input disabled placeholder="" id="saldotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
                           </div>
                         </div>
                       </form>
@@ -1112,17 +1112,11 @@
                           </div>         
                           <div class="col s3">
                             <label for="estadointEdit" class="label-color">Estado:</label>
-                            <input disabled placeholder="" id="estadointEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+                            <input disabled placeholder="" id="estadointEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
                           </div>
                           <div class="col s3">
                             <label for="saldointEdit" class="label-color">Saldo:</label>
-                            <input disabled placeholder="" id="estadointEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col s3">
-                            <label for="fechapagointEdit" class="label-color">Fecha último pago:</label>
-                            <input disabled id="fechapagointEdit" type="text" class="datepicker">
+                            <input disabled placeholder="" id="estadointEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
                           </div>
                         </div>
                       </form>
@@ -1137,7 +1131,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateSubs()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeCollapsible()">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
 

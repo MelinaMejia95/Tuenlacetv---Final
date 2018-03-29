@@ -156,7 +156,7 @@ html {
 
 .pagination{
     font-size: 2px;
-    margin-top: 1%;
+    margin-top: 0.5%;
 }
 
 .pagination li {
@@ -264,7 +264,7 @@ table.striped > tbody > tr > td {
     padding-top: 0.1em;
     padding-bottom: 0 !important;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 table.highlight > tbody > tr {

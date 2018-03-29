@@ -22,7 +22,7 @@ export class SubscriberComponent implements OnInit {
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string;
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string;
   createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string;
-  createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string;
+  createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string; tvEdit: any; intEdit: any;
   seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
   subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any; tipofacturaciontvEdit: any;
   viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
@@ -67,6 +67,7 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
+      console.log(this.ratesint)
       /*for(let i=0; i < this.subscribers.length; i++ ) {
         if (this.subscribers[i]['tv'] == 1) {
           this.template[i] = this.subscribers[i]['plantilla_fact_tv'][1].saldo_tv;
@@ -123,6 +124,11 @@ export class SubscriberComponent implements OnInit {
         //jQuery('#collapsible-television').collapsible('visibility', 'hidden');
         document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
       }
+      if (jQuery('#television').prop('checked') == true){
+        this.tv = 1;
+      } else {
+        this.tv = 0;
+      }
     }); 
     jQuery('#internet').on('change', () =>{
       var changeTv = <HTMLInputElement><any>document.getElementById('internet');
@@ -132,6 +138,12 @@ export class SubscriberComponent implements OnInit {
       } else {
         document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
         //jQuery('#collapsible-internet').collapsible('close', 0);
+      }
+      if (jQuery('#internet').prop('checked') == true){
+        this.int = 1;
+        console.log(this.int)
+      } else {
+        this.int = 0;
       }
     });
     jQuery('#funcion').on('change', () => {
@@ -200,21 +212,20 @@ export class SubscriberComponent implements OnInit {
     jQuery('#tarifasinternet').on('change', () => {
       this.createRateint = jQuery('#tarifasinternet').val();
     });
-    jQuery('#television').on('change', () => {
-      console.log(jQuery('#television').prop('checked'))
-      if (jQuery('#television').prop('checked') == true){
-        this.tv = 1;
-        console.log(this.tv)
+    jQuery('#televisionEdit').on('change', () => {
+      if (jQuery('#televisionEdit').prop('checked') == true){
+        this.tvEdit = 1;
       } else {
-        this.tv = 0;
+        this.tvEdit = 0;
       }
     });
-    jQuery('#internet').on('change', () => {
-      if (jQuery('#internet').prop('checked') == true){
-        console.log('int=1')
-        this.int = 1;
+    jQuery('#internetEdit').on('change', () => {
+      if (jQuery('#internetEdit').prop('checked') == true){
+        this.intEdit = 1;
+        console.log("checked")
       } else {
-        this.int = 0;
+        this.intEdit = 0;
+        console.log('Not checked')
       }
     });
     jQuery('#planestv').on('change', () => {
@@ -225,7 +236,6 @@ export class SubscriberComponent implements OnInit {
           j++;
         }
       }
-      console.log(this.ratestvEdit);
     });
     jQuery('#planesinternet').on('change', () => {
       let j = 0;
@@ -235,13 +245,31 @@ export class SubscriberComponent implements OnInit {
           j++;
         }
       }
-      console.log(this.ratesintEdit);
+    });
+    jQuery('#planestvEdit').on('change', () => {
+      let j = 0;
+      for (let i=0; i < this.ratestv.length ; i++) {
+        if( jQuery('#planestvEdit').val() == this.ratestv[i]['plan_id']){
+          this.ratestvEdit[j] =  this.ratestv[i];
+          j++;
+        }
+      }
+    });
+    jQuery('#planesintEdit').on('change', () => {
+      let j = 0;
+      for (let i=0; i < this.ratesint.length ; i++) {
+        if( jQuery('#planesintEdit').val() == this.ratesint[i]['plan_id']){
+          this.ratesintEdit[j] =  this.ratesint[i];
+          j++;
+        }
+      }
     });
   }
   
+  //revisar
   selectData(subs){
     this.subsEdit = subs;
-    if (this.subsEdit.int == 1) {
+    /*if (this.subsEdit.int == 1) {
       console.log('Internet')
       this.template_fact_int = this.subsEdit['info_internet'][0].plantilla_fact_int;
       let k = 0;
@@ -257,7 +285,7 @@ export class SubscriberComponent implements OnInit {
       console.log(subs)
       this.ratesint = '0';
       this.template_fact_int= '0';
-    } 
+    } */
   }
 
   downloadPDF(){
@@ -294,24 +322,6 @@ export class SubscriberComponent implements OnInit {
                         saldo_tv: this.listado[i]['plantilla_fact_tv'][1]['saldo_tv']}
       }
     });
-      /*this.data = [   {
-        id: 1,
-        name: 'Thomas',
-        surname: 'Novicky',
-        age: 21
-    },
-    {
-        id: 2,
-        name: 'Adam',
-        surname: 'Tracz',
-        age: 12
-    },
-    {
-        id: 3,
-        name: 'Steve',
-        surname: 'Laski',
-        age: 38
-    }]*/
     this.data = [ this.rows ];
     console.log(this.rows)
     console.log(this.data)
@@ -320,22 +330,31 @@ export class SubscriberComponent implements OnInit {
 
   openModal (subscriber) {
     this.subsEdit = subscriber;
+    console.log(subscriber)
+    let j = 0;
+    for (let i=0; i < this.ratestv.length ; i++) {
+      if( this.subsEdit.plan_tv == this.ratestv[i]['plan_id']){
+        this.ratestvEdit[j] =  this.ratestv[i];
+        j++;
+      }
+    }
+    let k = 0;
+    for (let i=0; i < this.ratesint.length ; i++) {
+      if( this.subsEdit.tarifa_int == this.ratesint[i]['valor']){
+        this.ratesintEdit[k] =  this.ratesint[i];
+        k++;
+      }
+    }
     if (this.subsEdit.tv == '1'){
       jQuery('#coltv').addClass('active');
       jQuery('#televisionEdit').prop('checked', true);
+      this.tvEdit = 1;
       //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: visible');
-      let j = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( this.subsEdit.plan_tv == this.ratestv[i]['plan']){
-          this.ratestvEdit[j] =  this.ratestv[i];
-          j++;
-        }
-      }
     } else if (this.subsEdit.tv =='0'){
       jQuery('#coltv').removeClass('active');
       //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: hidden');
       jQuery('#televisionEdit').prop('checked', false);
-      this.subsEdit['plantilla_fact_tv'][0] = '0';
+      this.tvEdit = 0;
       for (let i=0; i < this.ratestv.length ; i++) {
           this.ratestvEdit[i] =  ' ';
       }
@@ -344,23 +363,17 @@ export class SubscriberComponent implements OnInit {
       jQuery('#colint').addClass('active');
       jQuery('#internetEdit').prop('checked', true);
       //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: visible');
-      console.log('Internet')
-      let k = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( this.subsEdit.tarifa_int == this.ratesint[i]['valor']){
-          this.ratesintEdit[k] =  this.ratesint[i];
-          k++;
-        }
-      }
+      this.intEdit = 1;
     } else if (this.subsEdit.internet == '0') {
-      console.log('No internet')
+      console.log('No internet from rails')
       jQuery('#colint').removeClass('active');
       //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: hidden');
+      this.intEdit = 0;
       jQuery('#internetEdit').prop('checked', false);
-      this.ratesint = '0';
-      for (let i=0; i < this.ratestv.length ; i++) {
+      //this.ratesint = '0';
+      /*for (let i=0; i < this.ratesint.length ; i++) {
           this.ratesintEdit[i] =  '0';
-      }
+      }*/
     } 
     jQuery('#modal-see').modal('open');
     jQuery('.datepicker').pickadate({
@@ -375,31 +388,13 @@ export class SubscriberComponent implements OnInit {
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
       format: 'yyyy-mm-dd'
     });
-    //this.seller = this.subsEdit['vendedor'][0];
 
     if(this.subsEdit.funcion == 'Suscriptor') {
       jQuery('#ciudadEdit').prop('disabled',true);
     }
 
     jQuery('.collapsible').collapsible();
-    //Borrar
-    /*if (subscriber.vivienda == 'P') {
-      this.viv = 'Propia';
-    } else if (subscriber.condicion_fisica == 'A') {
-      this.viv = 'Alquilada';
-      if (subscriber.tiposervicio == 'R') {
-        this.serv = 'Residencial';
-      } else if (subscriber.condicion_fisica == 'C') {
-        this.serv = 'Comercial';
-      }
-      if (subscriber.areainstalacion == 'R') {
-        this.area = 'Rural';
-      } else if (subscriber.areainstalacion == 'U') {
-        this.area = 'Urbana';
-      } else if (subscriber.areainstalacion == 'E'){
-        this.area = 'Extrarural';
-      }
-    }*/
+
     if (this.subsEdit.equipo == 'S') {
       this.equipo = 'Si';
     } else if (this.subsEdit.equipo  == 'N') {
@@ -408,51 +403,6 @@ export class SubscriberComponent implements OnInit {
     for (let i = 0; i < this.functions.length; i++) {
       if ( subscriber.funcion == this.functions[i]['id']) {
         this.funEdit = this.functions[i]['nombre'];
-      }
-    }
-    //Borrar
-    /*for (let i = 0; i < this.typedoc.length; i++) {
-      if ( subscriber.tipo_documento == this.typedoc[i]['nombre']) {
-        this.typedocEdit = this.typedoc[i]['nombre'];
-      }
-    }
-    
-    for (let i = 0; i < this.neighborhoods.length; i++) {
-      if ( subscriber.barrioP == this.neighborhoods[i]['nombre']) {
-        this.neighEditP = this.neighborhoods[i]['nombre'];
-      }
-      if ( subscriber.barrio == this.neighborhoods[i]['nombre']) {
-        this.neighEditP = this.neighborhoods[i]['nombre'];
-      }
-    }
-    for (let i = 0; i < this.zones.length; i++) {
-      if ( subscriber.zonaP == this.zones[i]['nombre']) {
-        this.zoneEditP = this.zones[i]['nombre'];
-      }
-      if ( subscriber.zona == this.zones[i]['nombre']) {
-        this.zoneEdit = this.zones[i]['nombre'];
-      }
-      for (let i = 0; i < this.sellers.length; i++) {
-        if ( this.seller.nombres == this.sellers[i]['nombres']) {
-          this.sellerEdit = this.sellers[i]['nombres'];
-          console.log(this.sellerEdit)
-        }
-      }
-      for (let i = 0; i < this.techs.length; i++) {
-        if ( this.tech[0]['nombres'] == this.techs[i]['nombres']) {
-          this.techEdit = this.techs[i]['nombres'];
-          console.log(this.techEdit)
-        }
-      }
-      for (let i = 0; i < this.typeinst.length; i++) {
-        if ( subscriber.tipo_instalacion == this.typeinst[i]['nombre']) {
-          this.instEdit = this.typeinst[i]['nombre'];
-        }
-      }
-    }*/   
-    for (let i = 0; i < this.planstv.length; i++) {
-      if ( subscriber.plan_tv == this.planstv[i]['nombre']) {
-        this.plantvEdit = this.planstv[i]['nombre'];
       }
     }
   }
@@ -478,7 +428,7 @@ export class SubscriberComponent implements OnInit {
                 "fechacontrato": this.subsEdit.fechacontrato,
                 "permanencia": this.permanenciaEdit,
                 "televisores": this.subsEdit.televisores,
-                "decos": this.subsEdit.decos,
+                "decos": Number(this.subsEdit.decos),
                 "precinto": this.subsEdit.precinto,
                 "vendedor_id": this.vendedortvEdit,
                 "tipo_instalacion_id": this.tipoinstalaciontvEdit,
@@ -526,8 +476,8 @@ export class SubscriberComponent implements OnInit {
             },
         "funcion_id": this.funcionEdit,
         "tarifa_id_tv": this.tarifastvEdit,
-        "internet": this.subsEdit.int,
-        "tv": this.subsEdit.tv,
+        "internet": Number(this.intEdit),
+        "tv": Number(this.tvEdit),
         "tarifa_id_int": this.tarifasintEdit,
         "tecnico_id": this.tecnicoEdit,
         "db": localStorage.getItem('db'),
@@ -589,33 +539,33 @@ export class SubscriberComponent implements OnInit {
              "condicionfisica": this.createCond,
              "usuario_id": localStorage.getItem('usuario_id')
          },
-         "senal":{
-             "contrato": contratos,
-             "direccion": direccions,
-             "urbanizacion": urbanizacions,
-             "torre": torres,
-             "apto": apartamentos,
-             "barrio_id": this.createNeightv,
-             "zona_id": this.createZonetv,
-             "telefono1": tel1s,
-             "telefono2": tel2s,
-             "contacto": contactos,
-             "estrato": this.createStrattv,
-             "vivienda": this.createTypevivtv,
-             "observacion": observacions,
-             "fechacontrato": fechacons,
-             "permanencia": this.createPerm,
-             "televisores": televisores,
-             "decos": decos,
-             "precinto": precinto,
-             "vendedor_id": this.createSeller,
-             "tipo_instalacion_id": this.createTypeinst,
-             "tecnologia_id": this.createTypetech,
-             "tiposervicio": this.createTypeserv,
-             "areainstalacion": this.createAreainst,
-             "tipo_facturacion_id": this.createTypefac,
-             "usuario_id": localStorage.getItem('usuario_id')
-         },
+        "senal":{
+            "contrato": contratos,
+            "direccion": direccions,
+            "urbanizacion": urbanizacions,
+            "torre": torres,
+            "apto": apartamentos,
+            "barrio_id": this.createNeightv,
+            "zona_id": this.createZonetv,
+            "telefono1": tel1s,
+            "telefono2": tel2s,
+            "contacto": contactos,
+            "estrato": this.createStrattv,
+            "vivienda": this.createTypevivtv,
+            "observacion": observacions,
+            "fechacontrato": fechacons,
+            "permanencia": this.createPerm,
+            "televisores": televisores,
+            "decos": decos,
+            "precinto": precinto,
+            "vendedor_id": this.createSeller,
+            "tipo_instalacion_id": this.createTypeinst,
+            "tecnologia_id": this.createTypetech,
+            "tiposervicio": this.createTypeserv,
+            "areainstalacion": this.createAreainst,
+            "tipo_facturacion_id": this.createTypefac,
+            "usuario_id": localStorage.getItem('usuario_id')
+        },
         "info_internet": 
             {
                 "direccionip": dirip,
@@ -633,11 +583,11 @@ export class SubscriberComponent implements OnInit {
                 "usuario_id": localStorage.getItem('usuario_id')
             },
         "funcion_id": this.createFunc,
-        "tv": this.tv,
+        "tv": Number(this.tv),
         "valorafi_tv": this.valorafitv,
         "valor_dcto_tv": Number(descuento),
         "tarifa_id_tv": this.createRatetv,
-        "internet": this.int,
+        "internet": Number(this.int),
         "valorafi_int": this.valorafiint,
         "valor_dcto_int": Number(descuentoint),
         "tarifa_id_int": this.createRateint,
@@ -767,6 +717,7 @@ export class SubscriberComponent implements OnInit {
 
   edit() {
     jQuery("input:disabled").prop('disabled',false);
+    jQuery('.not-disabled').prop('disabled', true);
     jQuery("select:disabled").prop('disabled',false);
     jQuery('#funcionEdit').on('change', () => {
       this.tipoUsuarioEdit = jQuery('#funcionEdit').val();
@@ -793,26 +744,6 @@ export class SubscriberComponent implements OnInit {
       format: 'yyyy-mm-dd'
     });
     jQuery('.collapsible').collapsible();
-    jQuery('#planestvEdit').on('change', () => {
-      let j = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( jQuery('#planestvEdit').val() == this.ratestv[i]['plan_id']){
-          this.ratestvEdit[j] =  this.ratestv[i];
-          j++;
-        }
-      }
-      console.log(this.ratestvEdit);
-    });
-    jQuery('#planesintEdit').on('change', () => {
-      let j = 0;
-      for (let i=0; i < this.ratesint.length ; i++) {
-        if( jQuery('#planesintEdit').val() == this.ratesint[i]['plan_id']){
-          this.ratesintEdit[j] =  this.ratesintEdit[i];
-          j++;
-        }
-      }
-      console.log(this.ratesintEdit);
-    });
     jQuery('#barriotvEdit').on('change', () => {
       this.barriotvEdit = jQuery('#barriotvEdit').val();
     });
@@ -883,5 +814,6 @@ export class SubscriberComponent implements OnInit {
       this.tipofacturaciontvEdit = jQuery('#tipofacturaciontvEdit').val();
     });
   }
+
 
 }
