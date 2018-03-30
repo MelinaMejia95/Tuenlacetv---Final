@@ -17,7 +17,7 @@
 }
 
 #modal-crear .modal-content{
-    height: 14em;
+    height: 100%;
 }
 
 #modal-see{
@@ -25,7 +25,7 @@
 }
 
 #modal-see .modal-content{
-    height: 12em;
+    height: 100%;
 }
 
 #modal-changePassword{
@@ -33,7 +33,7 @@
 }
 
 #modal-changePassword .modal-content{
-    height: 15em;
+    height: 100%;
 }
 
 #modal-resetPassword {
@@ -41,10 +41,11 @@
 }
 
 #modal-resetPassword .modal-content{
-    height: 9em;
+    height: 100%;
 }
 
 .modal .modal-content {
-    padding: 24px;
-    padding-bottom: 0 !important;
+    padding: 20px 24px;
+    padding-bottom: 14px !important;
+    height: 100%;
 }

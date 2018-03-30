@@ -1,66 +1,70 @@
 <!-- Breadcrum-->
 <div class="row bradcrum-position">
   <div class="row process">
-    <div class="col s12 m6">
+    <div class="col s12 m6 l6">
       <span class="process-title">Usuarios</span>
     </div>
   </div>
   <div class="separator z-depth-3"></div>
-  <div class="col s12 m6">
+  <div class="col s10 m6 l6">
     <a class="breadcrumb black-text">Maestros</a>
     <a class="breadcrumb black-text">Usuarios</a>
   </div>
-  <div class="col s12 m6 right-align">
+  <div class="col s2 m6 l6 right-align">
     <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
   </div>
 </div>
     
-  <!-- Table -->
-<table class="striped highlight">
-  <thead>
-    <tr class="tr-background">
-      <th class="first-column">
-        <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
-        <label for="all"> </label>
-      </th>
-      <th>
-        <label for="codigo" class="label-color">Código:</label>
-        <input id="codigo" type="text" class="input-custom">
-      </th>
-      <th>
-        <label for="nombre" class="label-color">Nombre usuario:</label>
-        <input id="nombre" type="text" class="input-custom">
-      </th>
-      <th>
-        <label for="nomape" class="label-color">Nombres y apellidos:</label>
-        <input id="nomape" type="text" class="input-custom">
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users; let i = index" name="rows" (click)="selectRow()">
-      <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(user)"/>
-          <label [attr.for]="'radio_'+i"> </label>
-      </td>
-      <td (click)="openModal(user)" href="#modal-see">{{ user.id }}</td>
-      <td (click)="openModal(user)" href="#modal-see">{{ user.login }}</td>
-      <td (click)="openModal(user)" href="#modal-see">{{ user.nombre }}</td>
-    </tr>
-  </tbody>
-</table>
+<!-- Table -->
+<div class="container-table">
+  <table class="striped highlight">
+    <thead>
+      <tr class="tr-background">
+        <th class="first-column">
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <label for="all"> </label>
+        </th>
+        <th>
+          <label for="codigo" class="label-color">Código:</label>
+          <input id="codigo" type="text" class="input-custom">
+        </th>
+        <th>
+          <label for="nombre" class="label-color">Nombre usuario:</label>
+          <input id="nombre" type="text" class="input-custom">
+        </th>
+        <th>
+          <label for="nomape" class="label-color">Nombres y apellidos:</label>
+          <input id="nomape" type="text" class="input-custom">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users; let i = index" name="rows" (click)="selectRow()">
+        <td>
+            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(user)"/>
+            <label [attr.for]="'radio_'+i"> </label>
+        </td>
+        <td (click)="openModal(user)" href="#modal-see">{{ user.id }}</td>
+        <td (click)="openModal(user)" href="#modal-see">{{ user.login }}</td>
+        <td (click)="openModal(user)" href="#modal-see">{{ user.nombre }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
     
 <!-- Pagination -->
-<div class="row center">
-  <ul class="pagination">
-      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-      <li class="active"><a href="#!">1</a></li>
-      <li class="waves-effect"><a href="#!">2</a></li>
-      <li class="waves-effect"><a href="#!">3</a></li>
-      <li class="waves-effect"><a href="#!">4</a></li>
-      <li class="waves-effect"><a href="#!">5</a></li>
-      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
+<div class="container-pagination">
+  <div class="row center">
+    <ul class="pagination">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+  </div>
 </div>
     
 <!-- Footer Button -->
@@ -80,39 +84,32 @@
 <div id="modal-crear" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s6">
+      <div class="col s12 m6 l6">
           <h5>Crear</h5>
-      </div>
-      <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
       </div>
     </div>
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form>
         <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="codigoU" class="label-color">Código:</label>
             <input disabled placeholder="" id="codigoU" type="text">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="nomusuario" class="label-color">Usuario:</label>
             <input placeholder="" id="nomusuario" type="text" #nomusuario>
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="nomapeU" class="label-color">Nombres y apellidos:</label>
             <input placeholder="" id="nomapeU" type="text" #nombres>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="password" class="label-color">Contraseña</label>
             <input id="password" type="password" class="validate" #password>
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="nivel" class="label-color">Nivel:</label>
             <select class="browser-default select-city" id="nivel">
               <option value="" disabled selected>Seleccione</option>
@@ -124,16 +121,14 @@
               <option value="6">6</option>
             </select>
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Estado:</label>
             <select class="browser-default select-city" id="estadoU">
               <option value="" disabled selected>Seleccione</option>
               <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Tipo impresora:</label>
             <select class="browser-default select-city" id="impresoraU">
               <option value="" disabled selected>Seleccione</option>
@@ -156,10 +151,10 @@
 <div id="modal-see" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s6">
+      <div class="col s6 m6 l6">
           <h5>Usuario</h5>
       </div>
-      <div class="col s6 right-align">
+      <div class="col s6 m6 l6 right-align">
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
@@ -171,24 +166,21 @@
   </div> 
   <div class="modal-content">
     <div class="row">
-      <form class="col s12" *ngIf="userEdit">
+      <form *ngIf="userEdit">
         <div class="row">
-          <div class="row">
-            <div class="col s2">
+            <div class="col s12 m6 l2">
               <label for="codigo" class="label-color">Código:</label>
               <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="userEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s12 m6 l4">
               <label for="nomusuarioEdit" class="label-color">Usuario:</label>
               <input disabled placeholder="" id="nomusuarioEdit" type="text" [(ngModel)]="userEdit.login" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s6">
+            <div class="col s12 m6 l6">
               <label for="nomapeEdit" class="label-color">Nombres y apellidos:</label>
               <input disabled placeholder="" id="nomapeEdit" type="text" [(ngModel)]="userEdit.nombre" [ngModelOptions]="{standalone: true}">
             </div>
-          </div> 
-          <div class="row">
-            <div class="col s2">
+            <div class="col s12 m6 l2">
               <label for="nivelEdit" class="label-color">Nivel:</label>
               <select disabled class="browser-default select-city" id="nivelEdit">
                 <option  value="nodisplay" disabled selected>{{ userEdit.nivel }}</option>
@@ -200,14 +192,14 @@
                 <option value="6">6</option>
               </select>
             </div>
-            <div class="col s4">
+            <div class="col s12 m6 l4">
               <label class="label-color">Estado:</label>
               <select disabled class="browser-default select-city" id="estadoEdit">
                 <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
                 <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
               </select>
             </div>
-            <div class="col s4">
+            <div class="col s12 m6 l4">
               <label class="label-color">Tipo impresora:</label>
               <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
                   <option value="nodisplay" disabled selected>{{ impEdit }}</option>
@@ -215,7 +207,6 @@
                 <option value="P">Post</option>
               </select>
             </div>
-          </div>
         </div>
       </form>
     </div>
@@ -230,22 +221,20 @@
 <div id="modal-changePassword" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s12">
+      <div class="col s12 m6 l6">
           <h5>Cambiar contraseña</h5>
       </div>
     </div>
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form >
         <div class="row">
-          <div class="col s12">
+          <div class="col s12 m12 l12">
             <label for="passwordChange" class="label-color">Antigua contraseña:</label>
             <input placeholder="" id="passwordChange" type="password" #antigua>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s12">
+          <div class="col s12 m12 l12">
             <label for="newpassword" class="label-color">Nueva contraseña:</label>
             <input placeholder="" id="newpassword" type="password" #nueva>
           </div>
@@ -263,16 +252,16 @@
 <div id="modal-resetPassword" class="modal">
     <div class="modal-title">
       <div class="row">
-        <div class="col s12">
-            <h4>Resetear contraseña</h4>
+        <div class="col s12 m12 l12">
+            <h5>Resetear contraseña</h5>
         </div>
       </div>
     </div>
     <div class="modal-content">
       <div class="row">
-        <form class="col s12">
+        <form>
           <div class="row">
-            <div class="col s12">
+            <div class="col s12 m12 l12">
               <label for="resetpassword" class="label-color">Nueva contraseña:</label>
               <input placeholder="" id="resetpassword" type="password" #resetear>
             </div>
