@@ -4,17 +4,17 @@
 }
 
 #modal-crear{
-    width: 36%;
+    width: 40%;
 }
 
 #modal-see{
-    width: 36%
+    width: 40%
 }
 
 .modal .modal-content {
-    padding: 24px;
-    padding-bottom: 0 !important;
-    height: 12em;
+    padding: 20px 24px;
+    padding-bottom: 4px !important;
+    height: 100%;
 }
 
 
