@@ -17,8 +17,8 @@
 
 .modal .modal-content {
     padding: 24px;
-    padding-bottom: 0 !important;
-    height: 22em;
+    padding: 20px 24px;
+    padding-bottom: 14px !important;
 }
 
 .file-field .btn, .file-field .btn-large {
