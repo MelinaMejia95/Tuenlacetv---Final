@@ -12,9 +12,9 @@
 }
 
 .modal .modal-content {
-    padding: 24px;
-    padding-bottom: 0 !important;
-    height: 20em;
+    padding: 20px 24px;
+    padding-bottom: 14px !important;
+    height: 100%;
 }
 
 .picker__date-display { background-color: rgb(121,134,203); }
