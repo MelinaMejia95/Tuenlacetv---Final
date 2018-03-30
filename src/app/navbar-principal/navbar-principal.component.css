@@ -1,6 +1,6 @@
 .background{
     background-color: #468EBC;
-    height: 3rem;
+    height: auto;
     line-height: 3rem;
 }
 
@@ -44,16 +44,12 @@
     margin-left: 13px;
 }
 
-ul.side-nav.fixed {
-    overflow: hidden !important;
-}
-
 .side-nav{
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 44px;
+    top: 3rem;
     left: 0;
     background-color: #213030;
     overflow-x: hidden;
@@ -259,4 +255,10 @@ input[type=text]:not(.browser-default){
     line-height: 2rem;
     margin-left: 0px;
     margin-right: 0px;
+}
+
+@media only screen and (max-width: 992px){  
+    nav .brand-logo {
+        left: 7.5rem;
+    }
 }

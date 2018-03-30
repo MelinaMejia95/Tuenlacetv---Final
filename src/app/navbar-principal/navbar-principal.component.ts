@@ -21,20 +21,24 @@ export class NavbarPrincipalComponent implements OnInit {
       startingTop: '2%',
       opacity: 0,
     });
+
+    let sideNavOpen = localStorage.getItem('sideNavOpen');
+    this.ban = sideNavOpen == 'true' || sideNavOpen == null ? 0 : 1;
+    this.toggleShow();
   }
 
   toggleShow() {
     if (this.ban == 0) {
-      console.log('hola');
       document.querySelector('#slide-out').classList.toggle('show');
       document.getElementById("slide-out").style.width = "15em";
-      document.getElementById('main').style.marginLeft = "16em";
+      document.getElementById('main').style.marginLeft = "15em";
+      localStorage.setItem('sideNavOpen', 'true');
       this.ban = 1;
     } else if (this.ban == 1) {
-      console.log('bye');
       document.getElementById("slide-out").style.width = "0";
       document.getElementById("slide-out").style.marginRight = "0";
       document.getElementById('main').style.marginLeft = "0";
+      localStorage.setItem('sideNavOpen', 'false');
       this.ban = 0;
     }
   }

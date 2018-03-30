@@ -40,13 +40,18 @@ html {
     color: #455a64;
 }
 
+.container-option{
+    padding: 0 16px;
+}
+
 .principal-container{
     /*border: 1pt solid red;
     padding-left: 1em;
     padding-right: 1em;*/
     transition: margin-left .5s;
-    padding: 16px;
+    padding-top: 16px;
     margin-bottom: 1%;
+    margin-left: 15em;
 }
 
 .main-footer{
@@ -62,6 +67,12 @@ html {
 .breadcrumb{
     font-size: 0.8em;
     
+}
+
+.container-table {
+    max-height: calc(100vh - 283px);
+    overflow-y: auto;
+    margin-bottom: .5rem;
 }
 
 .bradcrum-position{
@@ -265,6 +276,7 @@ table.striped > tbody > tr > td {
     padding-bottom: 0 !important;
     text-align: center;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 table.highlight > tbody > tr {
@@ -323,6 +335,27 @@ input[type=text]:not(.browser-default){
     border-color: #478fbc;
     margin: 0px 0 7px 0;
     padding-left: 3px;
+    box-sizing: border-box;
+}
+
+my-date-picker .selectiongroup {
+    height: 1.8rem;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+    padding-left: 3px;
+}
+
+.mydp .selection {
+    width: 92% !important;
+    height: 100% !important;
+    font-size: 12px !important;
+}
+
+.mydp .selbtngroup {
+    height: 100% !important;
 }
 
 input[type=text]:not(.browser-default):disabled{
@@ -339,6 +372,7 @@ input[type=password]:not(.browser-default){
     background-color: white;
     border-color: #478fbc;
     margin: 0px 0 7px 0;
+    box-sizing: border-box;
 }
 
 input[type=password]:not(.browser-default):disabled{
@@ -369,29 +403,23 @@ input[type=password]:not(.browser-default):disabled{
 }
 
 .select-city {
-    height: 2.2em;
+    height: 2em;
     width: 100%;
     font-size: 14px;
     padding-bottom: 0em;
-    margin-top: 0px;
+    margin-top: 1px;
     font-size: 0.8em;
     border: 1px solid;
     border-radius: 0.5em;
     background-color: white;
     border-color: #478fbc;
-}
-
-.select-wrapper {
-    border: 1px solid;
-    border-color: red;
-    background: white;
-    border-radius: 8px;
-    height: 1.7em;
+    margin: 0px 0 7px 0 !important;
 }
 
 select:disabled{
     background-color:#f5f2f0 !important;
     border-color: rgb(95, 90, 90) !important;
+    margin: 2px 0 7px 0 !important;
 }
 
 .swal2-popup {

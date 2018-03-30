@@ -17,7 +17,7 @@
 
 
 #modal-factura .modal-content {
-    height: 17em;
+    height: 100%;
 }
 
 #modal-orden {
@@ -107,8 +107,8 @@
 }
 
 .table-btn {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     margin-top: 10%;
     margin-bottom: 0;
     font-size: 0;
@@ -120,4 +120,27 @@
 
 .collapsible-body {
     padding: 1rem;
+}
+
+@media only screen and (min-width: 601px){
+    .check-type {
+        margin-top: 0rem;
+    }
+    .table-btn {
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .check-type {
+        margin-top: 1rem;
+    }
+}
+
+@media only screen and (max-width: 601px){
+    .table-btn {
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
 }

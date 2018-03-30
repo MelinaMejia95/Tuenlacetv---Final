@@ -47,59 +47,61 @@
 </div>
 
 <!--Table-->
-<table class="striped highlight">
-  <thead>
-    <tr class="tr-background">
-      <th class="first-column">
-        <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
-        <label for="all"> </label>
-      </th>
-      <th class="codigo-th">
-        <label for="codigo" class="label-color">Código:</label>
-        <input id="codigo" type="text" class="input-custom">
-      </th>
-      <th class="documento-th">
-        <label for="documento" class="label-color">Documento:</label>
-        <input id="documento" type="text" class="input-custom">
-      </th>
-      <th class="nombre-th">
-        <label for="nombre" class="label-color">Nombre:</label>
-        <input id="nombre" type="text" class="input-custom">
-      </th>
-      <th class="direccion-th">
-        <label for="direccion" class="label-color">Dirección:</label>
-        <input id="direccion" type="text" class="input-custom">
-      </th>
-      <th class="telefono-th">
-        <label for="telefono" class="label-color">Teléfono:</label>
-        <input id="telefono" type="text" class="input-custom">
-      </th>
-      <th class="saldo-th">
-        <label for="saldo" class="label-color">Saldo:</label>
-        <input id="saldo" type="text" class="input-custom">
-      </th>
-      <th>
-        <label for="estado" class="label-color">Estado:</label>
-        <input id="estado" type="text" class="input-custom">
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let subscriber of subscribers; let i = index; let temp of template; let est of estados" name="rows" (click)="selectRow()">
-      <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(subscriber)"/>
-          <label [attr.for]="'radio_'+i"> </label>
-      </td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.id }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.documento }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.nombres }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccionP }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.telefono1P }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.saldo_tv }}</td>
-      <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.estado_tv }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container-table">
+  <table class="striped highlight">
+    <thead>
+      <tr class="tr-background">
+        <th class="first-column">
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <label for="all"> </label>
+        </th>
+        <th class="codigo-th">
+          <label for="codigo" class="label-color">Código:</label>
+          <input id="codigo" type="text" class="input-custom">
+        </th>
+        <th class="documento-th">
+          <label for="documento" class="label-color">Documento:</label>
+          <input id="documento" type="text" class="input-custom">
+        </th>
+        <th class="nombre-th">
+          <label for="nombre" class="label-color">Nombre:</label>
+          <input id="nombre" type="text" class="input-custom">
+        </th>
+        <th class="direccion-th">
+          <label for="direccion" class="label-color">Dirección:</label>
+          <input id="direccion" type="text" class="input-custom">
+        </th>
+        <th class="telefono-th">
+          <label for="telefono" class="label-color">Teléfono:</label>
+          <input id="telefono" type="text" class="input-custom">
+        </th>
+        <th class="saldo-th">
+          <label for="saldo" class="label-color">Saldo:</label>
+          <input id="saldo" type="text" class="input-custom">
+        </th>
+        <th>
+          <label for="estado" class="label-color">Estado:</label>
+          <input id="estado" type="text" class="input-custom">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subscriber of subscribers; let i = index; let temp of template; let est of estados" name="rows" (click)="selectRow()">
+        <td>
+            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(subscriber)"/>
+            <label [attr.for]="'radio_'+i"> </label>
+        </td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.id }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.documento }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.nombres }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccionP }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.telefono1P }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.saldo_tv }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.estado_tv }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- Pagination -->
 <div class="row center">
@@ -143,7 +145,7 @@
   <div class="modal-content">
       <form>
         <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Tipo función:</label>
             <select class="browser-default select-city" id="funcion">
               <option value="" disabled selected>Seleccione</option>
@@ -156,50 +158,50 @@
               <option value="7">Técnico</option>
             </select>
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
               <label class="label-color">Tipo documento:</label>
               <select class="browser-default select-city" id="tipodoc">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
               </select>
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="documentopersona" class="label-color">Número de documento:</label>
             <input placeholder="" id="documentopersona" type="text" #numdoc>
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="nombre1" class="label-color">Primer nombre:</label>
             <input placeholder="" id="nombre1" type="text" #nombre1>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="nombre2" class="label-color">Segundo nombre:</label>
             <input id="nombre2" type="text" class="validate" #nombre2>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="apellido1" class="label-color">Primer apellido:</label>
             <input id="apellido1" type="text" class="validate" #apellido1>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="apellido2" class="label-color">Segundo apellido:</label>
             <input id="apellido2" type="text" class="validate" #apellido2> 
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="tel1" class="label-color">Teléfono 1:</label>
             <input placeholder="" id="tel1" type="text" #tel1>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="tel2" class="label-color">Teléfono 2:</label>
             <input placeholder="" id="tel2" type="text" #tel2>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="direccionpersona" class="label-color">Dirección:</label>
             <input placeholder="" id="direccionpersona" type="text" #direccion>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Barrio:</label>
             <select class="browser-default select-city" id="barrio">
               <option value="nodisplay" disabled selected>Seleccione</option>
@@ -208,31 +210,31 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Zona:</label>
             <select class="browser-default select-city" id="zona">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Ciudad:</label>
             <select class="browser-default select-city" id="ciudad">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="correo" class="label-color">Correo:</label>
             <input placeholder="" id="correo" type="text" #correo>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechanacimiento" class="label-color">Fecha de nacimiento:</label>
             <input placeholder="" id="fechanacimiento" type="text" class="datepicker" #fechanac>
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo persona:</label>
             <select class="browser-default select-city" id="tipopersona">
               <option value="nodisplay" disabled selected>Seleccione</option>
@@ -240,7 +242,7 @@
               <option value="N">Natural</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Estrato:</label>
             <select class="browser-default select-city" id="estrato">
               <option value="nodisplay" selected disabled>Seleccione</option>
@@ -256,7 +258,7 @@
               <option value="10">10</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Condición física:</label>
             <select class="browser-default select-city" id="condicion">
               <option value="nodisplay" selected disabled>Seleccione</option>
@@ -267,7 +269,7 @@
         </div>
         <div class="row">
           <div class="row service-subs">
-            <div class="col s12 m6">
+            <div class="col s12 m12 l6">
               <span class="service-title">Información general servicio</span>
             </div>
           </div>
@@ -276,57 +278,57 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="numcontrato" class="label-color">Número de contrato:</label>
             <input placeholder="" id="numcontrato" type="text" #contratos>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="dirtv" class="label-color">Dirección:</label>
             <input placeholder="" id="dirtv" type="text" #direccions>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="urbanizacion" class="label-color">Urbanización:</label>
             <input placeholder="" id="urbanizacion" type="text" #urbanizacions>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="torre" class="label-color">Torre:</label>
             <input placeholder="" id="torre" type="text" #torres>
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="apartamento" class="label-color">Apartamento:</label>
             <input placeholder="" id="apartamento" type="text" #apartamentos>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Barrio:</label>
             <select class="browser-default select-city" id="barriotv">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Zona:</label>
             <select class="browser-default select-city" id="zonatv">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="tel1tv" class="label-color">Teléfono 1:</label>
             <input placeholder="" id="tel1tv" type="text" #tel1s>
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="te21tv" class="label-color">Teléfono 2:</label>
             <input placeholder="" id="tel2tv" type="text" #tel2s>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="contactotv" class="label-color">Contacto:</label>
             <input placeholder="" id="contactotv" type="text" #contactos>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Estrato:</label>
             <select class="browser-default select-city" id="estratotv">
               <option value="nodisplay" selected disabled>Seleccione</option>
@@ -342,7 +344,7 @@
               <option value="10">10</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo vivienda:</label>
             <select class="browser-default select-city" id="tipoviviendatv">
               <option value="" disabled selected>Seleccione</option>
@@ -352,22 +354,22 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="observacion" class="label-color">Observación:</label>
             <input placeholder="" id="observacion" type="text" class="text" #observacions>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
             <input placeholder="" id="fechacontratotv" type="text" class="datepicker" #fechacons>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Vendedor:</label>
             <select class="browser-default select-city" id="vendedortv">
               <option value="nodisplay" selected disabled>Seleccione</option>
               <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
               <label class="label-color">Técnicos:</label>
               <select class="browser-default select-city" id="tecnicotv">
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -376,21 +378,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s3">
-              <label class="label-color">Tipo instalación:</label>
-              <select class="browser-default select-city" id="tipoinstalaciontv">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
-              </select>
-            </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
+            <label class="label-color">Tipo instalación:</label>
+            <select class="browser-default select-city" id="tipoinstalaciontv">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo tecnología:</label>
             <select class="browser-default select-city" id="tipotecnologiatv">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo de servicio:</label>
             <select class="browser-default select-city" id="tiposerviciotv">
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -398,7 +400,7 @@
                 <option value="C">Comercial</option>
             </select>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Área de instalación:</label>
             <select class="browser-default select-city" id="areainstalaciontv">
               <option value="npdisplay" disabled selected>Seleccione</option>
@@ -409,14 +411,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo facturación:</label>
             <select class="browser-default select-city" id="tipofacturacion">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
             </select>
           </div>
-          <div class="col s3 check-type">
+          <div class="col s12 m6 l3 check-type">
             <input type="checkbox" class="filled-in" id="television" name="group3" checked="checked"/>
             <label for="television" class="check-label">Televisión</label>
             <input type="checkbox" class="filled-in" id="internet" name="group3"/>
@@ -424,7 +426,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s12">
+          <div class="col s12 m12 l12">
             <ul class="collapsible" data-collapsible="accordion" id="collapsible-television">
               <li>
                 <div class="collapsible-header">
@@ -434,15 +436,15 @@
                 <div class="collapsible-body">
                   <form action="">
                     <div class="row">
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="numtv" class="label-color">Televisores:</label>
                         <input placeholder="" id="numtv" type="text" #televisores>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="numdecotv" class="label-color">Decodificadores:</label>
                         <input placeholder="" id="numdecotv" type="text" #decos>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                           <label class="label-color">Permanencia:</label>
                           <select class="browser-default select-city" id="permanencia">
                             <option value="" disabled selected>Seleccione</option>
@@ -484,31 +486,31 @@
                             <option value="36">36</option>
                           </select>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="precintotv" class="label-color">Precinto:</label>
                         <input placeholder="" id="precintotv" type="text" #precinto>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label class="label-color">Planes:</label>
-                        <select class="browser-default select-city" id="planestv">
+                        <select class="browser-default select-city" id="planestv" #planes (change)="llenarTarifas(planes.value)">
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="plantv.id" *ngFor="let plantv of planstv">{{ plantv.nombre }}</option>
                         </select>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label class="label-color">Tarifas:</label>
                         <select class="browser-default select-city" id="tarifastv">
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
                         </select>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="valorafiliaciontv" class="label-color">Valor afiliación:</label>
                         <input placeholder="" id="valorafiliaciontv" type="text" [(ngModel)]="valorafitv" [ngModelOptions]="{standalone: true}">
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="descuentotv" class="label-color">Valor descuento:</label>
                         <input placeholder="" id="descuentotv" type="text" #descuento>
                       </div>
@@ -530,55 +532,55 @@
                 <div class="collapsible-body">
                   <form action="">
                     <div class="row">
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="dirip" class="label-color">Dirección IP:</label>
                         <input placeholder="" id="dirip" type="text" #dirip>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label class="label-color">Velocidad:</label>
                         <input placeholder="" id="velocidad" type="text" #velocidad>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="mac1" class="label-color">MAC 1:</label>
                         <input placeholder="" id="mac1" type="text" #mac1>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="mac2" class="label-color">MAC 2:</label>
                         <input placeholder="" id="mac2" type="text" #mac2>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="modem" class="label-color">Serial módem:</label>
                         <input placeholder="" id="modem" type="text" #serial>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="marcamodem" class="label-color">Marca módem:</label>
                         <input placeholder="" id="marcamodem" type="text" #marcamodem>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="mascara" class="label-color">Máscara subred:</label>
                         <input placeholder="" id="mascara" type="text" #mascara>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="dns" class="label-color">DNS:</label>
                         <input placeholder="" id="dns" type="text" #dns>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="gateway" class="label-color">Gateway:</label>
                         <input placeholder="" id="gateway" type="text" #gateway>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="nodo" class="label-color">Nodo:</label>
                         <input placeholder="" id="nodo" type="text" #nodo>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="clavewifi" class="label-color">Clave Wi-Fi:</label>
                         <input placeholder="" id="clavewifi" type="text" #clave>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label class="label-color">Equipo:</label>
                         <select class="browser-default select-city" id="equipo">
                           <option value="nodisplay" disabled selected>Seleccione</option>
@@ -588,25 +590,25 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label class="label-color">Planes:</label>
-                        <select class="browser-default select-city" id="planesinternet">
+                        <select class="browser-default select-city" id="planesinternet" #planesint (change)="llenarTarifasInt(planesint.value)">
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="planint.id" *ngFor="let planint of plansint">{{ planint.nombre }}</option>
                         </select>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label class="label-color">Tarifas:</label>
                         <select class="browser-default select-city" id="tarifasinternet">
                           <option value="nodiplay" disabled selected>Seleccione</option>
                           <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                         </select>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="valorinternet" class="label-color">Valor afiliación:</label>
                         <input placeholder="" id="valorinternet" type="text" #valorafiint>
                       </div>
-                      <div class="col s3">
+                      <div class="col s12 m6 l3">
                         <label for="descuentointernet" class="label-color">Valor descuento:</label>
                         <input placeholder="" id="descuentointernet" type="text" #descuentoint>
                       </div>
@@ -651,57 +653,57 @@
         <form>
           <div class="row" *ngIf="subsEdit">
             <div class="row">
-              <div class="col s4">
+              <div class="col s12 m6 l4">
                 <label class="label-color">Tipo función:</label>
                 <select disabled class="browser-default select-city select-disabled" id="funcionEdit">
                   <option value="nodisplay" disabled selected>{{ funEdit }}</option>
                   <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
                 </select>
               </div>
-              <div class="col s4">
+              <div class="col s12 m6 l4">
                   <label class="label-color">Tipo documento:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipodocEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipo_documento }}</option>
                   <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
                 </select>
               </div>
-              <div class="col s4">
+              <div class="col s12 m6 l4">
                 <label for="documentopersonaEdit" class="label-color">Número de documento:</label>
                 <input disabled placeholder="" id="documentopersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.documento" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="nombre1Edit" class="label-color">Primer nombre:</label>
                 <input disabled placeholder="" id="nombre1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nombre1" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="nombre2Edit" class="label-color">Segundo nombre:</label>
                 <input disabled id="nombre2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.nombre2" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="apellido1Edit" class="label-color">Primer apellido:</label>
                 <input disabled id="apellido1Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido1" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="apellido2Edit" class="label-color">Segundo apellido:</label>
                 <input disabled id="apellido2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido2" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="tel1Edit" class="label-color">Teléfono 1:</label>
                 <input disabled placeholder="" id="tel1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1P" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="tel2Edit" class="label-color">Teléfono 2:</label>
                 <input disabled placeholder="" id="tel2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="direccionpersonaEdit" class="label-color">Dirección:</label>
                 <input disabled placeholder="" id="direccionpersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Barrio:</label>
                 <select disabled class="browser-default select-city select-disabled" id="barrioEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.barrioP }}</option>
@@ -709,40 +711,40 @@
                 </select>
               </div>
             </div>
-            <div class="row">
-              <div class="col s3">
-                <label class="label-color">Zona:</label>
-                <select disabled class="browser-default select-city select-disabled" id="zonaEdit">
-                  <option value="nodisplay" disabled selected>{{ subsEdit.zonaP }}</option>
-                  <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
-                </select>
-              </div>
-              <div class="col s3">
-                <label class="label-color">Ciudad:</label>
-                <select disabled class="browser-default select-city select-disabled" id="ciudadEdit">
-                  <option value="nodisplay" disabled selected></option>
-                  <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
-                </select>
-              </div>
-              <div class="col s3">
-                <label for="correoEdit" class="label-color">Correo:</label>
-                <input disabled placeholder="" id="correoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.correo" [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col s3">
-                <label for="fechanacimientoEdit" class="label-color">Fecha de nacimiento:</label>
-                <input disabled placeholder="" id="fechanacimientoEdit" type="text" class="datepicker" class="validate select-disabled" [(ngModel)]="subsEdit.fechanac" [ngModelOptions]="{standalone: true}">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s3">
+           <div class="row">
+             <div class="col s12 m6 l3">
+               <label class="label-color">Zona:</label>
+               <select disabled class="browser-default select-city select-disabled" id="zonaEdit">
+                 <option value="nodisplay" disabled selected>{{ subsEdit.zonaP }}</option>
+                 <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
+               </select>
+             </div>
+             <div class="col s12 m6 l3">
+               <label class="label-color">Ciudad:</label>
+               <select disabled class="browser-default select-city select-disabled" id="ciudadEdit">
+                 <option value="nodisplay" disabled selected></option>
+                 <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
+               </select>
+             </div>
+             <div class="col s12 m6 l3">
+               <label for="correoEdit" class="label-color">Correo:</label>
+               <input disabled placeholder="" id="correoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.correo" [ngModelOptions]="{standalone: true}">
+             </div>
+             <div class="col s12 m6 l3">
+               <label for="fechanacimientoEdit" class="label-color">Fecha de nacimiento:</label>
+               <input disabled placeholder="" id="fechanacimientoEdit" type="text" class="datepicker" class="validate select-disabled" [(ngModel)]="subsEdit.fechanac" [ngModelOptions]="{standalone: true}">
+             </div>
+           </div>
+           <div class="row">      
+              <div class="col s12 m6 l3">
                 <label class="label-color">Tipo persona:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipopersonaEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipopersona }}</option>
                   <option value="J">Jurídica</option>
                   <option value="N">Natural</option>
                 </select>
-              </div>
-              <div class="col s3">
+              </div>   
+              <div class="col s12 m6 l3">
                 <label class="label-color">Estrato:</label>
                 <select disabled class="browser-default select-city select-disabled" id="estratoEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.estratoP }}</option>
@@ -758,7 +760,7 @@
                   <option value="10">10</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Condición física:</label>
                 <select disabled class="browser-default select-city select-disabled" id="condicionEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.condicion_fisica }}</option>
@@ -766,69 +768,69 @@
                   <option value="D">Discapacitado</option>
                 </select>
               </div>
-            </div>
+          </div> 
             <div class="row">
               <div class="row service-subs">
-                <div class="col s12 m6">
+                <div class="col s12 m12 l3">
                   <span class="service-title">Información general servicio</span>
                 </div>
               </div>
               <div class="row">
                 <div class="separator-subs z-depth-3"></div>
               </div>
-            </div>
+            </div>  
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="numcontratoEdit" class="label-color">Número de contrato:</label>
                 <input disabled placeholder="" id="numcontratoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contrato" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="dirtvEdit" class="label-color">Dirección:</label>
                 <input disabled placeholder="" id="dirtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccion" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="urbanizacionEdit" class="label-color">Urbanización:</label>
                 <input disabled placeholder="" id="urbanizacionEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.urbanizacion" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="torreEdit" class="label-color">Torre:</label>
                 <input disabled placeholder="" id="torreEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.torre" [ngModelOptions]="{standalone: true}">
               </div>
-            </div>
+            </div>    
             <div class="row"> 
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="apartamentoEdit" class="label-color">Apartamento:</label>
                 <input disabled placeholder="" id="apartamentoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.apto" [ngModelOptions]="{standalone: true}"> 
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Barrio:</label>
                 <select disabled class="browser-default select-city select-disabled" id="barriotvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.barrio }}</option>
                   <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Zona:</label>
                 <select disabled class="browser-default select-city select-disabled" id="zonatvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.zona }}</option>
                   <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="tel1tvEdit" class="label-color">Teléfono 1:</label>
                 <input disabled placeholder="" id="tel1tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="te21tvEdit" class="label-color">Teléfono 2:</label>
                 <input disabled placeholder="" id="tel2tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="contactotvEdit" class="label-color">Contacto:</label>
                 <input disabled placeholder="" id="contactotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contacto" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Estrato:</label>
                 <select disabled class="browser-default select-city select-disabled" id="estratotvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.estrato }}</option>
@@ -844,7 +846,7 @@
                   <option value="10">10</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Tipo vivienda:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipoviviendatvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.vivienda }}</option>
@@ -852,24 +854,26 @@
                   <option value="A">Alquilada</option>
                 </select>
               </div>
-            </div>
+            </div>     
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="observacionEdit" class="label-color">Observación:</label>
                 <input disabled placeholder="" id="observacionEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
-                <input disabled placeholder="" id="fechacontratotvEdit" type="text" class="datepicker select-disabled" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="col s3">
+                <my-date-picker name="mydate" [options]="myDatePickerOptions"[(ngModel)]="model" required></my-date-picker> 
+                <!--<label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
+                <input disabled placeholder="" id="fechacontratotvEdit" type="text" class="datepicker select-disabled" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">-->
+               </div>
+              <div class="col s12 m6 l3">
                 <label class="label-color">Vendedor:</label>
                 <select disabled class="browser-default select-city select-disabled" id="vendedortvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.vendedor }}</option>
                   <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Técnicos:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tecnicoEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tecnico }}</option>
@@ -878,21 +882,21 @@
               </div>
             </div>
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Tipo instalación:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipoinstalaciontvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipo_instalacion }}</option>
                   <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Tipo tecnología:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipotecnologiatvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tecnologia }}</option>
                   <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Tipo de servicio:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tiposerviciotvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tiposervicio }}</option>
@@ -900,7 +904,7 @@
                   <option value="C">Comercial</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Área de instalación:</label>
                 <select disabled class="browser-default select-city select-disabled" id="areainstalaciontvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.areainstalacion }}</option>
@@ -909,46 +913,47 @@
                   <option value="E">Extrarural</option>
                 </select>
               </div>
-            </div>
+            </div>    
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label class="label-color">Tipo facturación:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipofacturaciontvEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipo_facturacion }}</option>
                   <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
                 </select>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l3">
                 <label for="fechapagoEdit" class="label-color">Fecha último pago:</label>
                 <input disabled id="fechapagoEdit" type="text" class="datepicker not-disabled" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="col s3 check-type">
-                <input disabled type="checkbox" class="filled-in" id="televisionEdit" name="group4" />
+              <div class="col s12 m6 l3 check-type">
+                <input disabled type="checkbox" class="filled-in select-disabled" id="televisionEdit" [checked]="subsEdit.tv == '1'" name="group4" />
                 <label for="televisionEdit" class="check-label">Televisión</label>
-                <input disabled  type="checkbox" class="filled-in" id="internetEdit" name="group4"/>
+                <input disabled  type="checkbox" class="filled-in select-disabled" id="internetEdit" [checked]="subsEdit.internet == '1'" name="group4"/>
                 <label for="internetEdit" class="check-label">Internet</label>
               </div>
             </div>
+            
             <div class="row">
-              <div class="col s12">
-                <ul class="collapsible" data-collapsible="accordion" id="collapsible-televisionEdit">
-                  <li>
-                    <div class="collapsible-header" id="coltv">
+              <div class="col s12 m12 l12">
+                <ul class="collapsible" data-collapsible="accordion" id="collapsible-televisionEdit" *ngIf="subsEdit.tv == '1'">
+                  <li class="active">
+                    <div class="collapsible-header active" id="coltv">
                       <i class="material-icons">live_tv</i>
                       Televisión
                     </div>
-                    <div class="collapsible-body">
+                    <div class="collapsible-body" [ngStyle]="{'display': 'block'}">
                       <form action="">
                         <div class="row">
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
                             <label for="numtvEdit" class="label-color">Televisores:</label>
                             <input disabled placeholder="" id="numtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.televisores" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
                             <label for="numdecotvEdit" class="label-color">Decodificadores:</label>
                             <input disabled placeholder="" id="numdecotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.decos" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
                             <label class="label-color">Permanencia:</label>
                             <select disabled class="browser-default select-city select-disabled" id="permanenciaEdit">
                               <option value="nodisplay" disabled selected>{{ subsEdit.permanencia }}</option>
@@ -990,33 +995,29 @@
                               <option value="36">36</option>
                             </select>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
                             <label for="precintotvEdit" class="label-color">Precinto:</label>
                             <input disabled placeholder="" id="precintotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.precinto" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
                             <label class="label-color">Planes:</label>
-                            <select disabled class="browser-default select-city select-disabled" id="planestvEdit">
+                            <select class="browser-default select-city select-disabled" id="planestvEdit"  #planestvEdit (change)="llenarTarifas(planestvEdit.value)">
                               <option value="nodisplay" selected>{{ subsEdit.plan_tv }}</option>
                               <option [value]="plantv.id" *ngFor="let plantv of planstv">{{ plantv.nombre }}</option>
                             </select>
-                          </div>         
-                          <div class="col s4">
-                            <label class="label-color">Tarifas:</label>
-                            <select disabled class="browser-default select-city select-disabled" id="tarifastvEdit">
-                              <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_tv }}</option>
-                              <option [value]="ratetv.id" *ngFor="let ratetv of ratestvEdit">{{ ratetv.valor }}</option>
-                            </select>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
+                            <label class="label-color">Tarifas:</label>
+                            <select class="browser-default select-city select-disabled" id="tarifastvEdit">
+                              <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_tv }}</option>
+                              <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
+                            </select>
+                          </div>      
+                          <div class="col s12 m6 l4">
                             <label for="estadotvEdit" class="label-color">Estado:</label>
                             <input disabled placeholder="" id="estadotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s4">
+                          <div class="col s12 m6 l4">
                             <label for="saldotvEdit" class="label-color">Saldo:</label>
                             <input disabled placeholder="" id="saldotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
                           </div>
@@ -1027,66 +1028,63 @@
                 </ul>
               </div>
             </div>
+            
             <div class="row">
-              <div class="col s12">
-                <ul class="collapsible" data-collapsible="accordion" id="collapsible-internetEdit">
-                  <li>
-                    <div class="collapsible-header" id="colint">
+              <div class="col s12 m12 l12">
+                <ul class="collapsible" data-collapsible="accordion" id="collapsible-internetEdit" *ngIf="subsEdit.internet == '1'">
+                  <li class="active">
+                    <div class="collapsible-header active" id="colint">
                       <i class="material-icons">signal_wifi_4_bar</i>
                       Internet
                     </div>
-                    <div class="collapsible-body">
+                    <div class="collapsible-body" [ngStyle]="{'display': 'block'}">
                       <form action="">
                         <div class="row">
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="diripEdit" class="label-color">Dirección IP:</label>
                             <input disabled placeholder="" id="diripEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccionip" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="velocidadEdit" class="label-color">Velocidad:</label>
                             <input disabled placeholder="" id="velocidadEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.velocidad" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="mac1Edit" class="label-color">MAC 1:</label>
                             <input disabled placeholder="" id="mac1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac1" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="mac2Edit" class="label-color">MAC 2:</label>
                             <input disabled placeholder="" id="mac2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac2" [ngModelOptions]="{standalone: true}">
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="modemEdit" class="label-color">Serial módem:</label>
                             <input disabled placeholder="" id="modemEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.serialm" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="marcamodemEdit" class="label-color">Marca módem:</label>
                             <input disabled placeholder="" id="marcamodemEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.marcam" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="mascaraEdit" class="label-color">Máscara subred:</label>
                             <input disabled placeholder="" id="mascaraEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mascarasub" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="dnsEdit" class="label-color">DNS:</label>
                             <input disabled placeholder="" id="dnsEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.dns" [ngModelOptions]="{standalone: true}">
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="gatewayEdit" class="label-color">Gateway:</label>
                             <input disabled placeholder="" id="gatewayEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.gateway" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="nodoEdit" class="label-color">Nodo:</label>
                             <input disabled placeholder="" id="nodoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nodo" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="clavewifiEdit" class="label-color">Clave Wi-Fi:</label>
                             <input disabled placeholder="" id="clavewifiEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.clavewifi" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label class="label-color">Equipo:</label>
                             <select disabled class="browser-default select-city select-disabled" id="equipoEdit">
                               <option value="nodisplay" disabled selected>{{ equipo }}</option>
@@ -1094,27 +1092,25 @@
                               <option value="N">No</option>
                             </select>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label class="label-color">Planes:</label>
-                            <select disabled class="browser-default select-city select-disabled" id="planesintEdit">
-                              <option value="nodisplay" selected>{{ subsEdit.plan_int}}</option>
+                            <select class="browser-default select-city select-disabled" id="planesintEdit" #planesintEdit (change)="llenarTarifasInt(planesintEdit.value)">
+                                <option value="nodisplay" selected>{{ subsEdit.plan_int}}</option>
                               <option [value]="planint.id" *ngFor="let planint of plansint">{{ planint.nombre }}</option>
                             </select>
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label class="label-color">Tarifas:</label>
-                            <select disabled class="browser-default select-city select-disabled" id="tarifasintEdit">
+                            <select class="browser-default select-city select-disabled" id="tarifasintEdit">
                               <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_int }}</option>
-                              <option [value]="rateint.id" *ngFor="let rateint of ratesintEdit">{{ rateint.valor }}</option>
+                              <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                             </select>
-                          </div>         
-                          <div class="col s3">
+                          </div>      
+                          <div class="col s12 m6 l3">
                             <label for="estadointEdit" class="label-color">Estado:</label>
                             <input disabled placeholder="" id="estadointEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
                           </div>
-                          <div class="col s3">
+                          <div class="col s12 m6 l3">
                             <label for="saldointEdit" class="label-color">Saldo:</label>
                             <input disabled placeholder="" id="estadointEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
                           </div>
@@ -1124,7 +1120,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> 
           </div>
         </form>
     </div>
@@ -1139,62 +1135,60 @@
 <div id="modal-factura" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s6">
+      <div class="col s12 m12 l6">
           <h5>Generación factura</h5>
       </div>
     </div>
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
-        <div class="row" >
+      <form>
+            <div class="row">
+              <div class="col s12 m6 l4">
+                <label class="label-color">Tipo facturación</label>
+                <select class="browser-default select-city" id="select-tipofac">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
+                </select>
+              </div>
+              <div class="col s12 m6 l4">
+                <label class="label-color">Factura de</label>
+                <select class="browser-default select-city" id="select-fac">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m6 l4">
+                <label for="elaboracion" class="label-color">Elaboración</label>
+                <input placeholder="" id="elaboracion" type="text" #elaboracion>
+              </div>
+              <div class="col s12 m6 l4">
+                <label for="inicioperiodo" class="label-color">Inicio periodo de facturación</label>
+                <input placeholder="" id="inicioperiodo" type="text" class="datepicker" #iniperiodo>
+              </div>
+              <div class="col s12 m6 l4">
+                <label for="finperiodo" class="label-color">Fin periodo de facturación</label>
+                <input placeholder="" id="finperiodo" type="text" class="datepicker" #finperiodo>
+              </div>  
+            </div>
           <div class="row">
-            <div class="col s4">
-              <label class="label-color">Tipo facturación</label>
-              <select class="browser-default select-city" id="select-tipofac">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s4">
-              <label class="label-color">Factura de</label>
-              <select class="browser-default select-city" id="select-fac">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s4">
-              <label for="elaboracion" class="label-color">Elaboración</label>
-              <input placeholder="" id="elaboracion" type="text" #elaboracion>
-            </div>
-            <div class="col s4">
-              <label for="inicioperiodo" class="label-color">Inicio periodo de facturación</label>
-              <input placeholder="" id="inicioperiodo" type="text" class="datepicker" #iniperiodo>
-            </div>
-            <div class="col s4">
-              <label for="finperiodo" class="label-color">Fin periodo de facturación</label>
-              <input placeholder="" id="finperiodo" type="text" class="datepicker" #finperiodo>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s8">
+            <div class="col s12 m7 l8">
               <label for="nombresus" class="label-color">Nombres del suscriptor</label>
               <input placeholder="" id="nombresus" type="text" #sus>
             </div>
-            <div class="col s4">
+            <div class="col s12 m5 l4">
               <label for="valorfac" class="label-color">Valor facturación</label>
               <input placeholder="" id="valorfac" type="text" #valorfac>
             </div>
           </div>
           <div class="row">
-            <div class="col s12">
+            <div class="col s12 m12 l12">
               <label for="obs" class="label-color">Observaciones</label>
               <input placeholder="" id="obs" type="text" #observac>
             </div>
           </div>
-        </div>
       </form>
     </div>
   </div>
@@ -1232,32 +1226,32 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s2">
+          <div class="col s12 m2 l2">
             <label for="codigo" class="label-color">Código</label>
             <input disabled placeholder="" id="codigo" type="text">
           </div>
-          <div class="col s5">
+          <div class="col s12 m5 l5">
             <label for="nombres" class="label-color">Nombres</label>
             <input placeholder="" id="nombres" type="text" #nombres>
           </div>
-          <div class="col s5">
+          <div class="col s12 m5 l5">
             <label for="telefonos" class="label-color">Teléfonos</label>
             <input placeholder="" id="telefonos" type="text" #telefonos>
           </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s12 m4 l4">
             <label for="direccion" class="label-color">Dirección</label>
             <input placeholder="" id="direccion" type="text" #direccion>
           </div>
-          <div class="col s4">
+          <div class="col s12 m4 l4">
             <label class="label-color">Barrio</label>
             <select class="browser-default select-city" id="select-neigh">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
             </select>
           </div>
-          <div class="col s4">
+          <div class="col s12 m4 l4">
             <label class="label-color">Zona</label>
             <select class="browser-default select-city" id="select-zone">
               <option value="nodisplay" disabled selected>Seleccione</option>
@@ -1266,36 +1260,36 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m3 l3">
             <label for="estado" class="label-color">Estado</label>
             <input placeholder="" id="estado" type="text" #estado>
           </div>
-          <div class="col s3">
+          <div class="col s12 m4 l3">
             <label for="fechaafi" class="label-color">Fecha afiliación</label>
             <input placeholder="" id="fechaafi" type="text" #fechaafi>
           </div>
-          <div class="col s6">
+          <div class="col s12 m5 l6">
             <label for="observaciones" class="label-color">Observaciones</label>
             <input placeholder="" id="observaciones" type="text" #observaciones>
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="precinto" class="label-color">Precinto</label>
             <input placeholder="" id="precinto" type="text" #precinto>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechapago" class="label-color">Fecha último pago</label>
             <input placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="saldo" class="label-color">Saldo</label>
             <input placeholder="" id="saldo" type="text" #saldo>
           </div>
         </div>
         <div class="row">
           <div class="row service-order">
-            <div class="col s12 m6">
+            <div class="col s12 m6 l6">
               <span class="service-title">Orden</span>
             </div>
           </div>
@@ -1304,49 +1298,49 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Tipo orden a generar</label>
             <select class="browser-default select-city" id="select-order">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
             </select>
           </div>
-          <div class="col s2">
+          <div class="col s12 m6 l2">
             <label for="abreviatura" class="label-color">Abreviatura</label>
             <input placeholder="" id="abreviatura" type="text" #abreviatura>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="numorden" class="label-color">Número orden</label>
             <input placeholder="" id="numorden" type="text" #numorden>
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechaorden" class="label-color">Fecha orden</label>
             <input placeholder="" id="fechaorden" type="text" class="datepicker" #fechaorden>
           </div>
         </div>
         <div class="row">
-          <div class="col s5">
+          <div class="col s12 m5 l5">
             <label for="solicitado" class="label-color">Solicitado por</label>
             <input placeholder="" id="solicitado" type="text" #solicitado>
           </div>
-          <div class="col s5">
+          <div class="col s12 m4 l5">
             <label class="label-color">Empleado/Técnico</label>
             <select class="browser-default select-city" id="select-employee">
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
             </select>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="valortotal" class="label-color">Valor total</label>
             <input placeholder="" id="valortotal" type="text" #valortotal>
           </div>
         </div>
         <div class="row">
-          <div class="col s5">
+          <div class="col s12 m5 l5">
             <label for="observorden" class="label-color">Observaciones</label>
             <input placeholder="" id="observorden" type="text" #observorden>
           </div>
-          <div class="col s3">
+          <div class="col s12 m4 l3">
             <label for="estadoorden" class="label-color">Estado orden</label>
             <input placeholder="" id="estadoorden" type="text" #estadoorden>
           </div>
@@ -1362,31 +1356,31 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s2">
+          <div class="col s12 m4 l2">
             <label for="grupoart" class="label-color">Grupo artículos</label>
             <input placeholder="" id="grupoart" type="text" #grupoart>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="articulos" class="label-color">Artículos</label>
             <input placeholder="" id="articulos" type="text" #articulos>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="valor" class="label-color">Valor</label>
             <input placeholder="" id="valor" type="text" #valor>
           </div>
-          <div class="col s1">
+          <div class="col s12 m2 l1">
             <label for="cantidad" class="label-color">Cantidad</label>
             <input placeholder="" id="cantidad" type="text" #cantidad>
           </div>
-          <div class="col s1">
+          <div class="col s12 m3 l1">
             <label for="iva" class="label-color">%IVA</label>
             <input placeholder="" id="iva" type="text" #iva>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="valoriva" class="label-color">Valor IVA</label>
             <input placeholder="" id="valoriva" type="text" #valoriva>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">add</i></a>
             <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">remove</i></a>
           </div>

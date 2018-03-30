@@ -24,8 +24,11 @@ export class LoginComponent implements OnInit {
       this.bd = jQuery('#select-bd').val();
       console.log(this.bd);
     });
+    jQuery('#ref-navbar').hide();
+    jQuery('#ref-footer').hide();
+    document.getElementById('main').style.marginLeft = "0";
   }
-
+  
   loginUser(user, password){
     if (user && password) {
       this.conect = {'login': user, 'password': password};
@@ -35,6 +38,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('auth_token', data.auth_token);
         localStorage.setItem('db', this.bd);
         if (data.auth_token) {
+          jQuery('#ref-navbar').show();
+          jQuery('#ref-footer').show();
+          if (localStorage.getItem('sideNavOpen') == 'true')
+            document.getElementById('main').style.marginLeft = "15em";
+          else
+            document.getElementById('main').style.marginLeft = "0";
           this.route.navigate(['/subscriber']);
         } 
       },

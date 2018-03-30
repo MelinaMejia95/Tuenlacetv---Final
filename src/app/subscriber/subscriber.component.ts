@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { SubscribersService } from '../services/subscribers.service';
 import swal from 'sweetalert2';
+import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
+import {IMyDpOptions, IMyDateModel} from 'angular4-datepicker/src/my-date-picker/interfaces';
 //import 'jspdf-autotable';
 //import * as jsPDF from 'jspdf-autotable';
 //import * as jsPDFTable from 'jspdf-autotable';
@@ -42,6 +44,25 @@ export class SubscriberComponent implements OnInit {
   {title: "Precinto", dataKey: "precinto"}, 
   {title: "Estado tv", dataKey: "estado_tv"}, 
   {title: "Saldo tv", dataKey: "saldo_tv"}];
+
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
+
+  public model: any = { date: { year: 2018, month: 10, day: 9 } };
+
+  /**
+   * @type {Subs[]} books A list of books to output in a table.
+   */
+  subs: Subs[];
+
+  /**
+   * @type {Subs} filter The object containing the filter values to apply to bookfilter.
+   * Could have created another entity called BookFilter, but it would basically have the same fields.
+   */
+
+  filter: Subs = new Subs();
 
   constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService) { 
   }
@@ -84,6 +105,13 @@ export class SubscriberComponent implements OnInit {
         this.valorafiint = Number(data.valor_afi_int);
       }
     });
+    // Load Subs from the subscriber service on init
+    this._suscriberservice.getSubsFilter().subscribe(
+      (subs: Subs[]) => {
+        this.subs = subs;
+        /*this.numberOfSubs = this.subs.length;
+        this.limit = this.subs.length; // Start off by showing all books on a single page.*/
+      });
     document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
@@ -212,40 +240,6 @@ export class SubscriberComponent implements OnInit {
     jQuery('#tarifasinternet').on('change', () => {
       this.createRateint = jQuery('#tarifasinternet').val();
     });
-    jQuery('#televisionEdit').on('change', () => {
-      if (jQuery('#televisionEdit').prop('checked') == true){
-        this.tvEdit = 1;
-      } else {
-        this.tvEdit = 0;
-      }
-    });
-    jQuery('#internetEdit').on('change', () => {
-      if (jQuery('#internetEdit').prop('checked') == true){
-        this.intEdit = 1;
-        console.log("checked")
-      } else {
-        this.intEdit = 0;
-        console.log('Not checked')
-      }
-    });
-    jQuery('#planestv').on('change', () => {
-      let j = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( jQuery('#planestv').val() == this.ratestv[i]['plan_id']){
-          this.ratestvSelect[j] =  this.ratestv[i];
-          j++;
-        }
-      }
-    });
-    jQuery('#planesinternet').on('change', () => {
-      let j = 0;
-      for (let i=0; i < this.ratesint.length ; i++) {
-        if( jQuery('#planesinternet').val() == this.ratesint[i]['plan_id']){
-          this.ratesintSelect[j] =  this.ratesint[i];
-          j++;
-        }
-      }
-    });
     jQuery('#planestvEdit').on('change', () => {
       let j = 0;
       for (let i=0; i < this.ratestv.length ; i++) {
@@ -313,23 +307,34 @@ export class SubscriberComponent implements OnInit {
 
   exportToExcel(event){
     this._suscriberservice.downloadSubscriber().subscribe(data => {
-      this.listado = data.senales;
-      for(let i = 0; i < 5 ; i++){
-        this.rows[i] = {contrato: this.listado[i]['contrato'], codigo: this.listado[i]['codigo'], documento: this.listado[i]['documento'],
-                        nombres: this.listado[i]['nombres'], direccion: this.listado[i]['direccion'], barrio: this.listado[i]['barrio'],
-                        zona: this.listado[i]['zona'], tel1: this.listado[i]['telefono1'], fechacon: this.listado[i]['fechacontrato'],
-                        precinto: this.listado[i]['precinto'], estado_tv: this.listado[i]['plantilla_fact_tv'][0]['estado_tv'],
-                        saldo_tv: this.listado[i]['plantilla_fact_tv'][1]['saldo_tv']}
-      }
+      this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');
     });
-    this.data = [ this.rows ];
-    console.log(this.rows)
-    console.log(this.data)
-    this.excelService.exportAsExcelFile(this.data, 'Suscriptores');
   }
+
+  llenarTarifas(val) {
+    let j = 0;
+    for (let i=0; i < this.ratestv.length ; i++) {
+      if (val == this.ratestv[i]['plan_id']) {
+        this.ratestvSelect[j] =  this.ratestv[i];
+        j++;
+      }
+    }
+  }
+
+  llenarTarifasInt(val) {
+    let j = 0;
+      for (let i=0; i < this.ratesint.length ; i++) {
+        if( val == this.ratesint[i]['plan_id']){
+          this.ratesintSelect[j] =  this.ratesint[i];
+          j++;
+        }
+      }
+  }
+
 
   openModal (subscriber) {
     this.subsEdit = subscriber;
+    
     console.log(subscriber)
     let j = 0;
     for (let i=0; i < this.ratestv.length ; i++) {
@@ -346,35 +351,18 @@ export class SubscriberComponent implements OnInit {
       }
     }
     if (this.subsEdit.tv == '1'){
-      jQuery('#coltv').addClass('active');
-      jQuery('#televisionEdit').prop('checked', true);
       this.tvEdit = 1;
-      //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: visible');
     } else if (this.subsEdit.tv =='0'){
-      jQuery('#coltv').removeClass('active');
-      //document.getElementById('collapsible-televisionEdit').setAttribute('style', 'visibility: hidden');
-      jQuery('#televisionEdit').prop('checked', false);
       this.tvEdit = 0;
       for (let i=0; i < this.ratestv.length ; i++) {
           this.ratestvEdit[i] =  ' ';
       }
     }
     if (this.subsEdit.internet == '1') {
-      jQuery('#colint').addClass('active');
-      jQuery('#internetEdit').prop('checked', true);
-      //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: visible');
       this.intEdit = 1;
     } else if (this.subsEdit.internet == '0') {
-      console.log('No internet from rails')
-      jQuery('#colint').removeClass('active');
-      //document.getElementById('collapsible-internetEdit').setAttribute('style', 'visibility: hidden');
       this.intEdit = 0;
-      jQuery('#internetEdit').prop('checked', false);
-      //this.ratesint = '0';
-      /*for (let i=0; i < this.ratesint.length ; i++) {
-          this.ratesintEdit[i] =  '0';
-      }*/
-    } 
+    }
     jQuery('#modal-see').modal('open');
     jQuery('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
@@ -393,7 +381,7 @@ export class SubscriberComponent implements OnInit {
       jQuery('#ciudadEdit').prop('disabled',true);
     }
 
-    jQuery('.collapsible').collapsible();
+    setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
 
     if (this.subsEdit.equipo == 'S') {
       this.equipo = 'Si';
@@ -405,6 +393,31 @@ export class SubscriberComponent implements OnInit {
         this.funEdit = this.functions[i]['nombre'];
       }
     }
+  }
+
+  changeType() {
+    jQuery('#televisionEdit').on('change', () => {
+      if (jQuery('#televisionEdit').prop('checked') == true){
+        this.tvEdit = 1;
+        this.subsEdit.tv = '1';
+        setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
+      } else {
+        this.tvEdit = 0;
+        this.subsEdit.tv = '0';
+      }
+    });
+    jQuery('#internetEdit').on('change', () => {
+      if (jQuery('#internetEdit').prop('checked') == true){
+        this.intEdit = 1;
+        this.subsEdit.internet = '1';
+        setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
+        console.log("checked")
+      } else {
+        this.intEdit = 0;
+        this.subsEdit.internet = '0';
+        console.log('Not checked')
+      }
+    });
   }
 
   updateSubs() {
@@ -662,8 +675,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   closeModal () {
-    jQuery('#modal-see').modal('close'); 
-    
+    jQuery('#modal-see').modal('close');  
   }
 
   selectAll() {
@@ -727,6 +739,7 @@ export class SubscriberComponent implements OnInit {
         jQuery('#ciudadEdit').prop('disabled',false);
       }
     });
+    this.changeType();
     if(this.subsEdit.funcion == 1) {
       jQuery('#ciudadEdit').prop('disabled',true);
     }

@@ -4,6 +4,7 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { AppRoutingModule } from './/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { MyDatePickerModule } from 'angular4-datepicker/src/my-date-picker/my-date-picker.module';
 //import swal from 'sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -85,7 +86,8 @@ import { TechniciansComponent } from './technicians/technicians.component';
   }),
   AppRoutingModule,
   HttpModule,
-  FormsModule
+  FormsModule,
+  MyDatePickerModule
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,
