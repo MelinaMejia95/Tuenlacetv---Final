@@ -473,3 +473,9 @@ select:disabled{
     }
 }
 
+@media only screen and (max-width: 1080px) {
+    h5 {
+        font-size: 1.2rem !important;
+    }
+}
+

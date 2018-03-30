@@ -7,7 +7,7 @@
 }
 
 .modal .modal-content {
-    padding: 24px;
-    padding-bottom: 0 !important;
-    height: 9em;
+    padding: 20px 24px;
+    padding-bottom: 14px !important;
+    height: 100%;
 }

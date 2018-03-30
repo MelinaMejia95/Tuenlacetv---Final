@@ -1,21 +1,22 @@
 <!-- Breadcrum-->
 <div class="row bradcrum-position">
   <div class="row process">
-    <div class="col s12 m6">
+    <div class="col s12 m6 l6">
       <span class="process-title">Tipo Facturación</span>
     </div>
   </div>
   <div class="separator z-depth-3"></div>
-  <div class="col s12 m6">
+  <div class="col s10 m6 l6">
     <a class="breadcrumb black-text">Maestros</a>
     <a class="breadcrumb black-text">Tipo facturación</a>
   </div>
-  <div class="col s12 m6 right-align">
+  <div class="col s2 m6 l6 right-align">
   <a class='btn-floating btn button-options' href='#'><i class="material-icons">local_printshop</i></a>
   </div>
 </div>
   
-  <!-- Table -->
+<!-- Table -->
+<div class="container-table">
   <table class="striped highlight">
     <thead>
       <tr class="tr-background">
@@ -44,8 +45,10 @@
       </tr>
     </tbody>
   </table>
+</div>
   
-  <!-- Pagination -->
+<!-- Pagination -->
+<div class="container-pagination">
   <div class="row center">
     <ul class="pagination">
         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -56,94 +59,90 @@
         <li class="waves-effect"><a href="#!">5</a></li>
         <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
       </ul>
-  </div>
+  </div>    
+</div>
+
+<!-- Footer Button -->
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large button-crud">
+    <i class="large material-icons icon-horizontal">add</i>
+  </a>
+  <ul class="ul-button">
+    <!--<swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
+    confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
+    confirmButtonColor: '#407FA9' }" (confirm)="deleteCountry()"></swal>-->
+    <li><a class="btn-floating btn-eliminar red" (click)="deleteBill()" id="btn-footer-delete">Eliminar</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+  </ul>
+</div>
   
-  <!-- Footer Button -->
-  <div class="fixed-action-btn horizontal">
-    <a class="btn-floating btn-large button-crud">
-      <i class="large material-icons icon-horizontal">add</i>
-    </a>
-    <ul class="ul-button">
-      <!--<swal #dialog [options]="{ title: '¿Desea eliminar el registro?', 
-      confirmButtonText: 'Si', cancelButtonText: 'No', showCancelButton: 'true', type: 'warning',
-      confirmButtonColor: '#407FA9' }" (confirm)="deleteCountry()"></swal>-->
-      <li><a class="btn-floating btn-eliminar red" (click)="deleteBill()" id="btn-footer-delete">Eliminar</a></li>
-      <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
-    </ul>
-  </div>
-  
-    <!--Modal Crear -->
-  <div id="modal-crear" class="modal">
-    <div class="modal-title">
-      <div class="row">
-        <div class="col s6">
-            <h5>Crear</h5>
-        </div>
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-large btn-print" id="btn-modal">
-              <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-          </a>
-        </div>
+  <!--Modal Crear -->
+<div id="modal-crear" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s12 m6 l6">
+          <h5>Crear</h5>
       </div>
-    </div> 
-    <div class="modal-content">
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="col s6">
-              <label for="codigo" class="label-color">Código</label>
-              <input placeholder=" " disabled id="codigo" type="text" class="validate">
-            </div>
-            <div class="col s6">
-              <label for="nombre" class="label-color">Nombre</label>
-              <input placeholder=" " id="nombre" type="text" class="validate" #nameBill>
-            </div>
+    </div>
+  </div> 
+  <div class="modal-content">
+    <div class="row">
+      <form>
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <label for="codigo" class="label-color">Código</label>
+            <input placeholder=" " disabled id="codigo" type="text" class="validate">
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createBill(nameBill.value)">Aceptar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
-    </div>
-  </div>
-  
-  <!-- Modal See -->
-  <div id="modal-see" class="modal">
-    <div class="modal-title">
-      <div class="row">
-        <div class="col s6">
-            <h5>Tipo facturación</h5>
-        </div>
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
-              <i class="large material-icons icon-horizontal icon-print">edit</i>
-          </a>
-          <a class="btn-floating btn-large btn-print" id="btn-modal">
-              <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="modal-content">
-      <div class="row">
-        <form class="col s12">
-          <div class="row" *ngIf="billsEdit">
-            <div class="col s6">
-              <label for="codigoEdit" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="billsEdit.id" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s6">
-              <label for="nombreEdit" class="label-color">Nombre:</label>
-              <input disabled placeholder="" id="nombreEdit" type="text" class="validate" [(ngModel)]="billsEdit.nombre" [ngModelOptions]="{standalone: true}">
-            </div>
+          <div class="col s12 m6 l6">
+            <label for="nombre" class="label-color">Nombre</label>
+            <input placeholder=" " id="nombre" type="text" class="validate" #nameBill>
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateBill()">Aceptar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createBill(nameBill.value)">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+  </div>
+</div>
+  
+<!-- Modal See -->
+<div id="modal-see" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6 m6 l6">
+          <h5>Tipo facturación</h5>
+      </div>
+      <div class="col s6 m6 l6 right-align">
+        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
+            <i class="large material-icons icon-horizontal icon-print">edit</i>
+        </a>
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row" *ngIf="billsEdit">
+          <div class="col s12 m6 l6">
+            <label for="codigoEdit" class="label-color">Código:</label>
+            <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="billsEdit.id" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l6">
+            <label for="nombreEdit" class="label-color">Nombre:</label>
+            <input disabled placeholder="" id="nombreEdit" type="text" class="validate" [(ngModel)]="billsEdit.nombre" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateBill()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+  </div>
+</div>
   
