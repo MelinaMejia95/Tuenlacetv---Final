@@ -75,6 +75,12 @@ html {
     margin-bottom: .5rem;
 }
 
+.container-pagination {
+    max-height: calc(100vh - 283px);
+    /* overflow-y: auto; */
+    margin-bottom: .5rem;
+}
+
 .bradcrum-position{
     margin-top: -1em;
     margin-bottom: 0;
@@ -83,7 +89,7 @@ html {
 .modal-title{
     background-color: #478fbc;
     color: white;
-    height: 3em;
+    height: 100%;
 }
 
 .modal h4 {
@@ -97,7 +103,7 @@ html {
     border-radius: 0 0 2px 2px;
     background-color: #5aa8cb;
     padding: 4px 6px;
-    height: 3em;
+    height: 100%;
     width: 100%;
     color: white;
     text-align: right;
@@ -361,7 +367,7 @@ my-date-picker .selectiongroup {
 input[type=text]:not(.browser-default):disabled{
     background-color: #f5f2f0 !important;
     border-color: rgb(95, 90, 90) !important;
-    margin: 2px 0 7px 0 !important;
+    margin: 0px 0 7px 0 !important;
 }
 
 input[type=password]:not(.browser-default){
@@ -419,7 +425,7 @@ input[type=password]:not(.browser-default):disabled{
 select:disabled{
     background-color:#f5f2f0 !important;
     border-color: rgb(95, 90, 90) !important;
-    margin: 2px 0 7px 0 !important;
+    margin: 0px 0 7px 0 !important;
 }
 
 .swal2-popup {
@@ -455,6 +461,12 @@ select:disabled{
 @media only screen and (max-width: 992px) {
     nav .brand-logo{    
         left: 15%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .pagination li a {
+        padding: 0px 3px;
     }
 }
 

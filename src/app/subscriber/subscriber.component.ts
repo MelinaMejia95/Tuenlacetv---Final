@@ -32,18 +32,6 @@ export class SubscriberComponent implements OnInit {
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any;
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = [];
-  columns: any[] = [ {title: "Contrato", dataKey: "contrato"},
-  {title: "Código", dataKey: "codigo"}, 
-  {title: "Documento", dataKey: "documento"}, 
-  {title: "Nombres", dataKey: "nombres"}, 
-  {title: "Dirección", dataKey: "direccion"}, 
-  {title: "Barrio", dataKey: "barrio"}, 
-  {title: "Zona", dataKey: "zona"}, 
-  {title: "Teléfono 1", dataKey: "tel1"}, 
-  {title: "Fecha contrato", dataKey: "fechacon"}, 
-  {title: "Precinto", dataKey: "precinto"}, 
-  {title: "Estado tv", dataKey: "estado_tv"}, 
-  {title: "Saldo tv", dataKey: "saldo_tv"}];
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -299,7 +287,7 @@ export class SubscriberComponent implements OnInit {
       {"id": 3, "name": "Garcia", "country": "Madagascar"},
     ];
     var doc = new jsPDF('p', 'pt');
-    doc.autoTable(this.columns, this.rows);
+    //doc.autoTable(this.columns, this.rows);
     doc.save('table.pdf');
     console.log(rows1)
     console.log(this.rows)
@@ -330,7 +318,6 @@ export class SubscriberComponent implements OnInit {
         }
       }
   }
-
 
   openModal (subscriber) {
     this.subsEdit = subscriber;
@@ -740,6 +727,12 @@ export class SubscriberComponent implements OnInit {
       }
     });
     this.changeType();
+    jQuery('#internetEdit').on('change', () => {
+      if (jQuery('#internetEdit').prop('checked') == true) {
+        console.log('change')
+        setTimeout(() => jQuery(".select-disabled").prop('disabled',false), 1000);
+      }
+    })
     if(this.subsEdit.funcion == 1) {
       jQuery('#ciudadEdit').prop('disabled',true);
     }
@@ -827,6 +820,5 @@ export class SubscriberComponent implements OnInit {
       this.tipofacturaciontvEdit = jQuery('#tipofacturaciontvEdit').val();
     });
   }
-
 
 }
