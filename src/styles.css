@@ -468,5 +468,8 @@ select:disabled{
     .pagination li a {
         padding: 0px 3px;
     }
+    .modal .modal-footer {
+        text-align: center;
+    }
 }
 
