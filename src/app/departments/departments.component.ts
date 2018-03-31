@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DepartmentsService } from '../services/departments.service';
 import swal from 'sweetalert2';
+import { Departaments } from './dep';
 
 declare let jQuery: any;
 
@@ -17,6 +18,27 @@ export class DepartmentsComponent implements OnInit {
   countries:string; countryEdit: string;
   depEdit:any; country: any; createCountry: any;
 
+  /**
+   * @type {Departaments[]} 
+   */
+  count: Departaments[];
+
+  /**
+   * @type {Departaments} 
+   */
+
+  filter: Departaments = new Departaments();
+
+  /**
+   * @type {number} 
+   */
+  numberOfDepartaments: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _departmentservice: DepartmentsService) { }
 
   ngOnInit() {
@@ -24,6 +46,12 @@ export class DepartmentsComponent implements OnInit {
       this.departments = data.departamentos;
       this.countries = data.paises;
       console.log(this.departments)
+    });
+    this._departmentservice.getDepartamentsFilter().subscribe(
+      (count: Departaments[]) => {
+        this.count = count;
+        this.numberOfDepartaments = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();

@@ -3,6 +3,8 @@ import { Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Concepts } from '../concepts/concepts'
 
 @Injectable()
 export class ConceptsService {
@@ -21,6 +23,21 @@ export class ConceptsService {
         return response.json();
     })
  }
+
+ /**
+    @return {Observable<Concepts[]>} 
+   */
+
+  getConceptsFilter(): Observable<Concepts[]> {
+    const url = this._global.url + `/conceptos/bd/` + localStorage.getItem('db');
+      let header = new Headers();
+      header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+      console.log(header)
+      let options = new RequestOptions({ headers: header });
+      return this._http.get(url, options).map(response =>{
+          return response.json();
+      })
+   }
 
  updateConcepts(content: object){
    console.log(content)

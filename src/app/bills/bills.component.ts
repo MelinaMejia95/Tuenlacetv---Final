@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BillService } from '../services/bills.service';
 import swal from 'sweetalert2';
+import { Bills } from './bills';
 
 declare let jQuery:any;
 
@@ -15,12 +16,39 @@ export class BillsComponent implements OnInit {
   toogleDelete:boolean = false;
   billsEdit:any;
 
+  /**
+   * @type {Bills[]} 
+   */
+  count: Bills[];
+
+  /**
+   * @type {Bills} 
+   */
+
+  filter: Bills = new Bills();
+
+  /**
+   * @type {number} 
+   */
+  numberOfBills: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _billservice: BillService) { }
 
   ngOnInit() {
     this._billservice.getBills().subscribe(data => {
       this.bills = data.tipo_facturacion;
     });
+    this._billservice.getBillsFilter().subscribe(
+      (count: Bills[]) => {
+        this.count = count;
+        this.numberOfBills = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
         jQuery('#codigoEdit').prop('disabled',true);

@@ -52,41 +52,41 @@
     <thead>
       <tr class="tr-background">
         <th class="first-column">
-          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()" [attr.max]="[numberOfSubs]"/>
           <label for="all"> </label>
         </th>
         <th class="codigo-th">
           <label for="codigo" class="label-color">Código:</label>
-          <input id="codigo" type="text" class="input-custom">
+          <input id="codigo" type="text" class="input-custom" [(ngModel)]="filter.id">
         </th>
         <th class="documento-th">
           <label for="documento" class="label-color">Documento:</label>
-          <input id="documento" type="text" class="input-custom">
+          <input id="documento" type="text" class="input-custom" [(ngModel)]="filter.documento">
         </th>
         <th class="nombre-th">
           <label for="nombre" class="label-color">Nombre:</label>
-          <input id="nombre" type="text" class="input-custom">
+          <input id="nombre" type="text" class="input-custom" [(ngModel)]="filter.nombres">
         </th>
         <th class="direccion-th">
           <label for="direccion" class="label-color">Dirección:</label>
-          <input id="direccion" type="text" class="input-custom">
+          <input id="direccion" type="text" class="input-custom" [(ngModel)]="filter.direccionP">
         </th>
         <th class="telefono-th">
           <label for="telefono" class="label-color">Teléfono:</label>
-          <input id="telefono" type="text" class="input-custom">
+          <input id="telefono" type="text" class="input-custom" [(ngModel)]="filter.telefono1P">
         </th>
         <th class="saldo-th">
           <label for="saldo" class="label-color">Saldo:</label>
-          <input id="saldo" type="text" class="input-custom">
+          <input id="saldo" type="text" class="input-custom" [(ngModel)]="filter.saldo_tv">
         </th>
         <th>
           <label for="estado" class="label-color">Estado:</label>
-          <input id="estado" type="text" class="input-custom">
+          <input id="estado" type="text" class="input-custom" [(ngModel)]="filter.estado_tv">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let subscriber of subscribers; let i = index; let temp of template; let est of estados" name="rows" (click)="selectRow()">
+      <tr *ngFor="let subscriber of subscribers | subsfilter:filter; let i = index" name="rows" (click)="selectRow()">
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(subscriber)"/>
             <label [attr.for]="'radio_'+i"> </label>
@@ -734,7 +734,7 @@
              </div>
              <div class="col s12 m6 l3">
                <label for="fechanacimientoEdit" class="label-color">Fecha de nacimiento:</label>
-               <input disabled placeholder="" id="fechanacimientoEdit" type="text" class="datepicker" class="validate select-disabled" [(ngModel)]="subsEdit.fechanac" [ngModelOptions]="{standalone: true}">
+               <my-date-picker name="fechanacimiento" [options]="myDatePickerOptions" required [disabled]="disabled"></my-date-picker>
              </div>
            </div>
            <div class="row">      
@@ -864,7 +864,7 @@
               </div>
               <div class="col s12 m6 l3">
                 <label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
-                <my-date-picker name="mydate" [options]="myDatePickerOptions"[(ngModel)]="model" required></my-date-picker> 
+                <my-date-picker name="mydate" [options]="myDatePickerOptions"[(ngModel)]="model" required [disabled]="disabled"></my-date-picker> 
                 <!--<label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
                 <input disabled placeholder="" id="fechacontratotvEdit" type="text" class="datepicker select-disabled" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">-->
                </div>
@@ -926,7 +926,7 @@
               </div>
               <div class="col s12 m6 l3">
                 <label for="fechapagoEdit" class="label-color">Fecha último pago:</label>
-                <input disabled id="fechapagoEdit" type="text" class="datepicker not-disabled" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+                <my-date-picker name="ultimopago" [options]="myDatePickerOptions" required [disabled]="disabled"></my-date-picker>
               </div>
               <div class="col s12 m6 l3 check-type">
                 <input disabled type="checkbox" class="filled-in select-disabled" id="televisionEdit" [checked]="subsEdit.tv == '1'" name="group4" />

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RatesService } from '../services/rates.service';
 import swal from 'sweetalert2';
+import { Rates } from './rates';
 
 declare let jQuery:any;
 
@@ -19,6 +20,27 @@ export class RatesComponent implements OnInit {
   zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any; fechaEdit: any; zona: any; concepto: any; plan: any; estado: any; picker: any;
   fechainicio: any; fechaven: any;
 
+  /**
+   * @type {Rates[]} 
+   */
+  count: Rates[];
+
+  /**
+   * @type {Rates} 
+   */
+
+  filter: Rates = new Rates();
+
+  /**
+   * @type {number} 
+   */
+  numberOfRates: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _rateservice: RatesService) { }
 
   ngOnInit() {
@@ -30,6 +52,12 @@ export class RatesComponent implements OnInit {
       this.plans = data.planes;
       this.states = data.estados;
     });
+    this._rateservice.getRatesFilter().subscribe(
+      (count: Rates[]) => {
+        this.count = count;
+        this.numberOfRates = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 

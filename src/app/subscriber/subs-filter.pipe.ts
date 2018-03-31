@@ -18,19 +18,19 @@ export class SubsFilterPipe implements PipeTransform {
   /**
    * Perform the filtering.
    * 
-   * @param {Subs} book The book to compare to the filter.
+   * @param {Subs} sub The book to compare to the filter.
    * @param {Subs} filter The filter to apply.
    * @return {boolean} True if book satisfies filters, false if not.
    */
-  applyFilter(book: Subs, filter: Subs): boolean {
+  applyFilter(sub: Subs, filter: Subs): boolean {
     for (let field in filter) {
       if (filter[field]) {
         if (typeof filter[field] === 'string') {
-          if (book[field].toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {
+          if (sub[field].toString().toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {
             return false;
           }
         } else if (typeof filter[field] === 'number') {
-          if (book[field] !== filter[field]) {
+          if (sub[field] !== filter[field]) {
             return false;
           }
         }

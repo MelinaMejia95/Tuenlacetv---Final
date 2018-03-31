@@ -1,36 +1,36 @@
 export class Subs {
     /**
-     * @type {number} id Unique numeric identifier.
+     * @type {string} 
      */
-    codigo: number;
+    id: string;
     
     /**
-     * @type {string} title The title of the book.
+     * @type {string} 
      */
     documento: String;
   
     /**
-     * @type {string} author The author of the book.
+     * @type {string}
      */
-    nombre: String;
+    nombres: String;
   
     /**
-     * @type {number} year The year the book was published.
+     * @type {number} 
      */
-    direccion: string;
+    direccionP: string;
 
      /**
-     * @type {number} year The year the book was published.
+     * @type {number} 
      */
-    telefono: number;
+    telefono1P: number;
 
      /**
-     * @type {number} year The year the book was published.
+     * @type {number}
      */
-    saldo: number;
+    saldo_tv: number;
 
      /**
-     * @type {number} year The year the book was published.
+     * @type {number} 
      */
-    estado: string;
+    estado_tv: string;
   }

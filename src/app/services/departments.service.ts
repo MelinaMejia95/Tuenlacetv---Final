@@ -3,6 +3,8 @@ import { Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Departaments } from '../departments/dep'
 
 @Injectable()
 export class DepartmentsService {
@@ -21,6 +23,21 @@ export class DepartmentsService {
         return response.json();
     })
  }
+
+ /**
+    @return {Observable<Countries[]>} 
+   */
+
+  getDepartamentsFilter(): Observable<Departaments[]> {
+    const url = this._global.url + `/departamentos/bd/` + localStorage.getItem('db');
+      let header = new Headers();
+      header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+      console.log(header)
+      let options = new RequestOptions({ headers: header });
+      return this._http.get(url, options).map(response =>{
+          return response.json();
+      })
+   }
 
  updateDepartments(content: object){
    //console.log(content)

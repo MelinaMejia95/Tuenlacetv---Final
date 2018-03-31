@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConceptsService } from '../services/concepts.service';
 import swal from 'sweetalert2';
+import { Concepts } from './concepts';
 
 declare let jQuery:any;
 
@@ -16,6 +17,27 @@ export class ConceptsComponent implements OnInit {
   services: string; createService: string; nameService: string;
   serviceEdit: any; conceptEdit: any; concept: any;
 
+   /**
+   * @type {Concepts[]} 
+   */
+  count: Concepts[];
+
+  /**
+   * @type {Concepts} 
+   */
+
+  filter: Concepts = new Concepts();
+
+  /**
+   * @type {number} 
+   */
+  numberOfConcepts: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _conceptservice: ConceptsService) { }
 
   ngOnInit() {
@@ -24,6 +46,12 @@ export class ConceptsComponent implements OnInit {
       this.services = data.servicios;
       console.log(data.servicios)
     });
+    this._conceptservice.getConceptsFilter().subscribe(
+      (count: Concepts[]) => {
+        this.count = count;
+        this.numberOfConcepts = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 

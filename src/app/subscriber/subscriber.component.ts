@@ -19,7 +19,7 @@ declare let jsPDF;
 export class SubscriberComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string;
+  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string; disabled: boolean = true;
   planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any;
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string;
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string;
@@ -41,16 +41,25 @@ export class SubscriberComponent implements OnInit {
   public model: any = { date: { year: 2018, month: 10, day: 9 } };
 
   /**
-   * @type {Subs[]} books A list of books to output in a table.
+   * @type {Subs[]} 
    */
   subs: Subs[];
 
   /**
-   * @type {Subs} filter The object containing the filter values to apply to bookfilter.
-   * Could have created another entity called BookFilter, but it would basically have the same fields.
+   * @type {Subs} 
    */
 
   filter: Subs = new Subs();
+
+  /**
+   * @type {number} 
+   */
+  numberOfSubs: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
 
   constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService) { 
   }
@@ -96,10 +105,12 @@ export class SubscriberComponent implements OnInit {
     // Load Subs from the subscriber service on init
     this._suscriberservice.getSubsFilter().subscribe(
       (subs: Subs[]) => {
-        this.subs = subs;
-        /*this.numberOfSubs = this.subs.length;
+        console.log(subs['senales'])
+        this.subs = subs['senales'];
+        this.numberOfSubs = this.subs.length;
         this.limit = this.subs.length; // Start off by showing all books on a single page.*/
       });
+      this.disabled = true;
     document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
@@ -110,6 +121,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('.dropdown-button').dropdown();
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery(".select-disabled:enabled").prop('disabled',true);
+      this.disabled = true;
     }});
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
@@ -251,23 +263,7 @@ export class SubscriberComponent implements OnInit {
   //revisar
   selectData(subs){
     this.subsEdit = subs;
-    /*if (this.subsEdit.int == 1) {
-      console.log('Internet')
-      this.template_fact_int = this.subsEdit['info_internet'][0].plantilla_fact_int;
-      let k = 0;
-      for (let i=0; i < this.ratestv.length ; i++) {
-        if( this.template_fact_int[0]['plan_int'] == this.ratestv[i]['plan']){
-          this.ratesintEdit[k] =  this.ratestv[i];
-          k++;
-        }
-      }
-    } else if (this.subsEdit.int == 0) {
-      console.log('No internet')
-      this.subsEdit['info_internet'][0] = '0';
-      console.log(subs)
-      this.ratesint = '0';
-      this.template_fact_int= '0';
-    } */
+    console.log(subs)
   }
 
   downloadPDF(){
@@ -320,6 +316,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
+    this.disabled = true;
     this.subsEdit = subscriber;
     
     console.log(subscriber)
@@ -629,9 +626,9 @@ export class SubscriberComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         if (this.subsEdit) {
+          console.log(this.subsEdit.id)
           this._suscriberservice.deleteSubscribers(this.subsEdit.id).subscribe(
             data => {
-              console.log(data)
               if ( data.status == "deleted") {
                 swal({
                   title: 'Registro eliminado con éxito',
@@ -718,6 +715,7 @@ export class SubscriberComponent implements OnInit {
     jQuery("input:disabled").prop('disabled',false);
     jQuery('.not-disabled').prop('disabled', true);
     jQuery("select:disabled").prop('disabled',false);
+    this.disabled = false;
     jQuery('#funcionEdit').on('change', () => {
       this.tipoUsuarioEdit = jQuery('#funcionEdit').val();
       if ( this.tipoUsuarioEdit == '1') {

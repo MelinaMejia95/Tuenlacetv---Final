@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import swal from 'sweetalert2';
+import { Users } from './users';
 
 declare let jQuery:any;
 
@@ -15,6 +16,27 @@ export class UsersComponent implements OnInit {
   users: any[] = []; userEdit: any; stateEdit: any; user: any; impEdit: any; levelEdit: any;
   states: string; createState: string; createImp: string; createLevel: any;
 
+  /**
+   * @type {Users[]} 
+   */
+  count: Users[];
+
+  /**
+   * @type {Users} 
+   */
+
+  filter: Users = new Users();
+
+  /**
+   * @type {number} 
+   */
+  numberOfUsers: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _userservie: UsersService) { }
 
   ngOnInit() {
@@ -22,6 +44,12 @@ export class UsersComponent implements OnInit {
       this.users = data.usuarios;
       this.states = data.estados;
     });
+    this._userservie.getUsersFilter().subscribe(
+      (count: Users[]) => {
+        this.count = count;
+        this.numberOfUsers = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-changePassword').modal();

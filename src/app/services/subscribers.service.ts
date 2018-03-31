@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
+import { Subs } from '../subscriber/subs'
 
 @Injectable()
 export class SubscribersService {
@@ -23,9 +25,11 @@ export class SubscribersService {
     })
  }
 
- //@return {Observable<Subs[]>}
+ /**
+    @return {Observable<Subs[]>} 
+   */
 
- getSubsFilter() {
+ getSubsFilter(): Observable<Subs[]> {
   const url = this._global.url + `/senales/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));

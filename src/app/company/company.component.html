@@ -21,29 +21,29 @@
     <thead>
       <tr class="tr-background">
         <th class="first-column">
-          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()" [attr.max]="[numberOfCountries]"/>
           <label for="all"> </label>
         </th>
         <th>
           <label for="nit" class="label-color">NIT:</label>
-          <input id="nit" type="text" class="input-custom">
+          <input id="nit" type="text" class="input-custom" [(ngModel)]="filter.nit">
         </th>
         <th>
           <label for="nombre" class="label-color">Nombre:</label>
-          <input id="nombre" type="text" class="input-custom">
+          <input id="nombre" type="text" class="input-custom" [(ngModel)]="filter.razonsocial">
         </th>
         <th>
           <label for="direccion" class="label-color">Dirección:</label>
-          <input id="direccion" type="text" class="input-custom">
+          <input id="direccion" type="text" class="input-custom" [(ngModel)]="filter.direccion">
         </th>
         <th>
           <label for="tel1" class="label-color">Teléfono 1:</label>
-          <input id="tel1" type="text" class="input-custom">
+          <input id="tel1" type="text" class="input-custom" [(ngModel)]="filter.telefono1">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let company of companies; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let company of companies | companiesfilter:filter; let i = index" name="rows" (click)="selectRow()" >
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(company)"/>
             <label [attr.for]="'radio_'+i"> </label>

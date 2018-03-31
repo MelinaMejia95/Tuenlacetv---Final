@@ -21,25 +21,25 @@
     <thead>
       <tr class="tr-background">
         <th class="first-column">
-          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()" [attr.max]="[numberOfDepartments]"/>
           <label for="all"> </label>
         </th>
         <th>
           <label for="codigo" class="label-color">Código:</label>
-          <input id="codigo" type="text" class="input-custom">
+          <input id="codigo" type="text" class="input-custom" [(ngModel)]="filter.id">
         </th>
         <th>
           <label for="pais" class="label-color">País:</label>
-          <input id="pais" type="text" class="input-custom">
+          <input id="pais" type="text" class="input-custom" [(ngModel)]="filter.pais">
         </th>
         <th>
           <label for="nombre" class="label-color">Nombre:</label>
-          <input id="nombre" type="text" class="input-custom">
+          <input id="nombre" type="text" class="input-custom" [(ngModel)]="filter.nombre">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dep of departments; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let dep of departments | depsfilter:filter; let i = index" name="rows" (click)="selectRow()">
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(dep)"/>
             <label [attr.for]="'radio_'+i"> </label>

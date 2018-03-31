@@ -3,6 +3,8 @@ import { Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Countries } from '../countries/countries'
 
 @Injectable()
 export class CountriesService {
@@ -21,6 +23,21 @@ export class CountriesService {
         return response.json();
     })
  }
+
+ /**
+    @return {Observable<Countries[]>} 
+   */
+
+  getCountriesFilter(): Observable<Countries[]> {
+    const url = this._global.url + `/paises/bd/` + localStorage.getItem('db');
+      let header = new Headers();
+      header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+      console.log(header)
+      let options = new RequestOptions({ headers: header });
+      return this._http.get(url, options).map(response =>{
+          return response.json();
+      })
+   }
 
  updateCountries(content: object){
   const url = this._global.url + `/paises/` + content['id'];

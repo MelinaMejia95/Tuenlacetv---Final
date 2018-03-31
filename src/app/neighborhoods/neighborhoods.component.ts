@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NeighborhoodsService } from '../services/neighborhoods.service';
 import swal from 'sweetalert2';
+import { Neighs } from './neighborhoods';
 
 declare let jQuery:any;
 
@@ -19,6 +20,27 @@ export class NeighborhoodsComponent implements OnInit {
   neighborhood: any;
   createZone: string;
 
+   /**
+   * @type {Neighs[]} 
+   */
+  count: Neighs[];
+
+  /**
+   * @type {Neighs} 
+   */
+
+  filter: Neighs = new Neighs();
+
+  /**
+   * @type {number} 
+   */
+  numberOfNeighs: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _neighborhoodservice: NeighborhoodsService) { }
 
   ngOnInit() {
@@ -27,6 +49,12 @@ export class NeighborhoodsComponent implements OnInit {
       this.zones = data.zonas;
       console.log(this.zones[0]['nombre'])
     });
+    this._neighborhoodservice.getNeighsFilter().subscribe(
+      (count: Neighs[]) => {
+        this.count = count;
+        this.numberOfNeighs = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 

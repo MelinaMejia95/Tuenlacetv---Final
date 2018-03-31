@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BanksService } from '../services/banks.service';
 import swal from 'sweetalert2';
+import { Banks } from './banks';
 
 declare let jQuery:any;
 
@@ -19,6 +20,27 @@ export class BanksComponent implements OnInit {
   bank: any;
   createCity: string;
 
+  /**
+   * @type {Banks[]} 
+   */
+  count: Banks[];
+
+  /**
+   * @type {Banks} 
+   */
+
+  filter: Banks = new Banks();
+
+  /**
+   * @type {number} 
+   */
+  numberOfBanks: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _bankservice: BanksService) { }
 
   ngOnInit() {
@@ -27,6 +49,12 @@ export class BanksComponent implements OnInit {
       this.cities = data.ciudades;
       console.log(this.cities[0]['nombre'])
     });
+    this._bankservice.getBanksFilter().subscribe(
+      (count: Banks[]) => {
+        this.count = count;
+        this.numberOfBanks = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 

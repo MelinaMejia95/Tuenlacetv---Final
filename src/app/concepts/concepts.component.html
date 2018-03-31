@@ -21,25 +21,25 @@
     <thead>
       <tr class="tr-background">
         <th class="first-column">
-          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()" [attr.max]="[numberOfConcepts]"/>
           <label for="all"> </label>
         </th>
         <th>
           <label for="codigo" class="label-color">Código:</label>
-          <input id="codigo" type="text" class="input-custom">
+          <input id="codigo" type="text" class="input-custom" [(ngModel)]="filter.id">
         </th>
         <th>
           <label for="servicio" class="label-color">Servicio:</label>
-          <input id="servicio" type="text" class="input-custom">
+          <input id="servicio" type="text" class="input-custom" [(ngModel)]="filter.servicio">
         </th>
         <th>
           <label for="concepto" class="label-color">Concepto:</label>
-          <input id="concepto" type="text" class="input-custom">
+          <input id="concepto" type="text" class="input-custom" [(ngModel)]="filter.nombre">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let concept of concepts; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let concept of concepts | conceptsfilter:filter; let i = index" name="rows" (click)="selectRow()" >
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(concept)"/>
             <label [attr.for]="'radio_'+i"> </label>

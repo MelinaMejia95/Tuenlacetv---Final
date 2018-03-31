@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CitiesService } from '../services/cities.service';
 import swal from 'sweetalert2';
+import { Cities } from './cities';
 
 declare let jQuery: any;
 
@@ -24,6 +25,27 @@ export class CitiesComponent implements OnInit {
   department:any;
   depEdit:any;
 
+  /**
+   * @type {Cities[]} 
+   */
+  count: Cities[];
+
+  /**
+   * @type {Cities} 
+   */
+
+  filter: Cities = new Cities();
+
+  /**
+   * @type {number} 
+   */
+  numberOfCities: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _cityservice: CitiesService) { }
 
   ngOnInit() {
@@ -32,6 +54,12 @@ export class CitiesComponent implements OnInit {
       this.countries = data.paises;
       this.departments = data.departamentos;
       console.log(this.countries[0]['nombre'])
+    });
+    this._cityservice.getCitiesFilter().subscribe(
+      (count: Cities[]) => {
+        this.count = count;
+        this.numberOfCities = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();

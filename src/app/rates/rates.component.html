@@ -21,33 +21,33 @@
     <thead>
       <tr class="tr-background">
         <th class="first-column">
-          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()" [attr.max]="[numberOfCountries]"/>
           <label for="all"> </label>
         </th>
         <th>
           <label for="codigo" class="label-color">Código:</label>
-          <input id="nit" type="text" class="input-custom">
+          <input id="nit" type="text" class="input-custom" [(ngModel)]="filter.id">
         </th>
         <th>
           <label for="zona" class="label-color">Zona:</label>
-          <input id="zona" type="text" class="input-custom">
+          <input id="zona" type="text" class="input-custom" [(ngModel)]="filter.zona">
         </th>
         <th>
           <label for="concepto" class="label-color">Concepto:</label>
-          <input id="concepto" type="text" class="input-custom">
+          <input id="concepto" type="text" class="input-custom" [(ngModel)]="filter.concepto">
         </th>
         <th>
           <label for="valor" class="label-color">Valor:</label>
-          <input id="valor" type="text" class="input-custom">
+          <input id="valor" type="text" class="input-custom" [(ngModel)]="filter.valor">
         </th>
         <th>
           <label for="estado" class="label-color">Estado:</label>
-          <input id="estado" type="text" class="input-custom">
+          <input id="estado" type="text" class="input-custom" [(ngModel)]="filter.estado">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let rate of rates; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let rate of rates | ratesfilter:filter; let i = index" name="rows" (click)="selectRow()">
         <td>
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(rate)"/>
           <label [attr.for]="'radio_'+i"> </label>

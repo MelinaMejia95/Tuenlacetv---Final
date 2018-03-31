@@ -5,6 +5,19 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'angular4-datepicker/src/my-date-picker/my-date-picker.module';
+import { SubsFilterPipe } from './subscriber/subs-filter.pipe';
+import { CountriesFilterPipe } from './countries/countries-filter.pipe';
+import { DepartmentsFilterPipe } from './departments/deps-filter.pipe';
+import { CitiesFilterPipe } from './cities/cities-filter.pipe';
+import { CompaniesFilterPipe } from './company/company-filter.pipe';
+import { BanksFilterPipe } from './banks/banks-filter.pipe';
+import { ZonesFilterPipe } from './zones/zones-filter.pipe';
+import { NeighsFilterPipe } from './neighborhoods/neighs-filter.pipe';
+import { ConceptsFilterPipe } from './concepts/concepts-filter.pipe';
+import { PlansFilterPipe } from './plans/plans-filter.pipe';
+import { RatesFilterPipe } from './rates/rates-filter.pipe';
+import { BillsFilterPipe } from './bills/bills-filter.pipe';
+import { UsersFilterPipe } from './users/users-filter.pipe';
 //import swal from 'sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -74,7 +87,20 @@ import { TechniciansComponent } from './technicians/technicians.component';
     AutomaticbillsComponent,
     PaymentComponent,
     AdvancepaymentsComponent,
-    TechniciansComponent
+    TechniciansComponent,
+    SubsFilterPipe,
+    CountriesFilterPipe,
+    DepartmentsFilterPipe,
+    CitiesFilterPipe,
+    CompaniesFilterPipe,
+    BanksFilterPipe,
+    ZonesFilterPipe,
+    NeighsFilterPipe,
+    ConceptsFilterPipe,
+    PlansFilterPipe,
+    RatesFilterPipe,
+    BillsFilterPipe,
+    UsersFilterPipe
   ],
   imports: [
     BrowserModule,

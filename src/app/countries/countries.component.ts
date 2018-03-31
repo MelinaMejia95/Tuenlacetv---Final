@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from '../services/countries.service';
 import swal from 'sweetalert2';
+import { Countries } from './countries';
 
 declare let jQuery:any;
 
@@ -15,12 +16,39 @@ export class CountriesComponent implements OnInit {
   toogleDelete:boolean = false;
   countriesEdit:any;
 
+  /**
+   * @type {Countries[]} 
+   */
+  count: Countries[];
+
+  /**
+   * @type {Countries} 
+   */
+
+  filter: Countries = new Countries();
+
+  /**
+   * @type {number} 
+   */
+  numberOfCountries: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _countryservice: CountriesService) { }
 
   ngOnInit() {
     this._countryservice.getCountries().subscribe(data => {
       this.countries = data.paises;
     });
+    this._countryservice.getCountriesFilter().subscribe(
+      (count: Countries[]) => {
+        this.count = count;
+        this.numberOfCountries = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
         jQuery('#codigoEdit').prop('disabled',true);

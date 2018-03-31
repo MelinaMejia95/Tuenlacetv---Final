@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompaniesService } from '../services/companies.service';
 import swal from 'sweetalert2';
+import { Companies } from './company';
 
 declare let jQuery:any;
 
@@ -16,6 +17,27 @@ export class CompanyComponent implements OnInit {
   companyEdit: any; cityEdit: any; city: any; entity: any; contr: any; regi: any;
   cities: string; people: string; createCity: string; createEntity: string; createRegi: string; createContr: string;
 
+  /* /**
+   * @type {Companies[]} 
+   */
+  count: Companies[];
+
+  /**
+   * @type {Companies} 
+   */
+
+  filter: Companies = new Companies();
+
+  /**
+   * @type {number} 
+   */
+  numberOfCompanies: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number; 
+
   constructor(private _companyservice: CompaniesService) { }
 
   ngOnInit() {
@@ -25,6 +47,12 @@ export class CompanyComponent implements OnInit {
       this.people = data.representantes;
       console.log(data.empresas)
     });
+    /* this._companyservice.getCompaniesFilter().subscribe(
+      (count: Companies[]) => {
+        this.count = count;
+        this.numberOfCompanies = this.count.length;
+        this.limit = this.count.length; 
+      }); */
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
