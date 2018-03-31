@@ -23,7 +23,8 @@ html {
 }
 
 .dropdown-content li > a, .dropdown-content li > span {
-    line-height: 7px;
+    padding: 15px 16px !important;
+    line-height: 0px !important;
     color: #213031;
     font-size: 13px;
 }
@@ -33,7 +34,7 @@ html {
 }
 
 .dropdown-content li {
-    min-height: 36px;
+    min-height: 30px;
 }
 
 .color-dark-principal {
@@ -83,7 +84,17 @@ html {
 
 .bradcrum-position{
     margin-top: -1em;
-    margin-bottom: 0;
+    margin-bottom: 2.5% !important;
+}
+
+.module-position {
+    margin-top: -1em;
+    margin-bottom: 0% !important;
+}
+
+.option-module {
+    margin-bottom: 1% !important;
+    margin-top: 1%;
 }
 
 .modal-title{
@@ -173,7 +184,7 @@ html {
 
 .pagination{
     font-size: 2px;
-    margin-top: 0.5%;
+    margin-top: 2.5%;
 }
 
 .pagination li {
@@ -286,7 +297,7 @@ table.striped > tbody > tr > td {
 }
 
 table.highlight > tbody > tr {
-    line-height: 1em !important;
+    line-height: 0.5em !important;
 }
 
 td, th {
@@ -432,22 +443,10 @@ select:disabled{
     width: 350px !important;
 }
 
-/*.swal2-icon {
-    width: 60px !important;
-    height: 60px !important;
-    margin: 15px auto 20px !important;
-}*/
-
 .swal2-icon.swal2-warning {
     font-size: 56px !important;
     line-height: 72px !important;
 }
-
-/*.swal2-icon.swal2-success .swal2-success-ring {
-    width: 60px !important;
-    height: 60px !important;
-    margin: 15px auto 20px !important;
-}*/
 
 .swal2-popup .swal2-title {
     font-size: 20px !important;
@@ -458,9 +457,35 @@ select:disabled{
     padding: 8px 25px !important;
 } 
 
+.page-footer {
+    z-index: 1;
+    height: 5%;
+}
+
+.container {
+    margin-bottom: 6%;
+    margin-left: 10%;
+    font-size: 13px;
+}
+
+.side-nav .user-view .name {
+    font-size: 13px;
+}
+
+.side-nav .img-user {
+    margin: 0 auto;
+}
+
+
 @media only screen and (max-width: 992px) {
     nav .brand-logo{    
         left: 15%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .container-table {
+        overflow-y: hidden;
     }
 }
 
