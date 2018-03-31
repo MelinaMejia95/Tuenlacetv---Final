@@ -47,7 +47,7 @@
 .button-menu {
     height: auto;
     line-height: 2rem;
-    margin-left: 10% !important;
+    margin-left: 9.2rem !important;
     margin-right: 0px;
 }
 
@@ -119,7 +119,7 @@
 
 .side-nav .second-icon{
     padding-right: 0.5em;
-    line-height: 2.2rem;
+    line-height: 2rem !important;
     font-size: 1.4rem;
 }
 
@@ -259,13 +259,6 @@ input[type=text]:not(.browser-default){
 
 .body-option {
     padding-left: 4% !important;
-}
-
-.background[_ngcontent-c1][_ngcontent-c1] .material-icons[_ngcontent-c1][_ngcontent-c1] {
-    height: auto;
-    line-height: 2rem;
-    margin-left: 0px;
-    margin-right: 0px;
 }
 
 @media only screen and (max-width: 992px){  
