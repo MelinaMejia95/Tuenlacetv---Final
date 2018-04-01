@@ -40,12 +40,12 @@ export class PaymentsService {
    } 
 
 
- deletePayment(code: string){
-  const url = this._global.url + `/pagos/` + code;
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
-  return this._http.delete(url, options).map(response => response.json());
+ deletePayment(codigo){
+    const url = this._global.url + `/pagos/anular_pago/` + codigo;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')} });
+    return this._http.post(url, options).map(response => response.json());
  }
 
  createPayment(content: object){

@@ -85,6 +85,51 @@ export class PaymentComponent implements OnInit {
     jQuery('#modal-see').modal('open');
   }
 
+  deletePayment() {
+    swal({
+      title: '¿Desea anular el pago?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.payEdit) {
+          this._paymentservice.deletePayment(this.payEdit.id).subscribe(
+            data => {
+              console.log(data)
+              if ( data.status == "anulado") {
+                swal({
+                  title: 'Pago anulado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else if ( data.error == "error al anular pago") {
+                swal(
+                  'No se pudo anular el pago',
+                  '',
+                  'warning'
+                )
+              }
+            },
+          error =>{
+            swal(
+              'No se pudo anular el pago',
+              '',
+              'warning'
+            )
+          })
+        } 
+      }
+    })
+  }
+
   closeModal () {
     jQuery('#modal-see').modal('close');
   }
