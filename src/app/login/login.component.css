@@ -49,21 +49,25 @@
     box-shadow: #0288d1
   } 
 
-.login-form input[type=text],
-.login-form input[type=password]:not(.browser-default) {
+.login-form input[type=text]:not(.select-wrapper),
+.login-form input[type=password]:not(.browser-default):not(.select-wrapper) {
     border: none;
     border-bottom: 1px solid #4CAF50;
     border-radius: 0;
     outline: none;
     height: 2.5rem;
-    width: calc(100% - 3rem);
-    margin-left: 3rem;
+    width: calc(100% - 3rem); 
+    margin: 0px 0px 7px 40px !important; 
 }
 
-.select-wrapper input[type=text] {
-    margin-left: 0;
-    width: 95%;
-    margin-bottom: 18px;
+/* .login-input {
+    width: calc(100% - 4rem) !important;
+    margin: 0px 0px 7px 40px !important;
+}  */
+
+.select-wrapper input[type=text]:not(.login-form) {
+    margin: 0px 0 7px 0 !important;
+    width: calc(100% - 1rem);
 }
 
 /*

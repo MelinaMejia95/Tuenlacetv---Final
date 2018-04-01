@@ -96,6 +96,7 @@ export class ConceptsComponent implements OnInit {
       this._conceptservice.createConcepts({ 'codigo': codigo, 'servicio_id': this.createService, 'nombre': nombre, 'abreviatura': abreviatura, 'porcentajeIva': porcentajeIva,
                                       'operacion': operacion, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
+          console.log(data)
           if ( data.status == "created") {
             swal({
               title: 'Registro creado con éxito',
@@ -114,7 +115,8 @@ export class ConceptsComponent implements OnInit {
           }
         },
         error => {
-          if ( error.contenido == "has already been taken") {
+          console.log(error._body)
+          if ( error._body == `{"codigo":["has already been taken"]}`) {
             swal(
               'El código ya existe',
               '',
@@ -145,6 +147,16 @@ export class ConceptsComponent implements OnInit {
           } else {
             swal(
               'No se pudo actualizar el registro',
+              '',
+              'warning'
+            )
+          }
+        },
+        error => {
+          console.log(error._body)
+          if ( error._body == `{"codigo":["has already been taken"]}`) {
+            swal(
+              'El código ya existe',
               '',
               'warning'
             )

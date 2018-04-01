@@ -141,19 +141,18 @@
           </div>
           <div class="col s12 m6 l6">
             <label for="fechainicio" class="label-color">Fecha inicio:</label>
-            <input placeholder="" id="fechainicio" type="text" class="datepicker" #fechaini>
+            <my-date-picker name="fechainicio" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" required></my-date-picker>
           </div>
           <div class="col s12 m6 l6">
             <label for="fechafin" class="label-color">Fecha fin:</label>
-            <input placeholder="" id="fechafin" type="text" class="datepicker" #fechaven>
+            <my-date-picker name="fechafin" [options]="myDatePickerOptions" (dateChanged)="onDateChangedServ($event)" required></my-date-picker>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createRate(codigo.value, valor.value,
-      fechaini.value, fechaven.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createRate(codigo.value, valor.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -217,11 +216,11 @@
             </div>
             <div class="col s12 m6 l6">
               <label for="fechainicioEdit" class="label-color">Fecha inicio:</label>
-              <input disabled id="fechainicioEdit" type="text" class="datepicker" [(ngModel)]="rateEdit['fechas'][0].fechainicio" [ngModelOptions]="{standalone: true}">
+              <my-date-picker name="fechainicioEdit" [options]="myDatePickerOptions" [(ngModel)]="model1" required [disabled]="disabled"></my-date-picker>
             </div>
             <div class="col s12 m6 l6">
               <label for="fechafinEdit" class="label-color">Fecha vencimiento:</label>
-              <input disabled id="fechafinEdit" type="text" class="datepicker" [(ngModel)]="rateEdit['fechas'][0].fechavence" [ngModelOptions]="{standalone: true}">
+              <my-date-picker name="fechafinEdit" [options]="myDatePickerOptions" [(ngModel)]="model2" required [disabled]="disabled"></my-date-picker>
             </div>
         </div>
       </form>

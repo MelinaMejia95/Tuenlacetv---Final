@@ -14,8 +14,8 @@ export class SubscribersService {
     console.log('working')
    }
 
-  getSubscribers(){
-    const url = this._global.url + `/senales/bd/` + localStorage.getItem('db');
+  getSubscribers(entity){
+    const url = this._global.url + `/senales/` + entity + `/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     console.log(header)
@@ -25,12 +25,23 @@ export class SubscribersService {
     })
  }
 
+ getEntities(entity){
+  const url = this._global.url + `/senales/entidades/` + entity + `/` + localStorage.getItem('db');
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  console.log(header)
+  let options = new RequestOptions({ headers: header });
+  return this._http.get(url, options).map(response =>{
+      return response.json();
+  })
+}
+
  /**
     @return {Observable<Subs[]>} 
    */
 
- getSubsFilter(): Observable<Subs[]> {
-  const url = this._global.url + `/senales/bd/` + localStorage.getItem('db');
+ getSubsFilter(entity): Observable<Subs[]> {
+  const url = this._global.url + `/senales/` + entity +`/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     console.log(header)

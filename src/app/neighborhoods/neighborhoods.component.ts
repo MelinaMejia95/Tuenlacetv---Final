@@ -227,8 +227,6 @@ export class NeighborhoodsComponent implements OnInit {
   edit () {
     jQuery('#nombreEdit').prop('disabled',false);
     jQuery('#selectEdit').prop('disabled',false);
-    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
     jQuery('#selectEdit').on('change', () => {
       this.neighborhood = jQuery('#selectEdit').val();

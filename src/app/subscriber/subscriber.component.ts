@@ -19,26 +19,24 @@ declare let jsPDF;
 export class SubscriberComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string; disabled: boolean = true;
-  planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any;
-  technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string;
-  createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string;
+  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string; disabled: boolean = true; showint: number = 1;
+  planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any; splitted: any; model: any;
+  technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string; splitted2: any; model2: any;
+  createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string; model3 : any; model4: any;
   createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string;
   createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string; tvEdit: any; intEdit: any;
   seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
   subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any; tipofacturaciontvEdit: any;
   viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
   template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
-  tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any;
+  tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any; 
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any;
-  ratestvSelect: any[] = []; ratesintSelect: any[] = [];
+  ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any;
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
-    dateFormat: 'yyyy-mm-dd',
+    dateFormat: 'dd/mm/yyyy',
   };
-
-  public model: any = { date: { year: 2018, month: 10, day: 9 } };
 
   /**
    * @type {Subs[]} 
@@ -65,7 +63,9 @@ export class SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._suscriberservice.getSubscribers().subscribe(data => {
+    this._suscriberservice.getSubscribers(localStorage.getItem('entidad')).subscribe(data => {
+      this.entity = data.entidades;
+      //this.entity = data.senales;
       this.subscribers = data.senales;
       this.services = data.servicios;
       this.neighborhoods = data.barrios;
@@ -85,33 +85,32 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      console.log(this.ratesint)
-      /*for(let i=0; i < this.subscribers.length; i++ ) {
-        if (this.subscribers[i]['tv'] == 1) {
-          this.template[i] = this.subscribers[i]['plantilla_fact_tv'][1].saldo_tv;
-          this.estados[i] = this.subscribers[i]['plantilla_fact_tv'][0].estado_tv
-        } else if (this.subscribers[i]['tv'] == 0) {
-          this.template[i] = 0;
-        }
-      }*/
       if (this.paramafi == 'N') {
         jQuery("#valorinternet").prop('disabled',true);
         jQuery("#valorafiliaciontv").prop('disabled',true);
         this.valorafitv = Number(data.valor_afi_tv);
         console.log(this.valorafitv)
         this.valorafiint = Number(data.valor_afi_int);
+      } else if (this.paramafi == 'S'){
+        this.valorafitv = Number(data.valor_afi_tv);
+        this.valorafiint = Number(data.valor_afi_int);
       }
     });
     // Load Subs from the subscriber service on init
-    this._suscriberservice.getSubsFilter().subscribe(
+    this._suscriberservice.getSubsFilter(localStorage.getItem('entidad')).subscribe(
       (subs: Subs[]) => {
-        console.log(subs['senales'])
-        this.subs = subs['senales'];
+        console.log(subs['entidades'])
+        this.subs = subs['entidades'];
         this.numberOfSubs = this.subs.length;
         this.limit = this.subs.length; // Start off by showing all books on a single page.*/
       });
       this.disabled = true;
-    document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
+    //document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
+    /* this.option = 1;
+    this._suscriberservice.getEntities(jQuery('#mostrar').val()).subscribe(data => {
+      this.entity = this.option;
+    }); */
+    jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
     jQuery('#modal-factura').modal();
@@ -123,11 +122,22 @@ export class SubscriberComponent implements OnInit {
       jQuery(".select-disabled:enabled").prop('disabled',true);
       this.disabled = true;
     }});
+    jQuery('#mostrar').on('change', () => {
+      this._suscriberservice.getEntities(jQuery('#mostrar').val()).subscribe(data => {
+        localStorage.setItem('entidad', jQuery('#mostrar').val());
+        this.entity = data.entidades;
+      });
+    });
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
       if ( this.tipoUsuario == '1') {
         jQuery('#ciudad').prop('disabled',true);
+        jQuery('.check-type').css({"visibility" : "visible"});
+        jQuery('.hide-info').css({"visibility" : "visible"});
+        setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
       } else if ( this.tipoUsuario != '1') {
+        jQuery('.hide-info').css({"visibility" : "hidden"});
+        jQuery('.check-type').css({"visibility" : "hidden"});
         jQuery('#ciudad').prop('disabled',false);
       }
     });
@@ -143,24 +153,34 @@ export class SubscriberComponent implements OnInit {
       weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
       format: 'yyyy-mm-dd'
     });
+    jQuery('#funcion').on('change', () => {
+      this.createFunc = jQuery('#funcion').val();
+      if(this.createFunc == '1') {
+        jQuery(".service-subs")
+      }
+    });
     jQuery('#television').on('change', () =>{
+      console.log('entro tv')
+      if (jQuery('#television').prop('checked') == true){
+        this.tv = 1;
+      } else {
+        this.tv = 0;
+      }
       var changeTv = <HTMLInputElement><any>document.getElementById('television');
       if(changeTv.checked == true) {
+        setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
         document.getElementById('collapsible-television').setAttribute('style', 'visibility: visible');
         //jQuery('#collapsible-television').prop('visibility','visible');
       } else {
         //jQuery('#collapsible-television').collapsible('visibility', 'hidden');
         document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
       }
-      if (jQuery('#television').prop('checked') == true){
-        this.tv = 1;
-      } else {
-        this.tv = 0;
-      }
     }); 
     jQuery('#internet').on('change', () =>{
+      console.log('checkinternet')
       var changeTv = <HTMLInputElement><any>document.getElementById('internet');
       if(changeTv.checked == true) {
+        setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
         document.getElementById('collapsible-internet').setAttribute('style', 'visibility: visible');
         //jQuery('#collapsible-internet').collapsible('open', 0);
       } else {
@@ -169,13 +189,11 @@ export class SubscriberComponent implements OnInit {
       }
       if (jQuery('#internet').prop('checked') == true){
         this.int = 1;
+        this.showint = 1;
         console.log(this.int)
       } else {
         this.int = 0;
       }
-    });
-    jQuery('#funcion').on('change', () => {
-      this.createFunc = jQuery('#funcion').val();
     });
     jQuery('#tipodoc').on('change', () => {
       this.createTypedoc = jQuery('#tipodoc').val();
@@ -200,6 +218,7 @@ export class SubscriberComponent implements OnInit {
     });
     jQuery('#zonatv').on('change', () => {
       this.createZonetv = jQuery('#zonatv').val();
+      console.log(this.createZonetv)
     });
     jQuery('#estratotv').on('change', () => {
       this.createStrattv = jQuery('#estratotv').val();
@@ -233,6 +252,7 @@ export class SubscriberComponent implements OnInit {
     });
     jQuery('#tarifastv').on('change', () => {
       this.createRatetv = jQuery('#tarifastv').val();
+      console.log(this.createRatetv)
     });
     jQuery('#equipo').on('change', () => {
       this.createEquip = jQuery('#equipo').val();
@@ -258,9 +278,11 @@ export class SubscriberComponent implements OnInit {
         }
       }
     });
+    jQuery('#television').on('change', () =>{
+      console.log('change tv')
+    })
   }
   
-  //revisar
   selectData(subs){
     this.subsEdit = subs;
     console.log(subs)
@@ -316,10 +338,25 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
-    this.disabled = true;
-    this.subsEdit = subscriber;
-    
     console.log(subscriber)
+    this.disabled = true;
+    this.splitted = null;
+    this.subsEdit = subscriber;
+    let str = this.subsEdit.fechacontrato;
+    let str2 = this.subsEdit.fechanac;
+    this.splitted = str.split("/", 3); this. splitted2 = str2.split("/", 3);
+    for (let i = 0; i < 10; i++) {
+      if (this.splitted[0] == "0" + i.toString() || this.splitted2[0] == "0" + i.toString()) {
+        this.splitted[0] = i.toString();
+        this.splitted2[0] = i.toString();
+      }
+      if (this.splitted[1] == "0" + i.toString() || this.splitted2[1] == "0" + i.toString() ) {
+        this.splitted[1] = i.toString();
+        this.splitted2[1] = i.toString();
+      }
+    }
+    this.model = { date: { year: this.splitted[2], month: this.splitted[1], day: this.splitted[0] } };
+    this.model2 = { date: { year: this.splitted2[2], month: this.splitted2[1], day: this.splitted2[0] } };
     let j = 0;
     for (let i=0; i < this.ratestv.length ; i++) {
       if( this.subsEdit.plan_tv == this.ratestv[i]['plan_id']){
@@ -379,6 +416,11 @@ export class SubscriberComponent implements OnInit {
     }
   }
 
+  changeTypeCreate () {
+    console.log('entro')
+    
+  }
+
   changeType() {
     jQuery('#televisionEdit').on('change', () => {
       if (jQuery('#televisionEdit').prop('checked') == true){
@@ -406,6 +448,7 @@ export class SubscriberComponent implements OnInit {
 
   updateSubs() {
     if(this.subsEdit){
+      console.log(this.model.formatted)
       this._suscriberservice.updateSubscribers({
         "senal": 
             {
@@ -422,7 +465,7 @@ export class SubscriberComponent implements OnInit {
                 "estrato": this.estratotv,
                 "vivienda": this.tipoviviendatvEdit,
                 "observacion": this.subsEdit.observacion,
-                "fechacontrato": this.subsEdit.fechacontrato,
+                "fechacontrato": this.model.formatted,
                 "permanencia": this.permanenciaEdit,
                 "televisores": this.subsEdit.televisores,
                 "decos": Number(this.subsEdit.decos),
@@ -449,7 +492,7 @@ export class SubscriberComponent implements OnInit {
                 "telefono1": this.subsEdit.telefono1P,
                 "telefono2": this.subsEdit.telefono2P,
                 "correo": this.subsEdit.correo,
-                "fechanac": this.subsEdit.fechanac,
+                "fechanac": this.model2.formatted,
                 "tipopersona": this.tipopersonaEdit,
                 "estrato": this.estratoEdit,
                 "condicionfisica": this.condicionEdit,
@@ -510,11 +553,20 @@ export class SubscriberComponent implements OnInit {
     }
   }
 
-  createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, fechanac, 
-            contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, fechacons,
-            televisores, decos, precinto, descuento,
-            dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, valorafiint, descuentoint){
-    if (numdoc) {
+  onDateChanged(event: IMyDateModel) {
+    console.log(event.formatted )
+    this.model3 = event.formatted ;
+  }
+
+  onDateChangedServ(event: IMyDateModel) {
+    console.log(event.formatted )
+    this.model4 = event.formatted ;
+  }
+
+  createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
+    contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
+    televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint){
+     if (numdoc) {
       this._suscriberservice.createSubscribers({
         "persona":
          {
@@ -530,7 +582,7 @@ export class SubscriberComponent implements OnInit {
              "telefono1": tel1,
              "telefono2": tel2,
              "correo": correo,
-             "fechanac": fechanac,
+             "fechanac": this.model3, 
              "tipopersona": this.createPer,
              "estrato": this.createStrat,
              "condicionfisica": this.createCond,
@@ -550,7 +602,7 @@ export class SubscriberComponent implements OnInit {
             "estrato": this.createStrattv,
             "vivienda": this.createTypevivtv,
             "observacion": observacions,
-            "fechacontrato": fechacons,
+            "fechacontrato": this.model4,
             "permanencia": this.createPerm,
             "televisores": televisores,
             "decos": decos,
@@ -581,11 +633,11 @@ export class SubscriberComponent implements OnInit {
             },
         "funcion_id": this.createFunc,
         "tv": Number(this.tv),
-        "valorafi_tv": this.valorafitv,
+        "valorafi_tv": Number(this.valorafitv),
         "valor_dcto_tv": Number(descuento),
         "tarifa_id_tv": this.createRatetv,
         "internet": Number(this.int),
-        "valorafi_int": this.valorafiint,
+        "valorafi_int": Number(this.valorafiint),
         "valor_dcto_int": Number(descuentoint),
         "tarifa_id_int": this.createRateint,
         "tecnico_id": this.createTech,
@@ -610,7 +662,7 @@ export class SubscriberComponent implements OnInit {
             )
           }
         });
-    }
+    } 
   } 
 
   deleteSubs(){
@@ -735,18 +787,6 @@ export class SubscriberComponent implements OnInit {
       jQuery('#ciudadEdit').prop('disabled',true);
     }
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
     jQuery('.collapsible').collapsible();
     jQuery('#barriotvEdit').on('change', () => {
       this.barriotvEdit = jQuery('#barriotvEdit').val();

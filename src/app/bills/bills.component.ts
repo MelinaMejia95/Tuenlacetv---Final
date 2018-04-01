@@ -121,7 +121,7 @@ export class BillsComponent implements OnInit {
   deleteBill(){
     swal({
       title: '¿Desea eliminar el registro?',
-      text: "You won't be able to revert this!",
+      text: "",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

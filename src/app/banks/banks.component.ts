@@ -247,7 +247,8 @@ export class BanksComponent implements OnInit {
     jQuery('#cuenta_banEdit').prop('disabled',false);
     jQuery('#cuenta_conEdit').prop('disabled',false);
     jQuery('#selectEdit').prop('disabled',false);
-    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#nombreEdit').prop('disabled',false);
+    /* jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nitEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#direccionEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#tel1Edit').attr({style:' margin: 2px 0 7px 0 !important;'});
@@ -255,7 +256,7 @@ export class BanksComponent implements OnInit {
     jQuery('#ciudadEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#contactoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#cuenta_banEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#cuenta_conEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
+    jQuery('#cuenta_conEdit').attr({style:' margin: 2px 0 7px 0 !important;'}); */
     jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
     jQuery('#selectEdit').on('change', () => {
       this.bank = jQuery('#selectEdit').val();

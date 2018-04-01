@@ -112,14 +112,13 @@ html {
 
 .modal .modal-footer {
     border-radius: 0 0 2px 2px;
-    background-color: #5aa8cb;
+    background-color: #478fbc;
     padding: 4px 6px;
-    height: 100%;
+    height: 46px;
     width: 100%;
-    color: white;
     text-align: right;
 }
-
+ 
 .modal .modal-footer .btn-flat {
     /*margin: 6px 0;
     margin-left: 0em;
@@ -152,9 +151,9 @@ html {
     line-height: 1em;
 }
 
-.modal.modal-fixed-footer .modal-footer{
+/* .modal.modal-fixed-footer .modal-footer{
     z-index: 1;
-}
+} */
 
 .btn-print{
     display: inline-block;
@@ -291,7 +290,7 @@ table.striped > tbody > tr > td {
     border-radius: 0;
     padding-top: 0.1em;
     padding-bottom: 0 !important;
-    text-align: center;
+    text-align: left;
     font-size: 12px;
     white-space: nowrap;
 }
@@ -350,7 +349,7 @@ input[type=text]:not(.browser-default){
     border-radius: 0.5em;
     background-color: white;
     border-color: #478fbc;
-    margin: 0px 0 7px 0;
+    margin: 0px 0 7px 0 !important;
     padding-left: 3px;
     box-sizing: border-box;
 }
@@ -388,7 +387,7 @@ input[type=password]:not(.browser-default){
     border-radius: 0.5em;
     background-color: white;
     border-color: #478fbc;
-    margin: 0px 0 7px 0;
+    margin: 0px 0 7px 0 !important;
     box-sizing: border-box;
 }
 
@@ -439,8 +438,20 @@ select:disabled{
     margin: 0px 0 7px 0 !important;
 }
 
+.swal2-icon {
+    margin: 2px auto 21px !important;
+}
+
+.swal2-popup .swal2-buttonswrapper {
+    margin-top: 1px !important;
+}
+
 .swal2-popup {
     width: 350px !important;
+}
+
+.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right) > .swal2-modal {
+    padding: 15px !important;
 }
 
 .swal2-icon.swal2-warning {

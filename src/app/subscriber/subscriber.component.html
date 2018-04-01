@@ -17,14 +17,8 @@
       <div class="row">
         <label class="label-color">Mostrar:</label>
         <select class="browser-default select-city" id="mostrar">
-          <option value="" selected>Seleccione</option>
-          <option value="1">Suscriptor</option>
-          <option value="2">Proveedor</option>
-          <option value="3">Cliente</option>
-          <option value="4">Empleado</option>
-          <option value="5">Vendedor</option>
-          <option value="6">Esal</option>
-          <option value="7">Técnico</option>
+          <option value="nodisplay" disabled selected>Suscriptor</option>
+          <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
         </select>
       </div>
     </div>
@@ -86,7 +80,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let subscriber of subscribers | subsfilter:filter; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let subscriber of entity | subsfilter:filter; let i = index" name="rows" (click)="selectRow()">
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(subscriber)"/>
             <label [attr.for]="'radio_'+i"> </label>
@@ -131,7 +125,7 @@
 </div>
 
 <!--Modal Crear -->
-<div id="modal-crear" class="modal">
+<div id="modal-crear" class="modal modal-fixed-footer">
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
@@ -147,17 +141,21 @@
   <div class="modal-content">
       <form>
         <div class="row">
+          <div class="row service-subs">
+            <div class="col s12 m12 l6">
+              <span class="service-title">Información persona</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="separator-subs z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col s12 m6 l4">
             <label class="label-color">Tipo función:</label>
             <select class="browser-default select-city" id="funcion">
-              <option value="" disabled selected>Seleccione</option>
-              <option value="1">Suscriptor</option>
-              <option value="2">Proveedor</option>
-              <option value="3">Cliente</option>
-              <option value="4">Empleado</option>
-              <option value="5">Vendedor</option>
-              <option value="6">Esal</option>
-              <option value="7">Técnico</option>
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
             </select>
           </div>
           <div class="col s12 m6 l4">
@@ -232,7 +230,7 @@
           </div>
           <div class="col s12 m6 l3">
             <label for="fechanacimiento" class="label-color">Fecha de nacimiento:</label>
-            <input placeholder="" id="fechanacimiento" type="text" class="datepicker" #fechanac>
+            <my-date-picker name="fechanaccreate" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" required></my-date-picker>
           </div>
         </div>
         <div class="row">
@@ -240,8 +238,8 @@
             <label class="label-color">Tipo persona:</label>
             <select class="browser-default select-city" id="tipopersona">
               <option value="nodisplay" disabled selected>Seleccione</option>
-              <option value="J">Jurídica</option>
               <option value="N">Natural</option>
+              <option value="J">Jurídica</option>
             </select>
           </div>
           <div class="col s12 m6 l3">
@@ -269,8 +267,9 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="row service-subs">
+        <!-- <div  *ngIf="createFunc" ></div> -->
+        <div class="row hide-info" >
+          <div class="row service-subs"   >
             <div class="col s12 m12 l6">
               <span class="service-title">Información general servicio</span>
             </div>
@@ -279,157 +278,159 @@
             <div class="separator-subs z-depth-3"></div>
           </div>
         </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="numcontrato" class="label-color">Número de contrato:</label>
-            <input placeholder="" id="numcontrato" type="text" #contratos>
+        <div >
+          <div class="row hide-info"   >
+            <div class="col s12 m6 l3">
+              <label for="numcontrato" class="label-color">Número de contrato:</label>
+              <input placeholder="" id="numcontrato" type="text" #contratos>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="dirtv" class="label-color">Dirección:</label>
+              <input placeholder="" id="dirtv" type="text" #direccions>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="urbanizacion" class="label-color">Urbanización:</label>
+              <input placeholder="" id="urbanizacion" type="text" #urbanizacions>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="torre" class="label-color">Torre:</label>
+              <input placeholder="" id="torre" type="text" #torres>
+            </div>
           </div>
-          <div class="col s12 m6 l3">
-            <label for="dirtv" class="label-color">Dirección:</label>
-            <input placeholder="" id="dirtv" type="text" #direccions>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="urbanizacion" class="label-color">Urbanización:</label>
-            <input placeholder="" id="urbanizacion" type="text" #urbanizacions>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="torre" class="label-color">Torre:</label>
-            <input placeholder="" id="torre" type="text" #torres>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="apartamento" class="label-color">Apartamento:</label>
-            <input placeholder="" id="apartamento" type="text" #apartamentos>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Barrio:</label>
-            <select class="browser-default select-city" id="barriotv">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Zona:</label>
-            <select class="browser-default select-city" id="zonatv">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="tel1tv" class="label-color">Teléfono 1:</label>
-            <input placeholder="" id="tel1tv" type="text" #tel1s>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="te21tv" class="label-color">Teléfono 2:</label>
-            <input placeholder="" id="tel2tv" type="text" #tel2s>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="contactotv" class="label-color">Contacto:</label>
-            <input placeholder="" id="contactotv" type="text" #contactos>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Estrato:</label>
-            <select class="browser-default select-city" id="estratotv">
-              <option value="nodisplay" selected disabled>Seleccione</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Tipo vivienda:</label>
-            <select class="browser-default select-city" id="tipoviviendatv">
-              <option value="" disabled selected>Seleccione</option>
-              <option value="P">Propia</option>
-              <option value="A">Alquilada</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="observacion" class="label-color">Observación:</label>
-            <input placeholder="" id="observacion" type="text" class="text" #observacions>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
-            <input placeholder="" id="fechacontratotv" type="text" class="datepicker" #fechacons>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Vendedor:</label>
-            <select class="browser-default select-city" id="vendedortv">
-              <option value="nodisplay" selected disabled>Seleccione</option>
-              <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-              <label class="label-color">Técnicos:</label>
-              <select class="browser-default select-city" id="tecnicotv">
+          <div class="row hide-info"  >
+            <div class="col s12 m6 l3">
+              <label for="apartamento" class="label-color">Apartamento:</label>
+              <input placeholder="" id="apartamento" type="text" #apartamentos>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Barrio:</label>
+              <select class="browser-default select-city" id="barriotv">
                 <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
+                <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
               </select>
             </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label class="label-color">Tipo instalación:</label>
-            <select class="browser-default select-city" id="tipoinstalaciontv">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Tipo tecnología:</label>
-            <select class="browser-default select-city" id="tipotecnologiatv">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Tipo de servicio:</label>
-            <select class="browser-default select-city" id="tiposerviciotv">
+            <div class="col s12 m6 l3">
+              <label class="label-color">Zona:</label>
+              <select class="browser-default select-city" id="zonatv">
                 <option value="nodisplay" disabled selected>Seleccione</option>
-                <option value="R">Residencial</option>
-                <option value="C">Comercial</option>
-            </select>
+                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="tel1tv" class="label-color">Teléfono 1:</label>
+              <input placeholder="" id="tel1tv" type="text" #tel1s>
+            </div>
           </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Área de instalación:</label>
-            <select class="browser-default select-city" id="areainstalaciontv">
-              <option value="npdisplay" disabled selected>Seleccione</option>
-              <option value="U">Urbana</option>
-              <option value="R">Rural</option>
-              <option value="E">Extrarural</option>
-            </select>
+          <div class="row hide-info"   >
+            <div class="col s12 m6 l3">
+              <label for="te21tv" class="label-color">Teléfono 2:</label>
+              <input placeholder="" id="tel2tv" type="text" #tel2s>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="contactotv" class="label-color">Contacto:</label>
+              <input placeholder="" id="contactotv" type="text" #contactos>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Estrato:</label>
+              <select class="browser-default select-city" id="estratotv">
+                <option value="nodisplay" selected disabled>Seleccione</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Tipo vivienda:</label>
+              <select class="browser-default select-city" id="tipoviviendatv">
+                <option value="" disabled selected>Seleccione</option>
+                <option value="P">Propia</option>
+                <option value="A">Alquilada</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label class="label-color">Tipo facturación:</label>
-            <select class="browser-default select-city" id="tipofacturacion">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
-            </select>
+          <div class="row hide-info"  >
+            <div class="col s12 m6 l3">
+              <label for="observacion" class="label-color">Observación:</label>
+              <input placeholder="" id="observacion" type="text" class="text" #observacions>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
+              <my-date-picker name="fechacontratotv" [options]="myDatePickerOptions" (dateChanged)="onDateChangedServ($event)" required></my-date-picker>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Vendedor:</label>
+              <select class="browser-default select-city" id="vendedortv">
+                <option value="nodisplay" selected disabled>Seleccione</option>
+                <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3">
+                <label class="label-color">Técnicos:</label>
+                <select class="browser-default select-city" id="tecnicotv">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
+                </select>
+              </div>
           </div>
-          <div class="col s12 m6 l3 check-type">
-            <input type="checkbox" class="filled-in" id="television" name="group3" checked="checked"/>
-            <label for="television" class="check-label">Televisión</label>
-            <input type="checkbox" class="filled-in" id="internet" name="group3"/>
-            <label for="internet" class="check-label">Internet</label>
+          <div class="row hide-info"  >
+            <div class="col s12 m6 l3">
+              <label class="label-color">Tipo instalación:</label>
+              <select class="browser-default select-city" id="tipoinstalaciontv">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Tipo tecnología:</label>
+              <select class="browser-default select-city" id="tipotecnologiatv">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Tipo de servicio:</label>
+              <select class="browser-default select-city" id="tiposerviciotv">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option value="R">Residencial</option>
+                  <option value="C">Comercial</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Área de instalación:</label>
+              <select class="browser-default select-city" id="areainstalaciontv">
+                <option value="npdisplay" disabled selected>Seleccione</option>
+                <option value="U">Urbana</option>
+                <option value="R">Rural</option>
+                <option value="E">Extrarural</option>
+              </select>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col s12 m6 l3 hide-info"    >
+              <label class="label-color">Tipo facturación:</label>
+              <select class="browser-default select-city" id="tipofacturacion">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s12 m6 l3 check-type">
+              <input type="checkbox" class="filled-in" id="television" name="group3" checked="checked"/>
+              <label for="television" class="check-label">Televisión</label>
+              <input type="checkbox" class="filled-in" id="internet" name="group3"/>
+              <label for="internet" class="check-label">Internet</label>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col s12 m12 l12">
-            <ul class="collapsible" data-collapsible="accordion" id="collapsible-television">
+            <ul class="collapsible hide-info" data-collapsible="accordion" id="collapsible-television" >
               <li>
                 <div class="collapsible-header">
                   <i class="material-icons">live_tv</i>
@@ -608,7 +609,7 @@
                       </div>
                       <div class="col s12 m6 l3">
                         <label for="valorinternet" class="label-color">Valor afiliación:</label>
-                        <input placeholder="" id="valorinternet" type="text" #valorafiint>
+                        <input placeholder="" id="valorinternet" type="text" [(ngModel)]="valorafiint" [ngModelOptions]="{standalone: true}">
                       </div>
                       <div class="col s12 m6 l3">
                         <label for="descuentointernet" class="label-color">Valor descuento:</label>
@@ -625,10 +626,10 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createSubs(numdoc.value, 
-    nombre1.value, nombre2.value, apellido1.value, apellido2.value, tel1.value, tel2.value, direccion.value, correo.value, fechanac.value,
-    contratos.value, direccions.value, urbanizacions.value, torres.value, apartamentos.value, tel1s.value, tel2s.value, contactos.value, observacions.value, fechacons.value,
+    nombre1.value, nombre2.value, apellido1.value, apellido2.value, tel1.value, tel2.value, direccion.value, correo.value,
+    contratos.value, direccions.value, urbanizacions.value, torres.value, apartamentos.value, tel1s.value, tel2s.value, contactos.value, observacions.value,
     televisores.value, decos.value, precinto.value, descuento.value,
-    dirip.value, velocidad.value, mac1.value, mac2.value, serial.value, marcamodem.value, mascara.value, dns.value, gateway.value, nodo.value, clave.value, valorafiint.value, descuentoint.value)">Aceptar</button>
+    dirip.value, velocidad.value, mac1.value, mac2.value, serial.value, marcamodem.value, mascara.value, dns.value, gateway.value, nodo.value, clave.value, descuentoint.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -734,7 +735,7 @@
              </div>
              <div class="col s12 m6 l3">
                <label for="fechanacimientoEdit" class="label-color">Fecha de nacimiento:</label>
-               <my-date-picker name="fechanacimiento" [options]="myDatePickerOptions" required [disabled]="disabled"></my-date-picker>
+               <my-date-picker name="fechanacimiento" [options]="myDatePickerOptions" [(ngModel)]="model2" required [disabled]="disabled"></my-date-picker>
              </div>
            </div>
            <div class="row">      
@@ -742,8 +743,8 @@
                 <label class="label-color">Tipo persona:</label>
                 <select disabled class="browser-default select-city select-disabled" id="tipopersonaEdit">
                   <option value="nodisplay" disabled selected>{{ subsEdit.tipopersona }}</option>
-                  <option value="J">Jurídica</option>
                   <option value="N">Natural</option>
+                  <option value="J">Jurídica</option>
                 </select>
               </div>   
               <div class="col s12 m6 l3">
@@ -864,9 +865,8 @@
               </div>
               <div class="col s12 m6 l3">
                 <label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
-                <my-date-picker name="mydate" [options]="myDatePickerOptions"[(ngModel)]="model" required [disabled]="disabled"></my-date-picker> 
-                <!--<label for="fechacontratotvEdit" class="label-color">Fecha del contrato:</label>
-                <input disabled placeholder="" id="fechacontratotvEdit" type="text" class="datepicker select-disabled" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">-->
+                <my-date-picker name="fechacontrato" [options]="myDatePickerOptions" [(ngModel)]="model" required [disabled]="disabled"></my-date-picker> 
+  
                </div>
               <div class="col s12 m6 l3">
                 <label class="label-color">Vendedor:</label>
@@ -926,7 +926,7 @@
               </div>
               <div class="col s12 m6 l3">
                 <label for="fechapagoEdit" class="label-color">Fecha último pago:</label>
-                <my-date-picker name="ultimopago" [options]="myDatePickerOptions" required [disabled]="disabled"></my-date-picker>
+                <input disabled placeholder="" id="fechapagoEdit" type="text" class="validate" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="col s12 m6 l3 check-type">
                 <input disabled type="checkbox" class="filled-in select-disabled" id="televisionEdit" [checked]="subsEdit.tv == '1'" name="group4" />
@@ -1003,14 +1003,14 @@
                           </div>
                           <div class="col s12 m6 l4">
                             <label class="label-color">Planes:</label>
-                            <select class="browser-default select-city select-disabled" id="planestvEdit"  #planestvEdit (change)="llenarTarifas(planestvEdit.value)">
+                            <select disabled class="browser-default select-city select-disabled" id="planestvEdit"  #planestvEdit (change)="llenarTarifas(planestvEdit.value)">
                               <option value="nodisplay" selected>{{ subsEdit.plan_tv }}</option>
                               <option [value]="plantv.id" *ngFor="let plantv of planstv">{{ plantv.nombre }}</option>
                             </select>
                           </div>
                           <div class="col s12 m6 l4">
                             <label class="label-color">Tarifas:</label>
-                            <select class="browser-default select-city select-disabled" id="tarifastvEdit">
+                            <select disabled class="browser-default select-city select-disabled" id="tarifastvEdit">
                               <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_tv }}</option>
                               <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
                             </select>
@@ -1096,14 +1096,14 @@
                           </div>
                           <div class="col s12 m6 l3">
                             <label class="label-color">Planes:</label>
-                            <select class="browser-default select-city select-disabled" id="planesintEdit" #planesintEdit (change)="llenarTarifasInt(planesintEdit.value)">
+                            <select disabled class="browser-default select-city select-disabled" id="planesintEdit" #planesintEdit (change)="llenarTarifasInt(planesintEdit.value)">
                                 <option value="nodisplay" selected>{{ subsEdit.plan_int}}</option>
                               <option [value]="planint.id" *ngFor="let planint of plansint">{{ planint.nombre }}</option>
                             </select>
                           </div>
                           <div class="col s12 m6 l3">
                             <label class="label-color">Tarifas:</label>
-                            <select class="browser-default select-city select-disabled" id="tarifasintEdit">
+                            <select disabled class="browser-default select-city select-disabled" id="tarifasintEdit">
                               <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_int }}</option>
                               <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                             </select>
@@ -1237,14 +1237,14 @@
             <input placeholder="" id="nombres" type="text" #nombres>
           </div>
           <div class="col s12 m5 l5">
-            <label for="telefonos" class="label-color">Teléfonos</label>
-            <input placeholder="" id="telefonos" type="text" #telefonos>
+            <label for="direccion" class="label-color">Dirección</label>
+            <input placeholder="" id="direccion" type="text" #direccionorden>
           </div>
         </div>
         <div class="row">
           <div class="col s12 m4 l4">
-            <label for="direccion" class="label-color">Dirección</label>
-            <input placeholder="" id="direccion" type="text" #direccion>
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input placeholder="" id="telefonos" type="text" #telefonos>
           </div>
           <div class="col s12 m4 l4">
             <label class="label-color">Barrio</label>
@@ -1262,13 +1262,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s12 m3 l3">
-            <label for="estado" class="label-color">Estado</label>
-            <input placeholder="" id="estado" type="text" #estado>
-          </div>
           <div class="col s12 m4 l3">
             <label for="fechaafi" class="label-color">Fecha afiliación</label>
             <input placeholder="" id="fechaafi" type="text" #fechaafi>
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="precinto" class="label-color">Precinto</label>
+            <input placeholder="" id="precinto" type="text" #precintoorden>
           </div>
           <div class="col s12 m5 l6">
             <label for="observaciones" class="label-color">Observaciones</label>
@@ -1276,18 +1276,22 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="precinto" class="label-color">Precinto</label>
-            <input placeholder="" id="precinto" type="text" #precinto>
+          <div class="col s12 m3 l3">
+            <label for="estadotv" class="label-color">Estado televisión</label>
+            <input placeholder="" id="estadotv" type="text" #estadotv>
+          </div>
+          <div class="col s12 m3 l3">
+            <label for="estadoint" class="label-color">Estado internet</label>
+            <input placeholder="" id="estadoint" type="text" #estadoint>
           </div>
           <div class="col s12 m6 l3">
             <label for="fechapago" class="label-color">Fecha último pago</label>
             <input placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
           </div>
           <div class="col s12 m6 l3">
-            <label for="saldo" class="label-color">Saldo</label>
-            <input placeholder="" id="saldo" type="text" #saldo>
-          </div>
+              <label for="saldo" class="label-color">Saldo</label>
+              <input placeholder="" id="saldo" type="text" #saldo>
+            </div>
         </div>
         <div class="row">
           <div class="row service-order">
