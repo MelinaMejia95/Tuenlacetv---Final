@@ -1,4 +1,4 @@
-.container  {
+.container-card  {
     display: flex;
     position: absolute;
     top: 21%;
@@ -12,9 +12,20 @@
   }
 
 .card {
-    width: 140%;
-    margin-left: 30%;
+   /*  width: 140%;
+    margin-left: 30%; */
     margin-top: 4%;
+}
+
+.card .card-action {
+    position: relative;
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 5px 24px;
+}
+
+.card .card-title {
+    font-size: 16px;
+    font-weight: 300;
 }
 
 .card-action {
@@ -23,20 +34,20 @@
 
 .card-content {
     background-color: #fafafa;
+    height: 100%;
 }
 
 .btn-flat {
-    font-size: 13px;
+    font-size: 11px;
     color: white;
     border-color: white;
     border: 2px solid;
     border-radius: 0 0 2px 2px;
-    /* text-align: right; */
 }
 
 .btn-flat:hover {
     font-size: 13px;
-    color: #407ea3;
+    color: #6e9fbb;
     background-color: white;
     border-color: white;
     border: 2px solid;
@@ -44,6 +55,13 @@
     /* text-align: right; */
 }
 
+.btn, .btn-large, .btn-flat {
+    height: 29px;
+    line-height: 27px;
+    padding: 1px 1rem;
+}
+
 .card-footer {
     text-align: right;
+    padding: 3px 13px !important;
 }

@@ -38,6 +38,7 @@ import { ExcelService } from './services/excel.service';
 import { CompaniesService } from './services/companies.service';
 import { DepartmentsService } from './services/departments.service';
 import { GBillingsService } from './services/gbillings.service';
+import { AutoBillsService } from './services/autobills.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -117,7 +118,7 @@ import { TechniciansComponent } from './technicians/technicians.component';
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,
-              CompaniesService, ExcelService, DepartmentsService, GBillingsService ],
+              CompaniesService, ExcelService, DepartmentsService, GBillingsService, AutoBillsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
