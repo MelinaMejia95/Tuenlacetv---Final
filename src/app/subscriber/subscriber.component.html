@@ -1490,10 +1490,10 @@
               <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="subsEdit">
             <div class="col s3">
               <label class="label-color">Barrio</label>
-              <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="subsEdit.barrio" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s3">
               <label class="label-color">Zona:</label>
