@@ -584,7 +584,10 @@ export class SubscriberComponent implements OnInit {
   createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
     contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
     televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint){
-     if (numdoc) {
+      console.log(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
+        contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
+        televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint)
+      if (numdoc) {
       this._suscriberservice.createSubscribers({
         "persona":
          {

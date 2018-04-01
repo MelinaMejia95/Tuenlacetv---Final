@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-/* import { Plans } from '../plans/plans' */
+import { Payments } from '../payment/payment'; 
 
 @Injectable()
 export class PaymentsService {
@@ -25,11 +25,11 @@ export class PaymentsService {
  }
 
  /**
-    @return {Observable<Plans[]>} 
+    @return {Observable<Payments[]>} 
    */
 
-  /* getPaymentsFilter(): Observable<Plans[]> {
-    const url = this._global.url + `/planes/bd/` + localStorage.getItem('db');
+  getPaymentsFilter(): Observable<Payments[]> {
+    const url = this._global.url + `/pagos/bd/` + localStorage.getItem('db');
       let header = new Headers();
       header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
       console.log(header)
@@ -37,7 +37,7 @@ export class PaymentsService {
       return this._http.get(url, options).map(response =>{
           return response.json();
       })
-   } */
+   } 
 
 
  deletePayment(code: string){

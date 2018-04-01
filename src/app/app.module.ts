@@ -18,6 +18,7 @@ import { PlansFilterPipe } from './plans/plans-filter.pipe';
 import { RatesFilterPipe } from './rates/rates-filter.pipe';
 import { BillsFilterPipe } from './bills/bills-filter.pipe';
 import { UsersFilterPipe } from './users/users-filter.pipe';
+import { PaymentsFilterPipe } from './payment/payments-filter.pipe';
 //import swal from 'sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ import { CompaniesService } from './services/companies.service';
 import { DepartmentsService } from './services/departments.service';
 import { GBillingsService } from './services/gbillings.service';
 import { AutoBillsService } from './services/autobills.service';
+import { PaymentsService } from './services/payment.service';
 import { AppGlobals } from './shared/app.global';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -101,7 +103,8 @@ import { TechniciansComponent } from './technicians/technicians.component';
     PlansFilterPipe,
     RatesFilterPipe,
     BillsFilterPipe,
-    UsersFilterPipe
+    UsersFilterPipe,
+    PaymentsFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -118,7 +121,7 @@ import { TechniciansComponent } from './technicians/technicians.component';
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,
-              CompaniesService, ExcelService, DepartmentsService, GBillingsService, AutoBillsService ],
+              CompaniesService, ExcelService, DepartmentsService, GBillingsService, AutoBillsService, PaymentsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

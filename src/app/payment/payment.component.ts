@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import {IMyDpOptions, IMyDateModel} from 'angular4-datepicker/src/my-date-picker/interfaces';
+import { PaymentsService } from '../services/payment.service';
+import { Payments } from './payment';
 
 declare let jQuery:any;
 
@@ -11,62 +14,50 @@ declare let jQuery:any;
 export class PaymentComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  payments: any[] = ['1', '2', '3'];
+  payments: any[] = []; concepts: any; payoption: any; banks: any; payEdit: any;
 
-  constructor() { }
+  /**
+   * @type {Payments[]} 
+   */
+  count: Payments[];
+
+  /**
+   * @type {Payments} 
+   */
+
+  filter: Payments = new Payments();
+
+  /**
+   * @type {number} 
+   */
+  numberOfPayments: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+  constructor(private _paymentservice: PaymentsService) { }
 
   ngOnInit() {
-    /*this._rateservice.getRates().subscribe(data => {
+    this._paymentservice.getPayment().subscribe(data => {
       console.log(data)
-      this.rates = data.tarifas;
-      this.zones = data.zonas;
+      this.payments = data.pagos;
       this.concepts = data.conceptos;
-      this.plans = data.planes;
-      this.states = data.estados;
+      this.payoption = data.formas_pago;
+      this.banks = data.bancos;
     });
-    jQuery('select').material_select();*/
-    jQuery('#modal-crear').modal();
+    this._paymentservice.getPaymentsFilter().subscribe(
+      (count: Payments[]) => {
+        this.count = count;
+        this.numberOfPayments = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('#modal-see').modal();
-    /*jQuery('#modal-see').modal({ complete: function() { 
-      jQuery('#codigoEdit').prop('disabled',true);
-      jQuery('#zonaEdit').prop('disabled',true);
-      jQuery('#conceptoEdit').prop('disabled',true);
-      jQuery('#planEdit').prop('disabled',true);
-      jQuery('#valorEdit').prop('disabled',true);
-      jQuery('#estadoEdit').prop('disabled',true);
-      jQuery('#fechainicioEdit').prop('disabled',true);
-      jQuery('#fechafinEdit').prop('disabled',true);
-     }});
-    jQuery('#select-zone').on('change', () => {
-      this.createZone = jQuery('#select-zone').val();
-    });
-    jQuery('#select-concept').on('change', () => {
-      this.createConcept = jQuery('#select-concept').val();
-    });
-    jQuery('#select-plan').on('change', () => {
-      this.createPlan = jQuery('#select-plan').val();
-    });
-    jQuery('#select-state').on('change', () => {
-      this.createState = jQuery('#select-state').val();
-    });*/
   }
 
-  openModal (rate) {
-    /*this.rateEdit = rate;
-    console.log(rate)
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
-    for (let i = 0; i < this.zones.length; i++) {
+  openModal (payment) {
+    this.payEdit = payment;
+    /* for (let i = 0; i < this.zones.length; i++) {
       if ( rate.zona == this.zones[i]['nombre']) {
         this.zoneEdit = this.zones[i]['nombre'];
         console.log(this.zoneEdit)
@@ -89,12 +80,8 @@ export class PaymentComponent implements OnInit {
         this.stateEdit = this.states[i]['nombre'];
         console.log(this.stateEdit)
       }
-    }
-    this.rateEdit['fechas']= this.rateEdit.fechas;
-    //this.picker = jQuery('.datepicker').pickadate();
-    //console.log(this.picker)
-    //this.picker.set('select', this.rateEdit['fechas'][0].fechainicio , { format: 'yyyy-mm-dd' })
-    document.getElementsByClassName('table-radio');*/
+    } */
+    document.getElementsByClassName('table-radio');
     jQuery('#modal-see').modal('open');
   }
 
@@ -102,8 +89,8 @@ export class PaymentComponent implements OnInit {
     jQuery('#modal-see').modal('close');
   }
 
-  selectData(rate){
-    //this.rateEdit = rate;
+  selectData(payment){
+    this.payEdit = payment;
   }
 
   selectAll() {
