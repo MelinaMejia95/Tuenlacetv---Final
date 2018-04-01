@@ -86,14 +86,36 @@ export class AutomaticbillsComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if (data.error == "ya generada" ){
             swal(
-              'No se pudo crear el registro',
+              'La facturación de este mes ya fue generada, revise...',
+              '',
+              'warning'
+            )
+          } else if (data.error == "error en el proceso" ){
+            swal(
+              'No se generó la facturación',
+              '',
+              'warning'
+            )
+          } else if (data.error == "ya generada para esta zona" ){
+            swal(
+              'La facturación de este mes ya fue generada para esta zona, revise...',
               '',
               'warning'
             )
           }
-        });
+        },
+        /* error => {
+          if (error.error == "ya generada") {
+            swal(
+              'La facturación de este mes ya fue generada',
+              'Revise',
+              'warning'
+            )
+          }
+        } */
+      );
     } 
   }
 

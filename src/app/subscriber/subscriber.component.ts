@@ -114,7 +114,8 @@ export class SubscriberComponent implements OnInit {
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
     jQuery('#modal-factura').modal();
-    jQuery('#modal-orden').modal()
+    jQuery('#modal-orden').modal();
+    jQuery('#modal-pagos').modal()
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
@@ -707,9 +708,27 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if (data.error == "no se pudo crear"){
             swal(
-              'No se pudo crear el registro',
+              'No se generó la factura',
+              '',
+              'warning'
+            )
+          } else if (data.error == "mes diferente al corriente"){
+            swal(
+              'No se puede realizar una factura en un mes diferente al corriente',
+              '',
+              'warning'
+            )
+          } else if (data.error == "ya tiene factura en el mes corriente"){
+            swal(
+              'El suscriptor ya tiene una factura en el mes corriente',
+              '',
+              'warning'
+            )
+          } else if (data.error == "tipo facturacion diferente"){
+            swal(
+              'El suscriptor tiene un tipo de facturación diferente a la seleccionada',
               '',
               'warning'
             )

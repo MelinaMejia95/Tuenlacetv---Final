@@ -27,18 +27,6 @@ export class PaymentComponent implements OnInit {
     jQuery('select').material_select();*/
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal();
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
     /*jQuery('#modal-see').modal({ complete: function() { 
       jQuery('#codigoEdit').prop('disabled',true);
       jQuery('#zonaEdit').prop('disabled',true);
@@ -117,32 +105,6 @@ export class PaymentComponent implements OnInit {
   selectData(rate){
     //this.rateEdit = rate;
   }
-
-  createRate(codigo, valor, fechaini, fechaven){
-    /*if (valor) {
-      this._rateservice.createRates({ 'codigo': codigo, 'valor': valor, 'fechainicio': fechaini, 'fechaven': fechaven, 
-                                      'zona_id': this.createZone, 'concepto_id': this.createConcept, 'plan_id': this.createPlan, 'estado_id': this.createState,
-                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
-        data => {
-          if ( data.status == "created") {
-            swal({
-              title: 'Registro creado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
-            swal(
-              'No se pudo crear el registro',
-              '',
-              'warning'
-            )
-          }
-        });
-    }*/
-  } 
 
   selectAll() {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
