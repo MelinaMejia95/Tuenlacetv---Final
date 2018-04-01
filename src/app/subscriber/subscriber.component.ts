@@ -31,7 +31,7 @@ export class SubscriberComponent implements OnInit {
   template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any; 
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any;
-  ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any;
+  ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -281,6 +281,12 @@ export class SubscriberComponent implements OnInit {
     jQuery('#television').on('change', () =>{
       console.log('change tv')
     })
+    jQuery('#select-tipofac').on('change', () => {
+      this.createTypeFac = jQuery('#select-tipofac').val();
+    });
+    jQuery('#select-fac').on('change', () => {
+      this.createFac = jQuery('#select-fac').val();
+    });
   }
   
   selectData(subs){
@@ -554,8 +560,19 @@ export class SubscriberComponent implements OnInit {
   }
 
   onDateChanged(event: IMyDateModel) {
-    console.log(event.formatted )
     this.model3 = event.formatted ;
+  }
+
+  elaboDate(event: IMyDateModel) {
+    this.model5 = event.formatted ;
+  }
+
+  inicioPeriodo(event: IMyDateModel) {
+    this.model6 = event.formatted ;
+  }
+
+  finPeriodo(event: IMyDateModel) {
+    this.model7 = event.formatted ;
   }
 
   onDateChangedServ(event: IMyDateModel) {
@@ -664,6 +681,42 @@ export class SubscriberComponent implements OnInit {
         });
     } 
   } 
+
+  createBill(valorfac, observac) {
+    if (observac) {
+      this._suscriberservice.createBills({
+        "tipo_facturacion_id": Number(this.createTypeFac),
+        "servicio_id": Number(this.createFac),
+        "f_elaboracion": this.model5,
+        "f_inicio": this.model6,
+        "f_fin": this.model7,
+        "entidad_id": this.subsEdit.id,
+        "valor": Number(valorfac),
+        "observa": observac,
+        "usuario_id": localStorage.getItem('usuario_id'),
+        "db": localStorage.getItem('db')
+    }).subscribe(
+        data => {
+          console.log(data)
+          if (data.status == "created") {
+            swal({
+              title: 'Factura creada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    } 
+  }
 
   deleteSubs(){
     swal({

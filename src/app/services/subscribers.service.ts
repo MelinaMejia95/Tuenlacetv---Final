@@ -77,6 +77,15 @@ export class SubscribersService {
   return this._http.post(url, content, options).map(response => response.json());
  }
 
+ createBills(content: object){
+  console.log(content)
+  const url = this._global.url + `/facturacion/factura_manual`;
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  let options = new RequestOptions({ headers: header, body: content });
+  return this._http.post(url, content, options).map(response => response.json());
+}
+
  downloadSubscriber(){
   const url = this._global.url + `/senales/listado/` + localStorage.getItem('db');
   let header = new Headers();

@@ -24,12 +24,12 @@ export class AutoBillsService {
  }
 
  createAutobills(content: object){
-   console.log(content)
-  const url = this._global.url + `/facturacion`;
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header, body: content });
-  return this._http.post(url, content, options).map(response => response.json());
+    console.log(content)
+    const url = this._global.url + `/facturacion`;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: content });
+    return this._http.post(url, content, options).map(response => response.json());
  } 
 
 }

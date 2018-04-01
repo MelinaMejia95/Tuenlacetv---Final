@@ -21,7 +21,7 @@
         <div class="card-action card-header white-text">
           <span class="card-title">Generación facturas de venta</span>
         </div>
-        <div class="card-content white-text">
+        <div class="card-content">
           <div class="row">
             <form>
               <div class="row">
@@ -30,7 +30,7 @@
                     <label class="label-color">Tipo de facturación</label>
                     <select class="browser-default select-city" id="selectFact">
                       <option value="nodisplay" disabled selected>Seleccione</option>
-                      <!--<option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>-->
+                      <option [value]="typefac.id" *ngFor="let typefac of typeFacts">{{ typefac.nombre }}</option>
                     </select>
                   </div>
                   <div class="col s12 m6 l3">
@@ -65,13 +65,13 @@
                     <label class="label-color">Zona a generar</label>
                     <select class="browser-default select-city" id="selectZone">
                       <option value="nodisplay" disabled selected>Seleccione</option>
-                      <!--<option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
-                      <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>-->
+                      <option value="Todos" *ngFor="let zone of zones">Todos</option>
+                      <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
                     </select>
                   </div>
                   <div class="col s12 m8 l9">
                     <label for="observaciones" class="label-color">Observaciones</label>
-                    <input placeholder="" id="observaciones" type="text" class="validate">
+                    <input placeholder="" id="observaciones" type="text" class="validate" #observaciones>
                   </div>
                 </div>
                 <div class="row">
@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="card-action card-footer">
-          <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateConcept()">Aceptar</button>
+          <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createBill(observaciones.value)">Aceptar</button>
           <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
         </div>
       </div>

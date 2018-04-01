@@ -1164,21 +1164,21 @@
             <div class="row">
               <div class="col s12 m6 l4">
                 <label for="elaboracion" class="label-color">Elaboración</label>
-                <input placeholder="" id="elaboracion" type="text" #elaboracion>
+                <my-date-picker name="elaboracion" [options]="myDatePickerOptions" (dateChanged)="elaboDate($event)" required></my-date-picker>
               </div>
               <div class="col s12 m6 l4">
                 <label for="inicioperiodo" class="label-color">Inicio periodo de facturación</label>
-                <input placeholder="" id="inicioperiodo" type="text" class="datepicker" #iniperiodo>
+                <my-date-picker name="inicioperiodo" [options]="myDatePickerOptions" (dateChanged)="inicioPeriodo($event)" required></my-date-picker>
               </div>
               <div class="col s12 m6 l4">
                 <label for="finperiodo" class="label-color">Fin periodo de facturación</label>
-                <input placeholder="" id="finperiodo" type="text" class="datepicker" #finperiodo>
+                <my-date-picker name="finperiodo" [options]="myDatePickerOptions" (dateChanged)="finPeriodo($event)" required></my-date-picker>
               </div>  
             </div>
           <div class="row">
-            <div class="col s12 m7 l8">
+            <div class="col s12 m7 l8" *ngIf="subsEdit">
               <label for="nombresus" class="label-color">Nombres del suscriptor</label>
-              <input placeholder="" id="nombresus" type="text" #sus>
+              <input disabled placeholder="" id="nombresus" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m5 l4">
               <label for="valorfac" class="label-color">Valor facturación</label>
@@ -1195,7 +1195,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createConcept(codigo.value, nombre.value, poriva.value, operacion.value, abreviatura.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createBill(valorfac.value, observac.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
