@@ -45,7 +45,7 @@ export class PaymentsService {
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')} });
-    return this._http.post(url, options).map(response => response.json());
+    return this._http.post(url, { "db": localStorage.getItem('db') } ,options).map(response => response.json());
  }
 
  createPayment(content: object){
@@ -55,6 +55,17 @@ export class PaymentsService {
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: content });
   return this._http.post(url, content, options).map(response => response.json());
+ }
+
+ getInfoFac(codigo){
+    const url = this._global.url + `/pagos/detalle_facturas/`+ codigo + `/` + localStorage.getItem('db');
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    console.log(header)
+    let options = new RequestOptions({ headers: header });
+    return this._http.get(url, options).map(response =>{
+        return response.json();
+    })
  }
 
 }

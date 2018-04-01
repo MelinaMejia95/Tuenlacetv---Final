@@ -1,5 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { SubscribersService } from '../services/subscribers.service';
+import { PaymentsService } from '../services/payment.service';
 import swal from 'sweetalert2';
 import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
@@ -59,7 +60,7 @@ export class SubscriberComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService) { 
+  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService) { 
   }
 
   ngOnInit() {
@@ -96,26 +97,20 @@ export class SubscriberComponent implements OnInit {
         this.valorafiint = Number(data.valor_afi_int);
       }
     });
-    // Load Subs from the subscriber service on init
     this._suscriberservice.getSubsFilter(localStorage.getItem('entidad')).subscribe(
       (subs: Subs[]) => {
         console.log(subs['entidades'])
         this.subs = subs['entidades'];
         this.numberOfSubs = this.subs.length;
         this.limit = this.subs.length; // Start off by showing all books on a single page.*/
-      });
-      this.disabled = true;
-    //document.getElementById('collapsible-internet').setAttribute('style', 'visibility: hidden');
-    /* this.option = 1;
-    this._suscriberservice.getEntities(jQuery('#mostrar').val()).subscribe(data => {
-      this.entity = this.option;
-    }); */
+    });
+    this.disabled = true;
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
     jQuery('#modal-factura').modal();
     jQuery('#modal-orden').modal();
-    jQuery('#modal-pagos').modal()
+    jQuery('#modal-pagos').modal();
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
@@ -289,6 +284,14 @@ export class SubscriberComponent implements OnInit {
       this.createFac = jQuery('#select-fac').val();
     });
   }
+
+  openModalPagos(){
+    this._paymentservice.getInfoFac(this.subsEdit.id).subscribe(data => {
+      console.log(data)
+    })
+    jQuery('#modal-pagos').modal('open');
+    console.log('entro pagos')
+  }
   
   selectData(subs){
     this.subsEdit = subs;
@@ -392,18 +395,6 @@ export class SubscriberComponent implements OnInit {
       this.intEdit = 0;
     }
     jQuery('#modal-see').modal('open');
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
 
     if(this.subsEdit.funcion == 'Suscriptor') {
       jQuery('#ciudadEdit').prop('disabled',true);
@@ -584,9 +575,7 @@ export class SubscriberComponent implements OnInit {
   createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
     contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
     televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint){
-      console.log(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
-        contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
-        televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint)
+      console.log(direccion)
       if (numdoc) {
       this._suscriberservice.createSubscribers({
         "persona":
