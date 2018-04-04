@@ -487,6 +487,13 @@ select:disabled{
     margin: 0 auto;
 }
 
+.mydp {
+    border: 1px solid #478fbc !important;
+}
+
+.mydp:disabled {
+    border: 1px solid #CCC !important;
+}
 
 @media only screen and (max-width: 992px) {
     nav .brand-logo{    

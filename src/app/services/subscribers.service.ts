@@ -26,7 +26,7 @@ export class SubscribersService {
  }
 
  getEntities(entity){
-  const url = this._global.url + `/senales/entidades/` + entity + `/` + localStorage.getItem('db');
+  const url = this._global.url + `/senales/` + entity + `/bd/` + localStorage.getItem('db');
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   console.log(header)

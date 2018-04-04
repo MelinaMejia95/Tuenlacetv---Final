@@ -24,15 +24,16 @@ export class SubscriberComponent implements OnInit {
   planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any; splitted: any; model: any;
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string; splitted2: any; model2: any;
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string; model3 : any; model4: any;
-  createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string;
+  createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string; splitted3: any; model8: any;
   createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string; tvEdit: any; intEdit: any;
   seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
   subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any; tipofacturaciontvEdit: any;
   viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
   template_fact_int: any; barriotvEdit: any; zonatvEdit: any; estratotv: any; tipoviviendatvEdit: any; permanenciaEdit: any; vendedortvEdit: any; data: any[] = []
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any; 
-  tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any;
+  tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any; facts: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
+  pdocuments: any; ppayment : any; banks: any;
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -136,18 +137,6 @@ export class SubscriberComponent implements OnInit {
         jQuery('.check-type').css({"visibility" : "hidden"});
         jQuery('#ciudad').prop('disabled',false);
       }
-    });
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
     });
     jQuery('#funcion').on('change', () => {
       this.createFunc = jQuery('#funcion').val();
@@ -287,7 +276,13 @@ export class SubscriberComponent implements OnInit {
 
   openModalPagos(){
     this._paymentservice.getInfoFac(this.subsEdit.id).subscribe(data => {
-      console.log(data)
+      this.facts = data.detalle_facturas;
+      /* this.pdocuments = data.conceptos;
+      this.ppayment = data.formas_pago;
+      this.banks = data.bancos;
+      console.log(data.conceptos)
+      console.log(data.formas_pago)*/
+      console.log(data.detalle_facturas) 
     })
     jQuery('#modal-pagos').modal('open');
     console.log('entro pagos')
@@ -350,23 +345,28 @@ export class SubscriberComponent implements OnInit {
   openModal (subscriber) {
     console.log(subscriber)
     this.disabled = true;
-    this.splitted = null;
+    this.splitted = 0; this.splitted2 = 0; this.splitted3 = 0;
     this.subsEdit = subscriber;
     let str = this.subsEdit.fechacontrato;
     let str2 = this.subsEdit.fechanac;
-    this.splitted = str.split("/", 3); this. splitted2 = str2.split("/", 3);
+    let str3 = this.subsEdit.fecha_ult_pago; 
+    console.log(this.subsEdit.fecha_ult_pago)
+    this.splitted = str.split("/", 3); this.splitted2 = str2.split("/", 3); this.splitted3 = str3.split("/", 3);
     for (let i = 0; i < 10; i++) {
-      if (this.splitted[0] == "0" + i.toString() || this.splitted2[0] == "0" + i.toString()) {
+      if (this.splitted[0] == "0" + i.toString() || this.splitted2[0] == "0" + i.toString() || this.splitted3[0] == "0" + i.toString()) {
         this.splitted[0] = i.toString();
         this.splitted2[0] = i.toString();
+        this.splitted3[0] = i.toString();        
       }
-      if (this.splitted[1] == "0" + i.toString() || this.splitted2[1] == "0" + i.toString() ) {
+      if (this.splitted[1] == "0" + i.toString() || this.splitted2[1] == "0" + i.toString() || this.splitted3[1] == "0" + i.toString() ) {
         this.splitted[1] = i.toString();
         this.splitted2[1] = i.toString();
+        this.splitted3[1] = i.toString();        
       }
     }
     this.model = { date: { year: this.splitted[2], month: this.splitted[1], day: this.splitted[0] } };
-    this.model2 = { date: { year: this.splitted2[2], month: this.splitted2[1], day: this.splitted2[0] } };
+    this.model2 = { date: { year: this.splitted2[2], month: this.splitted2[1], day: this.splitted2[0] } }; 
+    this.model8 = { date: { year: this.splitted3[2], month: this.splitted3[1], day: this.splitted3[0] } }; 
     let j = 0;
     for (let i=0; i < this.ratestv.length ; i++) {
       if( this.subsEdit.plan_tv == this.ratestv[i]['plan_id']){
@@ -715,12 +715,6 @@ export class SubscriberComponent implements OnInit {
           } else if (data.error == "ya tiene factura en el mes corriente"){
             swal(
               'El suscriptor ya tiene una factura en el mes corriente',
-              '',
-              'warning'
-            )
-          } else if (data.error == "tipo facturacion diferente"){
-            swal(
-              'El suscriptor tiene un tipo de facturación diferente a la seleccionada',
               '',
               'warning'
             )
