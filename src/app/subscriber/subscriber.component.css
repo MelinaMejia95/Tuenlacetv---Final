@@ -49,6 +49,10 @@
     height: 100%;
 }
 
+#modal-anular {
+    width: 60%;
+}
+
 .modal .modal-content {
     padding-top: 3px;
 }
@@ -157,6 +161,10 @@
 
 .hide-info {
     visibility: hidden;
+}
+
+.table-anularfac {
+    line-height: 0.5em !important;
 }
 
 .table-fac {

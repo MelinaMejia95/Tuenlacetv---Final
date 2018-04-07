@@ -33,7 +33,7 @@ export class SubscriberComponent implements OnInit {
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any; 
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any; facts: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
-  pdocuments: any; ppayment : any; banks: any;
+  pdocuments: any; ppayment : any; banks: any; nroDoc: any;
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -112,6 +112,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('#modal-factura').modal();
     jQuery('#modal-orden').modal();
     jQuery('#modal-pagos').modal();
+    jQuery('#modal-anular').modal();
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
@@ -277,20 +278,71 @@ export class SubscriberComponent implements OnInit {
   openModalPagos(){
     this._paymentservice.getInfoFac(this.subsEdit.id).subscribe(data => {
       this.facts = data.detalle_facturas;
-      /* this.pdocuments = data.conceptos;
-      this.ppayment = data.formas_pago;
-      this.banks = data.bancos;
-      console.log(data.conceptos)
-      console.log(data.formas_pago)*/
       console.log(data.detalle_facturas) 
     })
     jQuery('#modal-pagos').modal('open');
     console.log('entro pagos')
   }
+
+  openModalAnular(){
+    this._suscriberservice.getBills(this.subsEdit.id).subscribe(data => {
+      this.facts = data.detalle_facturas;
+    })
+    jQuery('#modal-anular').modal('open');
+  }
+
+  anularFactura() {
+    swal({
+      title: '¿Desea anular la factura?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.subsEdit) {
+          console.log(this.subsEdit.id, this.nroDoc)
+          this._suscriberservice.cancelBills({'entidad_id':this.subsEdit.id, 'nrodcto': this.nroDoc}).subscribe(
+            data => {
+              if ( data.status == "anulada") {
+                swal({
+                  title: 'Factura anulada con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else if ( data.error = "no se anulo factura" ) {
+                swal(
+                  'No se pudo anular la factura',
+                  '',
+                  'warning'
+                )
+              }
+            },
+            error =>{
+              swal(
+                'No se pudo anular la factura',
+                '',
+                'warning'
+              )
+            })
+        } 
+      }
+    })
+  }
   
   selectData(subs){
     this.subsEdit = subs;
-    console.log(subs)
+  }
+
+  selectFac(fac){
+    console.log(fac)
+    this.nroDoc = fac.nrodcto;
   }
 
   downloadPDF(){
@@ -814,6 +866,22 @@ export class SubscriberComponent implements OnInit {
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         document.getElementById('btn-options').setAttribute('style', 'visibility: visible');
+        rows[i].setAttribute("style", "background-color : #9ad1ea");
+      } else {
+        rows[i].setAttribute("style", "background-color : none");
+      }
+    }    
+  }
+
+  selectRowFac() {
+    var rows = <HTMLInputElement><any>document.getElementsByName('rows_fac');
+    var check = <HTMLInputElement><any>document.getElementsByName('group5');
+    var cantidad = document.getElementsByName('group5');
+    console.log(rows)
+    
+    for(var i = 0; i < cantidad.length; i++ ){
+      console.log('row');
+      if(check[i].checked){
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");

@@ -58,12 +58,12 @@
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(bill)"/>
             <label [attr.for]="'radio_'+i"> </label>
         </td>
-        <td (click)="openModal(bill)" href="#modal-see">{{ bill.nrofact_ini }}</td>
-        <td (click)="openModal(bill)" href="#modal-see">{{ bill.nrofact_fin }}</td>
-        <td (click)="openModal(bill)" href="#modal-see">{{ bill.fecha_elaboracion }}</td>
-        <td (click)="openModal(bill)" href="#modal-see">{{ bill.fecha_inicio }}</td>
-        <td (click)="openModal(bill)" href="#modal-see">{{ bill.fecha_fin }}</td>
-        <td (click)="openModal(bill)" href="#modal-see">{{ bill.fecha_vence }}</td>
+        <td>{{ bill.nrofact_ini }}</td>
+        <td>{{ bill.nrofact_fin }}</td>
+        <td>{{ bill.fecha_elaboracion }}</td>
+        <td>{{ bill.fecha_inicio }}</td>
+        <td>{{ bill.fecha_fin }}</td>
+        <td>{{ bill.fecha_vence }}</td>
       </tr>
     </tbody>
   </table>

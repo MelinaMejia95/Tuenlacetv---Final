@@ -34,14 +34,14 @@ export class GbillingsComponent implements OnInit {
     var rows = <HTMLInputElement><any>document.getElementsByName('rows');
     
     if (radios[0].checked){
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+      //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
       console.log(cantidad.length)
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = true;
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       }
     } else {
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = false;
         rows[i].setAttribute("style", "background-color : none");
@@ -56,7 +56,7 @@ export class GbillingsComponent implements OnInit {
     var cantidad = document.getElementsByName('group1');
 
     if (this.toogleDelete == true) {
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
       this.toogleDelete = false;
     }
     
@@ -64,7 +64,7 @@ export class GbillingsComponent implements OnInit {
       if(check[i].checked){
         console.log('false');
         this.toogleDelete = true;
-        document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+        //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");

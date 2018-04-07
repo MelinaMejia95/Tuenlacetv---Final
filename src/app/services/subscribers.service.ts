@@ -86,6 +86,26 @@ export class SubscribersService {
   return this._http.post(url, content, options).map(response => response.json());
 }
 
+getBills(entity){
+  const url = this._global.url + `/facturacion/facturas/` + entity + `/` + localStorage.getItem('db');
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  console.log(header)
+  let options = new RequestOptions({ headers: header });
+  return this._http.get(url, options).map(response =>{
+      return response.json();
+  })
+}
+
+ cancelBills(content: object){
+  console.log(content)
+  const url = this._global.url + `/facturacion/anular_factura`;
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  let options = new RequestOptions({ headers: header, body: content });
+  return this._http.post(url, content, options).map(response => response.json());
+ }
+
  downloadSubscriber(){
   const url = this._global.url + `/senales/listado/` + localStorage.getItem('db');
   let header = new Headers();
