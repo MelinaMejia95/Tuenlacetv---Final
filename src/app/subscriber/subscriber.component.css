@@ -53,6 +53,10 @@
     width: 60%;
 }
 
+#modal-pagos {
+    width: 62%;
+}
+
 .modal .modal-content {
     padding-top: 3px;
 }
@@ -98,6 +102,23 @@
 
 .saldo-th {
     width: 8%
+}
+
+.total-th {
+    width: 7%;
+}
+
+.label-th {
+    width: 7%;
+}
+
+.label2-th{
+    width: 5%;
+}
+
+input[type=text]:not(.browser-default) .input-td {
+    font-size: 11.5px !important;
+    margin: 2px 0 3px 0 !important;
 }
 
 .service-title{

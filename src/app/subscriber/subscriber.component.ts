@@ -33,7 +33,8 @@ export class SubscriberComponent implements OnInit {
   tipoinstalaciontvEdit: any; tipotecnologiatvEdit: any; tiposerviciotvEdit: any; areainstalaciontvEdit: any; barrioEdit: any; zonaEdit: any; 
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any; facts: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
-  pdocuments: any; ppayment : any; banks: any; nroDoc: any;
+  pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
+  totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = [];
 
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -273,15 +274,88 @@ export class SubscriberComponent implements OnInit {
     jQuery('#select-fac').on('change', () => {
       this.createFac = jQuery('#select-fac').val();
     });
+    jQuery('#select-doc-orden').on('change', () => {
+      this.createDoc = jQuery('#select-doc-orden').val();
+    });
+    jQuery('#select-payment-order').on('change', () => {
+      this.createPay = jQuery('#select-payment-order').val();
+    });
+    jQuery('#select-bank-order').on('change', () => {
+      this.createBank = jQuery('#select-bank-order').val();
+    });
+    jQuery('#select-debt-order').on('change', () => {
+      this.createDebt = jQuery('#select-debt-order').val();
+    });
   }
 
   openModalPagos(){
+    let ban = 0;
     this._paymentservice.getInfoFac(this.subsEdit.id).subscribe(data => {
       this.facts = data.detalle_facturas;
-      console.log(data.detalle_facturas) 
+      this.pdocuments = data.conceptos;
+      this.formaspago = data.formas_pago;
+      this.bancos = data.bancos;
+      this.cobradores = data.cobradores;
+      this.total = {'valor': data.valor_total};
+      console.log(this.facts);
+      for (let i=0; i < this.facts.length; i++) {
+        this.facts[i]['abono'] = this.facts[i]['saldo']
+      }
     })
+
     jQuery('#modal-pagos').modal('open');
-    console.log('entro pagos')
+  }
+
+  createPayment(fechadoc, descuento, obserpago){
+    if (fechadoc) {
+      this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
+      "documento_id": this.createDoc,
+      "fechatrn": this.model9,
+      "valor": this.total.valor,
+      "observacion": obserpago,
+      "forma_pago_id": this.createPay, 
+      "banco_id": this.createBank, 
+      "cobrador_id": this.createDebt,
+      "detalle":  this.detalles ,
+     'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+        data => {
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    }
+  }
+
+  changeData () {
+    console.log('cambio');
+    for (let i = 0; i < this.facts.length; i++) {
+      if (this.total.valor > this.facts[i]['saldo']){
+        this.facts[i]['abono'] = this.facts[i]['saldo'];
+      } else {
+        this.facts[i]['abono'] = this.total.valor;
+      }
+      this.facts[i]['total'] = this.facts[i]['saldo'] - this.facts[i]['abono'];
+      this.totalAplicado = Number(this.facts[i]['abono']);
+      this.diferencia = Number(this.total.valor - this.totalAplicado);
+      this.totalAplicar = Number(this.diferencia); 
+      this.total.valor = this.total.valor - this.facts[i]['abono']; 
+      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
+                          "abono": this.facts[i]['abono'], "total": this.facts[i]['total']} 
+    }
+    console.log(this.detalles)
   }
 
   openModalAnular(){
@@ -622,6 +696,11 @@ export class SubscriberComponent implements OnInit {
   onDateChangedServ(event: IMyDateModel) {
     console.log(event.formatted )
     this.model4 = event.formatted ;
+  }
+
+  onDateDoc(event: IMyDateModel) {
+    console.log(event.formatted )
+    this.model9 = event.formatted ;
   }
 
   createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 

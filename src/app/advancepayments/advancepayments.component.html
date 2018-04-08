@@ -202,18 +202,11 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s3">
-              <label for="totalapli" class="label-color">Total por aplicar</label>
-              <input placeholder="" id="totalapli" type="text" #totalapli>
-            </div>
-            <div class="col s3">
-              <label for="diferencia" class="label-color">Diferencia</label>
-              <input placeholder="" id="diferencia" type="text" #diferencia>
-            </div>
-            <div class="col s2">
-              <label for="aplicado" class="label-color">Total aplicado</label>
-              <input placeholder="" id="aplicado" class="datepicker" type="text" #aplicado>
-            </div>
+            <label class="label-color">Tipo servicio</label>
+            <select disabled class="browser-default select-city" id="select-service">
+              <!--<option value="" disabled selected>Seleccione</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
+            </select>
             <div class="col s2">
               <label for="pagado" class="label-color">Total pagado</label>
               <input placeholder="" id="pagado" class="datepicker" type="text" #pagado>
@@ -227,10 +220,6 @@
             <div class="col s3">
               <label for="obserpago" class="label-color">Observaciones</label>
               <input placeholder="" id="obserpago" type="text" #obserpago>
-            </div>
-            <div class="col s2">
-              <label for="cuotas" class="label-color">Cuotas</label>
-              <input placeholder="" id="cuotas" type="text" #cuotas>
             </div>
             <div class="col s2">
               <label for="fechapa" class="label-color">Fecha PxA</label>
@@ -250,61 +239,6 @@
                 <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
               </select>
             </div>
-          </div>
-          <div class="row">
-            <div class="separator-payment z-depth-3"></div>
-          </div>
-          <div class="row">
-            <!-- Table -->
-            <table class="striped highlight">
-              <thead>
-                <tr class="tr-background">
-                  <th>
-                    <label class="label-color"></label>
-                  </th>
-                  <th>
-                    <label class="label-color">Concepto</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Descripción</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Num doc</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Fecha</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Vence</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Valor</label>
-                  </th>
-                  <th>
-                    <label class="label-color">IVA</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Saldo</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Abono</label>
-                  </th>
-                  <th>
-                    <label class="label-color">Total</label>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let payment of payments; let i = index" name="rows" (click)="selectRow()">
-                  <td (click)="openModal(payment)" href="#modal-see">{{ rate.id }}</td>
-                  <td (click)="openModal(payment)" href="#modal-see">{{ rate.zona }}</td>
-                  <td (click)="openModal(payment)" href="#modal-see">{{ rate.concepto }}</td>
-                  <td (click)="openModal(payment)" href="#modal-see">{{ rate.valor }}</td>
-                  <td (click)="openModal(payment)" href="#modal-see">{{ rate.estado }}</td>
-                  <td (click)="openModal(payment)" href="#modal-see">{{ rate.estado }}</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </form>
       </div>
@@ -424,16 +358,11 @@
           </div>
           <div class="row">
             <div class="col s3">
-              <label for="totalapli" class="label-color">Total por aplicar</label>
-              <input disabled placeholder="" id="totalapli" type="text" #totalapli>
-            </div>
-            <div class="col s3">
-              <label for="diferencia" class="label-color">Diferencia</label>
-              <input disabled placeholder="" id="diferencia" type="text" #diferencia>
-            </div>
-            <div class="col s2">
-              <label for="aplicado" class="label-color">Total aplicado</label>
-              <input disabled placeholder="" id="aplicado" class="datepicker" type="text" #aplicado>
+              <label class="label-color">Tipo servicio</label>
+              <select disabled class="browser-default select-city" id="select-service">
+                <!--<option value="" disabled selected>Seleccione</option>
+                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
+              </select>
             </div>
             <div class="col s2">
               <label for="pagado" class="label-color">Total pagado</label>
@@ -448,10 +377,6 @@
             <div class="col s3">
               <label for="obserpago" class="label-color">Observaciones</label>
               <input disabled placeholder="" id="obserpago" type="text" #obserpago>
-            </div>
-            <div class="col s2">
-              <label for="cuotas" class="label-color">Cuotas</label>
-              <input disabled placeholder="" id="cuotas" type="text" #cuotas>
             </div>
             <div class="col s2">
               <label for="fechapa" class="label-color">Fecha PxA</label>
