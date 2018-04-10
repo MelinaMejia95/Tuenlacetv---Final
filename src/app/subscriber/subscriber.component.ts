@@ -38,7 +38,7 @@ export class SubscriberComponent implements OnInit {
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = [];
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
-  tvCtrl: FormControl;
+  tvCtrl: FormControl; facForm: FormGroup;
   titleAlert: string = "Campo requerido";
   correoAlert: string = "Correo inválido"
   
@@ -154,6 +154,16 @@ export class SubscriberComponent implements OnInit {
 
     this.cityForm = fb.group({
       'ciudad': [null, Validators.required],     
+    });
+
+    this.facForm= fb.group({
+      'facturade': [null, Validators.required],
+      'elaboracion': [null, Validators.required],
+      'inicioperiodo': [null, Validators.required],
+      'finperiodo': [null, Validators.required],
+      'valor': [null, Validators.required],
+      'observaciones': [null, Validators.required],
+      "tipofac": [null]
     });
 
   }
@@ -994,17 +1004,17 @@ export class SubscriberComponent implements OnInit {
     } 
   }  */
 
-  createBill(valorfac, observac) {
-    if (observac) {
+  createBill(post) {
+    if (post) {
       this._suscriberservice.createBills({
-        "tipo_facturacion_id": Number(this.createTypeFac),
-        "servicio_id": Number(this.createFac),
+        "tipo_facturacion_id": Number(post.tipofac),
+        "servicio_id": Number(post.facturade),
         "f_elaboracion": this.model5,
         "f_inicio": this.model6,
         "f_fin": this.model7,
         "entidad_id": this.subsEdit.id,
-        "valor": Number(valorfac),
-        "observa": observac,
+        "valor": Number(post.valor),
+        "observa": post.observaciones,
         "usuario_id": localStorage.getItem('usuario_id'),
         "db": localStorage.getItem('db')
     }).subscribe(

@@ -23,65 +23,70 @@
         </div>
         <div class="card-content">
           <div class="row">
-            <form>
+            <form [formGroup]="rForm">
               <div class="row">
                 <div class="row">
                   <div class="col s12 m6 l3">
-                    <label class="label-color">Tipo de facturación</label>
-                    <select class="browser-default select-city" id="selectFact">
+                    <label class="label-color">Tipo de facturación <span class="span-color">*</span></label>
+                    <select class="browser-default select-city validate" id="selectFact" formControlName="tipofacturacion" required>
                       <option value="nodisplay" disabled selected>Seleccione</option>
                       <option [value]="typefac.id" *ngFor="let typefac of typeFacts">{{ typefac.nombre }}</option>
                     </select>
+                    <div class="alert" *ngIf="!rForm.controls['tipofacturacion'].value && rForm.controls['tipofacturacion'].touched">{{ titleAlert }}</div>                                
                   </div>
                   <div class="col s12 m6 l3">
-                    <label for="elabFact" class="label-color">Elaboración factura</label>
-                    <my-date-picker name="elabFact" [options]="myDatePickerOptions" (dateChanged)="elabFactura($event)" required></my-date-picker>
+                    <label for="elabFact" class="label-color">Elaboración factura <span class="span-color">*</span></label>
+                    <my-date-picker name="elabFact" [options]="myDatePickerOptions" (dateChanged)="elabFactura($event)" class="validate" formControlName="elaboracionfac" required></my-date-picker>
+                    <div class="alert" *ngIf="!rForm.controls['elaboracionfac'].value && rForm.controls['elaboracionfac'].touched">{{ titleAlert }}</div>                   
                   </div>
                   <div class="col s12 m6 l3">
-                    <label for="iniPeriodo" class="label-color">Inicio periodo</label>
-                    <my-date-picker name="iniPeriodo" [options]="myDatePickerOptions" (dateChanged)="inicioPeriodo($event)" required></my-date-picker>
+                    <label for="iniPeriodo" class="label-color">Inicio periodo <span class="span-color">*</span></label>
+                    <my-date-picker name="iniPeriodo" [options]="myDatePickerOptions" (dateChanged)="inicioPeriodo($event)" class="validate" formControlName="inicioperiodo" required></my-date-picker>
+                    <div class="alert" *ngIf="!rForm.controls['inicioperiodo'].value && rForm.controls['inicioperiodo'].touched">{{ titleAlert }}</div>                              
                   </div>
                   <div class="col s12 m6 l3">
-                    <label for="finPeriodo" class="label-color">Fin periodo</label>
-                    <my-date-picker name="finPeriodo" [options]="myDatePickerOptions" (dateChanged)="finPeriodo($event)" required></my-date-picker>
+                    <label for="finPeriodo" class="label-color">Fin periodo <span class="span-color">*</span></label>
+                    <my-date-picker name="finPeriodo" [options]="myDatePickerOptions" (dateChanged)="finPeriodo($event)" class="validate" formControlName="finperiodo" required></my-date-picker>
+                    <div class="alert" *ngIf="!rForm.controls['finperiodo'].value && rForm.controls['finperiodo'].touched">{{ titleAlert }}</div>                              
                   </div>
                 </div>
                 <div class="row">
                   <div class="col s12 m6 l3">
-                    <label for="fechavence" class="label-color">Fecha vencimiento</label>
-                    <my-date-picker name="fechavence" [options]="myDatePickerOptions" (dateChanged)="fechaVence($event)" required></my-date-picker>
+                    <label for="fechavence" class="label-color">Fecha vencimiento <span class="span-color">*</span></label>
+                    <my-date-picker name="fechavence" [options]="myDatePickerOptions" (dateChanged)="fechaVence($event)" class="validate" formControlName="fechavence" required></my-date-picker>
+                    <div class="alert" *ngIf="!rForm.controls['fechavence'].value && rForm.controls['fechavence'].touched">{{ titleAlert }}</div>                                
                   </div>
                   <div class="col s12 m6 l3">
-                    <label for="suspencion" class="label-color">Suspención del servicio </label>
-                    <my-date-picker name="suspencion" [options]="myDatePickerOptions" (dateChanged)="suspServ($event)" required></my-date-picker>
+                    <label for="suspencion" class="label-color">Suspensión del servicio </label>
+                    <my-date-picker name="suspencion" [options]="myDatePickerOptions" (dateChanged)="suspServ($event)"></my-date-picker>
                   </div>
                   <div class="col s12 m6 l3">
-                    <label for="vencidos" class="label-color">Fecha pago vencidos</label>
-                    <my-date-picker name="vencidos" [options]="myDatePickerOptions" (dateChanged)="pagoVence($event)" required></my-date-picker>
+                    <label for="vencidos" class="label-color">Pagos</label>
+                    <my-date-picker name="vencidos" [options]="myDatePickerOptions" (dateChanged)="pagoVence($event)"></my-date-picker>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col s12 m4 l3">
-                    <label class="label-color">Zona a generar</label>
-                    <select class="browser-default select-city" id="selectZone">
+                    <label class="label-color">Zona a generar <span class="span-color">*</span></label>
+                    <select class="browser-default select-city validate" id="selectZone" formControlName="zona" required>
                       <option value="nodisplay" disabled selected>Seleccione</option>
                       <option value="Todos" *ngFor="let zone of zones">Todos</option>
                       <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
                     </select>
+                    <div class="alert" *ngIf="!rForm.controls['zona'].value && rForm.controls['zona'].touched">{{ titleAlert }}</div>                                
                   </div>
                   <div class="col s12 m8 l9">
-                    <label for="observaciones" class="label-color">Observaciones</label>
-                    <input placeholder="" id="observaciones" type="text" class="validate" #observaciones>
+                    <label for="observaciones" class="label-color">Observaciones <span class="span-color">*</span></label>
+                    <input placeholder="" id="observaciones" type="text" class="validate" class="validate" formControlName="observaciones" required>
+                    <div class="alert" *ngIf="!rForm.controls['observaciones'].value && rForm.controls['observaciones'].touched">{{ titleAlert }}</div>                              
                   </div>
-                </div>
-                <div class="row">
                 </div>
               </div>
             </form>
           </div>
         </div>
         <div class="card-action card-footer">
-          <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createBill(observaciones.value)">Aceptar</button>
+          <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createBill(rForm.value)">Aceptar</button>
           <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
         </div>
       </div>

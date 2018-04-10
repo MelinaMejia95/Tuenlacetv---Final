@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AutoBillsService } from '../services/autobills.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import {IMyDpOptions, IMyDateModel} from 'angular4-datepicker/src/my-date-picker/interfaces';
 
@@ -15,24 +16,31 @@ export class AutomaticbillsComponent implements OnInit {
   bills: any = []; zones: any; typeFacts: any; model1: any; model2: any; model3: any; model4:any; model5: any; model6: any;
   createFact: string; createZone: string;
 
+  rForm: FormGroup;
+  titleAlert: string = "Campo requerido";
+
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd/mm/yyyy',
   };
 
-  constructor(private _autobillservice: AutoBillsService) { }
+  constructor(private _autobillservice: AutoBillsService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'tipofacturacion': [null, Validators.required],
+      'elaboracionfac': [null, Validators.required],
+      'inicioperiodo': [null, Validators.required],
+      'finperiodo': [null, Validators.required],
+      'fechavence': [null, Validators.required],
+      'zona': [null, Validators.required],
+      'observaciones': [null, Validators.required],      
+    });
+
+  }
 
   ngOnInit() {
     this._autobillservice.getInfo().subscribe(data => {
       this.zones = data.zonas
       this.typeFacts = data.tipo_facturacion;
-    });
-
-    jQuery('#selectFact').on('change', () => {
-      this.createFact = jQuery('#selectFact').val();
-    });
-
-    jQuery('#selectZone').on('change', () => {
-      this.createZone = jQuery('#selectZone').val();
     });
   }
 
@@ -60,18 +68,18 @@ export class AutomaticbillsComponent implements OnInit {
     this.model6 = event.formatted ;
   }
 
-  createBill(observaciones) {
-    if (observaciones) {
+  createBill(post) {
+    if (post) {
       this._autobillservice.createAutobills({
-        "tipo_facturacion_id": Number(this.createFact),
+        "tipo_facturacion_id": Number(post.tipofacturacion),
         "f_elaboracion": this.model1,
         "f_inicio": this.model2, 
         "f_fin": this.model3, 
         "f_vence": this.model4, 
         "f_corte": this.model5, 
         "f_vencidos": this.model6,
-        "observa": observaciones,
-        "zona": this.createZone,
+        "observa": post.observaciones,
+        "zona": post.zona,
         "usuario_id": localStorage.getItem('usuario_id'),
         "db": localStorage.getItem('db')
     }).subscribe(
@@ -106,15 +114,6 @@ export class AutomaticbillsComponent implements OnInit {
             )
           }
         },
-        /* error => {
-          if (error.error == "ya generada") {
-            swal(
-              'La facturación de este mes ya fue generada',
-              'Revise',
-              'warning'
-            )
-          }
-        } */
       );
     } 
   }
