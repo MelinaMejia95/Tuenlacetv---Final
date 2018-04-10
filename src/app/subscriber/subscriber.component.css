@@ -172,17 +172,21 @@ input[type=text]:not(.browser-default) .input-td {
     padding: 1rem;
 }
 
-#collapsible-internet {
+/* #collapsible-internet {
+    visibility: hidden;
+} */
+
+#serv-form {
     visibility: hidden;
 }
 
-.check-type {
+/*  .check-type {
     visibility: hidden;
-}
+}  */
 
-.hide-info {
+/* .hide-info {
     visibility: hidden;
-}
+} */
 
 .table-anularfac {
     line-height: 0.5em !important;

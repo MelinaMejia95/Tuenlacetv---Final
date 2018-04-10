@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ZonesService } from '../services/zones.service';
 import swal from 'sweetalert2';
 import { Zones } from './zones';
@@ -14,11 +15,12 @@ export class ZonesComponent implements OnInit {
 
   zones: any[] = [];
   toogleDelete:boolean = false;
-  zoneEdit:any;
-  cities:string;
-  zone:any;
-  cityEdit:any;
-  createCity: string;
+  zoneEdit:any; zone:any; cityEdit:any; 
+  cities:string; nombre: string; createCity: string;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Zones[]} 
@@ -42,7 +44,18 @@ export class ZonesComponent implements OnInit {
   limit: number;
 
 
-  constructor(private _zoneservice: ZonesService) { }
+  constructor(private _zoneservice: ZonesService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'ciudad': [null, Validators.required],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],
+    });
+
+  }
 
   ngOnInit() {
     this._zoneservice.getZones().subscribe(data => {
@@ -63,19 +76,17 @@ export class ZonesComponent implements OnInit {
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
     }});
-    jQuery('#select-cities').on('change', () => {
-      this.createCity = jQuery('#select-cities').val();
-      console.log(this.createCity)
-    });
   }
   
   selectData(zone){
     this.zoneEdit = zone;
   }
 
-  createZone(name){
-    if (name) {
-      this._zoneservice.createZones({ 'ciudad_id': this.createCity, 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+  createZone(post){
+    this.nombre = post.nombre;
+    this.createCity = post.ciudad;
+    if (post) {
+      this._zoneservice.createZones({ 'ciudad_id': this.createCity, 'nombre': this.nombre, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({

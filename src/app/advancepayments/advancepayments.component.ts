@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import { PaymentsService } from "../services/payment.service"
 
 declare let jQuery:any;
 
@@ -11,34 +12,22 @@ declare let jQuery:any;
 export class AdvancepaymentsComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  payments: any[] = ['1', '2', '3'];
+  payments: any[] = [];
 
-  constructor() { }
+  constructor(private _paymentservice: PaymentsService) { }
 
   ngOnInit() {
-    /*this._rateservice.getRates().subscribe(data => {
+    this._paymentservice.getPayment().subscribe(data => {
       console.log(data)
-      this.rates = data.tarifas;
+      /* this.rates = data.tarifas;
       this.zones = data.zonas;
       this.concepts = data.conceptos;
       this.plans = data.planes;
-      this.states = data.estados;
+      this.states = data.estados; */
     });
-    jQuery('select').material_select();*/
+    jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal();
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
   }
 
   openModal (rate) {

@@ -101,58 +101,71 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form [formGroup]="rForm">
         <div class="row">
           <div class="col s12 m6 l6">
-              <label for="codigo" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigo" type="text" #codigo>
+              <label for="codigo" class="label-color">Código</label>
+              <input disabled placeholder="" id="codigo" type="text">
           </div>
           <div class="col s12 m6 l6">
-            <label class="label-color">Zona:</label>
-            <select class="browser-default select-city" id="select-zone">
+            <label class="label-color">Zona <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="select-zone" formControlName="zona" required>
               <option value="" disabled selected>Seleccione</option>
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['zona'].value && rForm.controls['zona'].touched">{{ titleAlert }}</div>            
           </div>
+        </div>
+        <div class="row">
           <div class="col s12 m6 l6">
-              <label class="label-color">Concepto:</label>
-              <select class="browser-default select-city" id="select-concept">
+              <label class="label-color">Concepto <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-concept" formControlName="concepto" required>
                 <option value="" disabled selected>Seleccione</option>
                 <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!rForm.controls['concepto'].value && rForm.controls['concepto'].touched">{{ titleAlert }}</div>              
             </div>
           <div class="col s12 m6 l6">
-            <label class="label-color">Plan:</label>
-            <select class="browser-default select-city" id="select-plan">
+            <label class="label-color">Plan <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="select-plan" formControlName="plan" required>
               <option value="" disabled selected>Seleccione</option>
               <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['plan'].value && rForm.controls['plan'].touched">{{ titleAlert }}</div>            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <label for="valor" class="label-color">Valor <span class="span-color">*</span></label>
+            <input placeholder="" id="valor" type="text" class="validate" formControlName="valor" required>
+            <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>            
           </div>
           <div class="col s12 m6 l6">
-            <label for="valor" class="label-color">Valor:</label>
-            <input placeholder="" id="valor" type="text" #valor>
-          </div>
-          <div class="col s12 m6 l6">
-            <label class="label-color">Estado:</label>
-            <select class="browser-default select-city" id="select-state">
+            <label class="label-color">Estado <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="select-state" formControlName="estado" required>
               <option value="" disabled selected>Seleccione</option>
               <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['estado'].value && rForm.controls['estado'].touched">{{ titleAlert }}</div>            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <label for="fechainicio" class="label-color">Fecha inicio <span class="span-color">*</span></label>
+            <my-date-picker name="fechainicio" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" class="validate" formControlName="fechainicio" required></my-date-picker>
+            <div class="alert" *ngIf="!rForm.controls['fechainicio'].value && rForm.controls['fechainicio'].touched">{{ titleAlert }}</div>          
           </div>
           <div class="col s12 m6 l6">
-            <label for="fechainicio" class="label-color">Fecha inicio:</label>
-            <my-date-picker name="fechainicio" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" required></my-date-picker>
-          </div>
-          <div class="col s12 m6 l6">
-            <label for="fechafin" class="label-color">Fecha fin:</label>
-            <my-date-picker name="fechafin" [options]="myDatePickerOptions" (dateChanged)="onDateChangedServ($event)" required></my-date-picker>
+            <label for="fechafin" class="label-color">Fecha fin <span class="span-color">*</span></label>
+            <my-date-picker name="fechafin" [options]="myDatePickerOptions" (dateChanged)="onDateChangedServ($event)" class="validate" formControlName="fechafin" required></my-date-picker>
+            <div class="alert" *ngIf="!rForm.controls['fechafin'].value && rForm.controls['fechafin'].touched">{{ titleAlert }}</div>          
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createRate(codigo.value, valor.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createRate(rForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -176,58 +189,66 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form [formGroup]="seeForm">
         <div class="row" *ngIf="rateEdit">
-            <div class="col s12 m6 l6">
-                <label for="codigoEdit" class="label-color">Código:</label>
-                <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="rateEdit.id" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l6">
-              <label class="label-color">Zona:</label>
-              <select disabled class="browser-default select-city" id="zonaEdit">
-                <option value="nodisplay" disabled selected>{{ zoneEdit }}</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
+          <div class="col s12 m6 l6">
+            <label for="codigoEdit" class="label-color">Código</label>
+            <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="rateEdit.id" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l6">
+            <label class="label-color">Zona <span class="span-color">*</span></label>
+            <select disabled class="browser-default select-city" id="zonaEdit">
+              <option value="nodisplay" disabled selected>{{ zoneEdit }}</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" *ngIf="rateEdit">
+          <div class="col s12 m6 l6">
+              <label class="label-color">Concepto <span class="span-color">*</span></label>
+              <select disabled class="browser-default select-city" id="conceptoEdit">
+                <option value="nodisplay" disabled selected>{{ conceptEdit }}</option>
+                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
             </div>
-            <div class="col s12 m6 l6">
-                <label class="label-color">Concepto:</label>
-                <select disabled class="browser-default select-city" id="conceptoEdit">
-                  <option value="nodisplay" disabled selected>{{ conceptEdit }}</option>
-                  <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
-                </select>
-              </div>
-            <div class="col s12 m6 l6">
-              <label class="label-color">Plan:</label>
-              <select disabled class="browser-default select-city" id="planEdit">
-                <option value="nodisplay" disabled selected>{{ planEdit }}</option>
-                <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s12 m6 l6">
-              <label for="valorEdit" class="label-color">Valor:</label>
-              <input disabled placeholder="" id="valorEdit" type="text" class="validate" [(ngModel)]="rateEdit.valor" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l6">
-              <label class="label-color">Estado:</label>
-              <select disabled class="browser-default select-city" id="estadoEdit">
-                <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
-                <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>  
-              </select>
-            </div>
-            <div class="col s12 m6 l6">
-              <label for="fechainicioEdit" class="label-color">Fecha inicio:</label>
-              <my-date-picker name="fechainicioEdit" [options]="myDatePickerOptions" [(ngModel)]="model1" required [disabled]="disabled"></my-date-picker>
-            </div>
-            <div class="col s12 m6 l6">
-              <label for="fechafinEdit" class="label-color">Fecha vencimiento:</label>
-              <my-date-picker name="fechafinEdit" [options]="myDatePickerOptions" [(ngModel)]="model2" required [disabled]="disabled"></my-date-picker>
-            </div>
+          <div class="col s12 m6 l6">
+            <label class="label-color">Plan <span class="span-color">*</span></label>
+            <select disabled class="browser-default select-city" id="planEdit">
+              <option value="nodisplay" disabled selected>{{ planEdit }}</option>
+              <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" *ngIf="rateEdit">
+          <div class="col s12 m6 l6">
+            <label for="valorEdit" class="label-color">Valor <span class="span-color">*</span></label>
+            <input disabled placeholder="" id="valorEdit" type="text" class="validate" formControlName="valor-ver" [(ngModel)]="rateEdit.valor">
+          </div>
+          <div class="col s12 m6 l6">
+            <label class="label-color">Estado <span class="span-color">*</span></label>
+            <select disabled class="browser-default select-city" id="estadoEdit">
+              <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
+              <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>  
+            </select>
+          </div>
+        </div>
+        <div class="row" *ngIf="rateEdit">
+          <div class="col s12 m6 l6">
+            <label for="fechainicioEdit" class="label-color">Fecha inicio <span class="span-color">*</span></label>
+            <my-date-picker name="fechainicioEdit" [options]="myDatePickerOptions" class="validate" formControlName="fechainicio-ver" [(ngModel)]="model1" required [disabled]="disabled"
+            [selDate]="selDate"></my-date-picker>
+          </div>
+          <div class="col s12 m6 l6">
+            <label for="fechafinEdit" class="label-color">Fecha vencimiento <span class="span-color">*</span></label>
+            <my-date-picker name="fechafinEdit" [options]="myDatePickerOptions" [(ngModel)]="model2" class="validate" formControlName="fechafin-ver" required [disabled]="disabled"
+            [selDate]="selDate2"></my-date-picker>
+          </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateRate()">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateRate()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

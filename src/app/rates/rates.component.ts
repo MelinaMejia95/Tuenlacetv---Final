@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RatesService } from '../services/rates.service';
 import swal from 'sweetalert2';
 import { Rates } from './rates';
-import {IMyDpOptions, IMyDateModel} from 'angular4-datepicker/src/my-date-picker/interfaces';
+import {IMyDpOptions, IMyDateModel, IMyInputFocusBlur, IMyDate} from 'angular4-datepicker/src/my-date-picker/interfaces';
 
 declare let jQuery:any;
 
@@ -16,15 +17,22 @@ export class RatesComponent implements OnInit {
   toogleDelete:boolean = false;
   rates: any[] = [];
   zones:string;
-  concepts:string; 
-  plans:string; fecha: string; states:string; createZone: string; createConcept: string; createPlan: string; createState: string;
+  concepts:string; inicio: string;
+  plans:string; fecha: string; states:string; createZone: string; createConcept: string; createPlan: string; createState: string; codigo: string; valor: string;
   zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any; fechaEdit: any; zona: any; concepto: any; plan: any; estado: any; picker: any;
   fechainicio: any; fechaven: any; splitted: any; splitted2: any; model1: any; model2: any; model3: any; model4: any; disabled: boolean = true
 
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
+  
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
   };
+
+  private selDate: IMyDate = {year: 0, month: 0, day: 0};
+  private selDate2: IMyDate = {year: 0, month: 0, day: 0};
 
   /**
    * @type {Rates[]} 
@@ -47,7 +55,25 @@ export class RatesComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _rateservice: RatesService) { }
+  constructor(private _rateservice: RatesService, private fb: FormBuilder) {
+
+    this.rForm = fb.group({
+      'zona': [null, Validators.required],
+      'concepto': [null, Validators.required],
+      'plan': [null, Validators.required],
+      'valor': [null, Validators.required],
+      'estado': [null, Validators.required],
+      'fechainicio': [this.model1, Validators.required],
+      'fechafin': [this.model2, Validators.required],      
+    });
+
+    this.seeForm = fb.group({
+      'valor-ver': [null, Validators.required],
+      'fechainicio-ver': [null, Validators.required],
+      'fechafin-ver': [null, Validators.required],      
+    });
+
+   }
 
   ngOnInit() {
     this._rateservice.getRates().subscribe(data => {
@@ -76,41 +102,14 @@ export class RatesComponent implements OnInit {
       jQuery('#fechainicioEdit').prop('disabled',true);
       jQuery('#fechafinEdit').prop('disabled',true);
      }});
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
-    jQuery('#select-zone').on('change', () => {
-      this.createZone = jQuery('#select-zone').val();
-    });
-    jQuery('#select-concept').on('change', () => {
-      this.createConcept = jQuery('#select-concept').val();
-    });
-    jQuery('#select-plan').on('change', () => {
-      this.createPlan = jQuery('#select-plan').val();
-    });
-    jQuery('#select-state').on('change', () => {
-      this.createState = jQuery('#select-state').val();
-    });
   }
 
   openModal (rate) {
     this.disabled = true;
     this.rateEdit = rate;
-    console.log(rate)
     let str = this.rateEdit.fechainicio;
     let str2 = this.rateEdit.fechaven;
     this.splitted = str.split("/", 3); this. splitted2 = str2.split("/", 3);
-    console.log(this.splitted)
-    console.log(this.splitted2)
     for (let i = 0; i < 10; i++) {
       if (this.splitted[0] == "0" + i.toString()) {
         this.splitted[0] = i.toString();
@@ -127,6 +126,8 @@ export class RatesComponent implements OnInit {
     }
     this.model1 = { date: { year: this.splitted[2], month: this.splitted[1], day: this.splitted[0] } };
     this.model2 = { date: { year: this.splitted2[2], month: this.splitted2[1], day: this.splitted2[0] } };
+    this.selDate = str;
+    this.selDate2= str2;
     for (let i = 0; i < this.zones.length; i++) {
       if ( rate.zona == this.zones[i]['nombre']) {
         this.zoneEdit = this.zones[i]['nombre'];
@@ -151,14 +152,13 @@ export class RatesComponent implements OnInit {
         console.log(this.stateEdit)
       }
     }
-    //this.rateEdit['fechas']= this.rateEdit.fechas;
-    //this.picker = jQuery('.datepicker').pickadate();
-    //console.log(this.picker)
-    //this.picker.set('select', this.rateEdit['fechas'][0].fechainicio , { format: 'yyyy-mm-dd' })
     jQuery('#modal-see').modal('open');
-    document.getElementsByClassName('table-radio');
   }
 
+  onInputFocusBlur(event: IMyInputFocusBlur) {
+    console.log('onInputFocusBlur(): Reason: ', event. reason, ' - Value: ', event.value);
+}
+  
   closeModal () {
     jQuery('#modal-see').modal('close');
   }
@@ -167,9 +167,15 @@ export class RatesComponent implements OnInit {
     this.rateEdit = rate;
   }
 
-  createRate(codigo, valor){
-    if (valor) {
-      this._rateservice.createRates({ 'codigo': codigo, 'valor': valor, 'fechainicio': this.model3, 'fechaven': this.model4, 
+  createRate(post){
+    this.codigo = post.codigo;
+    this.valor = post.valor;
+    this.createZone = post.zona;
+    this.createConcept = post.concepto;
+    this.createPlan = post.plan;
+    this.createState = post.estado;
+    if (post) {
+      this._rateservice.createRates({ 'codigo': this.codigo, 'valor': this.valor, 'fechainicio': this.model3, 'fechaven': this.model4, 
                                       'zona_id': this.createZone, 'concepto_id': this.createConcept, 'plan_id': this.createPlan, 'estado_id': this.createState,
                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
@@ -204,9 +210,12 @@ export class RatesComponent implements OnInit {
   }
 
   updateRate() {
+    this.selDate = this.model1.formatted;
+    this.selDate2 = this.model2.formatted;
+    console.log(this.selDate, this.selDate2)
     if(this.rateEdit){
       this._rateservice.updateRates({ 'id': this.rateEdit.id, 'zona_id': this.zona, 'concepto_id': this.concepto, 'plan_id': this.plan, 'valor': this.rateEdit.valor,
-                                    'fechainicio': this.model1.formatted, 'fechaven': this.model2.formatted,
+                                    'fechainicio': this.selDate, 'fechaven': this.selDate2,
                                     'estado_id': this.estado, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)

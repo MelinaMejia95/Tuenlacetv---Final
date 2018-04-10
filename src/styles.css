@@ -1,8 +1,19 @@
+
+
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Istok+Web');
 
 html {
     font-family: 'Istok Web', sans-serif !important;
+}
+
+.alert {
+    font-size: 10px;
+    color: red;
+}
+
+.span-color{
+    color: red;
 }
 
 .row{

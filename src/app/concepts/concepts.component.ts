@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConceptsService } from '../services/concepts.service';
 import swal from 'sweetalert2';
 import { Concepts } from './concepts';
@@ -14,8 +15,12 @@ export class ConceptsComponent implements OnInit {
 
   toogleDelete:boolean = false;
   concepts: any[] = [];
-  services: string; createService: string; nameService: string;
+  services: string; createService: string; codigo: string; nombre: string; abreviatura: string; iva: string; operacion: string;
   serviceEdit: any; conceptEdit: any; concept: any;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
    /**
    * @type {Concepts[]} 
@@ -38,7 +43,26 @@ export class ConceptsComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _conceptservice: ConceptsService) { }
+  constructor(private _conceptservice: ConceptsService, private fb: FormBuilder) {
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'tiposerv': [null, Validators.required],
+      'codigo': [null, Validators.required],
+      'abreviatura': [null, Validators.required],
+      'iva': [null, Validators.required],
+      'operacion': [null, Validators.required],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],
+      'codigo-ver': [null, Validators.required],
+      'abreviatura-ver': [null, Validators.required],
+      'iva-ver': [null, Validators.required],
+      'operacion-ver': [null, Validators.required],
+    });
+
+   }
 
   ngOnInit() {
     this._conceptservice.getConcepts().subscribe(data => {
@@ -62,14 +86,6 @@ export class ConceptsComponent implements OnInit {
       jQuery('#operacionEdit').prop('disabled',true);
       jQuery('#abreviaturaEdit').prop('disabled',true);
      }});
-     jQuery('#select-cities').on('change', () => {
-      this.createService = jQuery('#select-cities').val();
-      for (let i = 0; i < this.services.length; i++) {
-        if ( this.createService== this.services[i]['id']) {
-          this.nameService = this.services[i]['nombre'];
-        }
-      }
-    });
   }
 
   openModal (concept) {
@@ -91,10 +107,16 @@ export class ConceptsComponent implements OnInit {
     this.conceptEdit = concept;
   }
 
-  createConcept(codigo, nombre, porcentajeIva, operacion, abreviatura){
-    if (nombre) {
-      this._conceptservice.createConcepts({ 'codigo': codigo, 'servicio_id': this.createService, 'nombre': nombre, 'abreviatura': abreviatura, 'porcentajeIva': porcentajeIva,
-                                      'operacion': operacion, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+  createConcept(post){
+    this.codigo = post.codigo;
+    this.createService = post.tiposerv;
+    this.nombre = post.nombre;
+    this.abreviatura = post.abreviatura;
+    this.iva = post.iva;
+    this.operacion = post.operacion;
+    if (post) {
+      this._conceptservice.createConcepts({ 'codigo': this.codigo, 'servicio_id': this.createService, 'nombre': this.nombre, 'abreviatura': this.abreviatura, 'porcentajeIva': this.iva,
+                                      'operacion': this.operacion, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
           if ( data.status == "created") {

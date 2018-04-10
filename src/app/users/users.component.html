@@ -93,27 +93,32 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form>
+      <form [formGroup]="rForm">
         <div class="row">
           <div class="col s12 m6 l4">
-            <label for="codigoU" class="label-color">Código:</label>
+            <label for="codigoU" class="label-color">Código</label>
             <input disabled placeholder="" id="codigoU" type="text">
           </div>
           <div class="col s12 m6 l4">
-            <label for="nomusuario" class="label-color">Usuario:</label>
-            <input placeholder="" id="nomusuario" type="text" #nomusuario>
+            <label for="nomusuario" class="label-color">Usuario <span class="span-color">*</span></label>
+            <input placeholder="" id="nomusuario" type="text" class="validate" formControlName="usuario" required>
+            <div class="alert" *ngIf="!rForm.controls['usuario'].value && rForm.controls['usuario'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l4">
-            <label for="nomapeU" class="label-color">Nombres y apellidos:</label>
-            <input placeholder="" id="nomapeU" type="text" #nombres>
+            <label for="nomapeU" class="label-color">Nombres y apellidos <span class="span-color">*</span></label>
+            <input placeholder="" id="nomapeU" type="text" class="validate" formControlName="nombres" required>
+            <div class="alert" *ngIf="!rForm.controls['nombres'].value && rForm.controls['nombres'].touched">{{ titleAlert }}</div>                        
+          </div>
+         </div>
+         <div class="row"> 
+          <div class="col s12 m6 l4">
+            <label for="password" class="label-color">Contraseña <span class="span-color">*</span></label>
+            <input id="password" type="password" class="validate" class="validate" formControlName="password" required>
+            <div class="alert" *ngIf="!rForm.controls['password'].value && rForm.controls['password'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l4">
-            <label for="password" class="label-color">Contraseña</label>
-            <input id="password" type="password" class="validate" #password>
-          </div>
-          <div class="col s12 m6 l4">
-            <label for="nivel" class="label-color">Nivel:</label>
-            <select class="browser-default select-city" id="nivel">
+            <label for="nivel" class="label-color">Nivel <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="nivel" formControlName="nivel" required>
               <option value="" disabled selected>Seleccione</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -122,29 +127,33 @@
               <option value="5">5</option>
               <option value="6">6</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['nivel'].value && rForm.controls['nivel'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l4">
-            <label class="label-color">Estado:</label>
-            <select class="browser-default select-city" id="estadoU">
+            <label class="label-color">Estado <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="estadoU" formControlName="estado" required>
               <option value="" disabled selected>Seleccione</option>
               <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['estado'].value && rForm.controls['estado'].touched">{{ titleAlert }}</div>                        
           </div>
+        </div>
+        <div class="row">
           <div class="col s12 m6 l4">
-            <label class="label-color">Tipo impresora:</label>
-            <select class="browser-default select-city" id="impresoraU">
+            <label class="label-color">Tipo impresora <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="impresoraU" formControlName="tipoimpresora" required>
               <option value="" disabled selected>Seleccione</option>
               <option value="L">Laser</option>
               <option value="P">Post</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['tipoimpresora'].value && rForm.controls['tipoimpresora'].touched">{{ titleAlert }}</div>                        
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createUser(nomusuario.value,
-    nombres.value, password.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createUser(rForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -168,53 +177,55 @@
   </div> 
   <div class="modal-content">
     <div class="row">
-      <form *ngIf="userEdit">
-        <div class="row">
-            <div class="col s12 m6 l2">
-              <label for="codigo" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="userEdit.id" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l4">
-              <label for="nomusuarioEdit" class="label-color">Usuario:</label>
-              <input disabled placeholder="" id="nomusuarioEdit" type="text" [(ngModel)]="userEdit.login" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l6">
-              <label for="nomapeEdit" class="label-color">Nombres y apellidos:</label>
-              <input disabled placeholder="" id="nomapeEdit" type="text" [(ngModel)]="userEdit.nombre" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l2">
-              <label for="nivelEdit" class="label-color">Nivel:</label>
-              <select disabled class="browser-default select-city" id="nivelEdit">
-                <option  value="nodisplay" disabled selected>{{ userEdit.nivel }}</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </div>
-            <div class="col s12 m6 l4">
-              <label class="label-color">Estado:</label>
-              <select disabled class="browser-default select-city" id="estadoEdit">
-                <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
-                <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s12 m6 l4">
-              <label class="label-color">Tipo impresora:</label>
-              <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
-                  <option value="nodisplay" disabled selected>{{ impEdit }}</option>
-                <option value="L">Laser</option>
-                <option value="P">Post</option>
-              </select>
-            </div>
+      <form [formGroup]="seeForm">
+        <div class="row" *ngIf="userEdit">
+          <div class="col s12 m6 l2">
+            <label for="codigo" class="label-color">Código</label>
+            <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="userEdit.id" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l4">
+            <label for="nomusuarioEdit" class="label-color">Usuario <span class="span-color">*</span></label>
+            <input disabled placeholder="" id="nomusuarioEdit" type="text" class="validate" formControlName="usuario-ver" [(ngModel)]="userEdit.login">
+          </div>
+          <div class="col s12 m6 l6">
+            <label for="nomapeEdit" class="label-color">Nombres y apellidos <span class="span-color">*</span></label>
+            <input disabled placeholder="" id="nomapeEdit" type="text" class="validate" formControlName="nombres-ver" [(ngModel)]="userEdit.nombre">
+          </div>
+        </div>
+        <div class="row" *ngIf="userEdit">
+          <div class="col s12 m6 l2">
+            <label for="nivelEdit" class="label-color">Nivel <span class="span-color">*</span></label>
+            <select disabled class="browser-default select-city" id="nivelEdit">
+              <option  value="nodisplay" disabled selected>{{ userEdit.nivel }}</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div class="col s12 m6 l4">
+            <label class="label-color">Estado <span class="span-color">*</span></label>
+            <select disabled class="browser-default select-city" id="estadoEdit">
+              <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
+              <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s12 m6 l4">
+            <label class="label-color">Tipo impresora <span class="span-color">*</span></label>
+            <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
+                <option value="nodisplay" disabled selected>{{ impEdit }}</option>
+              <option value="L">Laser</option>
+              <option value="P">Post</option>
+            </select>
+          </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateUser()">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateUser()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompaniesService } from '../services/companies.service';
 import swal from 'sweetalert2';
 import { Companies } from './company';
@@ -15,7 +16,13 @@ export class CompanyComponent implements OnInit {
   toogleDelete:boolean = false;
   companies: any[] = []; rep: any[] = [];
   companyEdit: any; cityEdit: any; city: any; entity: any; contr: any; regi: any;
-  cities: string; people: string; createCity: string; createEntity: string; createRegi: string; createContr: string;
+  cities: string; people: string; createCity: string; createEntity: string; createRegi: string; createContr: string; nit: string; razonsocial: string;
+  direccion: string; tel1: string; tel2: string; correo: string; centrocosto: string;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
+  correoAlert: string = "Correo inválido"
 
   /* /**
    * @type {Companies[]} 
@@ -38,7 +45,32 @@ export class CompanyComponent implements OnInit {
    */
   limit: number; 
 
-  constructor(private _companyservice: CompaniesService) { }
+  constructor(private _companyservice: CompaniesService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nit': [null, Validators.required],
+      'razonsocial': [null, Validators.required],
+      'direccion': [null, Validators.required],
+      'tel1': [null, Validators.required],
+      'ciudad': [null, Validators.required],
+      'representante': [null, Validators.required],
+      'correo': [null, Validators.email],
+      'regimen': [null, Validators.required],
+      'centrocosto': [null, Validators.required],
+      'tel2': [null],
+      'contribuyente': [null]
+    });
+
+    this.seeForm = fb.group({
+      'nit-ver': [null, Validators.required],
+      'razon-ver': [null, Validators.required],
+      'direccion-ver': [null, Validators.required],
+      'tel1-ver': [null, Validators.required],
+      'correo-ver': [null, Validators.email],
+      'centro-ver': [null, Validators.required]
+    });
+
+  }
 
   ngOnInit() {
     this._companyservice.getCompanies().subscribe(data => {
@@ -47,12 +79,6 @@ export class CompanyComponent implements OnInit {
       this.people = data.representantes;
       console.log(data.empresas)
     });
-    /* this._companyservice.getCompaniesFilter().subscribe(
-      (count: Companies[]) => {
-        this.count = count;
-        this.numberOfCompanies = this.count.length;
-        this.limit = this.count.length; 
-      }); */
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -70,18 +96,6 @@ export class CompanyComponent implements OnInit {
       jQuery('#regimenEdit').prop('disabled',true);
       jQuery('#centroEdit').prop('disabled',true);
      }});
-    jQuery('#select-cities').on('change', () => {
-      this.createCity = jQuery('#select-cities').val();
-    });
-    jQuery('#select-entity').on('change', () => {
-      this.createEntity = jQuery('#select-entity').val();
-    });
-    jQuery('#select-regi').on('change', () => {
-      this.createRegi = jQuery('#select-regi').val();
-    });
-    jQuery('#select-contr').on('change', () => {
-      this.createContr = jQuery('#select-contr').val();
-    });
     }
 
   openModal (company) {
@@ -136,10 +150,21 @@ export class CompanyComponent implements OnInit {
     }
   }
 
-  createCompany (nit, razon, direccion, tel1, tel2, correo, centro) {
-    if (nit) {
-      this._companyservice.createCompanies({ 'nit': nit, 'razonsocial': razon, 'direccion': direccion, 'telefono1': tel1, 'telefono2': tel2, 
-                                            'ciudad_id': this.createCity, 'entidad_id': this.createEntity, 'correo': correo, 'regimen': this.createRegi, 'centrocosto': centro,
+  createCompany (post) {
+    this.nit = post.nit;
+    this.razonsocial = post.razonsocial;
+    this.direccion = post.direccion;
+    this.tel1 = post.tel1;
+    this.tel2 = post.tel2;
+    this.createCity = post.ciudad;
+    this.createEntity = post.representante;
+    this.correo = post.correo;
+    this.createRegi = post.regimen;
+    this.createContr = post.contribuyente;
+    this.centrocosto = post.centrocosto;
+    if (post) {
+      this._companyservice.createCompanies({ 'nit': this.nit, 'razonsocial': this.razonsocial, 'direccion': this.direccion, 'telefono1': this.tel1, 'telefono2': this.tel2, 
+                                            'ciudad_id': this.createCity, 'entidad_id': this.createEntity, 'correo': this.correo, 'regimen': this.createRegi, 'centrocosto': this.centrocosto,
                                             'contribuyente': this.createContr, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           if ( data.status == "created") {

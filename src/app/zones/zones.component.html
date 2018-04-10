@@ -91,29 +91,31 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form>
+      <form [formGroup]="rForm">
         <div class="row">
           <div class="col s12 m6 l6">
             <label for="codigo" class="label-color">Código</label>
             <input placeholder=" " id="codigo" type="text" disabled class="validate">
           </div>
           <div class="col s12 m6 l6">
-            <label class="label-color">Ciudad</label>
-            <select class="browser-default select-city" id="select-cities">
+            <label class="label-color">Ciudad <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="select-cities" formControlName="ciudad" required>
               <option value="" disabled selected>Seleccione</option>
               <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['ciudad'].value && rForm.controls['ciudad'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l6">
-            <label for="nombre" class="label-color">Nombre</label>
-            <input placeholder=" " id="nombre" type="text" class="validate" #name>
+            <label for="nombre" class="label-color">Nombre <span class="span-color">*</span></label>
+            <input placeholder=" " id="nombre" type="text" class="validate" formControlName="nombre" required>
+            <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createZone(name.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createZone(rForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -137,23 +139,24 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form>
+      <form [formGroup]="seeForm">
         <div class="row" *ngIf="zoneEdit">
           <div class="row">
             <div class="col s12 m6 l6">
-              <label class="label-color">Código:</label>
+              <label class="label-color">Código</label>
               <input placeholder="" disabled id="codigoEdit" type="text" [(ngModel)]="zoneEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m6 l6">
-                <label class="label-color">Ciudad</label>
+                <label class="label-color">Ciudad <span class="span-color">*</span></label>
                 <select disabled class="browser-default select-city" id="selectEdit">
                   <option value="nodisplay" disabled selected >{{ cityEdit }}</option>
                   <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
                 </select>
             </div>
             <div class="col s12 m6 l6">
-              <label for="nombreEdit" class="label-color">Nombre:</label>
-              <input placeholder="" disabled id="nombreEdit" type="text" [(ngModel)]="zoneEdit.nombre" [ngModelOptions]="{standalone: true}">
+              <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
+              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" formControlName="nombre-ver" [(ngModel)]="zoneEdit.nombre">
+              <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>            
             </div>
           </div>
         </div>
@@ -161,7 +164,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateZone()">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateZone()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

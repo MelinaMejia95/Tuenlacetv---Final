@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountriesService } from '../services/countries.service';
 import swal from 'sweetalert2';
 import { Countries } from './countries';
@@ -14,7 +15,10 @@ export class CountriesComponent implements OnInit {
 
   countries: any[] = [];
   toogleDelete:boolean = false;
-  countriesEdit:any;
+  countriesEdit:any; name: string;
+
+  rForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Countries[]} 
@@ -37,7 +41,13 @@ export class CountriesComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _countryservice: CountriesService) { }
+  constructor(private _countryservice: CountriesService, private fb: FormBuilder) {
+    
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+    });
+
+   }
 
   ngOnInit() {
     this._countryservice.getCountries().subscribe(data => {
@@ -68,9 +78,11 @@ export class CountriesComponent implements OnInit {
     //document.getElementsByClassName('table-radio');
   }
 
-  createCountry(name){
-    if (name) {
-      this._countryservice.createCountries({ 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+  createCountry(post){
+    if (post) {
+      this.name = post.nombre;
+      console.log(post.nombre);
+      this._countryservice.createCountries({ 'nombre': this.name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({

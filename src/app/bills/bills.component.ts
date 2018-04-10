@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BillService } from '../services/bills.service';
 import swal from 'sweetalert2';
 import { Bills } from './bills';
@@ -14,7 +15,12 @@ export class BillsComponent implements OnInit {
 
   bills: any[] = [];
   toogleDelete:boolean = false;
-  billsEdit:any;
+  billsEdit:any
+  nombre: string;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Bills[]} 
@@ -37,7 +43,17 @@ export class BillsComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _billservice: BillService) { }
+  constructor(private _billservice: BillService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],   
+    });
+
+  }
 
   ngOnInit() {
     this._billservice.getBills().subscribe(data => {
@@ -68,9 +84,10 @@ export class BillsComponent implements OnInit {
     //document.getElementsByClassName('table-radio');
   }
 
-  createBill(name){
-    if (name) {
-      this._billservice.createBills({ 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+  createBill(post){
+    this.nombre = post.nombre;
+    if (post) {
+      this._billservice.createBills({ 'nombre': this.nombre, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({

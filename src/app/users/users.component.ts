@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../services/users.service';
 import swal from 'sweetalert2';
 import { Users } from './users';
@@ -14,7 +15,11 @@ export class UsersComponent implements OnInit {
 
   toogleDelete:boolean = false;
   users: any[] = []; userEdit: any; stateEdit: any; user: any; impEdit: any; levelEdit: any;
-  states: string; createState: string; createImp: string; createLevel: any;
+  states: string; createState: string; createImp: string; createLevel: any; usuario: string; nombres: string; password: string;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Users[]} 
@@ -37,7 +42,23 @@ export class UsersComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _userservie: UsersService) { }
+  constructor(private _userservie: UsersService, private fb: FormBuilder) {
+
+    this.rForm = fb.group({
+      'usuario': [null, Validators.required],
+      'nombres': [null, Validators.required],
+      'password': [null, Validators.required],
+      'nivel': [null, Validators.required],
+      'tipoimpresora': [null, Validators.required], 
+      'estado': [null, Validators.required],             
+    });
+
+    this.seeForm = fb.group({
+      'usuario-ver': [null, Validators.required],
+      'nombres-ver': [null, Validators.required],      
+    });
+
+   }
 
   ngOnInit() {
     this._userservie.getUsers().subscribe(data => {
@@ -62,15 +83,6 @@ export class UsersComponent implements OnInit {
       jQuery('#estadoEdit').prop('disabled',true);
       jQuery('#tipoimpresoraEdit').prop('disabled',true);
      }});
-    jQuery('#estadoU').on('change', () => {
-      this.createState = jQuery('#estadoU').val();
-    });
-    jQuery('#impresoraU').on('change', () => {
-      this.createImp = jQuery('#impresoraU').val();
-    });
-    jQuery('#nivel').on('change', () => {
-      this.createLevel = jQuery('#nivel').val();
-    });
   }
 
   openModal (user) {
@@ -92,8 +104,7 @@ export class UsersComponent implements OnInit {
   }
 
   closeModal () {
-    jQuery('#modal-see').modal('close');
-    
+    jQuery('#modal-see').modal('close');  
   }
 
   updateUser() {
@@ -124,9 +135,15 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  createUser(login, nombres, password, nivel){
-    if (nombres) {
-      this._userservie.createUsers({ 'login': login, 'nombre': nombres, 'password': password, 'password_confirmation': password,
+  createUser(post){
+    this.usuario = post.usuario;
+    this.nombres = post.nombres;
+    this.password = post.password;
+    this.createLevel = post.nivel;
+    this.createState = post.estado;
+    this.createImp = post.tipoimpresora;
+    if (post) {
+      this._userservie.createUsers({ 'login': this.usuario, 'nombre': this.nombres, 'password': this.password, 'password_confirmation': this.password,
                                      'nivel': this.createLevel, 'usuariocre': "admin", 'estado_id': this.createState,
                                      'tipoImpresora': this.createImp, 'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {

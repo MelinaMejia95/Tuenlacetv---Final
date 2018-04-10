@@ -1,4 +1,5 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubscribersService } from '../services/subscribers.service';
 import { PaymentsService } from '../services/payment.service';
 import swal from 'sweetalert2';
@@ -25,7 +26,7 @@ export class SubscriberComponent implements OnInit {
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string; splitted2: any; model2: any;
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string; model3 : any; model4: any;
   createSeller: string; createTech: string; createTypeinst: string; createTypetech: string; createTypeserv: string; createAreainst: string; createTypefac: string; splitted3: any; model8: any;
-  createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: any = 1; int: any; createTypedoc: string; tvEdit: any; intEdit: any;
+  createPerm: string; createRatetv: string; createEquip: string; createRateint: string; createFunc: string; tv: number; int: any; createTypedoc: string; tvEdit: any; intEdit: any;
   seller: any; sellers: string; techs: string; entities: string; template: any[] = []; infoint: any[] = []; typedocEdit: any; tipodocEdit: any; estados: any[] = []
   subscribers: any[] = []; subsEdit: any; funEdit: any; neighEdit: any; zoneEdit: any; neighEditP: any; zoneEditP: any; tipofacturaciontvEdit: any;
   viv: any; sellerEdit: any; instEdit: any; serv: any; area: any; tech:any; techEdit: any; plantvEdit: any; ratestvEdit: any[] =[]; ratesintEdit: any[] = []; rows: any[] = [];
@@ -36,6 +37,11 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = [];
 
+  rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
+  tvCtrl: FormControl;
+  titleAlert: string = "Campo requerido";
+  correoAlert: string = "Correo inválido"
+  
   public myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'dd/mm/yyyy',
@@ -62,7 +68,94 @@ export class SubscriberComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService) { 
+  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService, private fb: FormBuilder) { 
+  
+    this.rForm = fb.group({
+      'tipofuncion': [null, Validators.required],
+      'tipodoc': [null, Validators.required],
+      'numdoc': [null, Validators.required],
+      'nombre1': [null, Validators.required],
+      'apellido1': [null, Validators.required],
+      'tel1': [null, Validators.required],         
+      'direccion': [null, Validators.required],     
+      'barrio': [null, Validators.required],                
+      'zona': [null, Validators.required],                
+      'tipopersona': [null, Validators.required],                
+      'nombre2': [null],   
+      'apellido2': [null],                           
+      'tel2': [null],                           
+      'correo':['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')],                           
+      'estrato': [null, Validators.required],                           
+      'condicionfisica': [null],                                        
+    });
+
+    this.servForm = fb.group({
+      'barrio': [null, Validators.required],                
+      'zona': [null, Validators.required],                
+      'tel1': [null, Validators.required],             
+      'estrato': [null, Validators.required],
+      'tipovivienda': [null, Validators.required],
+      'fechacontrato': [null, Validators.required],
+      'vendedor': [null, Validators.required],                
+      'tecnico': [null, Validators.required],
+      'tipoinstalacion': [null, Validators.required],
+      'tipotecnologia': [null, Validators.required],
+      'tiposervicio': [null, Validators.required],
+      'areainstalacion': [null, Validators.required],
+      'tipofacturacion': [null, Validators.required],
+      'direccion': [null],                           
+      'urbanizacion': [null], 
+      'apartamento': [null],
+      'tel2': [null],
+      'contacto': [null],                                                           
+      'torre': [null],                                                           
+      'observacion': [null],      
+      'numcontrato': [null],
+      'tvCtrl':  [true],
+      'intCtrl':  [null]
+      //tv: this.tvCtrl,                                                                                                                                                                              
+    });
+
+    this.tvForm = fb.group({
+      'planestv': [null, Validators.required],                
+      'tarifastv': [null, Validators.required],                
+      'televisores': [null],                           
+      'decos': [null], 
+      'permanencia': [null],
+      'precinto': [null],
+      'valorafitv': [null],                                                           
+      'descuento': [null]                                                                                                                                                                                                                                        
+    });
+
+    this.intForm = fb.group({
+      'planesint': [null, Validators.required],                
+      'velocidad': [null, Validators.required], 
+      'tarifasint': [null, Validators.required],                
+      'dirip': [null],                           
+      'mac1': [null],
+      'mac2': [null],
+      'serial': [null],                                                           
+      'marcamodem': [null],
+      'mascara': [null],                                                                                                                                                                                                                                        
+      'dns': [null],                                                                                                                                                                                                                                        
+      'gateway': [null],                                                                                                                                                                                                                                        
+      'nodo': [null],                                                                                                                                                                                                                                        
+      'clave': [null],                                                                                                                                                                                                                                        
+      'equipo': [null],                                                                                                                                                                                                                                        
+      'valorafiint': [null],                                                                                                                                                                                                                                        
+      'descuento': [null],                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    });
+
+    this.seeForm = fb.group({
+      'valor-ver': [null, Validators.required],
+      'fechainicio-ver': [null, Validators.required],
+      'fechafin-ver': [null, Validators.required],      
+    });
+
+    this.cityForm = fb.group({
+      'ciudad': [null, Validators.required],     
+    });
+
   }
 
   ngOnInit() {
@@ -130,14 +223,18 @@ export class SubscriberComponent implements OnInit {
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
       if ( this.tipoUsuario == '1') {
-        jQuery('#ciudad').prop('disabled',true);
-        jQuery('.check-type').css({"visibility" : "visible"});
-        jQuery('.hide-info').css({"visibility" : "visible"});
+        jQuery('#ciudad-user').prop('disabled',true);
+        this.tv = 1;
+        //jQuery('.check-type').css({"visibility" : "visible"});
+        //jQuery('.hide-info').css({"visibility" : "visible"});
+        //jQuery('#serv-form').css({"visibility" : "visible"});        
         setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
       } else if ( this.tipoUsuario != '1') {
-        jQuery('.hide-info').css({"visibility" : "hidden"});
-        jQuery('.check-type').css({"visibility" : "hidden"});
-        jQuery('#ciudad').prop('disabled',false);
+        this.tv = 0;
+        /* jQuery('.hide-info').css({"visibility" : "hidden"}); */
+        //jQuery('#serv-form').css({"visibility" : "hidden"});     
+        //jQuery('.check-type').css({"visibility" : "hidden"});
+        jQuery('#ciudad-user').prop('disabled',false);
       }
     });
     jQuery('#funcion').on('change', () => {
@@ -146,23 +243,24 @@ export class SubscriberComponent implements OnInit {
         jQuery(".service-subs")
       }
     });
-    jQuery('#television').on('change', () =>{
-      console.log('entro tv')
-      if (jQuery('#television').prop('checked') == true){
-        this.tv = 1;
-      } else {
-        this.tv = 0;
-      }
-      var changeTv = <HTMLInputElement><any>document.getElementById('television');
-      if(changeTv.checked == true) {
-        setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
-        document.getElementById('collapsible-television').setAttribute('style', 'visibility: visible');
-        //jQuery('#collapsible-television').prop('visibility','visible');
-      } else {
-        //jQuery('#collapsible-television').collapsible('visibility', 'hidden');
-        document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
-      }
-    }); 
+    /*jQuery('#television').on('change', () =>{
+        console.log('entro tv')
+        if (jQuery('#television').prop('checked') == true){
+          this.tv = 1;
+          console.log(this.tv)
+        } else {
+          this.tv = 0;
+          console.log(this.tv)
+        }
+        var changeTv = <HTMLInputElement><any>document.getElementById('television');
+        if(changeTv.checked == true) {
+          setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
+          document.getElementById('collapsible-television').setAttribute('style', 'visibility: visible');
+        } else {
+          document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
+        }
+      });  */
+      
     jQuery('#internet').on('change', () =>{
       console.log('checkinternet')
       var changeTv = <HTMLInputElement><any>document.getElementById('internet');
@@ -182,71 +280,6 @@ export class SubscriberComponent implements OnInit {
         this.int = 0;
       }
     });
-    jQuery('#tipodoc').on('change', () => {
-      this.createTypedoc = jQuery('#tipodoc').val();
-    });
-    jQuery('#barrio').on('change', () => {
-      this.createNeigh = jQuery('#barrio').val();
-    });
-    jQuery('#zona').on('change', () => {
-      this.createZone = jQuery('#zona').val();
-    });
-    jQuery('#tipopersona').on('change', () => {
-      this.createPer = jQuery('#tipopersona').val();
-    });
-    jQuery('#estrato').on('change', () => {
-      this.createStrat = jQuery('#estrato').val();
-    });
-    jQuery('#condicion').on('change', () => {
-      this.createCond = jQuery('#condicion').val();
-    });
-    jQuery('#barriotv').on('change', () => {
-      this.createNeightv = jQuery('#barriotv').val();
-    });
-    jQuery('#zonatv').on('change', () => {
-      this.createZonetv = jQuery('#zonatv').val();
-      console.log(this.createZonetv)
-    });
-    jQuery('#estratotv').on('change', () => {
-      this.createStrattv = jQuery('#estratotv').val();
-    });
-    jQuery('#tipoviviendatv').on('change', () => {
-      this.createTypevivtv = jQuery('#tipoviviendatv').val();
-    });
-    jQuery('#vendedortv').on('change', () => {
-      this.createSeller = jQuery('#vendedortv').val();
-    });
-    jQuery('#tecnicotv').on('change', () => {
-      this.createTech = jQuery('#tecnicotv').val();
-    });
-    jQuery('#tipoinstalaciontv').on('change', () => {
-      this.createTypeinst = jQuery('#tipoinstalaciontv').val();
-    });
-    jQuery('#tipotecnologiatv').on('change', () => {
-      this.createTypetech = jQuery('#tipotecnologiatv').val();
-    });
-    jQuery('#tiposerviciotv').on('change', () => {
-      this.createTypeserv = jQuery('#tiposerviciotv').val();
-    });
-    jQuery('#areainstalaciontv').on('change', () => {
-      this.createAreainst = jQuery('#areainstalaciontv').val();
-    });
-    jQuery('#tipofacturacion').on('change', () => {
-      this.createTypefac = jQuery('#tipofacturacion').val();
-    });
-    jQuery('#permanencia').on('change', () => {
-      this.createPerm = jQuery('#permanencia').val();
-    });
-    jQuery('#tarifastv').on('change', () => {
-      this.createRatetv = jQuery('#tarifastv').val();
-      console.log(this.createRatetv)
-    });
-    jQuery('#equipo').on('change', () => {
-      this.createEquip = jQuery('#equipo').val();
-    });
-    jQuery('#tarifasinternet').on('change', () => {
-      this.createRateint = jQuery('#tarifasinternet').val();
-    });
     jQuery('#planestvEdit').on('change', () => {
       let j = 0;
       for (let i=0; i < this.ratestv.length ; i++) {
@@ -265,27 +298,81 @@ export class SubscriberComponent implements OnInit {
         }
       }
     });
-    jQuery('#television').on('change', () =>{
-      console.log('change tv')
-    })
-    jQuery('#select-tipofac').on('change', () => {
-      this.createTypeFac = jQuery('#select-tipofac').val();
-    });
-    jQuery('#select-fac').on('change', () => {
-      this.createFac = jQuery('#select-fac').val();
-    });
-    jQuery('#select-doc-orden').on('change', () => {
-      this.createDoc = jQuery('#select-doc-orden').val();
-    });
-    jQuery('#select-payment-order').on('change', () => {
-      this.createPay = jQuery('#select-payment-order').val();
-    });
-    jQuery('#select-bank-order').on('change', () => {
-      this.createBank = jQuery('#select-bank-order').val();
-    });
-    jQuery('#select-debt-order').on('change', () => {
-      this.createDebt = jQuery('#select-debt-order').val();
-    });
+  }
+
+  validation(){
+    if(this.tipoUsuario == '1') {
+      if(this.rForm.valid == true && this.servForm.valid == true) {
+        jQuery('#btn-crear').prop('disabled',false);
+        //console.log(this.rForm)
+      } else if (this.rForm.valid == false || this.servForm.valid == false){
+        jQuery('#btn-crear').prop('disabled',true);
+        //console.log(this.rForm)
+      }
+    } else {
+      if(this.rForm.valid == true) {
+        jQuery('#btn-crear').prop('disabled',false);
+      } else if (this.rForm.valid == false){
+        jQuery('#btn-crear').prop('disabled',true);
+      }
+    }
+  }
+
+  validation2(){
+    if(this.rForm.valid == true && this.tipoUsuario == '1' && this.servForm.valid == true && (this.tvForm.valid == true || this.intForm.valid == true)
+        && (this.servForm.value.tvCtrl == true || this.servForm.value.intCtrl == true)){
+      jQuery('#btn-crear').prop('disabled',false);
+      console.log('internet o tv valido')
+    } else if ( this.servForm.valid == false || this.rForm.valid == false || this.tvForm.valid == false || this.intForm.valid == false){
+      jQuery('#btn-crear').prop('disabled',true);
+      console.log('internet o tv no valido')
+    } 
+  }
+
+  validation3(){
+    if (this.servForm.value.tvCtrl == true){
+      if(this.tvForm.valid == true && this.servForm.valid == true && this.rForm.valid == true){
+        jQuery('#btn-crear').prop('disabled',false);
+        console.log('tv valido')
+      } else if (this.tvForm.valid == false || this.servForm.valid == false || this.rForm.valid == false) {
+        jQuery('#btn-crear').prop('disabled',true);
+        console.log('tv no valido')
+      }
+    }
+  }
+
+  validation4(){
+    if (this.servForm.value.intCtrl == true){
+      if(this.intForm.valid == true && this.servForm.valid == true && this.rForm.valid == true){
+        console.log('internet valido')
+        jQuery('#btn-crear').prop('disabled',false);
+      } else if (this.intForm.valid == false || this.servForm.valid == false || this.rForm.valid == false) {
+        jQuery('#btn-crear').prop('disabled',true);
+        console.log('internet no valido')
+      }
+    }
+  }
+
+  checkChange() {
+    console.log(this.servForm);
+    setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
+    if (this.servForm.value.tvCtrl == true){
+      this.tv = 1;
+    } else {
+      this.tv = 0;
+    }
+  }
+
+  checkChange2() {
+    console.log('facturacion change');
+    setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
+    if (this.servForm.value.intCtrl == true){
+      this.int = 1;
+      console.log(this.int)
+    } else {
+      this.int = 0;
+      console.log(this.int)
+    }
   }
 
   openModalPagos(){
@@ -703,7 +790,108 @@ export class SubscriberComponent implements OnInit {
     this.model9 = event.formatted ;
   }
 
-  createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
+  createSubs(post, city, serv, tv, int){
+      if (post) {
+      this._suscriberservice.createSubscribers({
+        "persona":
+         {
+             "tipo_documento_id": post.tipofuncion,
+             "documento": post.numdoc,
+             "nombre1": post.nombre1,
+             "nombre2": post.nombre2,
+             "apellido2": post.apellido2,
+             "apellido1": post.nombre2,
+             "direccion": post.direccion,
+             "barrio_id": post.barrio,
+             "zona_id": post.barrio,
+             "telefono1": post.tel1,
+             "telefono2": post.tel2,
+             "correo": post.correo,
+             "fechanac": this.model3, 
+             "tipopersona": post.tipopersona,
+             "estrato": post.estrato,
+             "condicionfisica": post.condicionfisica,
+             "ciudad_id": city.ciudad,
+             "usuario_id": localStorage.getItem('usuario_id')
+         },
+        "senal":{
+            "contrato": serv.numcontrato,
+            "direccion": serv.direccion,
+            "urbanizacion": serv.urbanizacion,
+            "torre": serv.torre,
+            "apto": serv.apartamento,
+            "barrio_id": serv.barrio,
+            "zona_id": serv.zona,
+            "telefono1": serv.tel1,
+            "telefono2": serv.tel2,
+            "contacto": serv.contacto,
+            "estrato": serv.estrato,
+            "vivienda": serv.tipovivienda,
+            "observacion": serv.observacion,
+            "fechacontrato": this.model4,
+            "permanencia": tv.permanencia,
+            "televisores": tv.televisores,
+            "decos": tv.decos,
+            "precinto": tv.precinto,
+            "vendedor_id": serv.vendedor,
+            "tipo_instalacion_id": serv.tipoinstalacion,
+            "tecnologia_id": serv.tipotecnologia,
+            "tiposervicio": serv.tiposervicio,
+            "areainstalacion": serv.areainstalacion,
+            "tipo_facturacion_id": serv.tipofacturacion,
+            "usuario_id": localStorage.getItem('usuario_id')
+        },
+        "info_internet": 
+            {
+                "direccionip": int.dirip,
+                "velocidad": int.velocidad,
+                "mac1": int.mac1,
+                "mac2": int.mac2,
+                "serialm": int.serial,
+                "marcam": int.marcamodem,
+                "mascarasub": int.mascara,
+                "dns": int.dns,
+                "gateway": int.gateway,
+                "nodo": int.nodo,
+                "clavewifi": int.clave,
+                "equipo": int.equipo,
+                "usuario_id": localStorage.getItem('usuario_id')
+            },
+        "funcion_id": post.tipofuncion,
+        "tv": Number(this.tv),
+        "valorafi_tv": Number(tv.valorafitv),
+        "valor_dcto_tv": Number(tv.descuento),
+        "tarifa_id_tv": tv.tarifastv,
+        "internet": Number(this.int),
+        "valorafi_int": Number(int.valorafiint),
+        "valor_dcto_int": Number(int.descuento),
+        "tarifa_id_int": int.tarifasint,
+        "tecnico_id": serv.tecnico, 
+        "db": localStorage.getItem('db')
+    }).subscribe(
+        data => {
+          console.log(data)
+          if (data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        });
+    } 
+  } 
+
+  /* createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
     contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
     televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint){
       console.log(direccion)
@@ -804,7 +992,7 @@ export class SubscriberComponent implements OnInit {
           }
         });
     } 
-  } 
+  }  */
 
   createBill(valorfac, observac) {
     if (observac) {

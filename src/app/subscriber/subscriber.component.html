@@ -121,7 +121,7 @@
   <ul class="ul-button">
     <li><a class="btn-floating btn-eliminar red" (click)="deleteSubs()" id="btn-footer-delete">Eliminar</a></li>
     <!--<li><a class="btn-floating btn-señal">Adicionar Señal</a></li>-->
-    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear"(click)="validation()">Crear</a></li>
   </ul>
 </div>
 
@@ -140,7 +140,7 @@
     </div>
   </div>
   <div class="modal-content">
-      <form>
+      <form [formGroup]="rForm" (change)="validation()">
         <div class="row">
           <div class="row service-subs">
             <div class="col s12 m12 l6">
@@ -153,99 +153,120 @@
         </div>
         <div class="row">
           <div class="col s12 m6 l4">
-            <label class="label-color">Tipo función:</label>
-            <select class="browser-default select-city" id="funcion">
+            <label class="label-color">Tipo función <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="funcion" formControlName="tipofuncion" required>
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['tipofuncion'].value && rForm.controls['tipofuncion'].touched">{{ titleAlert }}</div>                                      
           </div>
           <div class="col s12 m6 l4">
-              <label class="label-color">Tipo documento:</label>
-              <select class="browser-default select-city" id="tipodoc">
+              <label class="label-color">Tipo documento <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tipodoc" formControlName="tipodoc" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!rForm.controls['tipodoc'].value && rForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                          
           </div>
           <div class="col s12 m6 l4">
-            <label for="documentopersona" class="label-color">Número de documento:</label>
-            <input placeholder="" id="documentopersona" type="text" #numdoc>
+            <label for="documentopersona" class="label-color">Número de documento <span class="span-color">*</span></label>
+            <input placeholder="" id="documentopersona" type="text" class="validate" formControlName="numdoc" required>
+            <div class="alert" *ngIf="!rForm.controls['numdoc'].value && rForm.controls['numdoc'].touched">{{ titleAlert }}</div>                        
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
-            <label for="nombre1" class="label-color">Primer nombre:</label>
-            <input placeholder="" id="nombre1" type="text" #nombre1>
+            <label for="nombre1" class="label-color">Primer nombre <span class="span-color">*</span></label>
+            <input placeholder="" id="nombre1" type="text" class="validate" formControlName="nombre1" required>
+            <div class="alert" *ngIf="!rForm.controls['nombre1'].value && rForm.controls['nombre1'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l3">
-            <label for="nombre2" class="label-color">Segundo nombre:</label>
-            <input id="nombre2" type="text" class="validate" #nombre2>
+            <label for="nombre2" class="label-color">Segundo nombre</label>
+            <input id="nombre2" type="text" class="validate" formControlName="nombre2">
           </div>
           <div class="col s12 m6 l3">
-            <label for="apellido1" class="label-color">Primer apellido:</label>
-            <input id="apellido1" type="text" class="validate" #apellido1>
+            <label for="apellido1" class="label-color">Primer apellido <span class="span-color">*</span></label>
+            <input id="apellido1" type="text" class="validate" class="validate" formControlName="apellido1" required>
+            <div class="alert" *ngIf="!rForm.controls['apellido1'].value && rForm.controls['apellido1'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l3">
-            <label for="apellido2" class="label-color">Segundo apellido:</label>
-            <input id="apellido2" type="text" class="validate" #apellido2> 
+            <label for="apellido2" class="label-color">Segundo apellido</label>
+            <input id="apellido2" type="text" class="validate" formControlName="apellido2"> 
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
-            <label for="tel1" class="label-color">Teléfono 1:</label>
-            <input placeholder="" id="tel1" type="text" #tel1>
+            <label for="tel1" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
+            <input placeholder="" id="tel1" type="text" class="validate" formControlName="tel1" required>
+            <div class="alert" *ngIf="!rForm.controls['tel1'].value && rForm.controls['tel1'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l3">
-            <label for="tel2" class="label-color">Teléfono 2:</label>
-            <input placeholder="" id="tel2" type="text" #tel2>
+            <label for="tel2" class="label-color">Teléfono 2</label>
+            <input placeholder="" id="tel2" type="text" formControlName="tel2">
           </div>
           <div class="col s12 m6 l3">
-            <label for="direccionpersona" class="label-color">Dirección:</label>
-            <input placeholder="" id="direccionpersona" type="text" #direccion>
+            <label for="direccionpersona" class="label-color">Dirección <span class="span-color">*</span></label>
+            <input placeholder="" id="direccionpersona" type="text" class="validate" formControlName="direccion" required>
+            <div class="alert" *ngIf="!rForm.controls['direccion'].value && rForm.controls['direccion'].touched">{{ titleAlert }}</div>                        
           </div>
           <div class="col s12 m6 l3">
-            <label class="label-color">Barrio:</label>
-            <select class="browser-default select-city" id="barrio">
+            <label class="label-color">Barrio <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="barrio" formControlName="barrio" required>
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['barrio'].value && rForm.controls['barrio'].touched">{{ titleAlert }}</div>                        
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
-            <label class="label-color">Zona:</label>
-            <select class="browser-default select-city" id="zona">
+            <label class="label-color">Zona <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="zona" formControlName="zona" required>
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['zona'].value && rForm.controls['zona'].touched">{{ titleAlert }}</div>                        
+          </div>
+          <form [formGroup]="cityForm" *ngIf="tipoUsuario!='1'">
+            <div class="col s12 m6 l3">
+              <label class="label-color">Ciudad <span class="span-color">*</span></label>
+              <select class="browser-default select-city" id="ciudad" formControlName="ciudad" required>
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
+              </select>
+              <div class="alert" *ngIf="!cityForm.controls['ciudad'].value && cityForm.controls['ciudad'].touched">{{ titleAlert }}</div>                        
+            </div>
+          </form>
+         <div class="col s12 m6 l3" *ngIf="tipoUsuario=='1'">
+              <label class="label-color">Ciudad</label>
+              <select disabled class="browser-default select-city" id="ciudad-user">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
+              </select>
+            </div> 
+          <div class="col s12 m6 l3">
+            <label for="correo" class="label-color">Correo</label>
+            <input placeholder="" id="correo" type="text" formControlName="correo">
+            <div class="alert" *ngIf="!rForm.controls['correo'].value && rForm.controls['correo'].touched">{{ correoAlert }}</div>
           </div>
           <div class="col s12 m6 l3">
-            <label class="label-color">Ciudad:</label>
-            <select class="browser-default select-city" id="ciudad">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="correo" class="label-color">Correo:</label>
-            <input placeholder="" id="correo" type="text" #correo>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="fechanacimiento" class="label-color">Fecha de nacimiento:</label>
+            <label for="fechanacimiento" class="label-color">Fecha de nacimiento</label>
             <my-date-picker name="fechanaccreate" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" required></my-date-picker>
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
-            <label class="label-color">Tipo persona:</label>
-            <select class="browser-default select-city" id="tipopersona">
+            <label class="label-color">Tipo persona <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="tipopersona" formControlName="tipopersona" required>
               <option value="nodisplay" disabled selected>Seleccione</option>
               <option value="N">Natural</option>
               <option value="J">Jurídica</option>
             </select>
+            <div class="alert" *ngIf="!rForm.controls['tipopersona'].value && rForm.controls['tipopersona'].touched">{{ titleAlert }}</div>                                    
           </div>
           <div class="col s12 m6 l3">
-            <label class="label-color">Estrato:</label>
-            <select class="browser-default select-city" id="estrato">
+            <label class="label-color">Estrato <span class="span-color">*</span></label>
+            <select class="browser-default select-city" id="estrato" formControlName="estrato">
               <option value="nodisplay" selected disabled>Seleccione</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -261,7 +282,7 @@
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Condición física:</label>
-            <select class="browser-default select-city" id="condicion">
+            <select class="browser-default select-city" id="condicion" formControlName="condicionfisica">
               <option value="nodisplay" selected disabled>Seleccione</option>
               <option value="N">Normal</option>
               <option value="D">Discapacitado</option>
@@ -269,8 +290,10 @@
           </div>
         </div>
         <!-- <div  *ngIf="createFunc" ></div> -->
-        <div class="row hide-info" >
-          <div class="row service-subs"   >
+      </form>
+      <form [formGroup]="servForm" *ngIf="tipoUsuario=='1'" (change)="validation2()">
+        <div class="row">
+          <div class="row service-subs">
             <div class="col s12 m12 l6">
               <span class="service-title">Información general servicio</span>
             </div>
@@ -279,61 +302,62 @@
             <div class="separator-subs z-depth-3"></div>
           </div>
         </div>
-        <div >
-          <div class="row hide-info"   >
+          <div class="row">
             <div class="col s12 m6 l3">
-              <label for="numcontrato" class="label-color">Número de contrato:</label>
-              <input placeholder="" id="numcontrato" type="text" #contratos>
+              <label for="numcontrato" class="label-color">Número de contrato</label>
+              <input placeholder="" id="numcontrato" type="text" formControlName="numcontrato">
             </div>
             <div class="col s12 m6 l3">
-              <label for="dirtv" class="label-color">Dirección:</label>
-              <input placeholder="" id="dirtv" type="text" #direccions>
+              <label for="dirtv" class="label-color">Dirección <span class="span-color">*</span></label>
+              <input placeholder="" id="dirtv" type="text" formControlName="direccion">
             </div>
             <div class="col s12 m6 l3">
-              <label for="urbanizacion" class="label-color">Urbanización:</label>
-              <input placeholder="" id="urbanizacion" type="text" #urbanizacions>
+              <label for="urbanizacion" class="label-color">Urbanización</label>
+              <input placeholder="" id="urbanizacion" type="text" formControlName="urbanizacion">
             </div>
             <div class="col s12 m6 l3">
-              <label for="torre" class="label-color">Torre:</label>
-              <input placeholder="" id="torre" type="text" #torres>
+              <label for="torre" class="label-color">Torre</label>
+              <input placeholder="" id="torre" type="text" formControlName="torre">
             </div>
           </div>
-          <div class="row hide-info"  >
+          <div class="row"  >
             <div class="col s12 m6 l3">
               <label for="apartamento" class="label-color">Apartamento:</label>
-              <input placeholder="" id="apartamento" type="text" #apartamentos>
+              <input placeholder="" id="apartamento" type="text" formControlName="apartamento">
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Barrio:</label>
-              <select class="browser-default select-city" id="barriotv">
+              <label class="label-color">Barrio <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="barriotv" formControlName="barrio" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['barrio'].value && servForm.controls['barrio'].touched">{{ titleAlert }}</div>                          
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Zona:</label>
-              <select class="browser-default select-city" id="zonatv">
+              <label class="label-color">Zona <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="zonatv" formControlName="zona" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['zona'].value && servForm.controls['zona'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3">
-              <label for="tel1tv" class="label-color">Teléfono 1:</label>
-              <input placeholder="" id="tel1tv" type="text" #tel1s>
+              <label for="tel1tv" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
+              <input placeholder="" id="tel1tv" type="text" class="validate" formControlName="tel1" required>
             </div>
           </div>
-          <div class="row hide-info"   >
+          <div class="row"   >
             <div class="col s12 m6 l3">
-              <label for="te21tv" class="label-color">Teléfono 2:</label>
-              <input placeholder="" id="tel2tv" type="text" #tel2s>
+              <label for="te21tv" class="label-color">Teléfono 2</label>
+              <input placeholder="" id="tel2tv" type="text" formControlName="tel2">
             </div>
             <div class="col s12 m6 l3">
-              <label for="contactotv" class="label-color">Contacto:</label>
-              <input placeholder="" id="contactotv" type="text" #contactos>
+              <label for="contactotv" class="label-color">Contacto</label>
+              <input placeholder="" id="contactotv" type="text" formControlName="contacto">
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Estrato:</label>
-              <select class="browser-default select-city" id="estratotv">
+              <label class="label-color">Estrato <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="estratotv" formControlName="estrato" required>
                 <option value="nodisplay" selected disabled>Seleccione</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -346,89 +370,100 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['estrato'].value && servForm.controls['estrato'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Tipo vivienda:</label>
-              <select class="browser-default select-city" id="tipoviviendatv">
+              <label class="label-color">Tipo vivienda <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tipoviviendatv" formControlName="tipovivienda" required>
                 <option value="" disabled selected>Seleccione</option>
                 <option value="P">Propia</option>
                 <option value="A">Alquilada</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['tipovivienda'].value && servForm.controls['tipovivienda'].touched">{{ titleAlert }}</div>                                        
             </div>
           </div>
-          <div class="row hide-info"  >
+          <div class="row"  >
             <div class="col s12 m6 l3">
-              <label for="observacion" class="label-color">Observación:</label>
-              <input placeholder="" id="observacion" type="text" class="text" #observacions>
+              <label for="observacion" class="label-color">Observación</label>
+              <input placeholder="" id="observacion" type="text" class="text" formControlName="observacion">
             </div>
             <div class="col s12 m6 l3">
-              <label for="fechacontratotv" class="label-color">Fecha del contrato:</label>
-              <my-date-picker name="fechacontratotv" [options]="myDatePickerOptions" (dateChanged)="onDateChangedServ($event)" required></my-date-picker>
+              <label for="fechacontratotv" class="label-color">Fecha del contrato <span class="span-color">*</span></label>
+              <my-date-picker name="fechacontratotv" [options]="myDatePickerOptions" (dateChanged)="onDateChangedServ($event)" class="validate" formControlName="fechacontrato" required></my-date-picker>
+              <div class="alert" *ngIf="!servForm.controls['fechacontrato'].value && servForm.controls['fechacontrato'].touched">{{ titleAlert }}</div>                                      
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Vendedor:</label>
-              <select class="browser-default select-city" id="vendedortv">
+              <label class="label-color">Vendedor <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="vendedortv" formControlName="vendedor" required>
                 <option value="nodisplay" selected disabled>Seleccione</option>
                 <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['vendedor'].value && servForm.controls['vendedor'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3">
-                <label class="label-color">Técnicos:</label>
-                <select class="browser-default select-city" id="tecnicotv">
-                  <option value="nodisplay" disabled selected>Seleccione</option>
-                  <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
-                </select>
-              </div>
+              <label class="label-color">Técnicos <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tecnicotv" formControlName="tecnico" required>
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
+              </select>
+              <div class="alert" *ngIf="!servForm.controls['tecnico'].value && servForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                          
+            </div>
           </div>
-          <div class="row hide-info"  >
+          <div class="row"  >
             <div class="col s12 m6 l3">
-              <label class="label-color">Tipo instalación:</label>
-              <select class="browser-default select-city" id="tipoinstalaciontv">
+              <label class="label-color">Tipo instalación <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tipoinstalaciontv" formControlName="tipoinstalacion" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['tipoinstalacion'].value && servForm.controls['tipoinstalacion'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Tipo tecnología:</label>
-              <select class="browser-default select-city" id="tipotecnologiatv">
+              <label class="label-color">Tipo tecnología <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tipotecnologiatv" formControlName="tipotecnologia" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['tipotecnologia'].value && servForm.controls['tipotecnologia'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Tipo de servicio:</label>
-              <select class="browser-default select-city" id="tiposerviciotv">
+              <label class="label-color">Tipo de servicio <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tiposerviciotv" formControlName="tiposervicio" required>
                   <option value="nodisplay" disabled selected>Seleccione</option>
                   <option value="R">Residencial</option>
                   <option value="C">Comercial</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['tiposervicio'].value && servForm.controls['tiposervicio'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3">
-              <label class="label-color">Área de instalación:</label>
-              <select class="browser-default select-city" id="areainstalaciontv">
+              <label class="label-color">Área de instalación <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="areainstalaciontv" formControlName="areainstalacion" required>
                 <option value="npdisplay" disabled selected>Seleccione</option>
                 <option value="U">Urbana</option>
                 <option value="R">Rural</option>
                 <option value="E">Extrarural</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['areainstalacion'].value && servForm.controls['areainstalacion'].touched">{{ titleAlert }}</div>                                        
             </div>
           </div>
           <div class="row ">
-            <div class="col s12 m6 l3 hide-info"    >
-              <label class="label-color">Tipo facturación:</label>
-              <select class="browser-default select-city" id="tipofacturacion">
+            <div class="col s12 m6 l3">
+              <label class="label-color">Tipo facturación <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="tipofacturacion" formControlName="tipofacturacion" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
               </select>
+            <div class="alert" *ngIf="!servForm.controls['tipofacturacion'].value && servForm.controls['tipofacturacion'].touched">{{ titleAlert }}</div>                                        
             </div>
             <div class="col s12 m6 l3 check-type">
-              <input type="checkbox" class="filled-in" id="television" name="group3" checked="checked"/>
+              <input type="checkbox" class="filled-in" id="television" name="group3" formControlName="tvCtrl" (change)="checkChange()"/>
               <label for="television" class="check-label">Televisión</label>
-              <input type="checkbox" class="filled-in" id="internet" name="group3"/>
+              <input type="checkbox" class="filled-in" id="internet" name="group3" formControlName="intCtrl" (change)="checkChange2()"/>
               <label for="internet" class="check-label">Internet</label>
             </div>
           </div>
-        </div>
+        </form>
+      <form [formGroup]="tvForm" *ngIf="tv==1" (change)="validation3()">
         <div class="row">
           <div class="col s12 m12 l12">
             <ul class="collapsible hide-info" data-collapsible="accordion" id="collapsible-television" >
@@ -438,19 +473,18 @@
                   Televisión
                 </div>
                 <div class="collapsible-body">
-                  <form action="">
                     <div class="row">
                       <div class="col s12 m6 l3">
-                        <label for="numtv" class="label-color">Televisores:</label>
-                        <input placeholder="" id="numtv" type="text" #televisores>
+                        <label for="numtv" class="label-color">Televisores</label>
+                        <input placeholder="" id="numtv" type="text" formControlName="televisores">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="numdecotv" class="label-color">Decodificadores:</label>
-                        <input placeholder="" id="numdecotv" type="text" #decos>
+                        <label for="numdecotv" class="label-color">Decodificadores</label>
+                        <input placeholder="" id="numdecotv" type="text" formControlName="decos">
                       </div>
                       <div class="col s12 m6 l3">
-                          <label class="label-color">Permanencia:</label>
-                          <select class="browser-default select-city" id="permanencia">
+                          <label class="label-color">Permanencia</label>
+                          <select class="browser-default select-city" id="permanencia" formControlName="permanencia">
                             <option value="" disabled selected>Seleccione</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -491,40 +525,43 @@
                           </select>
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="precintotv" class="label-color">Precinto:</label>
-                        <input placeholder="" id="precintotv" type="text" #precinto>
+                        <label for="precintotv" class="label-color">Precinto</label>
+                        <input placeholder="" id="precintotv" type="text" formControlName="precinto">
                       </div>
                     </div>
                     <div class="row">
                       <div class="col s12 m6 l3">
-                        <label class="label-color">Planes:</label>
-                        <select class="browser-default select-city" id="planestv" #planes (change)="llenarTarifas(planes.value)">
+                        <label class="label-color">Planes <span class="span-color">*</span></label>
+                        <select class="browser-default select-city validate" id="planestv" formControlName="planestv" required #planes (change)="llenarTarifas(planes.value)">
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="plantv.id" *ngFor="let plantv of planstv">{{ plantv.nombre }}</option>
+                          <div class="alert" *ngIf="!tvForm.controls['planestv'].value && tvForm.controls['planestv'].touched">{{ titleAlert }}</div>                                        
                         </select>
                       </div>
                       <div class="col s12 m6 l3">
-                        <label class="label-color">Tarifas:</label>
-                        <select class="browser-default select-city" id="tarifastv">
+                        <label class="label-color">Tarifas <span class="span-color">*</span></label>
+                        <select class="browser-default select-city validate" id="tarifastv" formControlName="tarifastv" required>
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
                         </select>
+                        <div class="alert" *ngIf="!tvForm.controls['tarifastv'].value && tvForm.controls['tarifastv'].touched">{{ titleAlert }}</div>                                                                  
                       </div>
                       <div class="col s12 m6 l3">
                         <label for="valorafiliaciontv" class="label-color">Valor afiliación:</label>
-                        <input placeholder="" id="valorafiliaciontv" type="text" [(ngModel)]="valorafitv" [ngModelOptions]="{standalone: true}">
+                        <input placeholder="" id="valorafiliaciontv" type="text" formControlName="valorafitv" [(ngModel)]="valorafitv">
                       </div>
                       <div class="col s12 m6 l3">
                         <label for="descuentotv" class="label-color">Valor descuento:</label>
-                        <input placeholder="" id="descuentotv" type="text" #descuento>
+                        <input placeholder="" id="descuentotv" type="text" formControlName="descuento">
                       </div>
                     </div>
-                  </form>
                 </div>
               </li>
             </ul>
           </div>
         </div>
+      </form>
+      <form [formGroup]="intForm" *ngIf="int==1" (change)="validation4()">
         <div class="row">
           <div class="col s12">
             <ul class="collapsible" data-collapsible="accordion" id="collapsible-internet">
@@ -534,59 +571,58 @@
                   Internet
                 </div>
                 <div class="collapsible-body">
-                  <form action="">
                     <div class="row">
                       <div class="col s12 m6 l3">
-                        <label for="dirip" class="label-color">Dirección IP:</label>
-                        <input placeholder="" id="dirip" type="text" #dirip>
+                        <label for="dirip" class="label-color">Dirección IP</label>
+                        <input placeholder="" id="dirip" type="text" formControlName="dirip">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label class="label-color">Velocidad:</label>
-                        <input placeholder="" id="velocidad" type="text" #velocidad>
+                        <label class="label-color">Velocidad <span class="span-color">*</span></label>
+                        <input placeholder="" id="velocidad" type="text" class="validate" formControlName="velocidad" required>
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="mac1" class="label-color">MAC 1:</label>
-                        <input placeholder="" id="mac1" type="text" #mac1>
+                        <label for="mac1" class="label-color">MAC 1</label>
+                        <input placeholder="" id="mac1" type="text" formControlName="mac1">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="mac2" class="label-color">MAC 2:</label>
-                        <input placeholder="" id="mac2" type="text" #mac2>
+                        <label for="mac2" class="label-color">MAC 2</label>
+                        <input placeholder="" id="mac2" type="text" formControlName="mac2">
                       </div>
                     </div>
                     <div class="row">
                       <div class="col s12 m6 l3">
-                        <label for="modem" class="label-color">Serial módem:</label>
-                        <input placeholder="" id="modem" type="text" #serial>
+                        <label for="modem" class="label-color">Serial módem</label>
+                        <input placeholder="" id="modem" type="text" formControlName="serial">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="marcamodem" class="label-color">Marca módem:</label>
-                        <input placeholder="" id="marcamodem" type="text" #marcamodem>
+                        <label for="marcamodem" class="label-color">Marca módem</label>
+                        <input placeholder="" id="marcamodem" type="text" formControlName="marcamodem">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="mascara" class="label-color">Máscara subred:</label>
-                        <input placeholder="" id="mascara" type="text" #mascara>
+                        <label for="mascara" class="label-color">Máscara subred</label>
+                        <input placeholder="" id="mascara" type="text" formControlName="mascara">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="dns" class="label-color">DNS:</label>
-                        <input placeholder="" id="dns" type="text" #dns>
+                        <label for="dns" class="label-color">DNS</label>
+                        <input placeholder="" id="dns" type="text" formControlName="dns">
                       </div>
                     </div>
                     <div class="row">
                       <div class="col s12 m6 l3">
-                        <label for="gateway" class="label-color">Gateway:</label>
-                        <input placeholder="" id="gateway" type="text" #gateway>
+                        <label for="gateway" class="label-color">Gateway</label>
+                        <input placeholder="" id="gateway" type="text" formControlName="gateway">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="nodo" class="label-color">Nodo:</label>
-                        <input placeholder="" id="nodo" type="text" #nodo>
+                        <label for="nodo" class="label-color">Nodo</label>
+                        <input placeholder="" id="nodo" type="text" formControlName="nodo">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="clavewifi" class="label-color">Clave Wi-Fi:</label>
-                        <input placeholder="" id="clavewifi" type="text" #clave>
+                        <label for="clavewifi" class="label-color">Clave Wi-Fi</label>
+                        <input placeholder="" id="clavewifi" type="text" formControlName="clave">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label class="label-color">Equipo:</label>
-                        <select class="browser-default select-city" id="equipo">
+                        <label class="label-color">Equipo</label>
+                        <select class="browser-default select-city" id="equipo" formControlName="equipo">
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option value="S">Si</option>
                           <option value="N">No</option>
@@ -595,29 +631,30 @@
                     </div>
                     <div class="row">
                       <div class="col s12 m6 l3">
-                        <label class="label-color">Planes:</label>
-                        <select class="browser-default select-city" id="planesinternet" #planesint (change)="llenarTarifasInt(planesint.value)">
+                        <label class="label-color">Planes <span class="span-color">*</span></label>
+                        <select class="browser-default select-city validate" id="planesinternet" formControlName="planesint" required #planesint (change)="llenarTarifasInt(planesint.value)">
                           <option value="nodisplay" disabled selected>Seleccione</option>
                           <option [value]="planint.id" *ngFor="let planint of plansint">{{ planint.nombre }}</option>
                         </select>
+                        <div class="alert" *ngIf="!intForm.controls['planesint'].value && intForm.controls['planesint'].touched">{{ titleAlert }}</div>                                      
                       </div>
                       <div class="col s12 m6 l3">
-                        <label class="label-color">Tarifas:</label>
-                        <select class="browser-default select-city" id="tarifasinternet">
+                        <label class="label-color">Tarifas <span class="span-color">*</span></label>
+                        <select class="browser-default select-city validate" id="tarifasinternet" formControlName="tarifasint" required>
                           <option value="nodiplay" disabled selected>Seleccione</option>
                           <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                         </select>
+                        <div class="alert" *ngIf="!intForm.controls['tarifasint'].value && intForm.controls['tarifasint'].touched">{{ titleAlert }}</div>                                                                
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="valorinternet" class="label-color">Valor afiliación:</label>
-                        <input placeholder="" id="valorinternet" type="text" [(ngModel)]="valorafiint" [ngModelOptions]="{standalone: true}">
+                        <label for="valorinternet" class="label-color">Valor afiliación</label>
+                        <input placeholder="" id="valorinternet" type="text" formControlName="valorafiint" [(ngModel)]="valorafiint">
                       </div>
                       <div class="col s12 m6 l3">
-                        <label for="descuentointernet" class="label-color">Valor descuento:</label>
-                        <input placeholder="" id="descuentointernet" type="text" #descuentoint>
+                        <label for="descuentointernet" class="label-color">Valor descuento</label>
+                        <input placeholder="" id="descuentointernet" type="text" formControlName="descuento">
                       </div>
                     </div>
-                  </form>
                 </div>
               </li>
             </ul>
@@ -626,11 +663,8 @@
       </form>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createSubs(numdoc.value, 
-    nombre1.value, nombre2.value, apellido1.value, apellido2.value, tel1.value, tel2.value, direccion.value, correo.value,
-    contratos.value, direccions.value, urbanizacions.value, torres.value, apartamentos.value, tel1s.value, tel2s.value, contactos.value, observacions.value,
-    televisores.value, decos.value, precinto.value, descuento.value,
-    dirip.value, velocidad.value, mac1.value, mac2.value, serial.value, marcamodem.value, mascara.value, dns.value, gateway.value, nodo.value, clave.value, descuentoint.value)">Aceptar</button>
+    <button href="#!" id="btn-crear" class="modal-action modal-close waves-effect waves-green btn-flat" disabled
+    (click)="createSubs(rForm.value, cityForm.value, servForm.value, tvForm, intForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>

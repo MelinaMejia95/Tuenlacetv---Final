@@ -19,6 +19,7 @@
     padding: 24px;
     padding: 20px 24px;
     padding-bottom: 14px !important;
+    height: 100%;
 }
 
 .file-field .btn, .file-field .btn-large {

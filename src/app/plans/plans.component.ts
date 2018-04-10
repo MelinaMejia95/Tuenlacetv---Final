@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlansService } from '../services/plan.service';
 import swal from 'sweetalert2';
 import { Plans } from './plans';
@@ -14,7 +15,11 @@ export class PlansComponent implements OnInit {
 
   toogleDelete:boolean = false;
   plans: any[] = []; planEdit: any; serviceEdit: any; plan: string;
-  services: string; createService: string;
+  services: string; createService: string; nombre: string;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Plans[]} 
@@ -37,7 +42,18 @@ export class PlansComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _planservice: PlansService) { }
+  constructor(private _planservice: PlansService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'tiposerv': [null, Validators.required],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],
+    });
+
+  }
 
   ngOnInit() {
     this._planservice.getPlans().subscribe(data => {
@@ -57,9 +73,6 @@ export class PlansComponent implements OnInit {
       jQuery('#tiposervicioEdit').prop('disabled',true);
       jQuery('#nombreEdit').prop('disabled',true);
      }});
-     jQuery('#select-services').on('change', () => {
-      this.createService = jQuery('#select-services').val();
-    });
   }
 
   openModal (plan) {
@@ -81,9 +94,11 @@ export class PlansComponent implements OnInit {
     this.planEdit = plan;
   }
 
-  createPlan(nombre){
-    if (nombre) {
-      this._planservice.createPlans({  'servicio_id': this.createService, 'nombre': nombre, 
+  createPlan(post){
+    this.createService = post.tiposerv;
+    this.nombre = post.nombre;
+    if (post) {
+      this._planservice.createPlans({  'servicio_id': this.createService, 'nombre': this.nombre, 
                                        'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           if ( data.status == "created") {

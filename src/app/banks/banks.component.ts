@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BanksService } from '../services/banks.service';
 import swal from 'sweetalert2';
 import { Banks } from './banks';
@@ -14,11 +15,14 @@ export class BanksComponent implements OnInit {
 
   banks: any[] = [];
   toogleDelete:boolean = false;
-  cities: string;
-  cityEdit: any;
-  bankEdit: any;
-  bank: any;
-  createCity: string;
+  cities: string; createCity: string; nit: string; nombre: string; direccion: string; tel1: string; tel2: string; contacto: string; cuentacon: string;
+  cuentaban: string;
+  cityEdit: any; bankEdit: any; bank: any;
+  
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Banks[]} 
@@ -41,7 +45,30 @@ export class BanksComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _bankservice: BanksService) { }
+  constructor(private _bankservice: BanksService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nit': [null, Validators.required],
+      'nombre': [null, Validators.required],
+      'direccion': [null, Validators.required],
+      'tel1': [null, Validators.required],
+      'ciudad': [null, Validators.required],
+      'cuentacon': [null, Validators.required],
+      'cuentaban': [null, Validators.required],
+      'tel2': [null],
+      'contacto': [null],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],
+      'nit-ver': [null, Validators.required],
+      'direccion-ver': [null, Validators.required],
+      'tel1-ver': [null, Validators.required],
+      'cuentacon-ver': [null, Validators.required],
+      'cuentaban-ver': [null, Validators.required],
+    });
+
+  }
 
   ngOnInit() {
     this._bankservice.getBanks().subscribe(data => {
@@ -69,10 +96,6 @@ export class BanksComponent implements OnInit {
       jQuery('#cuenta_conEdit').prop('disabled',true);
       jQuery('#selectEdit').prop('disabled',true);
      }});
-     jQuery('#select-cities').on('change', () => {
-      this.createCity = jQuery('#select-cities').val();
-      console.log(this.createCity)
-    });
     }
 
   openModal (bank) {
@@ -97,11 +120,20 @@ export class BanksComponent implements OnInit {
     this.bankEdit = bank;
   }
 
-  createBank(nit, nombre, direccion, tel1, tel2, contacto, cuentaban, cuentacon){
-    if (nit) {
-      this._bankservice.createBanks({ 'nit': nit, 'nombre': nombre, 'direccion': direccion,
-                                      'ciudad_id': this.createCity, 'telefono1': tel1, 'telefono2': tel2, 
-                                      'contacto': contacto, 'cuentaBancaria': cuentaban, 'cuentaContable': cuentacon, 
+  createBank(post){
+    this.nit = post.nit;
+    this.nombre = post.nombre;
+    this.direccion = post.direccion;
+    this.createCity = post.ciudad;
+    this.tel1 = post.tel1;
+    this.tel2 = post.tel2;
+    this.contacto = post.contacto;
+    this.cuentaban = post.cuentaban;
+    this.cuentacon = post.cuentacon;
+    if (post) {
+      this._bankservice.createBanks({ 'nit': this.nit, 'nombre': this.nombre, 'direccion': this.direccion,
+                                      'ciudad_id': this.createCity, 'telefono1': this.tel1, 'telefono2': this.tel2, 
+                                      'contacto': this.contacto, 'cuentaBancaria': this.cuentaban, 'cuentaContable': this.cuentacon, 
                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           if ( data.status == "created") {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CitiesService } from '../services/cities.service';
 import swal from 'sweetalert2';
 import { Cities } from './cities';
@@ -15,15 +16,12 @@ export class CitiesComponent implements OnInit {
   cities: any[] = [];
   selected: number;
   toogleDelete:boolean = false;
-  citiesEdit:any;
-  countryEdit: any;
-  country:any;
-  createCountry:string;
-  createDep:string;
-  countries:string;
-  departments:string;
-  department:any;
-  depEdit:any;
+  citiesEdit:any; department:any; depEdit:any; countryEdit: any; country:any;
+  createCountry:string; createDep:string; countries:string; departments:string; name: string; coddane: string; codalt: string;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Cities[]} 
@@ -46,7 +44,21 @@ export class CitiesComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _cityservice: CitiesService) { }
+  constructor(private _cityservice: CitiesService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'pais': [null, Validators.required],
+      'depart': [null, Validators.required],
+      'coddane': [null],
+      'codalt': [null]
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],
+    });
+
+  }
 
   ngOnInit() {
     this._cityservice.getCities().subscribe(data => {
@@ -71,14 +83,6 @@ export class CitiesComponent implements OnInit {
         jQuery('#coddaneEdit').prop('disabled',true);
         jQuery('#codalternoEdit').prop('disabled',true);
        }});
-    jQuery('#select-depart').on('change', () => {
-      this.createDep = jQuery('#select-depart').val();
-      console.log(this.createDep)
-    });
-    jQuery('#select-country').on('change', () => {
-      this.createCountry = jQuery('#select-country').val();
-      console.log(this.createCountry)
-    });
   }
 
   selectData(city){
@@ -86,10 +90,15 @@ export class CitiesComponent implements OnInit {
     console.log(this.citiesEdit.id)
   }
 
-  createCity(name, coddane, codalt){
-    if (name) {
-      this._cityservice.createCities({ 'pais_id': this.createCountry, 'nombre': name, 'departamento_id': this.createDep,
-      'codigoAlterno': codalt, 'codigoDane': coddane, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+  createCity(post){
+    this.createCountry = post.pais;
+    this.name = post.nombre;
+    this.createDep = post.depart;
+    this.coddane = post.coddane;
+    this.codalt = post.codalt;
+    if (post) {
+      this._cityservice.createCities({ 'pais_id': this.createCountry, 'nombre': this.name, 'departamento_id': this.createDep,
+      'codigoAlterno': this.codalt, 'codigoDane': this.coddane, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({

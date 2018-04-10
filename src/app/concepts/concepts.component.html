@@ -91,41 +91,49 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form>
+      <form [formGroup]="rForm"> 
         <div class="row" >
             <div class="col s12 m6 l4">
-              <label class="label-color">Tipo servicio:</label>
-              <select class="browser-default select-city" id="select-cities">
+              <label class="label-color">Tipo servicio <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-cities" formControlName="tiposerv" required>
                 <option value="" disabled selected>Seleccione</option>
                 <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
               </select>
+              <div class="alert" *ngIf="!rForm.controls['tiposerv'].value && rForm.controls['tiposerv'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
-              <label for="codigo" class="label-color">Código:</label>
-              <input placeholder="" id="codigo" type="text" class="validate" #codigo>
+              <label for="codigo" class="label-color">Código <span class="span-color">*</span></label>
+              <input placeholder="" id="codigo" type="text" class="validate" formControlName="codigo" required>
+              <div class="alert" *ngIf="!rForm.controls['codigo'].value && rForm.controls['codigo'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
-              <label for="nombre" class="label-color">Nombre:</label>
-              <input placeholder="" id="nombre" type="text" #nombre>
+              <label for="nombre" class="label-color">Nombre <span class="span-color">*</span></label>
+              <input placeholder="" id="nombre" type="text" class="validate" formControlName="nombre" required>
+              <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6 l4">
+              <label for="nombre" class="label-color">Abreviatura <span class="span-color">*</span></label>
+              <input placeholder="" id="abreviatura" type="text" class="validate" formControlName="abreviatura" required>
+              <div class="alert" *ngIf="!rForm.controls['abreviatura'].value && rForm.controls['abreviatura'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
-              <label for="nombre" class="label-color">Abreviatura:</label>
-              <input placeholder="" id="abreviatura" type="text" #abreviatura>
+              <label for="iva" class="label-color">Porcentaje IVA <span class="span-color">*</span></label>
+              <input placeholder="" id="iva" type="text" class="validate" formControlName="iva" required>
+              <div class="alert" *ngIf="!rForm.controls['iva'].value && rForm.controls['iva'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
-              <label for="iva" class="label-color">Porcentaje IVA:</label>
-              <input placeholder="" id="iva" type="text" #poriva>
-            </div>
-            <div class="col s12 m6 l4">
-              <label for="operacion" class="label-color">Operación:</label>
-              <input placeholder="" id="operacion" type="text" #operacion>
+              <label for="operacion" class="label-color">Operación <span class="span-color">*</span></label>
+              <input placeholder="" id="operacion" type="text" class="validate" formControlName="operacion" required>
+              <div class="alert" *ngIf="!rForm.controls['operacion'].value && rForm.controls['operacion'].touched">{{ titleAlert }}</div>
             </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createConcept(codigo.value, nombre.value, poriva.value, operacion.value, abreviatura.value)">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createConcept(rForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -149,41 +157,49 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form *ngIf="conceptEdit">
-        <div class="row">
+      <form [formGroup]="seeForm">
+        <div class="row" *ngIf="conceptEdit">
             <div class="col s12 m6 l4">
-              <label class="label-color">Tipo servicio:</label>
+              <label class="label-color">Tipo servicio <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city" id="selectEdit">
                 <option value="nodisplay" disabled selected>{{ serviceEdit }}</option>
                 <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
               </select>
             </div>
             <div class="col s12 m6 l4">
-              <label for="codigoEdit" class="label-color">Código:</label>
-              <input disabled placeholder="" id="codigoEdit" type="text" [(ngModel)]="conceptEdit.codigo" [ngModelOptions]="{standalone: true}">
+              <label for="codigoEdit" class="label-color">Código <span class="span-color">*</span></label>
+              <input disabled placeholder="" id="codigoEdit" type="text" class="validate" formControlName="codigo-ver" [(ngModel)]="conceptEdit.codigo">
+              <div class="alert" *ngIf="!seeForm.controls['codigo-ver'].value && seeForm.controls['codigo-ver'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l4">
-              <label for="nombreEdit" class="label-color">Nombre:</label>
-              <input disabled placeholder="" id="nombreEdit" type="text" class="validate" [(ngModel)]="conceptEdit.nombre" [ngModelOptions]="{standalone: true}">
+              <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
+              <input disabled placeholder="" id="nombreEdit" type="text" class="validate" formControlName="nombre-ver"[(ngModel)]="conceptEdit.nombre">
+              <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>                        
+            </div>
+          </div>
+          <div class="row" *ngIf="conceptEdit">
+            <div class="col s12 m6 l4">
+              <label for="nombreEdit" class="label-color">Abreviatura <span class="span-color">*</span></label>
+              <input disabled placeholder="" id="abreviaturaEdit" type="text" class="validate" formControlName="abreviatura-ver" [(ngModel)]="conceptEdit.abreviatura">
+              <div class="alert" *ngIf="!seeForm.controls['abreviatura-ver'].value && seeForm.controls['abreviatura-ver'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l4">
-              <label for="nombreEdit" class="label-color">Abreviatura:</label>
-              <input disabled placeholder="" id="abreviaturaEdit" type="text" class="validate" [(ngModel)]="conceptEdit.abreviatura" [ngModelOptions]="{standalone: true}">
+              <label for="ivaEdit" class="label-color">Porcentaje IVA <span class="span-color">*</span></label>
+              <input disabled placeholder="" id="ivaEdit" type="text" class="validate" formControlName="iva-ver" [(ngModel)]="conceptEdit.porcentajeIva">
+              <div class="alert" *ngIf="!seeForm.controls['iva-ver'].value && seeForm.controls['iva-ver'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l4">
-              <label for="ivaEdit" class="label-color">Porcentaje IVA:</label>
-              <input disabled placeholder="" id="ivaEdit" type="text" class="validate" [(ngModel)]="conceptEdit.porcentajeIva" [ngModelOptions]="{standalone: true}">
+              <label for="operacionEdit" class="label-color">Operación <span class="span-color">*</span></label>
+              <input disabled placeholder="" id="operacionEdit" type="text" class="validate" formControlName="operacion-ver" [(ngModel)]="conceptEdit.operacion">
+              <div class="alert" *ngIf="!seeForm.controls['operacion-ver'].value && seeForm.controls['operacion-ver'].touched">{{ titleAlert }}</div>                        
             </div>
-            <div class="col s12 m6 l4">
-              <label for="operacionEdit" class="label-color">Operación:</label>
-              <input disabled placeholder="" id="operacionEdit" type="text" class="validate" [(ngModel)]="conceptEdit.operacion" [ngModelOptions]="{standalone: true}">
-            </div>
+
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateConcept()">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateConcept()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

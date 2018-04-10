@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NeighborhoodsService } from '../services/neighborhoods.service';
 import swal from 'sweetalert2';
 import { Neighs } from './neighborhoods';
@@ -14,11 +15,12 @@ export class NeighborhoodsComponent implements OnInit {
 
   neighborhoods: any[] = [];
   toogleDelete: boolean = false;
-  zones: string;
-  neighborhoodEdit: any;
-  zoneEdit: any;
-  neighborhood: any;
-  createZone: string;
+  zones: string; nombre: string; createZone: string;
+  neighborhoodEdit: any; zoneEdit: any; neighborhood: any;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
    /**
    * @type {Neighs[]} 
@@ -41,7 +43,18 @@ export class NeighborhoodsComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _neighborhoodservice: NeighborhoodsService) { }
+  constructor(private _neighborhoodservice: NeighborhoodsService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'zona': [null, Validators.required],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required],
+    });
+
+  }
 
   ngOnInit() {
     this._neighborhoodservice.getNeighborhoods().subscribe(data => {
@@ -62,19 +75,17 @@ export class NeighborhoodsComponent implements OnInit {
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
        }});
-    jQuery('#select-zone').on('change', () => {
-      this.createZone = jQuery('#select-zone').val();
-      console.log(this.createZone)
-    });
   }
 
   selectData(neighborhood){
     this.neighborhoodEdit = neighborhood;
   }
 
-  createNeighborhood(name){
-    if (name) {
-      this._neighborhoodservice.createNeighborhoods({ 'zona_id': this.createZone, 'nombre': name, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+  createNeighborhood(post){
+    this.createZone = post.zona;
+    this.nombre = post.nombre
+    if (post) {
+      this._neighborhoodservice.createNeighborhoods({ 'zona_id': this.createZone, 'nombre': this.nombre, 'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
             swal({

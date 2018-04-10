@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DepartmentsService } from '../services/departments.service';
 import swal from 'sweetalert2';
 import { Departaments } from './dep';
@@ -15,8 +16,12 @@ export class DepartmentsComponent implements OnInit {
   departments: any[] = [];
   selected: number;
   toogleDelete:boolean = false;
-  countries:string; countryEdit: string;
+  countries:string; countryEdit: string; nameCountry: string; codCountry: string;
   depEdit:any; country: any; createCountry: any;
+
+  rForm: FormGroup;
+  seeForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Departaments[]} 
@@ -39,7 +44,19 @@ export class DepartmentsComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _departmentservice: DepartmentsService) { }
+  constructor(private _departmentservice: DepartmentsService, private fb: FormBuilder) {
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'pais': [null, Validators.required],
+      'codpais': [null],
+    });
+
+    this.seeForm = fb.group({
+      'nombre-ver': [null, Validators.required]
+    });
+
+   }
 
   ngOnInit() {
     this._departmentservice.getDepartments().subscribe(data => {
@@ -60,9 +77,9 @@ export class DepartmentsComponent implements OnInit {
         jQuery('#selectPais').prop('disabled',true);
         jQuery('#codpaisEdit').prop('disabled',true);
        }});
-    jQuery('#select-country').on('change', () => {
+/*     jQuery('#select-country').on('change', () => {
       this.createCountry = jQuery('#select-country').val();
-    });
+    }); */
   }
 
   selectData(dep){
@@ -70,9 +87,12 @@ export class DepartmentsComponent implements OnInit {
     console.log(this.depEdit.id)
   }
 
-  createDep(nameCountry, codCountry){
-    if (nameCountry) {
-      this._departmentservice.createDepartments({ 'nombre': nameCountry, "codigo": codCountry, "pais_id": this.createCountry, 
+  createDep(post){
+    this.nameCountry =post.nombre;
+    this.codCountry = post.codpais;
+    this.createCountry = post.pais;
+    if (post) {
+      this._departmentservice.createDepartments({ 'nombre': this.nameCountry, "codigo": this.codCountry, "pais_id": this.createCountry, 
                                                   'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
