@@ -1664,7 +1664,7 @@
                     <label class="label-color">Descripción</label>
                   </th>
                   <th class="label-th">
-                    <label class="label-color">Num doc</label>
+                    <label class="label-color">Nro dcto</label>
                   </th>
                   <th class="label-th">
                     <label class="label-color">Fecha</label>
@@ -1699,8 +1699,8 @@
                   <td>{{ fac.valor }}</td>
                   <td>{{ fac.iva }}</td>
                   <td>{{ fac.saldo }}</td>
-                  <td><input id="abono" type="text" class="input-td" [(ngModel)]="fac.abono" [ngModelOptions]="{standalone: true}"></td>
-                  <td><input id="total" type="text" class="input-td" [(ngModel)]="fac.total" [ngModelOptions]="{standalone: true}"></td>
+                  <td><input id="abono" type="text" class="input-td" [(ngModel)]="fac.abono" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAbono()"></td>
+                  <td><input disabled id="total" type="text" class="input-td" [(ngModel)]="fac.total" [ngModelOptions]="{standalone: true}"></td>
                 </tr>
               </tbody>
             </table>

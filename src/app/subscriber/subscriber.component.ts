@@ -35,7 +35,7 @@ export class SubscriberComponent implements OnInit {
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any; facts: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
-  totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = [];
+  totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup;
@@ -394,6 +394,7 @@ export class SubscriberComponent implements OnInit {
       this.bancos = data.bancos;
       this.cobradores = data.cobradores;
       this.total = {'valor': data.valor_total};
+      this.totalAplicado = this.total.valor;
       console.log(this.facts);
       for (let i=0; i < this.facts.length; i++) {
         this.facts[i]['abono'] = this.facts[i]['saldo']
@@ -438,21 +439,41 @@ export class SubscriberComponent implements OnInit {
 
   changeData () {
     console.log('cambio');
+    this.totalAplicado = 0;
+    this.diferencia = 0;
+    this.pagado = 0;
+    this.pagado = Number(this.total.valor);
+    console.log("Pagado" + this.pagado)
     for (let i = 0; i < this.facts.length; i++) {
-      if (this.total.valor > this.facts[i]['saldo']){
+      console.log(this.facts[i]['saldo'])
+      if (this.pagado > this.facts[i]['saldo']){
         this.facts[i]['abono'] = this.facts[i]['saldo'];
       } else {
-        this.facts[i]['abono'] = this.total.valor;
+        this.facts[i]['abono'] = this.pagado;
       }
       this.facts[i]['total'] = this.facts[i]['saldo'] - this.facts[i]['abono'];
-      this.totalAplicado = Number(this.facts[i]['abono']);
-      this.diferencia = Number(this.total.valor - this.totalAplicado);
-      this.totalAplicar = Number(this.diferencia); 
-      this.total.valor = this.total.valor - this.facts[i]['abono']; 
+      this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
+      this.pagado = this.pagado - this.facts[i]['abono']; 
       this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
-                          "abono": this.facts[i]['abono'], "total": this.facts[i]['total']} 
+      "abono": this.facts[i]['abono'], "total": this.facts[i]['total']} 
+      console.log("Aplicado" + this.totalAplicado)
     }
-    console.log(this.detalles)
+    this.diferencia =  Number(this.total.valor) - Number(this.totalAplicado);
+    console.log("Diferencia" + this.diferencia)
+    this.totalAplicar = Number(this.diferencia); 
+  }
+
+  changeAbono(){
+    this.totalAplicado = 0;
+    this.diferencia = 0;
+    for (let i = 0; i < this.facts.length; i++) {
+      this.facts[i]['total'] = (Number(this.facts[i]['saldo']) - Number(this.facts[i]['abono']));
+      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
+      "abono": Number(this.facts[i]['abono']), "total": this.facts[i]['total']} 
+      this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
+    }
+    this.diferencia = Number(this.total.valor) - Number(this.totalAplicado);
+    this.totalAplicar = Number(this.diferencia); 
   }
 
   openModalAnular(){
@@ -570,12 +591,45 @@ export class SubscriberComponent implements OnInit {
     this.disabled = true;
     this.splitted = 0; this.splitted2 = 0; this.splitted3 = 0;
     this.subsEdit = subscriber;
-    let str = this.subsEdit.fechacontrato;
-    let str2 = this.subsEdit.fechanac;
-    let str3 = this.subsEdit.fecha_ult_pago; 
-    console.log(this.subsEdit.fecha_ult_pago)
-    this.splitted = str.split("/", 3); this.splitted2 = str2.split("/", 3); this.splitted3 = str3.split("/", 3);
-    for (let i = 0; i < 10; i++) {
+    if(this.subsEdit.fechacontrato != null){
+      let str = this.subsEdit.fechacontrato;
+      this.splitted = str.split("/", 3);
+      for (let i = 0; i < 10; i++) {
+        if (this.splitted[0] == "0" + i.toString()) {      
+        }
+        if (this.splitted[1] == "0" + i.toString()) {
+          this.splitted[1] = i.toString();        
+        }
+      }
+      this.model = { date: { year: this.splitted[2], month: this.splitted[1], day: this.splitted[0] } };
+    }
+    if(this.subsEdit.fechanac != null) {
+      let str2 = this.subsEdit.fechanac;
+      this.splitted2 = str2.split("/", 3); 
+      for (let i = 0; i < 10; i++) {
+        if (this.splitted2[0] == "0" + i.toString()) {
+          this.splitted2[0] = i.toString();      
+        }
+        if (this.splitted2[1] == "0" + i.toString() ) {
+          this.splitted2[1] = i.toString();     
+        }
+      }
+      this.model2 = { date: { year: this.splitted2[2], month: this.splitted2[1], day: this.splitted2[0] } };
+    }
+    if (this.subsEdit.fecha_ult_pago != null){
+      let str3 = this.subsEdit.fecha_ult_pago; 
+      this.splitted3 = str3.split("/", 3);
+      for (let i = 0; i < 10; i++) {
+        if (this.splitted3[0] == "0" + i.toString()) {
+          this.splitted3[0] = i.toString();        
+        }
+        if (this.splitted3[1] == "0" + i.toString() ) {
+          this.splitted3[1] = i.toString();        
+        }
+      }
+    this.model8 = { date: { year: this.splitted3[2], month: this.splitted3[1], day: this.splitted3[0] } };       
+    }
+    /* for (let i = 0; i < 10; i++) {
       if (this.splitted[0] == "0" + i.toString() || this.splitted2[0] == "0" + i.toString() || this.splitted3[0] == "0" + i.toString()) {
         this.splitted[0] = i.toString();
         this.splitted2[0] = i.toString();
@@ -586,10 +640,9 @@ export class SubscriberComponent implements OnInit {
         this.splitted2[1] = i.toString();
         this.splitted3[1] = i.toString();        
       }
-    }
-    this.model = { date: { year: this.splitted[2], month: this.splitted[1], day: this.splitted[0] } };
-    this.model2 = { date: { year: this.splitted2[2], month: this.splitted2[1], day: this.splitted2[0] } }; 
-    this.model8 = { date: { year: this.splitted3[2], month: this.splitted3[1], day: this.splitted3[0] } }; 
+    } */
+    
+     
     let j = 0;
     for (let i=0; i < this.ratestv.length ; i++) {
       if( this.subsEdit.plan_tv == this.ratestv[i]['plan_id']){
