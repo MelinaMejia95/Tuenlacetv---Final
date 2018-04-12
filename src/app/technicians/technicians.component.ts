@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import { TechniciansService } from '../services/technicians.service';
 
 declare let jQuery:any;
 
@@ -11,16 +12,15 @@ declare let jQuery:any;
 export class TechniciansComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  technicians: any[] = ['1', '2', '3'];
+  technicians: any[] = []; techEdit: any;
 
-  constructor() { }
+  constructor(private _techservice: TechniciansService) { }
 
   ngOnInit() {
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal();
-    /*this._planservice.getPlans().subscribe(data => {
-      this.plans = data.planes;
-      this.services = data.servicios;
+    this._techservice.getTechs().subscribe(data => {
+      this.technicians= data.ordenes;
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
@@ -29,12 +29,10 @@ export class TechniciansComponent implements OnInit {
       jQuery('#tiposervicioEdit').prop('disabled',true);
       jQuery('#nombreEdit').prop('disabled',true);
      }});
-     jQuery('#select-services').on('change', () => {
-      this.createService = jQuery('#select-services').val();
-    });*/
   }
 
-  openModal (plan) {
+  openModal (tech) {
+    this.techEdit = tech;
     /*for (let i = 0; i < this.services.length; i++) {
       if ( plan.servicio == this.services[i]['nombre']) {
         this.serviceEdit = this.services[i]['nombre'];
