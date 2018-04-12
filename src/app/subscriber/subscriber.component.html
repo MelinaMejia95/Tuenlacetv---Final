@@ -1490,22 +1490,17 @@
 <div id="modal-pagos" class="modal">
     <div class="modal-title">
       <div class="row">
-        <div class="col s6">
+        <div class="col s12 m6 l6">
             <h5>Crear</h5>
-        </div>
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-large btn-print" id="btn-modal">
-              <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-          </a>
         </div>
       </div>
     </div>
     <div class="modal-content">
       <div class="row">
-        <form class="col s12">
+        <form>
           <div class="row">
             <div class="row service-payment">
-              <div class="col s12 m6">
+              <div class="col s12 m12 l12">
                 <span class="service-title">Suscriptor</span>
               </div>
             </div>
@@ -1514,68 +1509,68 @@
             </div>
           </div>
           <div class="row" *ngIf="subsEdit">
-            <div class="col s2">
+            <div class="col s12 m2 l2">
               <label for="codigo" class="label-color">Código</label>
               <input disabled placeholder="" id="codigo-orden" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s12 m6 l6">
               <label for="nombres" class="label-color">Nombres y apellidos</label>
               <input disabled placeholder="" id="nombres-orden" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="direccion" class="label-color">Dirección</label>
               <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
           <div class="row" *ngIf="subsEdit">
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label for="telefonos" class="label-color">Teléfonos</label>
               <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label class="label-color">Barrio</label>
               <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label class="label-color">Zona:</label>
               <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
               <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
           <div class="row" *ngIf="subsEdit">
-            <div class="col s6">
+            <div class="col s12 m6 l6">
               <label for="observaciones-orden" class="label-color">Observaciones</label>
               <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m3 l3">
               <label for="estadotv-orden" class="label-color">Estado televisión</label>
               <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m3 l3">
                 <label for="estadoint-orden" class="label-color">Estado internet</label>
                 <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
               </div>
           </div>
           <div class="row" *ngIf="subsEdit">
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="fechapago-orden" class="label-color">Fecha último pago</label>
               <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="saldotv-orden" class="label-color">Saldo televisión</label>
               <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="saldoint-orden" class="label-color">Saldo internet</label>
               <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
           <div class="row">
             <div class="row service-payment">
-              <div class="col s12 m6">
+              <div class="col s12 m12 l12">
                 <span class="service-title">Pago</span>
               </div>
             </div>
@@ -1584,64 +1579,64 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label class="label-color">Tipo documento</label>
               <select class="browser-default select-city" id="select-doc-orden">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
               </select>
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="numdoc" class="label-color">Número documento</label>
               <input placeholder="" id="numdoc" type="text" disabled>
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="fechadoc" class="label-color">Fecha del documento</label>
               <my-date-picker name="fechadoc" [options]="myDatePickerOptions" (dateChanged)="onDateDoc($event)" required></my-date-picker>
             </div>
           </div>
           <div class="row">
-            <div class="col s2" *ngIf="total">
+            <div class="col s12 m4 l2" *ngIf="total">
               <label for="pagado" class="label-color">Total pagado</label>
               <input placeholder="" id="pagado" class="datepicker" type="text" [(ngModel)]="total.valor" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeData()">
             </div>
-            <div class="col s2">
+            <div class="col s12 m4 l2">
               <label for="descuento" class="label-color">Descuento</label>
               <input placeholder="" id="descuento" class="datepicker" type="text" #descuento>
             </div>
-            <div class="col s2">
+            <div class="col s12 m4 l2">
               <label for="totalapli" class="label-color">Total por aplicar</label>
               <input disabled placeholder="" id="totalapli" type="text" [(ngModel)]="totalAplicar" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s2">
+            <div class="col s12 m4 l2">
               <label for="diferencia" class="label-color">Diferencia</label>
               <input disabled placeholder="" id="diferencia" type="text" [(ngModel)]="diferencia" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s4">
+            <div class="col s12 m4 l4">
               <label for="aplicado" class="label-color">Total aplicado</label>
               <input disabled placeholder="" id="aplicado" type="text" [(ngModel)]="totalAplicado" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
           <div class="row">
-            <div class="col s4">
+            <div class="col s12 m6 l4">
               <label for="obserpago" class="label-color">Observaciones</label>
               <input placeholder="" id="obserpago" type="text" #obserpago>
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label class="label-color">Cobradores</label>
               <select class="browser-default select-city" id="select-debt-order">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
               </select>
             </div>
-            <div class="col s2">
+            <div class="col s12 m6 l2">
               <label class="label-color">Forma de pago</label>
               <select class="browser-default select-city" id="select-payment-order">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
               </select>
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label class="label-color">Banco</label>
               <select class="browser-default select-city" id="select-bank-order">
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -1654,6 +1649,7 @@
           </div>
           <div class="row">
             <!-- Table -->
+            <div class="container-table">
             <table class="striped highlight">
               <thead>
                 <tr class="tr-background">
@@ -1704,6 +1700,7 @@
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
         </form>
       </div>

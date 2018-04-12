@@ -404,8 +404,8 @@ export class SubscriberComponent implements OnInit {
     jQuery('#modal-pagos').modal('open');
   }
 
-  createPayment(fechadoc, descuento, obserpago){
-    if (fechadoc) {
+  createPayment(descuento, obserpago){
+    if (descuento) {
       this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
       "documento_id": this.createDoc,
       "fechatrn": this.model9,
