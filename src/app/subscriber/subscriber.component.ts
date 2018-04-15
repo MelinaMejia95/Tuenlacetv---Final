@@ -432,7 +432,7 @@ export class SubscriberComponent implements OnInit {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
     })
-
+    console.log(this.modelDate.formatted)    
     jQuery('#modal-pagos').modal('open');
   }
 
@@ -440,7 +440,7 @@ export class SubscriberComponent implements OnInit {
     if (post) {
       this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
       "documento_id": post.tipodoc,
-      "fechatrn": this.modelDate.formatted,
+      "fechatrn": this.model9,
       "valor": Number(this.total.valor),
       "observacion": post.observaciones,
       "forma_pago_id": post.formapago, 
@@ -527,7 +527,7 @@ export class SubscriberComponent implements OnInit {
     this.diferencia = 0;
     for (let i = 0; i < this.facts.length; i++) {
       this.facts[i]['total'] = (Number(this.facts[i]['saldo']) - Number(this.facts[i]['abono']));
-      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto_id'], "saldo": this.facts[i]['saldo'],
+      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
       "abono": Number(this.facts[i]['abono']), "total": this.facts[i]['total']} 
       this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
     }
