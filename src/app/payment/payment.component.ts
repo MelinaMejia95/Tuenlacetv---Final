@@ -42,9 +42,9 @@ export class PaymentComponent implements OnInit {
     this._paymentservice.getPayment().subscribe(data => {
       console.log(data)
       this.payments = data.pagos;
-      this.concepts = data.conceptos;
+      /* this.concepts = data.conceptos;
       this.payoption = data.formas_pago;
-      this.banks = data.bancos;
+      this.banks = data.bancos; */
     });
     this._paymentservice.getPaymentsFilter().subscribe(
       (count: Payments[]) => {

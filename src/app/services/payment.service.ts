@@ -14,7 +14,7 @@ export class PaymentsService {
    }
 
   getPayment(){
-    const url = this._global.url + `/pagos_anticipados/bd/` + localStorage.getItem('db');
+    const url = this._global.url + `/pagos/bd/` + localStorage.getItem('db');
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     console.log(header)

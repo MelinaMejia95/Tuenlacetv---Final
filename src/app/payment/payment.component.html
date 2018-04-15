@@ -155,7 +155,7 @@
         <div class="row">
           <div class="col s6">
             <label for="observaciones" class="label-color">Observaciones</label>
-            <input disabled placeholder="" id="observaciones" type="text" [(ngModel)]="payEdit.observacion" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="observaciones" type="text" [(ngModel)]="payEdit.observa_senal" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label for="estadotv" class="label-color">Estado televisión</label>
@@ -209,7 +209,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s6">
+          <div class="col s3">
             <label for="obserpago" class="label-color">Observaciones</label>
             <input disabled placeholder="" id="obserpago" type="text" [(ngModel)]="payEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
@@ -220,6 +220,10 @@
           <div class="col s3">
             <label class="label-color">Banco</label>
             <input disabled placeholder="" id="banco" type="text" [(ngModel)]="payEdit.banco" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s3">
+            <label class="label-color">Cobrador</label>
+            <input disabled placeholder="" id="cobrador" type="text" [(ngModel)]="payEdit.cobrador" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
       </form>
