@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
 import {IMyDpOptions, IMyDateModel, IMyDate} from 'angular4-datepicker/src/my-date-picker/interfaces';
+import { DatePipe } from '@angular/common';
 //import 'jspdf-autotable';
 //import * as jsPDF from 'jspdf-autotable';
 //import * as jsPDFTable from 'jspdf-autotable';
@@ -36,6 +37,7 @@ export class SubscriberComponent implements OnInit {
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
+  paramCobradores: string; today:any; modelDate: any;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup;
@@ -180,8 +182,19 @@ export class SubscriberComponent implements OnInit {
       'totalaplicar': [null],
       'diferencia': [null],
       'totalaplicado': [null],
-      'cobradores': [null]
+      'cobradores': [null],
+      'fechadoc': [null]
     });
+
+      // Set today date using the patchValue function
+      let date = new Date();
+      this.modelDate = {date: {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate()}
+        }
+      
+    console.log(this.modelDate)
 
   }
 
@@ -413,7 +426,8 @@ export class SubscriberComponent implements OnInit {
       this.total = {'valor': data.valor_total};
       this.totalAplicado = this.total.valor;
       this.totalDescuento = this.total.valor;
-      console.log(this.total);
+      this.paramCobradores = data.param_cobradores;
+      console.log(this.facts);
       for (let i=0; i < this.facts.length; i++) {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
@@ -426,13 +440,14 @@ export class SubscriberComponent implements OnInit {
     if (post) {
       this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
       "documento_id": post.tipodoc,
-      "fechatrn": this.model9,
-      "valor": this.total.valor,
+      "fechatrn": this.modelDate.formatted,
+      "valor": Number(this.total.valor),
       "observacion": post.observaciones,
       "forma_pago_id": post.formapago, 
       "banco_id": post.banco, 
       "cobrador_id": post.cobradores,
       "detalle":  this.detalles ,
+      "descuento": Number(post.descuentopago),
       'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
           if ( data.status == "created") {
@@ -482,13 +497,16 @@ export class SubscriberComponent implements OnInit {
         this.facts[i]['total'] = this.facts[i]['saldo'] - this.facts[i]['abono'];
         this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
         this.pagado = this.pagado - this.facts[i]['abono']; 
-        this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
+        this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto_id'], "saldo": this.facts[i]['saldo'],
         "abono": this.facts[i]['abono'], "total": this.facts[i]['total']} 
         console.log("Aplicado" + this.totalAplicado)
       }
       this.diferencia =  (Number(this.total.valor) + Number(this.descuento)) - Number(this.totalAplicado);
       this.totalAplicar = Number(this.diferencia);
-      console.log(this.pagado)
+      console.log(this.pagado);
+      if(this.payForm.valid){
+        jQuery('#btn-payment').prop('disabled', false);
+      }
     } else {
       swal({
         title: 'No se puede pagar más de lo que debe',
@@ -500,6 +518,7 @@ export class SubscriberComponent implements OnInit {
         confirmButtonText: 'Aceptar',
         //cancelButtonText: 'No'
       })
+      jQuery('#btn-payment').prop('disabled', true);
     }
   }
 
@@ -508,52 +527,12 @@ export class SubscriberComponent implements OnInit {
     this.diferencia = 0;
     for (let i = 0; i < this.facts.length; i++) {
       this.facts[i]['total'] = (Number(this.facts[i]['saldo']) - Number(this.facts[i]['abono']));
-      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
+      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto_id'], "saldo": this.facts[i]['saldo'],
       "abono": Number(this.facts[i]['abono']), "total": this.facts[i]['total']} 
       this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
     }
     this.diferencia = (Number(this.total.valor) + Number(this.descuento)) - Number(this.totalAplicado);
     this.totalAplicar = Number(this.diferencia); 
-  }
-
-  changeDiscount(){
-    this.suma = 0;
-    this.totalAplicado = 0;
-    this.diferencia = 0;
-    this.decrementar = this.descuento;
-    this.suma = Number(this.total.valor) + Number(this.descuento);
-    if(this.suma <= Number(this.totalDescuento)){
-      for (let i = 0; i < this.facts.length; i++) {
-        if (this.facts[i]['total'] > 0) {
-          if(this.facts[i]['total'] >= this.decrementar){
-            this.valorDescuento = Number(this.decrementar);
-            this.facts[i]['abono'] = this.facts[i]['abono'] + this.valorDescuento;
-            this.facts[i]['total'] = this.facts[i]['saldo'] - this.facts[i]['abono'];
-          } else {
-            this.valorDescuento = this.facts[i]['total'];
-            this.facts[i]['abono'] = this.facts[i]['abono'] + this.valorDescuento;
-            this.facts[i]['total'] = this.facts[i]['saldo'] - this.facts[i]['abono'];
-          }
-        }
-        this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
-        "abono": this.facts[i]['abono'], "total": this.facts[i]['total']} 
-        this.decrementar = Number(this.decrementar) - Number(this.valorDescuento);
-        this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
-      }
-      this.diferencia =  (Number(this.total.valor) + Number(this.descuento)) - Number(this.totalAplicado);
-      this.totalAplicar = Number(this.diferencia); 
-    } else {
-      swal({
-        title: 'No se puede pagar más de lo que debe',
-        text: "",
-        type: 'warning',
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Aceptar',
-        //cancelButtonText: 'No'
-      })
-    }
   }
 
   openModalAnular(){

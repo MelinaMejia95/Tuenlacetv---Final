@@ -1619,7 +1619,7 @@
             </div>
             <div class="col s12 m4 l4">
               <label for="fechadoc" class="label-color">Fecha del documento</label>
-              <my-date-picker name="fechadoc" [options]="myDatePickerOptions" (dateChanged)="onDateDoc($event)" required></my-date-picker>
+              <my-date-picker name="fechadoc" [options]="myDatePickerOptions" [(ngModel)]="modelDate" formControlName="fechadoc" (dateChanged)="onDateDoc($event)" [disabled]="disabled"></my-date-picker>
             </div>
           </div>
           <div class="row">
@@ -1651,7 +1651,7 @@
               <input placeholder="" id="obserpago" type="text" class="validate" formControlName="observaciones" required>
               <div class="alert" *ngIf="!payForm.controls['observaciones'].value && payForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                  
             </div>
-            <div class="col s12 m6 l3">
+            <div class="col s12 m6 l3" *ngIf="paramCobradores=='S'">
               <label class="label-color">Cobradores</label>
               <select class="browser-default select-city" id="select-debt-order" formControlName="cobradores">
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -1737,7 +1737,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!payForm.valid" (click)="createPayment(payForm.value)">Aceptar</button>
+      <button id="btn-payment" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!payForm.valid" (click)="createPayment(payForm.value)">Aceptar</button>
       <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
     </div>
 </div>
