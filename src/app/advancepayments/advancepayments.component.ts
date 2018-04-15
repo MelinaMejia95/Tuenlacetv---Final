@@ -12,68 +12,21 @@ declare let jQuery:any;
 export class AdvancepaymentsComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  payments: any[] = [];
+  payments: any[] = []; paymentEdit: any;
 
   constructor(private _paymentservice: PaymentsService) { }
 
   ngOnInit() {
-    this._paymentservice.getPayment().subscribe(data => {
+    this._paymentservice.getAdvancePayment().subscribe(data => {
       console.log(data)
-      /* this.rates = data.tarifas;
-      this.zones = data.zonas;
-      this.concepts = data.conceptos;
-      this.plans = data.planes;
-      this.states = data.estados; */
+      this.payments = data.pagos_anticipados;
     });
     jQuery('select').material_select();
-    jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal();
   }
 
-  openModal (rate) {
-    /*this.rateEdit = rate;
-    console.log(rate)
-    jQuery('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Hoy',
-      clear: 'Limpiar',
-      close: 'Ok',
-      closeOnSelect: false, // Close upon selecting a date,
-      monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-      weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-      weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vier', 'Sáb' ],
-      format: 'yyyy-mm-dd'
-    });
-    for (let i = 0; i < this.zones.length; i++) {
-      if ( rate.zona == this.zones[i]['nombre']) {
-        this.zoneEdit = this.zones[i]['nombre'];
-        console.log(this.zoneEdit)
-      }
-    }
-    for (let i = 0; i < this.concepts.length; i++) {
-      if ( rate.concepto == this.concepts[i]['nombre']) {
-        this.conceptEdit = this.concepts[i]['nombre'];
-        console.log(this.conceptEdit)
-      }
-    }
-    for (let i = 0; i < this.plans.length; i++) {
-      if ( rate.plan == this.plans[i]['nombre']) {
-        this.planEdit = this.plans[i]['nombre'];
-        console.log(this.planEdit)
-      }
-    }
-    for (let i = 0; i < this.states.length; i++) {
-      if ( rate.estado == this.states[i]['nombre']) {
-        this.stateEdit = this.states[i]['nombre'];
-        console.log(this.stateEdit)
-      }
-    }
-    this.rateEdit['fechas']= this.rateEdit.fechas;
-    //this.picker = jQuery('.datepicker').pickadate();
-    //console.log(this.picker)
-    //this.picker.set('select', this.rateEdit['fechas'][0].fechainicio , { format: 'yyyy-mm-dd' })
-    document.getElementsByClassName('table-radio');*/
+  openModal (payment) {
+    this.paymentEdit = payment;
     jQuery('#modal-see').modal('open');
   }
 
@@ -81,35 +34,54 @@ export class AdvancepaymentsComponent implements OnInit {
     jQuery('#modal-see').modal('close');
   }
 
-  selectData(rate){
-    //this.rateEdit = rate;
+  selectData(payment){
+    this.paymentEdit = payment;
   }
 
-  createRate(codigo, valor, fechaini, fechaven){
-    /*if (valor) {
-      this._rateservice.createRates({ 'codigo': codigo, 'valor': valor, 'fechainicio': fechaini, 'fechaven': fechaven, 
-                                      'zona_id': this.createZone, 'concepto_id': this.createConcept, 'plan_id': this.createPlan, 'estado_id': this.createState,
-                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
-        data => {
-          if ( data.status == "created") {
-            swal({
-              title: 'Registro creado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
+  deletePayment() {
+    swal({
+      title: '¿Desea anular el pago?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.paymentEdit) {
+          this._paymentservice.deleteAdPayment(this.paymentEdit.id).subscribe(
+            data => {
+              console.log(data)
+              if ( data.status == "anulado") {
+                swal({
+                  title: 'Pago anulado con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else if ( data.error == "error al anular pago") {
+                swal(
+                  'No se pudo anular el pago',
+                  '',
+                  'warning'
+                )
+              }
+            },
+          error =>{
             swal(
-              'No se pudo crear el registro',
+              'No se pudo anular el pago',
               '',
               'warning'
             )
-          }
-        });
-    }*/
-  } 
+          })
+        } 
+      }
+    })
+  }
 
   selectAll() {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');

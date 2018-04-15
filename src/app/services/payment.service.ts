@@ -24,6 +24,17 @@ export class PaymentsService {
     })
  }
 
+ getAdvancePayment(){
+  const url = this._global.url + `/pagos_anticipados/bd/` + localStorage.getItem('db');
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  console.log(header)
+  let options = new RequestOptions({ headers: header });
+  return this._http.get(url, options).map(response =>{
+      return response.json();
+  })
+}
+
  /**
     @return {Observable<Payments[]>} 
    */
@@ -47,6 +58,14 @@ export class PaymentsService {
     let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')} });
     return this._http.post(url, { "db": localStorage.getItem('db') } ,options).map(response => response.json());
  }
+
+ deleteAdPayment(codigo){
+  const url = this._global.url + `/pagos_anticipados/anular_pago/` + codigo;
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')} });
+  return this._http.post(url, { "db": localStorage.getItem('db') } ,options).map(response => response.json());
+}
 
  createPayment(content: object){
    console.log(content)

@@ -6,9 +6,11 @@
     </div>
   </div>
   <div class="separator z-depth-3"></div>
-  <div class="col s12 m6">
-    <a class="breadcrumb black-text">Tesorería</a>
-    <a class="breadcrumb black-text">Pagos</a>
+  <div class="option-module">
+    <div class="col s12 m6">
+      <a class="breadcrumb black-text">Tesorería</a>
+      <a class="breadcrumb black-text">Pagos</a>
+    </div>
   </div>
   <div class="col s12 m6 right-align">
     <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
@@ -97,14 +99,9 @@
 <div id="modal-see" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s6">
+      <div class="col s6 m6 l6">
           <h5>Pago</h5>
       </div> 
-      <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
-      </div>
     </div>
   </div>
   <div class="modal-content">
@@ -112,7 +109,7 @@
       <form *ngIf="payEdit">
         <div class="row">
           <div class="row service-payment">
-            <div class="col s12 m6">
+            <div class="col s12 m12 l12">
               <span class="service-title">Suscriptor</span>
             </div>
           </div>
@@ -121,68 +118,62 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s2">
+          <div class="col s12 m6 l2">
             <label for="codigo" class="label-color">Código</label>
             <input disabled placeholder="" id="codigo" type="text"[(ngModel)]="payEdit.id" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l5">
             <label for="nombres" class="label-color">Nombres</label>
             <input disabled placeholder="" id="nombres" type="text" [(ngModel)]="payEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="direccion" class="label-color">Dirección</label>
             <input disabled placeholder="" id="direccion" type="text" [(ngModel)]="payEdit.direccion" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l2">
             <label for="telefonos" class="label-color">Teléfonos</label>
             <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="payEdit.telefonos" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Barrio</label>
             <input disabled placeholder="" id="barrio" type="text" [(ngModel)]="payEdit.barrio" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Zona:</label>
             <input disabled placeholder="" id="zona" type="text" [(ngModel)]="payEdit.zona" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="fechaafi" class="label-color">Fecha afiliación</label>
             <input disabled placeholder="" id="fechaafi" type="text"  [(ngModel)]="payEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
-          <div class="col s6">
+          <div class="col s12 m6 l6">
             <label for="observaciones" class="label-color">Observaciones</label>
             <input disabled placeholder="" id="observaciones" type="text" [(ngModel)]="payEdit.observa_senal" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="estadotv" class="label-color">Estado televisión</label>
             <input disabled placeholder="" id="estadotv" type="text" [(ngModel)]="payEdit.estado_tv" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="estadoint" class="label-color">Estado internet</label>
             <input disabled placeholder="" id="estadoint" type="text" [(ngModel)]="payEdit.estado_int" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="fechapago" class="label-color">Fecha último pago</label>
             <input disabled placeholder="" id="fechapago" type="text" [(ngModel)]="payEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="saldotv" class="label-color">Saldo televisión</label>
             <input disabled placeholder="" id="saldotv" type="text" [(ngModel)]="payEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="saldoint" class="label-color">Saldo internet</label>
             <input disabled placeholder="" id="saldoint" type="text" [(ngModel)]="payEdit.saldo_int" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
           <div class="row service-payment">
-            <div class="col s12 m6">
+            <div class="col s12 m6 l6">
               <span class="service-title">Pago</span>
             </div>
           </div>
@@ -191,37 +182,35 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo documento</label>
             <input disabled placeholder="" id="tipodoc" type="text" [(ngModel)]="payEdit.documento" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="numdoc" class="label-color">Número documento</label>
             <input disabled placeholder="" id="numdoc" type="text" [(ngModel)]="payEdit.nropago" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechadoc" class="label-color">Fecha del documento</label>
             <input disabled placeholder="" id="numdoc" type="text" [(ngModel)]="payEdit.fechatrn" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="pagado" class="label-color">Total pagado</label>
             <input disabled placeholder="" id="pagado" class="datepicker" type="text" [(ngModel)]="payEdit.valor" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="obserpago" class="label-color">Observaciones</label>
             <input disabled placeholder="" id="obserpago" type="text" [(ngModel)]="payEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Forma de pago</label>
             <input disabled placeholder="" id="formapago" type="text" [(ngModel)]="payEdit.forma_pago" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Banco</label>
             <input disabled placeholder="" id="banco" type="text" [(ngModel)]="payEdit.banco" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label class="label-color">Cobrador</label>
             <input disabled placeholder="" id="cobrador" type="text" [(ngModel)]="payEdit.cobrador" [ngModelOptions]="{standalone: true}">
           </div>

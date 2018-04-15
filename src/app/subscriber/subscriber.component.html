@@ -1547,52 +1547,52 @@
               <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
-          <div class="row" *ngIf="subsEdit">
-            <div class="col s12 m6 l3">
-              <label for="telefonos" class="label-color">Teléfonos</label>
-              <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l3">
-              <label class="label-color">Barrio</label>
-              <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l3">
-              <label class="label-color">Zona:</label>
-              <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m6 l3">
-              <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
-              <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
-            </div>
+        <div class="row" *ngIf="subsEdit">
+          <div class="col s12 m6 l3">
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="row" *ngIf="subsEdit">
-            <div class="col s12 m6 l6">
-              <label for="observaciones-orden" class="label-color">Observaciones</label>
-              <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m3 l3">
-              <label for="estadotv-orden" class="label-color">Estado televisión</label>
-              <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m3 l3">
-                <label for="estadoint-orden" class="label-color">Estado internet</label>
-                <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
-              </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Barrio</label>
+            <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="row" *ngIf="subsEdit">
-            <div class="col s12 m4 l4">
-              <label for="fechapago-orden" class="label-color">Fecha último pago</label>
-              <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m4 l4">
-              <label for="saldotv-orden" class="label-color">Saldo televisión</label>
-              <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="col s12 m4 l4">
-              <label for="saldoint-orden" class="label-color">Saldo internet</label>
-              <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
-            </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Zona:</label>
+            <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
+          <div class="col s12 m6 l3">
+            <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
+            <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row" *ngIf="subsEdit">
+          <div class="col s12 m6 l6">
+            <label for="observaciones-orden" class="label-color">Observaciones</label>
+            <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m3 l3">
+            <label for="estadotv-orden" class="label-color">Estado televisión</label>
+            <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m3 l3">
+              <label for="estadoint-orden" class="label-color">Estado internet</label>
+              <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="row" *ngIf="subsEdit">
+          <div class="col s12 m4 l4">
+            <label for="fechapago-orden" class="label-color">Fecha último pago</label>
+            <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="saldotv-orden" class="label-color">Saldo televisión</label>
+            <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="saldoint-orden" class="label-color">Saldo internet</label>
+            <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
         <form [formGroup]="payForm">
           <div class="row">
             <div class="row service-payment">

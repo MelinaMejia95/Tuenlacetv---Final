@@ -1,87 +1,91 @@
 <!-- Breadcrum-->
-<div class="row bradcrum-position">
+<div class="row module-position">
   <div class="row process">
-    <div class="col s12 m6">
+    <div class="col s12 m6 l6">
       <span class="process-title">Tesorería</span>
     </div>
   </div>
-  <div class="separator z-depth-3"></div>
-  <div class="col s12 m6">
-    <a class="breadcrumb black-text">Tesorería</a>
-    <a class="breadcrumb black-text">Pagos anticipados</a>
+  <div class="row">
+    <div class="separator z-depth-3"></div>
   </div>
-  <div class="col s12 m6 right-align">
+  <div class="option-module">
+    <div class="col s10 m6 l6">
+        <div class="row option-module">
+          <a class="breadcrumb black-text">Tesorería</a>
+          <a class="breadcrumb black-text">Pagos anticipados</a>
+        </div>
+    </div>
+  </div>
+  <div class="col s2 m6 l6 right-align">
     <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
   </div>
 </div>
         
-  <!-- Table -->
-<table class="striped highlight">
-  <thead>
-    <tr class="tr-background">
-      <th class="first-column">
-        <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
-        <label for="all"> </label>
-      </th>
-      <th class="pago-th">
-        <label for="numpago" class="label-color">Número pago</label>
-        <input id="numpago" type="text" class="input-custom">
-      </th>
-      <th class="codigo-th">
-        <label for="codigo" class="label-color">Código</label>
-        <input id="codigo" type="text" class="input-custom">
-      </th>
-      <th class="nombres-th">
-        <label for="concepto" class="label-color">Nombres</label>
-        <input id="concepto" type="text" class="input-custom">
-      </th>
-      <th class="fecha-th">
-        <label for="fecha" class="label-color">Fecha</label>
-        <input id="fecha" type="text" class="input-custom">
-      </th>
-      <th class="valor-th">
-        <label for="valor" class="label-color">Valor</label>
-        <input id="valor" type="text" class="input-custom">
-      </th>
-      <th class="banco-th">
-        <label for="banco" class="label-color">Banco</label>
-        <input id="banco" type="text" class="input-custom">
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let payment of payments; let i = index" name="rows" (click)="selectRow()">
-      <td (click)="openModal()" href="#modal-see">aaa</td>
-      <td (click)="openModal()" href="#modal-see">aaa</td>
-      <td (click)="openModal()" href="#modal-see">aaa</td>
-      <td (click)="openModal()" href="#modal-see">aaa</td>
-      <td (click)="openModal()" href="#modal-see">aaa</td>
-      <td (click)="openModal()" href="#modal-see">aaa</td>
-      <!--<td>
-        <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(payment)"/>
-        <label [attr.for]="'radio_'+i"> </label>
-      </td>
-      <td (click)="openModal(payment)" href="#modal-see">{{ rate.id }}</td>
-      <td (click)="openModal(payment)" href="#modal-see">{{ rate.zona }}</td>
-      <td (click)="openModal(payment)" href="#modal-see">{{ rate.concepto }}</td>
-      <td (click)="openModal(payment)" href="#modal-see">{{ rate.valor }}</td>
-      <td (click)="openModal(payment)" href="#modal-see">{{ rate.estado }}</td>
-      <td (click)="openModal(payment)" href="#modal-see">{{ rate.estado }}</td>-->
-    </tr>
-  </tbody>
-</table>
+<!-- Table -->
+<div class="container-table">
+  <table class="striped highlight">
+    <thead>
+      <tr class="tr-background">
+        <th class="first-column">
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <label for="all"> </label>
+        </th>
+        <th class="pago-th">
+          <label for="numpago" class="label-color">Número pago</label>
+          <input id="numpago" type="text" class="input-custom">
+        </th>
+        <th class="codigo-th">
+          <label for="codigo" class="label-color">Código</label>
+          <input id="codigo" type="text" class="input-custom">
+        </th>
+        <th class="nombres-th">
+          <label for="concepto" class="label-color">Nombres</label>
+          <input id="concepto" type="text" class="input-custom">
+        </th>
+        <th class="fecha-th">
+          <label for="fecha" class="label-color">Fecha</label>
+          <input id="fecha" type="text" class="input-custom">
+        </th>
+        <th class="valor-th">
+          <label for="valor" class="label-color">Valor</label>
+          <input id="valor" type="text" class="input-custom">
+        </th>
+        <th class="banco-th">
+          <label for="banco" class="label-color">Banco</label>
+          <input id="banco" type="text" class="input-custom">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let payment of payments; let i = index" name="rows" (click)="selectRow()">
+        <td>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(payment)"/>
+          <label [attr.for]="'radio_'+i"> </label>
+        </td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.nropago }}</td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.id }}</td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.nombres }}</td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.trn }}</td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.valor }}</td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.banco }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> 
         
 <!-- Pagination -->
-<div class="row center">
-  <ul class="pagination">
-      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-      <li class="active"><a href="#!">1</a></li>
-      <li class="waves-effect"><a href="#!">2</a></li>
-      <li class="waves-effect"><a href="#!">3</a></li>
-      <li class="waves-effect"><a href="#!">4</a></li>
-      <li class="waves-effect"><a href="#!">5</a></li>
-      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
+<div class="container-pagination">
+  <div class="row center">
+    <ul class="pagination">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+  </div>
 </div>
         
 <!-- Footer Button -->
@@ -90,320 +94,313 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <li><a class="btn-floating btn-eliminar red" (click)="deleteRate()" id="btn-footer-delete">Anular</a></li>
-    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+    <li><a class="btn-floating btn-eliminar red" (click)="deletePayment()" id="btn-footer-delete">Anular</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" routerLink="/subscriber">Crear</a></li>
   </ul>
 </div>
       
-  <!--Modal Crear -->
-  <div id="modal-crear" class="modal">
-    <div class="modal-title">
-      <div class="row">
-        <div class="col s6">
-            <h5>Crear</h5>
-        </div>
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-large btn-print" id="btn-modal">
-              <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-          </a>
-        </div>
+<!--Modal Crear -->
+<div id="modal-crear" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6">
+          <h5>Crear</h5>
+      </div>
+      <div class="col s6 right-align">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
       </div>
     </div>
-    <div class="modal-content">
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="row service-payment">
-              <div class="col s12 m6">
-                <span class="service-title">Suscriptor</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="separator-payment z-depth-3"></div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="row service-payment">
+            <div class="col s12 m6">
+              <span class="service-title">Suscriptor</span>
             </div>
           </div>
           <div class="row">
-            <div class="col s4">
-              <label class="label-color">Tipo documento</label>
-              <select class="browser-default select-city" id="select-doc">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
-            <div class="col s4">
-              <label for="numdoc" class="label-color">Número documento</label>
-              <input placeholder="" id="numdoc" type="text" #numdoc>
-            </div>
-            <div class="col s4">
-              <label for="fechadoc" class="label-color">Fecha del documento</label>
-              <input placeholder="" id="fechadoc" class="datepicker" type="text" #fechadoc>
-            </div>
+            <div class="separator-payment z-depth-3"></div>
           </div>
-          <div class="row">
-            <div class="col s3">
-              <label for="codigo" class="label-color">Código</label>
-              <input placeholder="" id="codigo" type="text" #codigo>
-            </div>
-            <div class="col s3">
-              <label for="nombres" class="label-color">Nombres y apellidos</label>
-              <input placeholder="" id="nombres" type="text" #nombres>
-            </div>
-            <div class="col s3">
-              <label for="telefonos" class="label-color">Teléfonos</label>
-              <input placeholder="" id="telefonos" type="text" #telefonos>
-            </div>
-            <div class="col s3">
-              <label for="direccion" class="label-color">Dirección</label>
-              <input placeholder="" id="direccion" type="text" #direccion>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s4">
-              <label class="label-color">Barrio</label>
-              <select class="browser-default select-city" id="select-neigh">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="neigh.id" *ngFor="let neigh of neighborhoos">{{ neigh.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s4">
-              <label class="label-color">Zona:</label>
-              <select class="browser-default select-city" id="select-zone">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s4">
-              <label for="estado" class="label-color">Estado</label>
-              <input placeholder="" id="estado" type="text" #estado>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s3">
-              <label for="fechaafi" class="label-color">Fecha afiliación</label>
-              <input placeholder="" id="fechaafi" type="text" class="datepicker" #fechaafi>
-            </div>
-            <div class="col s3">
-              <label for="fechapago" class="label-color">Fecha último pago</label>
-              <input placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
-            </div>
-            <div class="col s6">
-              <label for="observaciones" class="label-color">Observaciones</label>
-              <input placeholder="" id="observaciones" type="text" class="datepicker" #observaciones>
-            </div>
-          </div>
-          <div class="row">
-            <div class="row service-payment">
-              <div class="col s12 m6">
-                <span class="service-title">Pago</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="separator-payment z-depth-3"></div>
-            </div>
-          </div>
-          <div class="row">
-            <label class="label-color">Tipo servicio</label>
-            <select disabled class="browser-default select-city" id="select-service">
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <label class="label-color">Tipo documento</label>
+            <select class="browser-default select-city" id="select-doc">
               <!--<option value="" disabled selected>Seleccione</option>
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
             </select>
-            <div class="col s2">
-              <label for="pagado" class="label-color">Total pagado</label>
-              <input placeholder="" id="pagado" class="datepicker" type="text" #pagado>
-            </div>
-            <div class="col s2">
-              <label for="descuento" class="label-color">Descuento</label>
-              <input placeholder="" id="descuento" class="datepicker" type="text" #descuento>
-            </div>
           </div>
-          <div class="row">
-            <div class="col s3">
-              <label for="obserpago" class="label-color">Observaciones</label>
-              <input placeholder="" id="obserpago" type="text" #obserpago>
-            </div>
-            <div class="col s2">
-              <label for="fechapa" class="label-color">Fecha PxA</label>
-              <input placeholder="" id="fechapa" type="text" class="datepicker" #fechapa>
-            </div>
-            <div class="col s2">
-              <label class="label-color">Forma de pago</label>
-              <select class="browser-default select-city" id="select-payment">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
-            <div class="col s3">
-              <label class="label-color">Banco</label>
-              <select class="browser-default select-city" id="select-bank">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
+          <div class="col s4">
+            <label for="numdoc" class="label-color">Número documento</label>
+            <input placeholder="" id="numdoc" type="text" #numdoc>
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createRate(codigo.value, valor.value,
-        fechaini.value, fechaven.value)">Aceptar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
-    </div>
-  </div>
-        
-  <!-- Modal See -->
-  <div id="modal-see" class="modal">
-    <div class="modal-title">
-      <div class="row">
-        <div class="col s6">
-            <h5>Tarifa</h5>
-        </div> 
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-large btn-print" id="btn-modal">
-              <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-          </a>
+          <div class="col s4">
+            <label for="fechadoc" class="label-color">Fecha del documento</label>
+            <input placeholder="" id="fechadoc" class="datepicker" type="text" #fechadoc>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="modal-content">
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="row service-payment">
-              <div class="col s12 m6">
-                <span class="service-title">Suscriptor</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="separator-payment z-depth-3"></div>
+        <div class="row">
+          <div class="col s3">
+            <label for="codigo" class="label-color">Código</label>
+            <input placeholder="" id="codigo" type="text" #codigo>
+          </div>
+          <div class="col s3">
+            <label for="nombres" class="label-color">Nombres y apellidos</label>
+            <input placeholder="" id="nombres" type="text" #nombres>
+          </div>
+          <div class="col s3">
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input placeholder="" id="telefonos" type="text" #telefonos>
+          </div>
+          <div class="col s3">
+            <label for="direccion" class="label-color">Dirección</label>
+            <input placeholder="" id="direccion" type="text" #direccion>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <label class="label-color">Barrio</label>
+            <select class="browser-default select-city" id="select-neigh">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="neigh.id" *ngFor="let neigh of neighborhoos">{{ neigh.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s4">
+            <label class="label-color">Zona:</label>
+            <select class="browser-default select-city" id="select-zone">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
+            </select>
+          </div>
+          <div class="col s4">
+            <label for="estado" class="label-color">Estado</label>
+            <input placeholder="" id="estado" type="text" #estado>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="fechaafi" class="label-color">Fecha afiliación</label>
+            <input placeholder="" id="fechaafi" type="text" class="datepicker" #fechaafi>
+          </div>
+          <div class="col s3">
+            <label for="fechapago" class="label-color">Fecha último pago</label>
+            <input placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
+          </div>
+          <div class="col s6">
+            <label for="observaciones" class="label-color">Observaciones</label>
+            <input placeholder="" id="observaciones" type="text" class="datepicker" #observaciones>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row service-payment">
+            <div class="col s12 m6">
+              <span class="service-title">Pago</span>
             </div>
           </div>
           <div class="row">
-            <div class="col s4">
-              <label class="label-color">Tipo documento</label>
-              <select disabled class="browser-default select-city" id="select-doc">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
-            <div class="col s4">
-              <label for="numdoc" class="label-color">Número documento</label>
-              <input disabled placeholder="" id="numdoc" type="text" #numdoc>
-            </div>
-            <div class="col s4">
-              <label for="fechadoc" class="label-color">Fecha del documento</label>
-              <input disabled placeholder="" id="fechadoc" class="datepicker" type="text" #fechadoc>
-            </div>
+            <div class="separator-payment z-depth-3"></div>
           </div>
-          <div class="row">
-            <div class="col s3">
-              <label for="codigo" class="label-color">Código</label>
-              <input disabled placeholder="" id="codigo" type="text" #codigo>
-            </div>
-            <div class="col s3">
-              <label for="nombres" class="label-color">Nombres y apellidos</label>
-              <input disabled placeholder="" id="nombres" type="text" #nombres>
-            </div>
-            <div class="col s3">
-              <label for="telefonos" class="label-color">Teléfonos</label>
-              <input disabled placeholder="" id="telefonos" type="text" #telefonos>
-            </div>
-            <div class="col s3">
-              <label for="direccion" class="label-color">Dirección</label>
-              <input disabled placeholder="" id="direccion" type="text" #direccion>
-            </div>
+        </div>
+        <div class="row">
+          <label class="label-color">Tipo servicio</label>
+          <select disabled class="browser-default select-city" id="select-service">
+            <!--<option value="" disabled selected>Seleccione</option>
+            <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
+          </select>
+          <div class="col s2">
+            <label for="pagado" class="label-color">Total pagado</label>
+            <input placeholder="" id="pagado" class="datepicker" type="text" #pagado>
           </div>
-          <div class="row">
-            <div class="col s4">
-              <label class="label-color">Barrio</label>
-              <select disabled class="browser-default select-city" id="select-neigh">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="neigh.id" *ngFor="let neigh of neighborhoos">{{ neigh.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s4">
-              <label class="label-color">Zona:</label>
-              <select disabled class="browser-default select-city" id="select-zone">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
-              </select>
-            </div>
-            <div class="col s4">
-              <label for="estado" class="label-color">Estado</label>
-              <input disabled placeholder="" id="estado" type="text" #estado>
-            </div>
+          <div class="col s2">
+            <label for="descuento" class="label-color">Descuento</label>
+            <input placeholder="" id="descuento" class="datepicker" type="text" #descuento>
           </div>
-          <div class="row">
-            <div class="col s3">
-              <label for="fechaafi" class="label-color">Fecha afiliación</label>
-              <input disabled placeholder="" id="fechaafi" type="text" class="datepicker" #fechaafi>
-            </div>
-            <div class="col s3">
-              <label for="fechapago" class="label-color">Fecha último pago</label>
-              <input disabled placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
-            </div>
-            <div class="col s6">
-              <label for="observaciones" class="label-color">Observaciones</label>
-              <input disabled placeholder="" id="observaciones" type="text" class="datepicker" #observaciones>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col s3">
+            <label for="obserpago" class="label-color">Observaciones</label>
+            <input placeholder="" id="obserpago" type="text" #obserpago>
           </div>
-          <div class="row">
-            <div class="row service-payment">
-              <div class="col s12 m6">
-                <span class="service-title">Pago</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="separator-payment z-depth-3"></div>
-            </div>
+          <div class="col s2">
+            <label for="fechapa" class="label-color">Fecha PxA</label>
+            <input placeholder="" id="fechapa" type="text" class="datepicker" #fechapa>
           </div>
-          <div class="row">
-            <div class="col s3">
-              <label class="label-color">Tipo servicio</label>
-              <select disabled class="browser-default select-city" id="select-service">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
-            <div class="col s2">
-              <label for="pagado" class="label-color">Total pagado</label>
-              <input disabled placeholder="" id="pagado" class="datepicker" type="text" #pagado>
-            </div>
-            <div class="col s2">
-              <label for="descuento" class="label-color">Descuento</label>
-              <input disabled placeholder="" id="descuento" class="datepicker" type="text" #descuento>
-            </div>
+          <div class="col s2">
+            <label class="label-color">Forma de pago</label>
+            <select class="browser-default select-city" id="select-payment">
+              <!--<option value="" disabled selected>Seleccione</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
+            </select>
           </div>
-          <div class="row">
-            <div class="col s3">
-              <label for="obserpago" class="label-color">Observaciones</label>
-              <input disabled placeholder="" id="obserpago" type="text" #obserpago>
-            </div>
-            <div class="col s2">
-              <label for="fechapa" class="label-color">Fecha PxA</label>
-              <input disabled placeholder="" id="fechapa" type="text" class="datepicker" #fechapa>
-            </div>
-            <div class="col s2">
-              <label class="label-color">Forma de pago</label>
-              <select disabled class="browser-default select-city" id="select-payment">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
-            <div class="col s3">
-              <label class="label-color">Banco</label>
-              <select disabled class="browser-default select-city" id="select-bank">
-                <!--<option value="" disabled selected>Seleccione</option>
-                <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
-              </select>
-            </div>
+          <div class="col s3">
+            <label class="label-color">Banco</label>
+            <select class="browser-default select-city" id="select-bank">
+              <!--<option value="" disabled selected>Seleccione</option>
+              <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>-->
+            </select>
           </div>
-        </form>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="updateRate()">Aceptar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createRate(codigo.value, valor.value,
+      fechaini.value, fechaven.value)">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+  </div>
+</div>
+      
+<!-- Modal See -->
+<div id="modal-see" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s6 m6 l6">
+          <h5>Pago anticipado</h5>
+      </div> 
+      <div class="col s6 m6 l6  right-align">
+        <a class="btn-floating btn-large btn-print" id="btn-modal">
+            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-content">
+    <div class="row">
+      <form>
+        <div class="row">
+          <div class="row service-payment">
+            <div class="col s12 m12 l12">
+              <span class="service-title">Suscriptor</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="separator-payment z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m2 l2">
+            <label for="codigo" class="label-color">Código</label>
+            <input disabled placeholder="" id="codigo-orden" type="text" [(ngModel)]="paymentEdit.entidad_id" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l6">
+            <label for="nombres" class="label-color">Nombres y apellidos</label>
+            <input disabled placeholder="" id="nombres-orden" type="text" [(ngModel)]="paymentEdit.nombres" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="direccion" class="label-color">Dirección</label>
+            <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="paymentEdit.direccion" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m6 l3">
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="paymentEdit.telefonos" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Barrio</label>
+            <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="paymentEdit.barrio" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Zona:</label>
+            <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="paymentEdit.zona" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
+            <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="paymentEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m6 l6">
+            <label for="observaciones-orden" class="label-color">Observaciones</label>
+            <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="paymentEdit.observa_senal" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m3 l3">
+            <label for="estadotv-orden" class="label-color">Estado televisión</label>
+            <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="paymentEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m3 l3">
+            <label for="estadoint-orden" class="label-color">Estado internet</label>
+            <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="paymentEdit.estado_int" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m4 l4">
+            <label for="fechapago-orden" class="label-color">Fecha último pago</label>
+            <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="paymentEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="saldotv-orden" class="label-color">Saldo televisión</label>
+            <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="paymentEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="saldoint-orden" class="label-color">Saldo internet</label>
+            <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="paymentEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="row service-payment">
+            <div class="col s12 m6">
+              <span class="service-title">Pago</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="separator-payment z-depth-3"></div>
+          </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m6 l3">
+            <label class="label-color">Tipo documento</label>
+            <input placeholder="" id="numdoc" type="text" disabled [(ngModel)]="paymentEdit.documento" [ngModelOptions]="{standalone: true}">                                      
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="numdoc" class="label-color">Número documento</label>
+            <input placeholder="" id="numdoc" type="text" disabled [(ngModel)]="paymentEdit.nropago" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="fechadoc" class="label-color">Fecha del documento</label>
+            <input placeholder="" id="fechadoc" type="text" disabled [(ngModel)]="paymentEdit.fechatrn" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m6 l7">
+            <label for="obserpago" class="label-color">Observaciones</label>
+            <input disabled placeholder="" id="obserpago" type="text" [(ngModel)]="paymentEdit.observacion" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l5">
+            <label for="obserpago" class="label-color">Cobradores</label>
+            <input disabled placeholder="" id="obserpago" type="text" [(ngModel)]="paymentEdit.cobrador" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m6 l3">
+            <label for="fechapa" class="label-color">Fecha PxA</label>
+            <input disabled placeholder="" id="fechapa" type="text" [(ngModel)]="paymentEdit.fechapxa" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="cuotas" class="label-color">Cuotas</label>
+            <input disabled placeholder="" id="cuotas" type="text" [(ngModel)]="paymentEdit.cuotas" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Forma de pago</label>
+            <input disabled placeholder="" id="formapago" type="text" [(ngModel)]="paymentEdit.forma_pago" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Banco</label>
+            <input disabled placeholder="" id="fechapa" type="text" [(ngModel)]="paymentEdit.banco" [ngModelOptions]="{standalone: true}">
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+  </div>
+</div>
     
   
