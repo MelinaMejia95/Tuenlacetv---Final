@@ -419,7 +419,7 @@ export class SubscriberComponent implements OnInit {
     let ban = 0;
     this._paymentservice.getInfoFac(this.subsEdit.id).subscribe(data => {
       this.facts = data.detalle_facturas;
-      this.pdocuments = data.conceptos;
+      this.pdocuments = data.documentos;
       this.formaspago = data.formas_pago;
       this.bancos = data.bancos;
       this.cobradores = data.cobradores;
