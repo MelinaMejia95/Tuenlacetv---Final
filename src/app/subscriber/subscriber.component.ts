@@ -538,9 +538,15 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if(data.error = "no se pudo crear"){
             swal(
               'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          } else if (data.error = "cliente saldo 0"){
+            swal(
+              'El cliente debe tener saldo 0',
               '',
               'warning'
             )
