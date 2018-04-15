@@ -28,6 +28,7 @@
       <!-- Dropdown Structure --> 
       <ul id='dropdown1' class='dropdown-content dropdown-options'>
         <li><a (click)="openModalPagos()">Pagos</a></li>
+        <li><a (click)="openModalPagosAnticipados()">Pagos anticipados</a></li> 
         <li><a class="modal-trigger" href="#modal-orden">Órdenes técnicas</a></li>
         <li><a class="modal-trigger" href="#modal-factura">Generar factura</a></li>
         <li><a (click)="openModalAnular()">Anular factura</a></li>
@@ -1738,6 +1739,180 @@
     </div>
     <div class="modal-footer">
       <button id="btn-payment" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!payForm.valid" (click)="createPayment(payForm.value)">Aceptar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    </div>
+</div>
+
+<!--Modal Crear Pagos Anticipados-->
+<div id="modal-pagosAnticipados" class="modal">
+    <div class="modal-title">
+      <div class="row">
+        <div class="col s6">
+            <h5>Crear</h5>
+        </div>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="row">
+        <form>
+          <div class="row">
+            <div class="row service-payment">
+              <div class="col s12 m6">
+                <span class="service-title">Suscriptor</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="separator-payment z-depth-3"></div>
+            </div>
+          </div>
+          <div class="row" *ngIf="subsEdit">
+              <div class="col s12 m2 l2">
+                <label for="codigo" class="label-color">Código</label>
+                <input disabled placeholder="" id="codigo-orden" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s12 m6 l6">
+                <label for="nombres" class="label-color">Nombres y apellidos</label>
+                <input disabled placeholder="" id="nombres-orden" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col s12 m4 l4">
+                <label for="direccion" class="label-color">Dirección</label>
+                <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          <div class="row" *ngIf="subsEdit">
+            <div class="col s12 m6 l3">
+              <label for="telefonos" class="label-color">Teléfonos</label>
+              <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Barrio</label>
+              <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m6 l3">
+              <label class="label-color">Zona:</label>
+              <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
+              <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+          <div class="row" *ngIf="subsEdit">
+            <div class="col s12 m6 l6">
+              <label for="observaciones-orden" class="label-color">Observaciones</label>
+              <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m3 l3">
+              <label for="estadotv-orden" class="label-color">Estado televisión</label>
+              <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m3 l3">
+                <label for="estadoint-orden" class="label-color">Estado internet</label>
+                <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+              </div>
+          </div>
+          <div class="row" *ngIf="subsEdit">
+            <div class="col s12 m4 l4">
+              <label for="fechapago-orden" class="label-color">Fecha último pago</label>
+              <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m4 l4">
+              <label for="saldotv-orden" class="label-color">Saldo televisión</label>
+              <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m4 l4">
+              <label for="saldoint-orden" class="label-color">Saldo internet</label>
+              <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="row service-payment">
+              <div class="col s12 m6">
+                <span class="service-title">Pago</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="separator-payment z-depth-3"></div>
+            </div>
+          </div>
+          <form [formGroup]="adPayForm">
+            <div class="row">
+              <div class="col s12 m6 l3">
+                <label class="label-color">Servicio <span class="span-color">*</span></label>
+                <select class="browser-default select-city validate" id="select-serv-orden" formControlName="servicio" required>
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="serv.id" *ngFor="let serv of servicesPay">{{ serv.abreviatura }}</option>
+                </select>
+                <div class="alert" *ngIf="!adPayForm.controls['servicio'].value && adPayForm.controls['servicio'].touched">{{ titleAlert }}</div>                                      
+              </div>
+              <div class="col s12 m6 l3">
+                <label class="label-color">Tipo documento <span class="span-color">*</span></label>
+                <select class="browser-default select-city validate" id="select-doc-orden-pay" formControlName="tipodoc" required>
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
+                </select>
+                <div class="alert" *ngIf="!adPayForm.controls['tipodoc'].value && adPayForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                                      
+              </div>
+              <div class="col s12 m6 l3">
+                <label for="numdocpago" class="label-color">Número documento</label>
+                <input placeholder="" id="numdocpago" type="text" disabled formControlName="numdoc">
+              </div>
+              <div class="col s12 m6 l3">
+                <label for="fechadocpago" class="label-color">Fecha del documento</label>
+                <my-date-picker name="fechadocpago" [options]="myDatePickerOptions" [(ngModel)]="modelDate" formControlName="fechadoc" (dateChanged)="onDateDoc($event)" [disabled]="disabled"></my-date-picker>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m6 l3">
+                <label for="pagadoEdit" class="label-color">Total pagado <span class="span-color">*</span></label>
+                <input placeholder="" id="pagadoEdit" type="text" class="validate" formControlName="totalpagado" required>
+                <div class="alert" *ngIf="!adPayForm.controls['totalpagado'].value && adPayForm.controls['totalpagado'].touched">{{ titleAlert }}</div>                                                  
+              </div>
+              <div class="col s12 m6 l3">
+                <label for="descuentopago" class="label-color">Descuento</label>
+                <input placeholder="" id="descuentopago" type="text" formControlName="descuentopago">
+              </div>
+              <div class="col s12 m6 l6">
+                <label for="obserpagoEdit" class="label-color">Observaciones <span class="span-color">*</span></label>
+                <input placeholder="" id="obserpagoEdit" type="text" class="validate" formControlName="observaciones" required>
+                <div class="alert" *ngIf="!adPayForm.controls['observaciones'].value && adPayForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                  
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m6 l3">
+                <label for="fechapxapago" class="label-color">Fecha PxA</label>
+                <my-date-picker name="fechapxapago" [options]="myDatePickerOptions" formControlName="fechapxa" (dateChanged)="onDateDoc($event)"></my-date-picker>
+              </div>
+              <div class="col s12 m6 l3" *ngIf="paramCobradores=='S'">
+                <label class="label-color">Cobradores</label>
+                <select class="browser-default select-city" id="select-debt-order-pay" formControlName="cobradores">
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
+                </select>
+              </div>
+              <div class="col s12 m6 l3">
+                <label class="label-color">Forma de pago <span class="span-color">*</span></label>
+                <select class="browser-default select-city validate" id="select-payment-order-pay" formControlName="formapago" required>
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
+                </select>
+                <div class="alert" *ngIf="!adPayForm.controls['formapago'].value && adPayForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
+              </div>
+              <div class="col s12 m6 l3">
+                <label class="label-color">Banco <span class="span-color">*</span></label>
+                <select class="browser-default select-city validate" id="select-bank-order-pay" formControlName="banco" required>
+                  <option value="nodisplay" disabled selected>Seleccione</option>
+                  <option [value]="banco.id" *ngFor="let banco of bancos">{{ banco.nombre }}</option>
+                </select>
+                <div class="alert" *ngIf="!adPayForm.controls['banco'].value && adPayForm.controls['banco'].touched">{{ titleAlert }}</div>                                                 
+              </div>
+            </div>
+          </form>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!adPayForm.valid" (click)="createAdPayment(adPayForm.value)">Aceptar</button>
       <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
     </div>
 </div>

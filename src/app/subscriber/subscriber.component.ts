@@ -37,10 +37,10 @@ export class SubscriberComponent implements OnInit {
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
-  paramCobradores: string; today:any; modelDate: any;
+  paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = [];
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
-  tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup;
+  tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup;
   titleAlert: string = "Campo requerido";
   correoAlert: string = "Correo inválido"
   
@@ -186,13 +186,27 @@ export class SubscriberComponent implements OnInit {
       'fechadoc': [null]
     });
 
-      // Set today date using the patchValue function
-      let date = new Date();
-      this.modelDate = {date: {
-          year: date.getFullYear(),
-          month: date.getMonth() + 1,
-          day: date.getDate()}
-        }
+    this.adPayForm = fb.group({
+      'tipodoc': [null, Validators.required],
+      'totalpagado': [null, Validators.required],
+      'observaciones': [null, Validators.required],
+      'formapago': [null, Validators.required],
+      'banco': [null, Validators.required],
+      'fechapxa': [null, Validators.required],
+      'servicio': [null, Validators.required],
+      "numdoc": [null],
+      'descuentopago': [null],
+      'cobradores': [null],
+      'fechadoc': [null]
+    });
+
+    // Set today date using the patchValue function
+    let date = new Date();
+    this.modelDate = {date: {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()}
+      }
       
     console.log(this.modelDate)
 
@@ -247,6 +261,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('#modal-orden').modal();
     jQuery('#modal-pagos').modal();
     jQuery('#modal-anular').modal();
+    jQuery('#modal-pagosAnticipados').modal();
     jQuery('ul.tabs').tabs();
     jQuery('select').material_select();
     jQuery('.dropdown-button').dropdown();
@@ -436,6 +451,28 @@ export class SubscriberComponent implements OnInit {
     jQuery('#modal-pagos').modal('open');
   }
 
+  openModalPagosAnticipados(){
+    this._paymentservice.getInfoPay().subscribe(data => {
+      this.pdocuments = data.documentos;
+      this.formaspago = data.formas_pago;
+      this.bancos = data.bancos;
+      this.cobradores = data.cobradores;
+      this.paramCobradores = data.param_cobradores;
+    })
+    if(this.subsEdit.tv == "1" && this.subsEdit.internet == "0"){
+      this.servicesPay[0] = [{'id': 1, 'abreviatura': "TELEVISION"}];
+    }
+    if (this.subsEdit.internet == "1" && this.subsEdit.tv== "0") {
+      this.servicesPay[0] = [{'id': 2, 'abreviatura': "INTERNET"}];
+    }
+    if (this.subsEdit.internet == "1" && this.subsEdit.tv== "1") {
+      this.servicesPay[0] = {'id': 1, 'abreviatura': "TELEVISION"};
+      this.servicesPay[1] = {'id': 2, 'abreviatura': "INTERNET"};
+    }
+    console.log(this.servicesPay)
+    jQuery('#modal-pagosAnticipados').modal('open');
+  }
+
   createPayment(post){
     if (post) {
       this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
@@ -477,6 +514,48 @@ export class SubscriberComponent implements OnInit {
     }
   }
 
+  createAdPayment(post){
+    if (post) {
+      this._paymentservice.createAdPayment({ "entidad_id": this.subsEdit.id,
+      "documento_id": post.tipodoc,
+      "servicio_id": post.servicio,
+      "fechatrn": this.model9,
+      "fechapxa": post.fechapxa.formatted,
+      "valor": Number(post.totalpagado),
+      "descuento": Number(post.descuentopago),
+      "observacion": post.observaciones,
+      "forma_pago_id": post.formapago, 
+      "banco_id": post.banco, 
+      "cobrador_id": post.cobradores,
+      'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
+        data => {
+          if ( data.status == "created") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else {
+            swal(
+              'No se pudo crear el registro',
+              '',
+              'warning'
+            )
+          }
+        }),
+        error => {
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        };
+    }
+  }
+  
   changeData () {
     this.totalAplicado = 0;
     this.diferencia = 0;

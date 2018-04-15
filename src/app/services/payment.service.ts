@@ -68,13 +68,22 @@ export class PaymentsService {
 }
 
  createPayment(content: object){
-   console.log(content)
+  console.log(content)
   const url = this._global.url + `/pagos`;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
   let options = new RequestOptions({ headers: header, body: content });
   return this._http.post(url, content, options).map(response => response.json());
  }
+
+ createAdPayment(content: object){
+  console.log(content)
+  const url = this._global.url + `/pagos_anticipados`;
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  let options = new RequestOptions({ headers: header, body: content });
+  return this._http.post(url, content, options).map(response => response.json());
+  }
 
  getInfoFac(codigo){
     const url = this._global.url + `/pagos/detalle_facturas/`+ codigo + `/` + localStorage.getItem('db');
@@ -86,5 +95,16 @@ export class PaymentsService {
         return response.json();
     })
  }
+
+ getInfoPay(){
+  const url = this._global.url + `/pagos_anticipados/info/bd/` + localStorage.getItem('db');
+  let header = new Headers();
+  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+  console.log(header)
+  let options = new RequestOptions({ headers: header });
+  return this._http.get(url, options).map(response =>{
+      return response.json();
+  })
+}
 
 }
