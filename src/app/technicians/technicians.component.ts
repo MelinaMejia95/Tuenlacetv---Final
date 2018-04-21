@@ -35,7 +35,7 @@ export class TechniciansComponent implements OnInit {
   openModal (tech) {
     this.techEdit = tech;
     this._techservice.getInfoTechs().subscribe(data => {
-      console.log(data)
+      console.log(data.articulos)
       this.concepts = data.conceptos;
       this.rates = data.tarifas;
       this.techs = data.tecnicos;
