@@ -1375,21 +1375,22 @@
               <label for="numorden" class="label-color">Número orden</label>
               <input placeholder="" id="numorden" type="text" disabled>
             </div>
-            <div class="col s12 m6 l2">
-              <label for="fechaorden" class="label-color">Fecha orden</label>
-              <my-date-picker name="fechaorden" [options]="myDatePickerOptions" (dateChanged)="onDateChangedOrder($event)" class="validate" required></my-date-picker>
-            </div>
-            <div class="col s12 m6 l2">
-              <label for="fechavence" class="label-color">Fecha vencimiento</label>
-              <my-date-picker name="fechavence" [options]="myDatePickerOptions" (dateChanged)="onDateChangedVence($event)" class="validate" required></my-date-picker>            
-            </div>
           </div>
           <div class="row">
-            <div class="col s12 m5 l5">
+            <div class="col s12 m6 l3">
+              <label for="fechaorden" class="label-color">Fecha orden</label>
+              <my-date-picker name="fechaorden" [options]="myDatePickerOptions" (dateChanged)="onDateChangedOrder($event)" class="validate" required 
+              formControlName="fechaorden"></my-date-picker>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="fechavence" class="label-color">Fecha vencimiento</label>
+              <my-date-picker name="fechavence" [options]="myDatePickerOptions" [disabled]="disabled" [selDate]="selDate3" formControlName="fechavence"></my-date-picker>            
+            </div>
+            <div class="col s12 m6 l3">
               <label for="solicitado" class="label-color">Solicitado por</label>
               <input placeholder="" id="solicitado" type="text" formControlName="solicitado"> 
             </div>
-            <div class="col s12 m4 l5">
+            <div class="col s12 m6 l3">
               <label class="label-color">Técnico <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico">
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -1397,13 +1398,13 @@
               </select>
               <div class="alert" *ngIf="!orderForm.controls['tecnico'].value && orderForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                                
             </div>
-            <div class="col s12 m3 l2">
+          </div>
+          <div class="row">
+            <div class="col s12 m6 l3">
               <label for="valortotal" class="label-color">Valor total</label>
               <input placeholder="" id="valortotal" type="text" formControlName="valortotal">
             </div>
-          </div>
-          <div class="row">
-            <div class="col s12 m5 l6">
+            <div class="col s12 m6 l6">
               <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
               <input placeholder="" id="observorden" type="text" formControlName="observaciones" class="validate">
               <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                            

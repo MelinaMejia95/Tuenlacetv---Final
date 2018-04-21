@@ -38,7 +38,7 @@ export class SubscriberComponent implements OnInit {
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
-  paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string;
+  paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -52,6 +52,7 @@ export class SubscriberComponent implements OnInit {
 
   private selDate: IMyDate = {year: 0, month: 0, day: 0};
   private selDate2: IMyDate = {year: 0, month: 0, day: 0};
+  private selDate3: IMyDate = {year: 0, month: 0, day: 0};
 
   /**
    * @type {Subs[]} 
@@ -208,6 +209,8 @@ export class SubscriberComponent implements OnInit {
       'observaciones': [null, Validators.required],
       "solicitado": [null],
       'valortotal': [null],
+      'fechaorden': [null],
+      'fechavence': [null],      
     })
 
     this.newOrder = fb.group({
@@ -762,16 +765,18 @@ export class SubscriberComponent implements OnInit {
   }
 
   createOrder(order, newOrder){
-   /*  if (order) {
-      this._suscriberservice.createBills({
-        "tipo_facturacion_id": Number(post.tipofac),
-        "servicio_id": Number(post.facturade),
-        "f_elaboracion": this.model5,
-        "f_inicio": this.model6,
-        "f_fin": this.model7,
+   if (order) {
+      this._techservice.createOrder({
         "entidad_id": this.subsEdit.id,
-        "valor": Number(post.valor),
-        "observa": post.observaciones,
+        "concepto_id": Number(order.tipoorden),
+        "fechatrn": this.model10,
+        "fechaven": this.model11,
+        "valor": Number(order.valortotal),
+        "observacion": order.observaciones,
+        "tecnico_id": Number(order.tecnico),
+        "zonaNue": newOrder.nuevazona,
+        "barrioNue": newOrder.nuevobarrio,  
+        "direccionNue": newOrder.nuevadir,              
         "usuario_id": localStorage.getItem('usuario_id'),
         "db": localStorage.getItem('db')
     }).subscribe(
@@ -779,34 +784,28 @@ export class SubscriberComponent implements OnInit {
           console.log(data)
           if (data.status == "created") {
             swal({
-              title: 'Factura creada con éxito',
+              title: 'Orden creada con éxito',
               text: '',
               type: 'success',
               onClose: function reload() {
                         location.reload();
                       }
             })
-          } else if (data.error == "no se pudo crear"){
+          } else if (data.error == "no se pudo crear orden"){
             swal(
-              'No se generó la factura',
+              'No se pudo realizar Orden',
               '',
               'warning'
             )
-          } else if (data.error == "mes diferente al corriente"){
+          } else if (data.error == "estado erroneo"){
             swal(
-              'No se puede realizar una factura en un mes diferente al corriente',
-              '',
-              'warning'
-            )
-          } else if (data.error == "ya tiene factura en el mes corriente"){
-            swal(
-              'El suscriptor ya tiene una factura en el mes corriente',
+              'No se pudo realizar orden, estado erróneo',
               '',
               'warning'
             )
           }
         });
-    }  */
+    }  
   }
   
   downloadPDF(){
@@ -1126,6 +1125,13 @@ export class SubscriberComponent implements OnInit {
   onDateDoc(event: IMyDateModel) {
     console.log(event.formatted )
     this.model9 = event.formatted ;
+  }
+
+  onDateChangedOrder(event: IMyDateModel) {
+    console.log(event)
+    this.model10 = event.formatted;
+    this.model11 = event.formatted;
+    this.selDate3 = event.date;
   }
 
   createSubs(post, city, serv, tv, int){
