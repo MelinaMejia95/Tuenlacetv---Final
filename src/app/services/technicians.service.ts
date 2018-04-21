@@ -22,7 +22,18 @@ export class TechniciansService {
     return this._http.get(url, options).map(response =>{
         return response.json();
     })
- }
+  }
+
+  getInfoTechs(){
+    const url = this._global.url + `/ordenes/info/bd/` + localStorage.getItem('db');
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    console.log(header)
+    let options = new RequestOptions({ headers: header });
+    return this._http.get(url, options).map(response =>{
+        return response.json();
+    })
+  }
 
  /**
     @return {Observable<Rates[]>} 
@@ -39,30 +50,5 @@ export class TechniciansService {
       })
    } */
 
- updateRates(content: object){
-   console.log(content)
-  const url = this._global.url + `/tarifas/` + content['id'];
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header });
-  return this._http.put(url, content, options).map(response => response.json());
- }
-
- deleteRates(code: string){
-  const url = this._global.url + `/tarifas/` + code;
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')  } });
-  return this._http.delete(url, options).map(response => response.json());
- }
-
- createRates(content: object){
-   console.log(content)
-  const url = this._global.url + `/tarifas`;
-  let header = new Headers();
-  header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header, body: content });
-  return this._http.post(url, content, options).map(response => response.json());
- }
 
 }

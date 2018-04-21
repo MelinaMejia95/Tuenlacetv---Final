@@ -2,6 +2,7 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SubscribersService } from '../services/subscribers.service';
 import { PaymentsService } from '../services/payment.service';
+import { TechniciansService } from '../services/technicians.service';
 import swal from 'sweetalert2';
 import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
@@ -37,10 +38,10 @@ export class SubscriberComponent implements OnInit {
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
-  paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = [];
+  paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
-  tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup;
+  tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
   titleAlert: string = "Campo requerido";
   correoAlert: string = "Correo inválido"
   
@@ -73,7 +74,8 @@ export class SubscriberComponent implements OnInit {
    */
   limit: number;
 
-  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService, private fb: FormBuilder) { 
+  constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService, private fb: FormBuilder,
+              private _techservice: TechniciansService) { 
   
     this.rForm = fb.group({
       'tipofuncion': [null, Validators.required],
@@ -200,6 +202,20 @@ export class SubscriberComponent implements OnInit {
       'fechadoc': [null]
     });
 
+    this.orderForm = fb.group({
+      'tipoorden': [null, Validators.required],
+      'tecnico': [null, Validators.required],
+      'observaciones': [null, Validators.required],
+      "solicitado": [null],
+      'valortotal': [null],
+    })
+
+    this.newOrder = fb.group({
+      'nuevazona': [null, Validators.required],
+      'nuevobarrio': [null, Validators.required],
+      'nuevadir': [null, Validators.required],
+    })
+    
     // Set today date using the patchValue function
     let date = new Date();
     this.modelDate = {date: {
@@ -208,7 +224,7 @@ export class SubscriberComponent implements OnInit {
         day: date.getDate()}
       }
       
-    console.log(this.modelDate)
+    console.log(this.modelDate.date.month + 1)
 
   }
 
@@ -275,6 +291,14 @@ export class SubscriberComponent implements OnInit {
         this.entity = data.entidades;
       });
     });
+    jQuery('#select-order').on('change', () => {
+      if(jQuery('#select-order').val() == 14 || jQuery('#select-order').val() == 13){
+        console.log('entro orden')
+        this.showNew = '1';
+      } else {
+        this.showNew = '0';
+      }
+    })
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
       if ( this.tipoUsuario == '1') {
@@ -353,6 +377,24 @@ export class SubscriberComponent implements OnInit {
         }
       }
     });
+  }
+
+  validateOrder() {
+    if(this.showNew == '0'){
+      if (this.orderForm.valid == true) {
+        jQuery('#btn-crearorden').prop('disabled', false);
+      }
+    } else {
+      jQuery('#btn-crearorden').prop('disabled', true);
+    }
+  }
+
+  validateNewOrder() {
+    if (this.orderForm.valid == true && this.newOrder.valid == true){
+      jQuery('#btn-crearorden').prop('disabled', false);
+    }  else if (this.orderForm.valid == false || this.newOrder.valid == false) {
+      jQuery('#btn-crearorden').prop('disabled', true);
+    }
   }
 
   validation(){
@@ -681,6 +723,92 @@ export class SubscriberComponent implements OnInit {
     this.nroDoc = fac.nrodcto;
   }
 
+  openModalOrden(){
+    this._techservice.getInfoTechs().subscribe(data => {
+      this.concepts = data.conceptos;
+      this.rates = data.tarifas;
+      this.techs = data.tecnicos;
+      this.employee = data.empleados;
+      this.groups = data.grupos;
+      console.log(data)
+      this.articles = data.articulos;
+      if (data.meses_anteriores == 'N' && data.meses_posteriores == 'N') {
+        this.myDatePickerOptions = {
+          disableUntil: {year: this.modelDate.date.year, month: this.modelDate.date.month - 1, day: 31},
+          disableSince: {year: this.modelDate.date.year, month: this.modelDate.date.month + 1, day: 1}
+        }
+      }
+      if (data.meses_anteriores == 'N' && data.meses_posteriores == 'S') {
+        this.myDatePickerOptions = {
+          disableUntil: {year: this.modelDate.date.year, month: this.modelDate.date.month - 1, day: 31},
+          disableSince: {year: 0, month: 0, day: 0}
+        }
+      }
+      if (data.meses_posteriores == 'N' && data.meses_anteriores== 'S') {
+        this.myDatePickerOptions = {
+          disableUntil: {year: 0, month: 0, day: 0},
+          disableSince: {year: this.modelDate.date.year, month: this.modelDate.date.month + 1, day: 1}
+        }
+      }
+      if (data.meses_posteriores == 'S' && data.meses_anteriores== 'S') {
+        this.myDatePickerOptions = {
+          disableSince: {year: 0, month: 0, day: 0},
+          disableUntil: {year: 0, month: 0, day: 0}          
+        }
+        console.log('since')
+      } 
+    }); 
+    jQuery('#modal-orden').modal('open');
+  }
+
+  createOrder(order, newOrder){
+   /*  if (order) {
+      this._suscriberservice.createBills({
+        "tipo_facturacion_id": Number(post.tipofac),
+        "servicio_id": Number(post.facturade),
+        "f_elaboracion": this.model5,
+        "f_inicio": this.model6,
+        "f_fin": this.model7,
+        "entidad_id": this.subsEdit.id,
+        "valor": Number(post.valor),
+        "observa": post.observaciones,
+        "usuario_id": localStorage.getItem('usuario_id'),
+        "db": localStorage.getItem('db')
+    }).subscribe(
+        data => {
+          console.log(data)
+          if (data.status == "created") {
+            swal({
+              title: 'Factura creada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else if (data.error == "no se pudo crear"){
+            swal(
+              'No se generó la factura',
+              '',
+              'warning'
+            )
+          } else if (data.error == "mes diferente al corriente"){
+            swal(
+              'No se puede realizar una factura en un mes diferente al corriente',
+              '',
+              'warning'
+            )
+          } else if (data.error == "ya tiene factura en el mes corriente"){
+            swal(
+              'El suscriptor ya tiene una factura en el mes corriente',
+              '',
+              'warning'
+            )
+          }
+        });
+    }  */
+  }
+  
   downloadPDF(){
     this._suscriberservice.downloadSubscriber().subscribe(data => {
       this.listado = data.senales;
@@ -1100,109 +1228,6 @@ export class SubscriberComponent implements OnInit {
         });
     } 
   } 
-
-  /* createSubs(numdoc, nombre1, nombre2, apellido1, apellido2, tel1, tel2, direccion, correo, 
-    contratos, direccions, urbanizacions, torres, apartamentos, tel1s, tel2s, contactos, observacions, 
-    televisores, decos, precinto, descuento, dirip, velocidad, mac1, mac2, serial, marcamodem, mascara, dns, gateway, nodo, clave, descuentoint){
-      console.log(direccion)
-      if (numdoc) {
-      this._suscriberservice.createSubscribers({
-        "persona":
-         {
-             "tipo_documento_id": this.createTypedoc,
-             "documento": numdoc,
-             "nombre1": nombre1,
-             "nombre2": nombre2,
-             "apellido2": apellido2,
-             "apellido1": apellido1,
-             "direccion": direccion,
-             "barrio_id": this.createNeigh,
-             "zona_id": this.createZone,
-             "telefono1": tel1,
-             "telefono2": tel2,
-             "correo": correo,
-             "fechanac": this.model3, 
-             "tipopersona": this.createPer,
-             "estrato": this.createStrat,
-             "condicionfisica": this.createCond,
-             "usuario_id": localStorage.getItem('usuario_id')
-         },
-        "senal":{
-            "contrato": contratos,
-            "direccion": direccions,
-            "urbanizacion": urbanizacions,
-            "torre": torres,
-            "apto": apartamentos,
-            "barrio_id": this.createNeightv,
-            "zona_id": this.createZonetv,
-            "telefono1": tel1s,
-            "telefono2": tel2s,
-            "contacto": contactos,
-            "estrato": this.createStrattv,
-            "vivienda": this.createTypevivtv,
-            "observacion": observacions,
-            "fechacontrato": this.model4,
-            "permanencia": this.createPerm,
-            "televisores": televisores,
-            "decos": decos,
-            "precinto": precinto,
-            "vendedor_id": this.createSeller,
-            "tipo_instalacion_id": this.createTypeinst,
-            "tecnologia_id": this.createTypetech,
-            "tiposervicio": this.createTypeserv,
-            "areainstalacion": this.createAreainst,
-            "tipo_facturacion_id": this.createTypefac,
-            "usuario_id": localStorage.getItem('usuario_id')
-        },
-        "info_internet": 
-            {
-                "direccionip": dirip,
-                "velocidad": 3,
-                "mac1": mac1,
-                "mac2": mac2,
-                "serialm": serial,
-                "marcam": marcamodem,
-                "mascarasub": mascara,
-                "dns": dns,
-                "gateway": gateway,
-                "nodo": nodo,
-                "clavewifi": clave,
-                "equipo": this.createEquip,
-                "usuario_id": localStorage.getItem('usuario_id')
-            },
-        "funcion_id": this.createFunc,
-        "tv": Number(this.tv),
-        "valorafi_tv": Number(this.valorafitv),
-        "valor_dcto_tv": Number(descuento),
-        "tarifa_id_tv": this.createRatetv,
-        "internet": Number(this.int),
-        "valorafi_int": Number(this.valorafiint),
-        "valor_dcto_int": Number(descuentoint),
-        "tarifa_id_int": this.createRateint,
-        "tecnico_id": this.createTech,
-        "db": localStorage.getItem('db')
-    }).subscribe(
-        data => {
-          console.log(data)
-          if (data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet") {
-            swal({
-              title: 'Registro creado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
-            swal(
-              'No se pudo crear el registro',
-              '',
-              'warning'
-            )
-          }
-        });
-    } 
-  }  */
 
   createBill(post) {
     if (post) {

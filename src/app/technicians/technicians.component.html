@@ -260,6 +260,12 @@
           </div>
         </div>
         <div class="row">
+          <div class="col s5">
+            <label for="solucion" class="label-color">Solución Orden</label>
+            <input disabled placeholder="" id="solucion" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row">
           <div class="row service-order">
             <div class="col s12 m6">
               <span class="service-title">Detalle artículos</span>
@@ -270,29 +276,84 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s2">
-            <label for="grupoart" class="label-color">Grupo artículos</label>
-            <input disabled placeholder="" id="grupoart" type="text" #grupoart>
+          <div class="col s12 m4 l2">
+            <label class="label-color">Grupo Artículos</label>
+            <select class="browser-default select-city" id="grupopart">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="cobrador.id" *ngFor="let group of groups">{{ group.nombre }}</option>
+            </select>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="articulos" class="label-color">Artículos</label>
-            <input disabled placeholder="" id="articulos" type="text" #articulos>
+            <select class="browser-default select-city" id="grupopart">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option [value]="article.id" *ngFor="let article of articles">{{ article.nombre }}</option>
+            </select>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="valor" class="label-color">Valor</label>
-            <input disabled placeholder="" id="valor" type="text" #valor>
+            <input placeholder="" id="valor" type="text" #valor>
           </div>
-          <div class="col s2">
+          <div class="col s12 m2 l1">
             <label for="cantidad" class="label-color">Cantidad</label>
-            <input disabled placeholder="" id="cantidad" type="text" #cantidad>
+            <input placeholder="" id="cantidad" type="text" #cantidad>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l1">
             <label for="iva" class="label-color">%IVA</label>
-            <input disabled placeholder="" id="iva" type="text" #iva>
+            <input placeholder="" id="iva" type="text" #iva>
           </div>
-          <div class="col s2">
+          <div class="col s12 m3 l2">
             <label for="valoriva" class="label-color">Valor IVA</label>
-            <input disabled placeholder="" id="valoriva" type="text" #valoriva>
+            <input placeholder="" id="valoriva" type="text" #valoriva>
+          </div>
+          <div class="col s12 m3 l2">
+            <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">add</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">remove</i></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="container-table"> 
+            <!-- Table -->
+            <table class="striped highlight">
+              <thead>
+                <tr class="tr-background">
+                  <th>
+                    <label class="label-color"></label>
+                  </th>
+                  <th>
+                    <label class="label-color">Grupo</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Artículo</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Valor Unit</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Cantidad</label>
+                  </th>
+                  <th>
+                    <label class="label-color">%IVA</label>
+                  </th>
+                  <th>
+                    <label class="label-color">IVA</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Total</label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let subs of subscriber; let i = index" name="rows" (click)="selectRow()">
+                  <td>aa</td>
+                  <td>aaa</td>
+                  <td>aa</td>
+                  <td>aa</td>
+                  <td>aa</td>
+                  <td>aa</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </form>

@@ -29,7 +29,7 @@
       <ul id='dropdown1' class='dropdown-content dropdown-options'>
         <li><a (click)="openModalPagos()">Pagos</a></li>
         <li><a (click)="openModalPagosAnticipados()">Pagos anticipados</a></li> 
-        <li><a class="modal-trigger" href="#modal-orden">Órdenes técnicas</a></li>
+        <li><a class="modal-trigger" (click)="openModalOrden()">Órdenes técnicas</a></li>
         <li><a class="modal-trigger" href="#modal-factura">Generar factura</a></li>
         <li><a (click)="openModalAnular()">Anular factura</a></li>
         <li><a href="#!">PQR</a></li>
@@ -156,7 +156,7 @@
           <div class="col s12 m6 l4">
             <label class="label-color">Tipo función <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="funcion" formControlName="tipofuncion" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              <!-- <option value="nodisplay" disabled selected>Seleccione</option> -->
               <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!rForm.controls['tipofuncion'].value && rForm.controls['tipofuncion'].touched">{{ titleAlert }}</div>                                      
@@ -1270,19 +1270,13 @@
 <div id="modal-orden" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s6">
+      <div class="col s12 m12 l6">
           <h5>Crear</h5>
-      </div>
-      <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
       </div>
     </div>
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
         <div class="row">
           <div class="row service-order">
             <div class="col s12 m6">
@@ -1293,222 +1287,158 @@
             <div class="separator-order z-depth-3"></div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="subsEdit">
           <div class="col s12 m2 l2">
             <label for="codigo" class="label-color">Código</label>
-            <input disabled placeholder="" id="codigo" type="text">
+            <input disabled placeholder="" id="codigo-orden" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m5 l5">
-            <label for="nombres" class="label-color">Nombres</label>
-            <input placeholder="" id="nombres" type="text" #nombres>
+            <div class="col s12 m6 l6">
+              <label for="nombres" class="label-color">Nombres y apellidos</label>
+              <input disabled placeholder="" id="nombres-orden" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m4 l4">
+              <label for="direccion" class="label-color">Dirección</label>
+              <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="row" *ngIf="subsEdit">
+          <div class="col s12 m6 l3">
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m5 l5">
-            <label for="direccion" class="label-color">Dirección</label>
-            <input placeholder="" id="direccion" type="text" #direccionorden>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Barrio</label>
+            <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Zona:</label>
+            <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="subsEdit.zonaP" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
+            <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
+        <div class="row" *ngIf="subsEdit">
+          <div class="col s12 m6 l6">
+            <label for="observaciones-orden" class="label-color">Observaciones</label>
+            <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m3 l3">
+            <label for="estadotv-orden" class="label-color">Estado televisión</label>
+            <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m3 l3">
+              <label for="estadoint-orden" class="label-color">Estado internet</label>
+              <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+        <div class="row" *ngIf="subsEdit">
+          <div class="col s12 m4 l4">
+            <label for="fechapago-orden" class="label-color">Fecha último pago</label>
+            <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="saldotv-orden" class="label-color">Saldo televisión</label>
+            <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m4 l4">
+            <label for="saldoint-orden" class="label-color">Saldo internet</label>
+            <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <form [formGroup]="orderForm" (change)="validateOrder()">
+          <div class="row">
+            <div class="row service-order">
+              <div class="col s12 m6 l6">
+                <span class="service-title">Orden</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="separator-order z-depth-3"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6 l3">
+              <label class="label-color">Tipo orden a generar <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-order" formControlName="tipoorden">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.abreviatura }}</option>
+              </select>
+              <div class="alert" *ngIf="!orderForm.controls['tipoorden'].value && orderForm.controls['tipoorden'].touched">{{ titleAlert }}</div>                                    
+            </div>
+            <div class="col s12 m6 l2">
+              <label for="abreviatura" class="label-color">Abreviatura</label>
+              <input placeholder="" id="abreviatura" type="text" disabled>
+            </div>
+            <div class="col s12 m6 l2">
+              <label for="numorden" class="label-color">Número orden</label>
+              <input placeholder="" id="numorden" type="text" disabled>
+            </div>
+            <div class="col s12 m6 l2">
+              <label for="fechaorden" class="label-color">Fecha orden</label>
+              <my-date-picker name="fechaorden" [options]="myDatePickerOptions" (dateChanged)="onDateChangedOrder($event)" class="validate" required></my-date-picker>
+            </div>
+            <div class="col s12 m6 l2">
+              <label for="fechavence" class="label-color">Fecha vencimiento</label>
+              <my-date-picker name="fechavence" [options]="myDatePickerOptions" (dateChanged)="onDateChangedVence($event)" class="validate" required></my-date-picker>            
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m5 l5">
+              <label for="solicitado" class="label-color">Solicitado por</label>
+              <input placeholder="" id="solicitado" type="text" formControlName="solicitado"> 
+            </div>
+            <div class="col s12 m4 l5">
+              <label class="label-color">Técnico <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
+              </select>
+              <div class="alert" *ngIf="!orderForm.controls['tecnico'].value && orderForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                                
+            </div>
+            <div class="col s12 m3 l2">
+              <label for="valortotal" class="label-color">Valor total</label>
+              <input placeholder="" id="valortotal" type="text" formControlName="valortotal">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m5 l6">
+              <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
+              <input placeholder="" id="observorden" type="text" formControlName="observaciones" class="validate">
+              <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                            
+            </div>
+          </div>
+      </form>
+      <form [formGroup]="newOrder" *ngIf="showNew == '1'" (change)="validateNewOrder()">
         <div class="row">
-          <div class="col s12 m4 l4">
-            <label for="telefonos" class="label-color">Teléfonos</label>
-            <input placeholder="" id="telefonos" type="text" #telefonos>
-          </div>
-          <div class="col s12 m4 l4">
-            <label class="label-color">Barrio</label>
-            <select class="browser-default select-city" id="select-neigh">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m4 l4">
-            <label class="label-color">Zona</label>
-            <select class="browser-default select-city" id="select-zone">
-              <option value="nodisplay" disabled selected>Seleccione</option>
+          <div class="col s12 m6 l3">
+            <label class="label-color">Nueva Zona <span class="span-color">*</span></label>
+            <select class="browser-default select-city vaidate" id="nuevazona" formControlName="nuevazona">
+              <!--  <option value="nodisplay" disabled selected>Seleccione</option> -->
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m4 l3">
-            <label for="fechaafi" class="label-color">Fecha afiliación</label>
-            <input placeholder="" id="fechaafi" type="text" #fechaafi>
+          <div class="alert" *ngIf="!newOrder.controls['nuevazona'].value && newOrder.controls['nuevazona'].touched">{{ titleAlert }}</div>                                                  
           </div>
           <div class="col s12 m6 l3">
-            <label for="precinto" class="label-color">Precinto</label>
-            <input placeholder="" id="precinto" type="text" #precintoorden>
+            <label class="label-color">Nuevo Barrio <span class="span-color">*</span></label>
+            <select class="browser-default select-city validate" id="nuevobarrio" formControlName="nuevobarrio">
+              <!-- <option value="nodisplay" disabled selected>Seleccione</option> -->
+              <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
+            </select>
+            <div class="alert" *ngIf="!newOrder.controls['nuevobarrio'].value && newOrder.controls['nuevobarrio'].touched">{{ titleAlert }}</div>                                                                
           </div>
-          <div class="col s12 m5 l6">
-            <label for="observaciones" class="label-color">Observaciones</label>
-            <input placeholder="" id="observaciones" type="text" #observaciones>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m3 l3">
-            <label for="estadotv" class="label-color">Estado televisión</label>
-            <input placeholder="" id="estadotv" type="text" #estadotv>
-          </div>
-          <div class="col s12 m3 l3">
-            <label for="estadoint" class="label-color">Estado internet</label>
-            <input placeholder="" id="estadoint" type="text" #estadoint>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="fechapago" class="label-color">Fecha último pago</label>
-            <input placeholder="" id="fechapago" type="text" class="datepicker" #fechapago>
-          </div>
-          <div class="col s12 m6 l3">
-              <label for="saldo" class="label-color">Saldo</label>
-              <input placeholder="" id="saldo" type="text" #saldo>
-            </div>
-        </div>
-        <div class="row">
-          <div class="row service-order">
-            <div class="col s12 m6 l6">
-              <span class="service-title">Orden</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="separator-order z-depth-3"></div>
-          </div>
-        </div>
-        <div class="row">
           <div class="col s12 m6 l4">
-            <label class="label-color">Tipo orden a generar</label>
-            <select class="browser-default select-city" id="select-order">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m6 l2">
-            <label for="abreviatura" class="label-color">Abreviatura</label>
-            <input placeholder="" id="abreviatura" type="text" #abreviatura>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="numorden" class="label-color">Número orden</label>
-            <input placeholder="" id="numorden" type="text" #numorden>
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="fechaorden" class="label-color">Fecha orden</label>
-            <input placeholder="" id="fechaorden" type="text" class="datepicker" #fechaorden>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m5 l5">
-            <label for="solicitado" class="label-color">Solicitado por</label>
-            <input placeholder="" id="solicitado" type="text" #solicitado>
-          </div>
-          <div class="col s12 m4 l5">
-            <label class="label-color">Empleado/Técnico</label>
-            <select class="browser-default select-city" id="select-employee">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m3 l2">
-            <label for="valortotal" class="label-color">Valor total</label>
-            <input placeholder="" id="valortotal" type="text" #valortotal>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m5 l5">
-            <label for="observorden" class="label-color">Observaciones</label>
-            <input placeholder="" id="observorden" type="text" #observorden>
-          </div>
-          <div class="col s12 m4 l3">
-            <label for="estadoorden" class="label-color">Estado orden</label>
-            <input placeholder="" id="estadoorden" type="text" #estadoorden>
-          </div>
-        </div>
-        <div class="row">
-          <div class="row service-order">
-            <div class="col s12 m6">
-              <span class="service-title">Detalle artículos</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="separator-order z-depth-3"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m4 l2">
-            <!-- Cambiar por select-->
-            <label for="grupoart" class="label-color">Grupo artículos</label>
-            <input placeholder="" id="grupoart" type="text" #grupoart>
-          </div>
-          <!-- Cambiar por select-->
-          <div class="col s12 m3 l2">
-            <label for="articulos" class="label-color">Artículos</label>
-            <input placeholder="" id="articulos" type="text" #articulos>
-          </div>
-          <div class="col s12 m3 l2">
-            <label for="valor" class="label-color">Valor</label>
-            <input placeholder="" id="valor" type="text" #valor>
-          </div>
-          <div class="col s12 m2 l1">
-            <label for="cantidad" class="label-color">Cantidad</label>
-            <input placeholder="" id="cantidad" type="text" #cantidad>
-          </div>
-          <div class="col s12 m3 l1">
-            <label for="iva" class="label-color">%IVA</label>
-            <input placeholder="" id="iva" type="text" #iva>
-          </div>
-          <div class="col s12 m3 l2">
-            <label for="valoriva" class="label-color">Valor IVA</label>
-            <input placeholder="" id="valoriva" type="text" #valoriva>
-          </div>
-          <div class="col s12 m3 l2">
-            <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">add</i></a>
-            <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">remove</i></a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="container-table"> 
-          <!-- Table -->
-          <table class="striped highlight">
-            <thead>
-              <tr class="tr-background">
-                <th>
-                  <label class="label-color"></label>
-                </th>
-                <th>
-                  <label class="label-color">Grupo</label>
-                </th>
-                <th>
-                  <label class="label-color">Artículo</label>
-                </th>
-                <th>
-                  <label class="label-color">Valor Unit</label>
-                </th>
-                <th>
-                  <label class="label-color">Cantidad</label>
-                </th>
-                <th>
-                  <label class="label-color">%IVA</label>
-                </th>
-                <th>
-                  <label class="label-color">IVA</label>
-                </th>
-                <th>
-                  <label class="label-color">Total</label>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let subs of subscriber; let i = index" name="rows" (click)="selectRow()">
-                <td>aa</td>
-                <td>aaa</td>
-                <td>aa</td>
-                <td>aa</td>
-                <td>aa</td>
-                <td>aa</td>
-              </tr>
-            </tbody>
-          </table>
+            <label for="nuevadireccion" class="label-color">Nueva dirección de traslado <span class="span-color">*</span></label>
+            <input placeholder="" id="nuevadireccion" type="text" formControlName="nuevadir" class="validate">
+            <div class="alert" *ngIf="!newOrder.controls['nuevadir'].value && newOrder.controls['nuevadir'].touched">{{ titleAlert }}</div>                                                                              
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="createPlan(nombre.value)">Aceptar</button>
+    <button id="btn-crearorden" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="createOrder(orderForm.value, newOrder.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -1547,7 +1477,7 @@
               <label for="direccion" class="label-color">Dirección</label>
               <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
             </div>
-          </div>
+        </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l3">
             <label for="telefonos" class="label-color">Teléfonos</label>
