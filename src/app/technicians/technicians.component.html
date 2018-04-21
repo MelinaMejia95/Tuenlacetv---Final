@@ -172,15 +172,15 @@
         <div class="row">
           <div class="col s3">
             <label for="estado" class="label-color">Estado</label>
-            <input disabled placeholder="" id="estado" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="not-disabled" id="estado" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label for="fechaafi" class="label-color">Fecha afiliación</label>
-            <input disabled placeholder="" id="fechaafi" type="text" [(ngModel)]="techEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="not-disabled" id="fechaafi" type="text" [(ngModel)]="techEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s6">
             <label for="observaciones" class="label-color">Observaciones</label>
-            <input disabled placeholder="" id="observaciones" type="text" [(ngModel)]="techEdit.observacion_senal" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="not-disabled" id="observaciones" type="text" [(ngModel)]="techEdit.observacion_senal" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
@@ -216,7 +216,7 @@
             <label class="label-color">Tipo orden a generar</label>
             <select disabled class="browser-default select-city" id="select-order">
               <option value="nodisplay" disabled selected>{{ techEdit.tipo_orden }}</option>
-              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ techEdit.tipo_orden }}</option>
+              <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
             </select>
           </div>
           <div class="col s2">
@@ -225,44 +225,44 @@
           </div>
           <div class="col s3">
             <label for="numorden" class="label-color">Número orden</label>
-            <input disabled placeholder="" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="select-edit" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label for="fechaorden" class="label-color">Fecha orden</label>
-            <input disabled placeholder="" id="fechaorden" type="text" class="datepicker" [(ngModel)]="techEdit.fechatrn" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="fechaorden" type="text" class="datepicker select-edit" [(ngModel)]="techEdit.fechatrn" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
           <div class="col s5">
             <label for="solicitado" class="label-color">Solicitado por</label>
-            <input disabled placeholder="" id="solicitado" type="text" #solicitado>
+            <input disabled placeholder="" class="select-edit" id="solicitado" type="text">
           </div>
           <div class="col s5">
             <label class="label-color">Empleado/Técnico</label>
-            <select disabled class="browser-default select-city" id="select-employee">
+            <select disabled class="browser-default select-city select-edit" id="select-employee">
               <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
-              <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ neigh.nombre }}</option>
+              <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
             </select>
           </div>
           <div class="col s2">
             <label for="valortotal" class="label-color">Valor total</label>
-            <input disabled placeholder="0" id="valortotal" type="text" #valortotal>
+            <input disabled placeholder="0" id="valortotal" type="text">
           </div>
         </div>
         <div class="row">
           <div class="col s5">
             <label for="observorden" class="label-color">Observaciones</label>
-            <input disabled placeholder="" id="observorden" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label for="estadoorden" class="label-color">Estado orden</label>
-            <input disabled placeholder="" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="select-edit" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
           <div class="col s5">
             <label for="solucion" class="label-color">Solución Orden</label>
-            <input disabled placeholder="" id="solucion" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="select-edit" id="solucion" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
@@ -275,42 +275,50 @@
             <div class="separator-order z-depth-3"></div>
           </div>
         </div>
-        <div class="row">
-          <div class="col s12 m4 l2">
-            <label class="label-color">Grupo Artículos</label>
-            <select class="browser-default select-city" id="grupopart">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="group.id" *ngFor="let group of groups">{{ group.nombre }}</option>
-            </select>
+        <form [formGroup]="rForm">
+          <div class="row">
+            <div class="col s12 m4 l2">
+              <label class="label-color">Grupo Artículos</label>
+              <select class="browser-default select-city validate" id="grupopart" formControlName="grupoArticulos">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="group.id" *ngFor="let group of groups">{{ group.descripcion }}</option>
+              </select>
+              <div class="alert" *ngIf="!rForm.controls['grupoArticulos'].value && rForm.controls['grupoArticulos'].touched">{{ titleAlert }}</div>                                                    
+            </div>
+            <div class="col s12 m3 l2">
+              <label for="articulos" class="label-color">Artículos</label>
+              <select class="browser-default select-city validate" id="articles" formControlName="articulos" (change)="selectArticle()">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="article.id" *ngFor="let article of articles">{{ article.nombre }}</option>
+              </select>
+              <div class="alert" *ngIf="!rForm.controls['articulos'].value && rForm.controls['articulos'].touched">{{ titleAlert }}</div>                                                    
+            </div>
+            <div class="col s12 m3 l2">
+              <label for="valor" class="label-color">Valor</label>
+              <input placeholder="" id="valor" type="text" class="validate" [(ngModel)]="valor" (ngModelChange)="changeData()" formControlName="valor">
+              <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>                                                  
+            </div>
+            <div class="col s12 m2 l1">
+              <label for="cantidad" class="label-color">Cantidad</label>
+              <input placeholder="" id="cantidad" type="text" class="validate" formControlName="cantidad">
+              <div class="alert" *ngIf="!rForm.controls['cantidad'].value && rForm.controls['cantidad'].touched">{{ titleAlert }}</div>                                                    
+            </div>
+            <div class="col s12 m3 l1">
+              <label for="iva" class="label-color">%IVA</label>
+              <input placeholder="" id="iva" type="text" class="validate" [(ngModel)]="porIva" (ngModelChange)="changeData()" formControlName="porIva">
+              <div class="alert" *ngIf="!rForm.controls['porIva'].value && rForm.controls['porIva'].touched">{{ titleAlert }}</div>                                                 
+            </div>
+            <div class="col s12 m3 l2">
+              <label for="valoriva" class="label-color">Valor IVA</label>
+              <input placeholder="" disabled id="valoriva" type="text" class="validate" [(ngModel)]="valorIva" formControlName="iva">
+              <div class="alert" *ngIf="!rForm.controls['iva'].value && rForm.controls['iva'].touched">{{ titleAlert }}</div>                                                  
+            </div>
+            <div class="col s12 m3 l2">
+              <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3" (click)="addDetail(rForm.value)"><i class="material-icons">add</i></a>
+              <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">remove</i></a>
+            </div>
           </div>
-          <div class="col s12 m3 l2">
-            <label for="articulos" class="label-color">Artículos</label>
-            <select class="browser-default select-city" id="grupopart">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="article.id" *ngFor="let article of articles">{{ article.nombre }}</option>
-            </select>
-          </div>
-          <div class="col s12 m3 l2">
-            <label for="valor" class="label-color">Valor</label>
-            <input placeholder="" id="valor" type="text" #valor>
-          </div>
-          <div class="col s12 m2 l1">
-            <label for="cantidad" class="label-color">Cantidad</label>
-            <input placeholder="" id="cantidad" type="text" #cantidad>
-          </div>
-          <div class="col s12 m3 l1">
-            <label for="iva" class="label-color">%IVA</label>
-            <input placeholder="" id="iva" type="text" #iva>
-          </div>
-          <div class="col s12 m3 l2">
-            <label for="valoriva" class="label-color">Valor IVA</label>
-            <input placeholder="" id="valoriva" type="text" #valoriva>
-          </div>
-          <div class="col s12 m3 l2">
-            <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">add</i></a>
-            <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">remove</i></a>
-          </div>
-        </div>
+        </form>
         <div class="row">
           <div class="container-table"> 
             <!-- Table -->
@@ -344,13 +352,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let subs of subscriber; let i = index" name="rows" (click)="selectRow()">
-                  <td>aa</td>
-                  <td>aaa</td>
-                  <td>aa</td>
-                  <td>aa</td>
-                  <td>aa</td>
-                  <td>aa</td>
+                <tr *ngFor="let detail of details; let i = index" name="rows-detail" class="tr-detail" (click)="selectRowDetail()">
+                  <td>
+                    <input name="group3" type="checkbox" class="filled-in" [id]="'radio1_'+i"/>
+                    <label [attr.for]="'radio1_'+i"> </label>
+                  </td>
+                  <td>{{ detail.grupo }}</td>
+                  <td>{{ detail.articulo }}</td>
+                  <td>{{ detail.valor }}</td>
+                  <td>{{ detail.cantidad }}</td>
+                  <td>{{ detail.porIva }}</td>
+                  <td>{{ detail.iva }}</td>
+                  <td>{{ detail.total }}</td>                  
                 </tr>
               </tbody>
             </table>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import swal from 'sweetalert2';
 import { TechniciansService } from '../services/technicians.service';
 
@@ -12,9 +13,24 @@ declare let jQuery:any;
 export class TechniciansComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  technicians: any[] = []; techEdit: any; concepts: any; rates: any; techs: any; employee: any; groups: any; articles: any;
+  technicians: any[] = []; techEdit: any; concepts: any; rates: any; techs: any; employee: any; groups: any; articles: any; details: any;
+  valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0;
 
-  constructor(private _techservice: TechniciansService) { }
+  rForm: FormGroup;
+  titleAlert: string = "Campo requerido";
+
+  constructor(private _techservice: TechniciansService, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'grupoArticulos': [null, Validators.required],
+      'articulos': [null, Validators.required],
+      'valor': [null, Validators.required],
+      'cantidad': [null, Validators.required],
+      'porIva': [null, Validators.required],
+      'iva': [null, Validators.required],      
+    })
+
+  }
 
   ngOnInit() {
     jQuery('#modal-crear').modal();
@@ -22,6 +38,8 @@ export class TechniciansComponent implements OnInit {
     this._techservice.getTechs().subscribe(data => {
       console.log(data)
       this.technicians= data.ordenes;
+      this.groups = data.grupos;
+      this.articles = data.articulos;
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
@@ -34,15 +52,14 @@ export class TechniciansComponent implements OnInit {
 
   openModal (tech) {
     this.techEdit = tech;
+    this.details = tech.detalle;
     this._techservice.getInfoTechs().subscribe(data => {
-      console.log(data.articulos)
+      console.log(data)
       this.concepts = data.conceptos;
       this.rates = data.tarifas;
       this.techs = data.tecnicos;
       this.employee = data.empleados;
-      this.groups = data.grupos;
-      this.articles = data.articulos;
-    })
+    });
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
@@ -144,6 +161,30 @@ export class TechniciansComponent implements OnInit {
     })*/
   }
 
+  addDetail(post){
+    console.log(post)
+  }
+
+  changeData(){
+    this.valorSinIva = 0;
+    this.valorIva = 0;
+    this.valorSinIva = Number(this.valor / (this.porIva / 100 + 1));
+    this.valorIva = Math.round(this.valor - this.valorSinIva);
+  }
+  
+  selectArticle() {
+    for (let i = 0; i < this.articles.length ; i++) {
+      if(jQuery('#articles').val() == this.articles[i]['id']){
+        this.valor = Number(this.articles[i]['costo']);
+        this.porIva = Number(this.articles[i]['porcentajeIva']);
+        console.log(this.valor);
+        console.log(this.porIva);
+      }
+    }
+    this.valorSinIva = Number(this.valor / (this.porIva / 100 + 1));
+    console.log(this.valorSinIva)
+    this.valorIva = Math.round(this.valor - this.valorSinIva);
+  }
 
   selectAll() {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
@@ -190,7 +231,22 @@ export class TechniciansComponent implements OnInit {
     }    
   }
 
+  selectRowDetail() {
+    var rows = <HTMLInputElement><any>document.getElementsByName('rows-detail');
+    var check = <HTMLInputElement><any>document.getElementsByName('group3');
+    var cantidad = document.getElementsByName('group3');
+    
+    for(var i = 0; i < cantidad.length; i++ ){
+      if(check[i].checked){
+        rows[i].setAttribute("style", "background-color : #9ad1ea");
+      } else {
+        rows[i].setAttribute("style", "background-color : none");
+      }
+    }    
+  }
+
   edit () {
+    jQuery('.select-edit').prop('disabled', false);
     /*jQuery('#tiposervicioEdit').prop('disabled',false);
     jQuery('#nombreEdit').prop('disabled',false);
     jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
