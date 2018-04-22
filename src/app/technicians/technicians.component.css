@@ -28,6 +28,10 @@
     margin-bottom: 0.3em;
 }
 
+#btn-remove-detail {
+    visibility: hidden;
+}
+
 
 
 

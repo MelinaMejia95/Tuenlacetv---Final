@@ -12,9 +12,10 @@ declare let jQuery:any;
 })
 export class TechniciansComponent implements OnInit {
 
-  toogleDelete:boolean = false;
-  technicians: any[] = []; techEdit: any; concepts: any; rates: any; techs: any; employee: any; groups: any; articles: any; details: any;
-  valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0;
+  toogleDelete:boolean = false; toogleArticle: boolean = true;
+  technicians: any[] = []; techEdit: any; concepts: any; rates: any; techs: any; employee: any; groups: any; articles: any; details: any[] = [];
+  valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
+  detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = [];
 
   rForm: FormGroup;
   titleAlert: string = "Campo requerido";
@@ -27,7 +28,7 @@ export class TechniciansComponent implements OnInit {
       'valor': [null, Validators.required],
       'cantidad': [null, Validators.required],
       'porIva': [null, Validators.required],
-      'iva': [null, Validators.required],      
+      'iva': [null],      
     })
 
   }
@@ -51,8 +52,17 @@ export class TechniciansComponent implements OnInit {
   }
 
   openModal (tech) {
+    this.valorIva = 0;
     this.techEdit = tech;
-    this.details = tech.detalle;
+    this.techsLenght = tech.detalle;
+    console.log(tech)
+    for (let i = 0; i < this.techsLenght.length; i++) {
+      this.details[i] = {'id': i,'articulo':this.techsLenght[i]['articulo'], 'cantidad':this.techsLenght[i]['cantidad'], 'grupo':this.techsLenght[i]['grupo'],
+                        'iva':this.techsLenght[i]['iva'], 'porIva':this.techsLenght[i]['porIva'], 'total':this.techsLenght[i]['total'], 
+                        'valor':this.techsLenght[i]['valor']}
+     // console.log(this.details[i]);
+    }
+    
     this._techservice.getInfoTechs().subscribe(data => {
       console.log(data)
       this.concepts = data.conceptos;
@@ -60,8 +70,12 @@ export class TechniciansComponent implements OnInit {
       this.techs = data.tecnicos;
       this.employee = data.empleados;
     });
+    for (let i = 0; i < this.concepts.length; i++) {
+      if (this.techEdit.tipo_orden == this.concepts[i]['abreviatura']) {
+        
+      }
+    }
     jQuery('#modal-see').modal('open');
-    document.getElementsByClassName('table-radio');
   }
 
   closeModal () {
@@ -160,9 +174,42 @@ export class TechniciansComponent implements OnInit {
       }
     })*/
   }
+  
+  selectDetail(detail) {
+    this.detailEdit = detail;
+  }
 
   addDetail(post){
-    console.log(post)
+    console.log(post.cantidad)
+    this.total = Number(post.valor) * Number(post.cantidad)
+    for(let i = 0; i < this.groups.length ; i++) {
+      if (post.grupoArticulos == this.groups[i]['id']){
+        this.groupAdd = this.groups[i]['descripcion'];
+        console.log(this.groupAdd)
+      }
+    }
+    for(let i = 0; i < this.articles.length ; i++) {
+      if (post.articulos == this.articles[i]['id']){
+        this.articleAdd = this.articles[i]['nombre'];
+        console.log(this.articleAdd)
+      }
+    }
+    this.details[this.details.length] = {'articulo': this.articleAdd, 'cantidad': post.cantidad, 'grupo': this.groupAdd,
+                                        'iva': post.iva, 'porIva': post.porIva, 'total': this.total, 'valor': post.valor}
+  }
+
+  removeDetail() {
+    this.auxArray = [];
+    let j = 0;
+    for (let i = 0; i < this.details.length; i++) {
+      if(this.detailEdit['id'] != this.details[i]['id']){
+        console.log('entro detail')
+        this.auxArray[j] = this.details[i]
+        j++;
+      }
+    }
+    this.details = this.auxArray;
+    console.log(this.details)
   }
 
   changeData(){
@@ -170,6 +217,16 @@ export class TechniciansComponent implements OnInit {
     this.valorIva = 0;
     this.valorSinIva = Number(this.valor / (this.porIva / 100 + 1));
     this.valorIva = Math.round(this.valor - this.valorSinIva);
+  }
+
+  validateDetail() {
+    jQuery('#btn-detail').prop('disabled', false);    
+    if (this.rForm.valid == true) {
+      jQuery('#btn-detail').prop('disabled', false);
+      console.log('btn dis')
+    } else {
+      jQuery('#btn-detail').prop('disabled', true)      
+    }
   }
   
   selectArticle() {
@@ -221,7 +278,6 @@ export class TechniciansComponent implements OnInit {
     
     for(var i = 0; i < cantidad.length; i++ ){
       if(check[i].checked){
-        console.log('false');
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
@@ -235,9 +291,16 @@ export class TechniciansComponent implements OnInit {
     var rows = <HTMLInputElement><any>document.getElementsByName('rows-detail');
     var check = <HTMLInputElement><any>document.getElementsByName('group3');
     var cantidad = document.getElementsByName('group3');
+
+    if (this.toogleArticle == true) {
+      document.getElementById('btn-remove-detail').setAttribute('style', 'visibility: hidden');
+      this.toogleArticle = false;
+    }
     
     for(var i = 0; i < cantidad.length; i++ ){
       if(check[i].checked){
+        this.toogleArticle = true;
+        document.getElementById('btn-remove-detail').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");

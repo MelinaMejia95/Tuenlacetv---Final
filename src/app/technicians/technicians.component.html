@@ -264,6 +264,14 @@
             <label for="solucion" class="label-color">Solución Orden</label>
             <input disabled placeholder="" class="select-edit" id="solucion" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
+          <div class="col s5">
+            <label for="cobros" class="label-color">¿Desea realizar el cobro de los días?</label>
+            <select disabled class="browser-default select-city select-edit" id="select-cobro">
+              <option value="nodisplay" disabled selected>Seleccione</option>
+              <option value="S">Si</option>
+              <option value="N">No</option>              
+            </select>
+          </div>
         </div>
         <div class="row">
           <div class="row service-order">
@@ -275,7 +283,7 @@
             <div class="separator-order z-depth-3"></div>
           </div>
         </div>
-        <form [formGroup]="rForm">
+        <form [formGroup]="rForm" (change)="validateDetail()">
           <div class="row">
             <div class="col s12 m4 l2">
               <label class="label-color">Grupo Artículos</label>
@@ -300,7 +308,7 @@
             </div>
             <div class="col s12 m2 l1">
               <label for="cantidad" class="label-color">Cantidad</label>
-              <input placeholder="" id="cantidad" type="text" class="validate" formControlName="cantidad">
+              <input placeholder="" id="cantidad" type="text" class="validate" [(ngModel)]="cantidad" formControlName="cantidad">
               <div class="alert" *ngIf="!rForm.controls['cantidad'].value && rForm.controls['cantidad'].touched">{{ titleAlert }}</div>                                                    
             </div>
             <div class="col s12 m3 l1">
@@ -310,12 +318,11 @@
             </div>
             <div class="col s12 m3 l2">
               <label for="valoriva" class="label-color">Valor IVA</label>
-              <input placeholder="" disabled id="valoriva" type="text" class="validate" [(ngModel)]="valorIva" formControlName="iva">
-              <div class="alert" *ngIf="!rForm.controls['iva'].value && rForm.controls['iva'].touched">{{ titleAlert }}</div>                                                  
+              <input placeholder="" disabled id="valoriva" type="text" [(ngModel)]="valorIva" formControlName="iva">                                                
             </div>
             <div class="col s12 m3 l2">
-              <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3" (click)="addDetail(rForm.value)"><i class="material-icons">add</i></a>
-              <a class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3"><i class="material-icons">remove</i></a>
+              <button class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3" id="btn-detail" disabled (click)="addDetail(rForm.value)">+</button>
+              <button class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3" id="btn-remove-detail" (click)="removeDetail()">-</button>
             </div>
           </div>
         </form>
@@ -354,7 +361,7 @@
               <tbody>
                 <tr *ngFor="let detail of details; let i = index" name="rows-detail" class="tr-detail" (click)="selectRowDetail()">
                   <td>
-                    <input name="group3" type="checkbox" class="filled-in" [id]="'radio1_'+i"/>
+                    <input name="group3" type="checkbox" class="filled-in" [id]="'radio1_'+i" (click)="selectDetail(detail)"/>
                     <label [attr.for]="'radio1_'+i"> </label>
                   </td>
                   <td>{{ detail.grupo }}</td>
