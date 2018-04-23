@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-/* import { Rates } from '../rates/rates' */
+import { Techs } from '../technicians/technician' 
 
 @Injectable()
 export class TechniciansService {
@@ -45,11 +45,11 @@ export class TechniciansService {
   }
 
  /**
-    @return {Observable<Rates[]>} 
+    @return {Observable<Techs[]>} 
    */
 
-  /* getRatesFilter(): Observable<Rates[]> {
-    const url = this._global.url + `/tarifas/bd/` + localStorage.getItem('db');
+  getTechsFilter(): Observable<Techs[]> {
+    const url = this._global.url + `/ordenes/bd/` + localStorage.getItem('db');
       let header = new Headers();
       header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
       console.log(header)
@@ -57,7 +57,7 @@ export class TechniciansService {
       return this._http.get(url, options).map(response =>{
           return response.json();
       })
-   } */
+   } 
 
    deleteOrder(codigo) {
     const url = this._global.url + `/ordenes/anular_orden/` + codigo;

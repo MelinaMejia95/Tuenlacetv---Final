@@ -19,6 +19,7 @@ import { RatesFilterPipe } from './rates/rates-filter.pipe';
 import { BillsFilterPipe } from './bills/bills-filter.pipe';
 import { UsersFilterPipe } from './users/users-filter.pipe';
 import { PaymentsFilterPipe } from './payment/payments-filter.pipe';
+import { TechsFilterPipe } from './technicians/technicians-filter.pipe';
 //import swal from 'sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -105,7 +106,8 @@ import { TechniciansComponent } from './technicians/technicians.component';
     RatesFilterPipe,
     BillsFilterPipe,
     UsersFilterPipe,
-    PaymentsFilterPipe
+    PaymentsFilterPipe,
+    TechsFilterPipe
   ],
   imports: [
     BrowserModule,

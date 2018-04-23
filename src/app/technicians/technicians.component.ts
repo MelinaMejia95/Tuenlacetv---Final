@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import swal from 'sweetalert2';
 import { TechniciansService } from '../services/technicians.service';
+import { Techs } from './technician'
 
 declare let jQuery:any;
 
@@ -19,6 +20,27 @@ export class TechniciansComponent implements OnInit {
 
   rForm: FormGroup;
   titleAlert: string = "Campo requerido";
+
+  /**
+   * @type {Techs[]} 
+   */
+  count: Techs[];
+
+  /**
+   * @type {Techs} 
+   */
+
+  filter: Techs = new Techs();
+
+  /**
+   * @type {number} 
+   */
+  numberOfTechs: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
 
   constructor(private _techservice: TechniciansService, private fb: FormBuilder) { 
 
@@ -42,6 +64,12 @@ export class TechniciansComponent implements OnInit {
       this.groups = data.grupos;
       this.articles = data.articulos;
     });
+    this._techservice.getTechsFilter().subscribe(
+      (count: Techs[]) => {
+        this.count = count;
+        this.numberOfTechs = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 

@@ -28,40 +28,40 @@
         </th>
         <th>
           <label for="tipoorden" class="label-color">Tipo orden</label>
-          <input id="tipoorden" type="text" class="input-custom">
+          <input id="tipoorden" type="text" class="input-custom" [(ngModel)]="filter.tipo_orden">
         </th>
         <th>
           <label for="numorden" class="label-color">Número orden</label>
-          <input id="numorden" type="text" class="input-custom">
+          <input id="numorden" type="text" class="input-custom" [(ngModel)]="filter.nrorden">
         </th>
         <th>
           <label for="codsus" class="label-color">Cod suscriptor</label>
-          <input id="codsus" type="text" class="input-custom">
+          <input id="codsus" type="text" class="input-custom" [(ngModel)]="filter.codsus">
         </th>
         <th>
           <label for="nombres" class="label-color">Nombres</label>
-          <input id="nombres" type="text" class="input-custom">
+          <input id="nombres" type="text" class="input-custom" [(ngModel)]="filter.nombres">
         </th>
         <th>
           <label for="fechain" class="label-color">Fecha inicial</label>
-          <input id="fechain" type="text" class="input-custom">
+          <input id="fechain" type="text" class="input-custom" [(ngModel)]="filter.fechain">
         </th>
         <th>
           <label for="fechaven" class="label-color">Fecha vencimiento</label>
-          <input id="fechaven" type="text" class="input-custom">
+          <input id="fechaven" type="text" class="input-custom" [(ngModel)]="filter.fechaven">
         </th>
         <th>
           <label for="valor" class="label-color">Valor</label>
-          <input id="valor" type="text" class="input-custom">
+          <input id="valor" type="text" class="input-custom" [(ngModel)]="filter.valor">
         </th>
         <th>
           <label for="estado" class="label-color">Estado</label>
-          <input id="estado" type="text" class="input-custom">
+          <input id="estado" type="text" class="input-custom" [(ngModel)]="filter.estado">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tech of technicians; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let tech of technicians | techsfilter:filter; let i = index" name="rows" (click)="selectRow()">
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(tech)"/>
             <label [attr.for]="'radio_'+i"> </label>
