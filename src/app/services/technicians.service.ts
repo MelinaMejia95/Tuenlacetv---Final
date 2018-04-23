@@ -59,5 +59,12 @@ export class TechniciansService {
       })
    } */
 
+   deleteOrder(codigo) {
+    const url = this._global.url + `/ordenes/anular_orden/` + codigo;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: { "db": localStorage.getItem('db')} });
+    return this._http.post(url, { "db": localStorage.getItem('db') } ,options).map(response => response.json());
+   }
 
 }

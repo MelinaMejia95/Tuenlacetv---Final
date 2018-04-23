@@ -82,97 +82,8 @@ export class TechniciansComponent implements OnInit {
     jQuery('#modal-see').modal('close');
   }
 
-  selectData(plan){
-    //this.planEdit = plan;
-  }
-
-  createPlan(nombre){
-    /*if (nombre) {
-      this._planservice.createPlans({  'servicio_id': this.createService, 'nombre': nombre, 
-                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
-        data => {
-          if ( data.status == "created") {
-            swal({
-              title: 'Registro creado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
-            swal(
-              'No se pudo crear el registro',
-              '',
-              'warning'
-            )
-          }
-        });
-    }*/
-  } 
-
-  updatePlan() {
-    /*if(this.planEdit){
-      this._planservice.updatePlans({ 'servicio_id': this.plan, 'id': this.planEdit.id, 'nombre': this.planEdit.nombre,
-                                    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
-        data => {
-          console.log(data)
-          if ( data.status == "updated") {
-            swal({
-              title: 'Registro actualizado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else {
-            swal(
-              'No se pudo eactualizar el registro',
-              '',
-              'warning'
-            )
-          }
-        }
-      );
-    }*/
-  }
-
-  deletePlan(){
-    /*swal({
-      title: '¿Desea eliminar el registro?',
-      text: "",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.value) {
-        if (this.planEdit) {
-          this._planservice.deletePlans(this.planEdit.id).subscribe(
-            data => {
-              if ( data.status == "deleted") {
-                swal({
-                  title: 'Registro eliminado con éxito',
-                  text: '',
-                  type: 'success',
-                  onClose: function reload() {
-                            location.reload();
-                          }
-                })
-              } else {
-                swal(
-                  'No se pudo eliminar el registro',
-                  '',
-                  'warning'
-                )
-              }
-            });
-        } 
-      }
-    })*/
+  selectData(tech){
+    this.techEdit = tech;
   }
   
   selectDetail(detail) {
@@ -227,6 +138,51 @@ export class TechniciansComponent implements OnInit {
     } else {
       jQuery('#btn-detail').prop('disabled', true)      
     }
+  }
+
+  deleteOrder() {
+    swal({
+      title: '¿Desea anular la orden?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        if (this.techEdit) {
+          this._techservice.deleteOrder(this.techEdit.id).subscribe(
+            data => {
+              console.log(data)
+              if ( data.status == "anulado") {
+                swal({
+                  title: 'Orden anulada con éxito',
+                  text: '',
+                  type: 'success',
+                  onClose: function reload() {
+                            location.reload();
+                          }
+                })
+              } else if ( data.error == "no se pudo anular orden") {
+                swal(
+                  'No se pudo anular la orden',
+                  '',
+                  'warning'
+                )
+              }
+            },
+          error =>{
+            swal(
+              'No se pudo anular el pago',
+              '',
+              'warning'
+            )
+          })
+        } 
+      }
+    })
   }
   
   selectArticle() {
