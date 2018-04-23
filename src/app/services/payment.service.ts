@@ -5,6 +5,7 @@ import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Payments } from '../payment/payment'; 
+import { AdPayments } from '../advancepayments/adpayment';
 
 @Injectable()
 export class PaymentsService {
@@ -41,6 +42,21 @@ export class PaymentsService {
 
   getPaymentsFilter(): Observable<Payments[]> {
     const url = this._global.url + `/pagos/bd/` + localStorage.getItem('db');
+      let header = new Headers();
+      header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+      console.log(header)
+      let options = new RequestOptions({ headers: header });
+      return this._http.get(url, options).map(response =>{
+          return response.json();
+      })
+   } 
+
+   /**
+    @return {Observable<AdPayments[]>} 
+   */
+
+  getAdPaymentsFilter(): Observable<AdPayments[]> {
+    const url = this._global.url + `/pagos_anticipados/bd/` + localStorage.getItem('db');
       let header = new Headers();
       header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
       console.log(header)

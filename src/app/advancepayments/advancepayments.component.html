@@ -32,32 +32,32 @@
         </th>
         <th class="pago-th">
           <label for="numpago" class="label-color">Número pago</label>
-          <input id="numpago" type="text" class="input-custom">
+          <input id="numpago" type="text" class="input-custom" [(ngModel)]="filter.nropago">
         </th>
         <th class="codigo-th">
           <label for="codigo" class="label-color">Código</label>
-          <input id="codigo" type="text" class="input-custom">
+          <input id="codigo" type="text" class="input-custom" [(ngModel)]="filter.codigo">
         </th>
         <th class="nombres-th">
           <label for="concepto" class="label-color">Nombres</label>
-          <input id="concepto" type="text" class="input-custom">
+          <input id="concepto" type="text" class="input-custom" [(ngModel)]="filter.nombres">
         </th>
         <th class="fecha-th">
           <label for="fecha" class="label-color">Fecha</label>
-          <input id="fecha" type="text" class="input-custom">
+          <input id="fecha" type="text" class="input-custom" [(ngModel)]="filter.fecha">
         </th>
         <th class="valor-th">
           <label for="valor" class="label-color">Valor</label>
-          <input id="valor" type="text" class="input-custom">
+          <input id="valor" type="text" class="input-custom" [(ngModel)]="filter.valor">
         </th>
         <th class="banco-th">
           <label for="banco" class="label-color">Banco</label>
-          <input id="banco" type="text" class="input-custom">
+          <input id="banco" type="text" class="input-custom" [(ngModel)]="filter.banco">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let payment of payments; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let payment of payments | adpaymentsfilter:filter; let i = index" name="rows" (click)="selectRow()">
         <td>
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(payment)"/>
           <label [attr.for]="'radio_'+i"> </label>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { PaymentsService } from "../services/payment.service"
+import { AdPayments } from './adpayment';
 
 declare let jQuery:any;
 
@@ -14,6 +15,27 @@ export class AdvancepaymentsComponent implements OnInit {
   toogleDelete:boolean = false;
   payments: any[] = []; paymentEdit: any;
 
+   /**
+   * @type {AdPayments[]} 
+   */
+  count: AdPayments[];
+
+  /**
+   * @type {AdPayments} 
+   */
+
+  filter: AdPayments = new AdPayments();
+
+  /**
+   * @type {number} 
+   */
+  numberOfPayments: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
+
   constructor(private _paymentservice: PaymentsService) { }
 
   ngOnInit() {
@@ -21,6 +43,12 @@ export class AdvancepaymentsComponent implements OnInit {
       console.log(data)
       this.payments = data.pagos_anticipados;
     });
+    this._paymentservice.getAdPaymentsFilter().subscribe(
+      (count: AdPayments[]) => {
+        this.count = count;
+        this.numberOfPayments = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('select').material_select();
     jQuery('#modal-see').modal();
   }
