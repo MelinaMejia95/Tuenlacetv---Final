@@ -6,7 +6,7 @@ import { TechniciansService } from '../services/technicians.service';
 import swal from 'sweetalert2';
 import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
-import {IMyDpOptions, IMyDateModel, IMyDate} from 'angular4-datepicker/src/my-date-picker/interfaces';
+import {IMyDpOptions, IMyDateModel, IMyDate} from 'mydatepicker';
 import { DatePipe } from '@angular/common';
 //import 'jspdf-autotable';
 //import * as jsPDF from 'jspdf-autotable';

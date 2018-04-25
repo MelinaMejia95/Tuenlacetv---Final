@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RatesService } from '../services/rates.service';
 import swal from 'sweetalert2';
 import { Rates } from './rates';
-import {IMyDpOptions, IMyDateModel, IMyInputFocusBlur, IMyDate} from 'angular4-datepicker/src/my-date-picker/interfaces';
+import {IMyDpOptions, IMyDateModel, IMyInputFocusBlur, IMyDate} from 'mydatepicker';
 
 declare let jQuery:any;
 

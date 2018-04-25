@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AutoBillsService } from '../services/autobills.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
-import {IMyDpOptions, IMyDateModel} from 'angular4-datepicker/src/my-date-picker/interfaces';
+import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
 
 declare let jQuery:any;
 

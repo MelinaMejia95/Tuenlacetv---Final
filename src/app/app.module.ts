@@ -4,7 +4,8 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { AppRoutingModule } from './/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MyDatePickerModule } from 'angular4-datepicker/src/my-date-picker/my-date-picker.module';
+import { MyDatePickerModule } from 'mydatepicker';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { SubsFilterPipe } from './subscriber/subs-filter.pipe';
 import { CountriesFilterPipe } from './countries/countries-filter.pipe';
 import { DepartmentsFilterPipe } from './departments/deps-filter.pipe';
@@ -123,7 +124,8 @@ import { TechniciansComponent } from './technicians/technicians.component';
   HttpModule,
   FormsModule,
   ReactiveFormsModule,
-  MyDatePickerModule
+  MyDatePickerModule,
+  NgxPaginationModule
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,

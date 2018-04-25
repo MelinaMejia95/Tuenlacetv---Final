@@ -7,6 +7,10 @@ html {
     font-family: 'Istok Web', sans-serif !important;
 }
 
+.ngx-pagination {
+   margin-bottom: 3rem;
+}
+
 .alert {
     font-size: 10px;
     color: red;
@@ -83,7 +87,7 @@ html {
 
 .container-table {
     max-height: calc(100vh - 283px);
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     margin-bottom: .5rem;
 }
 
@@ -512,11 +516,11 @@ select:disabled{
     }
 }
 
-@media only screen and (min-width: 992px) {
+/* @media only screen and (min-width: 992px) {
     .container-table {
         overflow-y: hidden;
     }
-}
+} */
 
 @media only screen and (max-width: 500px) {
     .pagination li a {
