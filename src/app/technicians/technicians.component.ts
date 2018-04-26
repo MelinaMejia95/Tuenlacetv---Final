@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import swal from 'sweetalert2';
 import { TechniciansService } from '../services/technicians.service';
+import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import { Techs } from './technician'
 
 declare let jQuery:any;
@@ -42,6 +43,22 @@ export class TechniciansComponent implements OnInit {
    */
   limit: number;
 
+  public maxSize: number = 7;
+  public directionLinks: boolean = true;
+  public autoHide: boolean = false;
+  public config: PaginationInstance = {
+      id: 'advanced',
+      itemsPerPage: 10,
+      currentPage: 1
+  };
+  public labels: any = {
+      previousLabel: 'Anterior',
+      nextLabel: 'Siguiente',
+      screenReaderPaginationLabel: 'Pagination',
+      screenReaderPageLabel: 'page',
+      screenReaderCurrentLabel: `You're on page`
+  };
+
   constructor(private _techservice: TechniciansService, private fb: FormBuilder) { 
 
     this.rForm = fb.group({
@@ -77,6 +94,20 @@ export class TechniciansComponent implements OnInit {
       jQuery('#tiposervicioEdit').prop('disabled',true);
       jQuery('#nombreEdit').prop('disabled',true);
      }});
+     jQuery('#registros').on('change', () => {
+      this.config.itemsPerPage = Number(jQuery('#registros').val()); 
+      console.log(jQuery('#registros').val());
+      if (jQuery('#registros').val() == '10') {
+        document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      } else {
+        document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      }
+    })
+  }
+
+  onPageChange(number: number) {
+    console.log('change to page', number);
+    this.config.currentPage = number;
   }
 
   openModal (tech) {
