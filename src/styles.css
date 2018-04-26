@@ -7,6 +7,17 @@ html {
     font-family: 'Istok Web', sans-serif !important;
 }
 
+table {
+    width: 100%;
+    display: table;
+    position: sticky;
+}
+
+#registros{
+    width: 40%;
+    margin-bottom: 2%;
+}
+
 .ngx-pagination {
    margin-bottom: 3rem;
 }

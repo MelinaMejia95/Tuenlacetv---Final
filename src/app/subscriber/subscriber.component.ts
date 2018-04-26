@@ -492,7 +492,7 @@ export class SubscriberComponent implements OnInit {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
     })
-    console.log(this.modelDate.formatted)    
+    console.log(this.modelDate)    
     jQuery('#modal-pagos').modal('open');
   }
 
