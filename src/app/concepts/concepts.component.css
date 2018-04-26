@@ -5,9 +5,9 @@ table {
     position: sticky;
 }
 
-#container-pag{
-    /*overflow-y: hidden;*/
-}
+/*#container-pag{
+    overflow-y: hidden;
+}*/
 
 .select-pais{
     height: 1em;
