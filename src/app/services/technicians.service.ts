@@ -44,6 +44,15 @@ export class TechniciansService {
     return this._http.post(url, content, options).map(response => response.json());
   }
 
+  updateOrder( content: object) {
+    console.log(content)
+    const url = this._global.url + `/ordenes/` + content['id'];
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header });
+    return this._http.put(url, content, options).map(response => response.json());
+  }
+
  /**
     @return {Observable<Techs[]>} 
    */

@@ -240,69 +240,71 @@
             <div class="separator-order z-depth-3"></div>
           </div>
         </div>
-        <div class="row">
-          <div class="col s4">
-            <label class="label-color">Tipo orden a generar</label>
-            <select disabled class="browser-default select-city" id="select-order">
-              <option value="nodisplay" disabled selected>{{ techEdit.tipo_orden }}</option>
-              <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
-            </select>
+        <form [formGroup]="orderForm">
+          <div class="row">
+            <div class="col s4">
+              <label class="label-color">Tipo orden a generar</label>
+              <select disabled class="browser-default select-city" id="select-order">
+                <option value="nodisplay" disabled selected>{{ techEdit.tipo_orden }}</option>
+                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
+              </select>
+            </div>
+            <div class="col s2">
+              <label for="abreviatura" class="label-color">Abreviatura</label>
+              <input disabled placeholder="" id="abreviatura" type="text" [(ngModel)]="techEdit.abreviatura" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s3">
+              <label for="numorden" class="label-color">Número orden</label>
+              <input disabled placeholder="" class="select-edit" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s3">
+              <label for="fechaorden" class="label-color">Fecha orden</label>
+              <my-date-picker name="fechaorden" [options]="myDatePickerOptions" class="validate" formControlName="fechaorden" [(ngModel)]="modelDate" required [disabled]="disabled"></my-date-picker>          
+            </div>
           </div>
-          <div class="col s2">
-            <label for="abreviatura" class="label-color">Abreviatura</label>
-            <input disabled placeholder="" id="abreviatura" type="text" [(ngModel)]="techEdit.abreviatura" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col s3">
+              <label for="fechaven" class="label-color">Fecha vencimiento <span class="span-color">*</span></label>
+              <my-date-picker id="fechaven" name="fechaven" [options]="myDatePickerOptions" class="validate" formControlName="fechaven" [(ngModel)]="model1" required [disabled]="disabled2"></my-date-picker>          
+              <div class="alert" *ngIf="!orderForm.controls['fechaven'].value && orderForm.controls['fechaven'].touched">{{ titleAlert }}</div>                        
+            </div>
+            <div class="col s4">
+              <label for="solicitado" class="label-color">Solicitado por</label>
+              <input disabled placeholder="" class="select-edit" id="solicitado" type="text">
+            </div>
+            <div class="col s5">
+              <label class="label-color">Empleado/Técnico <span class="span-color">*</span></label>
+              <select disabled class="browser-default select-city select-edit" id="select-employee" formControlName="empleado">
+                <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
+                <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
+              </select>
+              <div class="alert" *ngIf="!orderForm.controls['empleado'].value && orderForm.controls['empleado'].touched">{{ titleAlert }}</div>                                      
+            </div>
           </div>
-          <div class="col s3">
-            <label for="numorden" class="label-color">Número orden</label>
-            <input disabled placeholder="" class="select-edit" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col s2">
+              <label for="valortotal" class="label-color">Valor total</label>
+              <input disabled placeholder="0" id="valortotal" type="text">
+            </div>
+            <div class="col s5">
+              <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
+              <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" formControlName="observaciones">
+              <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                 
+            </div>
+            <div class="col s3">
+              <label for="estadoorden" class="label-color">Estado orden</label>
+              <input disabled placeholder="" class="select-edit" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
+            </div>
           </div>
-          <div class="col s3">
-            <label for="fechaorden" class="label-color">Fecha orden</label>
-            <input disabled placeholder="" id="fechaorden" type="text" class="datepicker select-edit" [(ngModel)]="techEdit.fechatrn" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col s5">
+              <label for="solucion" class="label-color">Solución Orden <span class="span-color">*</span></label>
+              <input disabled placeholder="" class="select-edit" id="solucion" type="text" [(ngModel)]="techEdit.observacion" formControlName="solucion">
+              <div class="alert" *ngIf="!orderForm.controls['solucion'].value && orderForm.controls['solucion'].touched">{{ titleAlert }}</div>                                                            
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s5">
-            <label for="solicitado" class="label-color">Solicitado por</label>
-            <input disabled placeholder="" class="select-edit" id="solicitado" type="text">
-          </div>
-          <div class="col s5">
-            <label class="label-color">Empleado/Técnico</label>
-            <select disabled class="browser-default select-city select-edit" id="select-employee">
-              <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
-              <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
-            </select>
-          </div>
-          <div class="col s2">
-            <label for="valortotal" class="label-color">Valor total</label>
-            <input disabled placeholder="0" id="valortotal" type="text">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s5">
-            <label for="observorden" class="label-color">Observaciones</label>
-            <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
-          </div>
-          <div class="col s3">
-            <label for="estadoorden" class="label-color">Estado orden</label>
-            <input disabled placeholder="" class="select-edit" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s5">
-            <label for="solucion" class="label-color">Solución Orden</label>
-            <input disabled placeholder="" class="select-edit" id="solucion" type="text" [(ngModel)]="techEdit.observacion" [ngModelOptions]="{standalone: true}">
-          </div>
-          <div class="col s5">
-            <label for="cobros" class="label-color">¿Desea realizar el cobro de los días?</label>
-            <select disabled class="browser-default select-city select-edit" id="select-cobro">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option value="S">Si</option>
-              <option value="N">No</option>              
-            </select>
-          </div>
-        </div>
-        <div class="row">
+        </form>
+        <div class="row" *ngIf="techDetail == 1 && editDetail == 1">
           <div class="row service-order">
             <div class="col s12 m6">
               <span class="service-title">Detalle artículos</span>
@@ -312,7 +314,7 @@
             <div class="separator-order z-depth-3"></div>
           </div>
         </div>
-        <form [formGroup]="rForm" (change)="validateDetail()">
+        <form [formGroup]="rForm" (change)="validateDetail()" *ngIf="techDetail == 1 && editDetail == 1">
           <div class="row">
             <div class="col s12 m4 l2">
               <label class="label-color">Grupo Artículos</label>
@@ -355,7 +357,7 @@
             </div>
           </div>
         </form>
-        <div class="row">
+        <div class="row" *ngIf="techDetail == 1 && editDetail == 1">
           <div class="container-table"> 
             <!-- Table -->
             <table class="striped highlight">
@@ -409,7 +411,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="editOrder()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

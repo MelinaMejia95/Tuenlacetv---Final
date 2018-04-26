@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import swal from 'sweetalert2';
 import { TechniciansService } from '../services/technicians.service';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
+import {IMyDpOptions, IMyDateModel, IMyInputFocusBlur, IMyDate} from 'mydatepicker';
 import { Techs } from './technician'
 
 declare let jQuery:any;
@@ -17,10 +18,20 @@ export class TechniciansComponent implements OnInit {
   toogleDelete:boolean = false; toogleArticle: boolean = true;
   technicians: any[] = []; techEdit: any; concepts: any; rates: any; techs: any; employee: any; groups: any; articles: any; details: any[] = [];
   valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
-  detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = [];
+  detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
+  param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
 
   rForm: FormGroup;
+  orderForm: FormGroup;
   titleAlert: string = "Campo requerido";
+
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+  };
+
+  private selDate: IMyDate = {year: 0, month: 0, day: 0};
+  private selDate2: IMyDate = {year: 0, month: 0, day: 0};
 
   /**
    * @type {Techs[]} 
@@ -62,13 +73,27 @@ export class TechniciansComponent implements OnInit {
   constructor(private _techservice: TechniciansService, private fb: FormBuilder) { 
 
     this.rForm = fb.group({
-      'grupoArticulos': [null, Validators.required],
+      'grupoArticulos': [null, Validators.required],               
       'articulos': [null, Validators.required],
       'valor': [null, Validators.required],
       'cantidad': [null, Validators.required],
       'porIva': [null, Validators.required],
       'iva': [null],      
     })
+
+    this.orderForm = fb.group({ 
+      'fechaven': [null, Validators.required],
+      'empleado': [null, Validators.required],
+      'observaciones': [null, Validators.required],
+      'solucion': [null, Validators.required],      
+    })
+
+    let date = new Date();
+    this.modelDate = {date: {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()}
+      }
 
   }
 
@@ -80,6 +105,10 @@ export class TechniciansComponent implements OnInit {
       this.technicians= data.ordenes;
       this.groups = data.grupos;
       this.articles = data.articulos;
+      this.param_corte = data.param_corte;
+      this.param_instalacion = data.param_instalacion;
+      this.param_rco = data.param_rco;
+      this.param_retiro = data.param_retiro;
     });
     this._techservice.getTechsFilter().subscribe(
       (count: Techs[]) => {
@@ -111,15 +140,25 @@ export class TechniciansComponent implements OnInit {
   }
 
   openModal (tech) {
+    this.disabled = true;
+    this.disabled2 = true;    
+    this.editDetail = 0;
     this.valorIva = 0;
     this.techEdit = tech;
     this.techsLenght = tech.detalle;
+    this.selDate = this.techEdit.fechatrn;
     console.log(tech)
     for (let i = 0; i < this.techsLenght.length; i++) {
       this.details[i] = {'id': i,'articulo':this.techsLenght[i]['articulo'], 'cantidad':this.techsLenght[i]['cantidad'], 'grupo':this.techsLenght[i]['grupo'],
                         'iva':this.techsLenght[i]['iva'], 'porIva':this.techsLenght[i]['porIva'], 'total':this.techsLenght[i]['total'], 
                         'valor':this.techsLenght[i]['valor']}
      // console.log(this.details[i]);
+    }
+
+    if (this.techsLenght.length == 0) {
+      this.techDetail = 0;
+    } else{
+      this.techDetail = 1;      
     }
     
     this._techservice.getInfoTechs().subscribe(data => {
@@ -129,11 +168,42 @@ export class TechniciansComponent implements OnInit {
       this.techs = data.tecnicos;
       this.employee = data.empleados;
     });
-    for (let i = 0; i < this.concepts.length; i++) {
-      if (this.techEdit.tipo_orden == this.concepts[i]['abreviatura']) {
-        
+    
+    switch (this.techEdit.abreviatura){
+      case 'INT' || 'INI' : {
+        if (this.param_instalacion == 'S') {
+          this.switchAlert = 1;
+        } else {
+          this.switchAlert = 0;
+        }
+        break;
       }
-    }
+      case 'COT' || 'COI' : {
+        if (this.param_corte == 'S') {
+          this.switchAlert = 1;
+        } else {
+          this.switchAlert = 0;
+        }
+        break;
+      }
+      case 'RCT' || 'RCI' : {
+        if (this.param_rco == 'S') {
+          this.switchAlert = 1;
+        } else {
+          this.switchAlert = 0;
+        }
+        break;
+      }
+      case 'RET' || 'RTI' : {
+        if (this.param_retiro == 'S') {
+          this.switchAlert = 1;
+        } else {
+          this.switchAlert = 0;
+        }
+        break;
+      }
+    } 
+
     jQuery('#modal-see').modal('open');
   }
 
@@ -147,6 +217,64 @@ export class TechniciansComponent implements OnInit {
   
   selectDetail(detail) {
     this.detailEdit = detail;
+  }
+
+  editOrder () {
+    if (this.switchAlert == 1) {
+      swal({
+        title: '¿Desea cobrar días?',
+        text: "",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+            this.response = 'S';
+           } else{
+             this.response = 'N';
+           }
+           console.log(this.response) 
+        
+      })
+    }
+    if(this.response){
+      this._techservice.updateOrder({/* 'codigo': this.conceptEdit.codigo, 'servicio_id': this.concept, 'id': this.conceptEdit.id, 'nombre': this.conceptEdit.nombre, 'abreviatura': this.conceptEdit.abreviatura,
+      'porcentajeIva': this.conceptEdit.porcentajeIva, 'operacion': this.conceptEdit.operacion,  
+      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db') */}).subscribe(
+      data => {
+        console.log(data)
+        if ( data.status == "updated") {
+          swal({
+            title: 'Registro actualizado con éxito',
+            text: '',
+            type: 'success',
+            onClose: function reload() {
+              location.reload();
+            }
+          })
+        } else {
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
+        }
+      },
+      error => {
+        console.log(error._body)
+        if ( error._body == `{"codigo":["has already been taken"]}`) {
+          swal(
+            'El código ya existe',
+            '',
+            'warning'
+          )
+        }
+      }
+      );
+    }
   }
 
   addDetail(post){
@@ -325,15 +453,8 @@ export class TechniciansComponent implements OnInit {
 
   edit () {
     jQuery('.select-edit').prop('disabled', false);
-    /*jQuery('#tiposervicioEdit').prop('disabled',false);
-    jQuery('#nombreEdit').prop('disabled',false);
-    jQuery('#codigoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#tiposervicioEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#tiposervicioEdit').children('option[value="nodisplay"]').css('display','none');
-    jQuery('#tiposervicioEdit').on('change', () => {
-      this.plan = jQuery('#tiposervicioEdit').val();
-    });*/
+    this.editDetail = 1;
+    this.disabled2 = false;
   }
 
 }
