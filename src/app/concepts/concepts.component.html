@@ -55,7 +55,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let concept of concepts | conceptsfilter:filter | paginate: config let i = index" name="rows" (click)="selectRow()" >
+      <tr *ngFor="let concept of concepts | conceptsfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()" >
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(concept)"/>
             <label [attr.for]="'radio_'+i"> </label>

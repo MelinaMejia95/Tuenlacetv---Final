@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BanksService } from '../services/banks.service';
+import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import swal from 'sweetalert2';
 import { Banks } from './banks';
 
@@ -44,6 +45,22 @@ export class BanksComponent implements OnInit {
    * @type {number} 
    */
   limit: number;
+
+  public maxSize: number = 7;
+  public directionLinks: boolean = true;
+  public autoHide: boolean = false;
+  public config: PaginationInstance = {
+      id: 'advanced',
+      itemsPerPage: 10,
+      currentPage: 1
+  };
+  public labels: any = {
+      previousLabel: 'Anterior',
+      nextLabel: 'Siguiente',
+      screenReaderPaginationLabel: 'Pagination',
+      screenReaderPageLabel: 'page',
+      screenReaderCurrentLabel: `You're on page`
+  };
 
   constructor(private _bankservice: BanksService, private fb: FormBuilder) { 
 
@@ -96,8 +113,23 @@ export class BanksComponent implements OnInit {
       jQuery('#cuenta_conEdit').prop('disabled',true);
       jQuery('#selectEdit').prop('disabled',true);
      }});
-    }
+     jQuery('#registros').on('change', () => {
+      this.config.itemsPerPage = Number(jQuery('#registros').val()); 
+      console.log(jQuery('#registros').val());
+      if (jQuery('#registros').val() == '10') {
+        document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      } else {
+        document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      }
+    })
+  }
 
+  onPageChange(number: number) {
+    console.log('change to page', number);
+    this.config.currentPage = number;
+  }
+
+  
   openModal (bank) {
     for (let i = 0; i < this.cities.length; i++) {
       if ( bank.ciudad == this.cities[i]['nombre']) {
