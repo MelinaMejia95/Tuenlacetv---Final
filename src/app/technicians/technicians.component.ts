@@ -20,6 +20,7 @@ export class TechniciansComponent implements OnInit {
   valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
   detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
   param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
+  post: any; detail: any; fechaven: string;
 
   rForm: FormGroup;
   orderForm: FormGroup;
@@ -85,7 +86,9 @@ export class TechniciansComponent implements OnInit {
       'fechaven': [null, Validators.required],
       'empleado': [null, Validators.required],
       'observaciones': [null, Validators.required],
-      'solucion': [null, Validators.required],      
+      'solucion': [null, Validators.required],    
+      'solicitado': [null],
+      'fechaorden': [null]
     })
 
     let date = new Date();
@@ -94,6 +97,7 @@ export class TechniciansComponent implements OnInit {
         month: date.getMonth() + 1,
         day: date.getDate()}
       }
+    console.log(this.modelDate)
 
   }
 
@@ -148,18 +152,13 @@ export class TechniciansComponent implements OnInit {
     this.techsLenght = tech.detalle;
     this.selDate = this.techEdit.fechatrn;
     console.log(tech)
-    for (let i = 0; i < this.techsLenght.length; i++) {
+    /* for (let i = 0; i < this.techsLenght.length; i++) {
       this.details[i] = {'id': i,'articulo':this.techsLenght[i]['articulo'], 'cantidad':this.techsLenght[i]['cantidad'], 'grupo':this.techsLenght[i]['grupo'],
                         'iva':this.techsLenght[i]['iva'], 'porIva':this.techsLenght[i]['porIva'], 'total':this.techsLenght[i]['total'], 
                         'valor':this.techsLenght[i]['valor']}
-     // console.log(this.details[i]);
-    }
+    } */
 
-    if (this.techsLenght.length == 0) {
       this.techDetail = 0;
-    } else{
-      this.techDetail = 1;      
-    }
     
     this._techservice.getInfoTechs().subscribe(data => {
       console.log(data)
@@ -219,7 +218,16 @@ export class TechniciansComponent implements OnInit {
     this.detailEdit = detail;
   }
 
-  editOrder () {
+  editOrder (detail, post) {
+    this.post = post;
+    if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
+      this.fechaven =  this.modelDate.date.day + '/' + this.modelDate.date.month + '/' +this.modelDate.date.year;
+    } else {
+      this.fechaven =  this.modelDate.date.day + '/0' + this.modelDate.date.month + '/' +this.modelDate.date.year;
+      
+    }
+    this.detail = detail;
+    console.log(this.fechaven)
     if (this.switchAlert == 1) {
       swal({
         title: '¿Desea cobrar días?',
@@ -237,14 +245,10 @@ export class TechniciansComponent implements OnInit {
              this.response = 'N';
            }
            console.log(this.response) 
-        
-      })
-    }
-    if(this.response){
-      this._techservice.updateOrder({/* 'codigo': this.conceptEdit.codigo, 'servicio_id': this.concept, 'id': this.conceptEdit.id, 'nombre': this.conceptEdit.nombre, 'abreviatura': this.conceptEdit.abreviatura,
-      'porcentajeIva': this.conceptEdit.porcentajeIva, 'operacion': this.conceptEdit.operacion,  
-      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db') */}).subscribe(
-      data => {
+           this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.post.empleado), 
+    'solicita': this.post.solicitado, 'detalle': this.details, 'solucion': this.post.solucion, 'respuesta': this.response,
+    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+           data => {
         console.log(data)
         if ( data.status == "updated") {
           swal({
@@ -263,18 +267,41 @@ export class TechniciansComponent implements OnInit {
           )
         }
       },
-      error => {
-        console.log(error._body)
-        if ( error._body == `{"codigo":["has already been taken"]}`) {
-          swal(
-            'El código ya existe',
-            '',
-            'warning'
-          )
-        }
-      }
       );
+        
+      })
+    } else {
+      this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.post.empleado), 
+      'solicita': this.post.solicitado, 'detalle': this.details, 'solucion': this.post.solucion, 'respuesta': this.response,
+      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.status == "updated") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                location.reload();
+              }
+            })
+          } else {
+            swal(
+              'No se pudo actualizar el registro',
+              '',
+              'warning'
+            )
+          }
+        },
+        )
     }
+    if(this.response) {
+      this.updateOrder();
+    }
+  }
+
+  updateOrder(){
+    
   }
 
   addDetail(post){
@@ -288,12 +315,12 @@ export class TechniciansComponent implements OnInit {
     }
     for(let i = 0; i < this.articles.length ; i++) {
       if (post.articulos == this.articles[i]['id']){
-        this.articleAdd = this.articles[i]['nombre'];
+        this.articleAdd = this.articles[i]['id'];
         console.log(this.articleAdd)
       }
     }
     this.details[this.details.length] = {'articulo': this.articleAdd, 'cantidad': post.cantidad, 'grupo': this.groupAdd,
-                                        'iva': post.iva, 'porIva': post.porIva, 'total': this.total, 'valor': post.valor}
+                                        'iva': post.iva, 'porcentajeIva': post.porIva, 'total': Number(this.total), 'valor': post.valor}
   }
 
   removeDetail() {
@@ -317,6 +344,16 @@ export class TechniciansComponent implements OnInit {
     this.valorIva = Math.round(this.valor - this.valorSinIva);
   }
 
+  validate() {
+    if(this.rForm.valid == true && this.orderForm.valid == true) {
+      jQuery('#btn-edit').prop('disabled', false);
+      console.log('valid')
+    } else  if(this.rForm.valid == false || this.orderForm.valid == false){
+      jQuery('#btn-edit').prop('disabled', true);
+      console.log('invalid')
+    }
+  }
+
   validateDetail() {
     jQuery('#btn-detail').prop('disabled', false);    
     if (this.rForm.valid == true) {
@@ -324,6 +361,13 @@ export class TechniciansComponent implements OnInit {
       console.log('btn dis')
     } else {
       jQuery('#btn-detail').prop('disabled', true)      
+    }
+    if(this.rForm.valid == true && this.orderForm.valid == true) {
+      jQuery('#btn-edit').prop('disabled', false);
+      console.log('valid2')
+    } else if(this.rForm.valid == false || this.orderForm.valid == false) {
+      jQuery('#btn-edit').prop('disabled', true);
+      console.log('invalid2')
     }
   }
 
@@ -455,6 +499,7 @@ export class TechniciansComponent implements OnInit {
     jQuery('.select-edit').prop('disabled', false);
     this.editDetail = 1;
     this.disabled2 = false;
+    this.techDetail = 1; 
   }
 
 }
