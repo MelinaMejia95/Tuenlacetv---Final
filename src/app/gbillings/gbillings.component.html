@@ -6,19 +6,33 @@
     </div>
   </div>
   <div class="separator z-depth-3"></div>
-  <div class="option-module">
+  <div class="row">
     <div class="col s10 m6 l6">
-      <a class="breadcrumb black-text">Facturación</a>
-      <a class="breadcrumb black-text">Facturaciones generadas</a>
+      <div class="row option-module">
+        <a class="breadcrumb black-text">Facturación</a>
+        <a class="breadcrumb black-text">Facturaciones generadas</a>
+      </div>
+      <div class="row">
+        <label class="label-color">Registros por página:</label>
+        <select class="browser-default select-city" id="registros">
+          <option value="nodisplay" disabled selected>10</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+          <option value="100">100</option>          
+        </select>
+      </div>
     </div>
-  </div>
-  <div class="col s2 m6 l6 right-align">
-    <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
+    <div class="col s2 m6 l6 right-align">
+      <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
+    </div>
   </div>
 </div>
     
 <!-- Table -->
-<div class="container-table">
+<div class="container-table" id="container-pag">
   <table class="striped highlight">
     <thead>
       <tr class="tr-background">
@@ -53,7 +67,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let bill of gbillings; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let bill of gbillings | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(bill)"/>
             <label [attr.for]="'radio_'+i"> </label>
@@ -72,15 +86,19 @@
 <!-- Pagination -->
 <div class="container-pagination">
   <div class="row center">
-    <ul class="pagination">
-        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        <li class="active"><a href="#!">1</a></li>
-        <li class="waves-effect"><a href="#!">2</a></li>
-        <li class="waves-effect"><a href="#!">3</a></li>
-        <li class="waves-effect"><a href="#!">4</a></li>
-        <li class="waves-effect"><a href="#!">5</a></li>
-        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-      </ul>
+    <div class="col s12 m12 l12"></div>
+    <div class="has-text-centered">
+        <pagination-controls [id]="config.id"
+                             [maxSize]="maxSize"
+                             [directionLinks]="directionLinks"
+                             [autoHide]="autoHide"
+                             [previousLabel]="labels.previousLabel"
+                             [nextLabel]="labels.nextLabel"
+                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                             [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                             (pageChange)="onPageChange($event)"></pagination-controls>
+    </div>
   </div>
 </div>
     

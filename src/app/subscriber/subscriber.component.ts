@@ -270,7 +270,7 @@ export class SubscriberComponent implements OnInit {
         console.log(subs['entidades'])
         this.subs = subs['entidades'];
         this.numberOfSubs = this.subs.length;
-        this.limit = this.subs.length; // Start off by showing all books on a single page.*/
+        this.limit = this.subs.length; 
     });
     this.disabled = true;
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
