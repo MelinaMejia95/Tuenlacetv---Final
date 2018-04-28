@@ -1237,21 +1237,26 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m6 l4">
-              <label for="elaboracion" class="label-color">Elaboración <span class="span-color">*</span></label>
+            <div class="col s12 m6 l3">
+              <label for="elaboracion" class="label-color">Fecha elaboración <span class="span-color">*</span></label>
               <my-date-picker name="elaboracion" [options]="myDatePickerOptions" (dateChanged)="elaboDate($event)" class="validate" formControlName="elaboracion" required></my-date-picker>
               <div class="alert" *ngIf="!facForm.controls['elaboracion'].value && facForm.controls['elaboracion'].touched">{{ titleAlert }}</div>                          
             </div>
-            <div class="col s12 m6 l4">
+            <div class="col s12 m6 l3">
               <label for="inicioperiodo" class="label-color">Inicio periodo <span class="span-color">*</span></label>
               <my-date-picker name="inicioperiodo" [options]="myDatePickerOptions" (dateChanged)="inicioPeriodo($event)" class="validate" formControlName="inicioperiodo" required></my-date-picker>
               <div class="alert" *ngIf="!facForm.controls['inicioperiodo'].value && facForm.controls['inicioperiodo'].touched">{{ titleAlert }}</div>                                        
             </div>
-            <div class="col s12 m6 l4">
+            <div class="col s12 m6 l3">
               <label for="finperiodo" class="label-color">Fin periodo <span class="span-color">*</span></label>
               <my-date-picker name="finperiodo" [options]="myDatePickerOptions" (dateChanged)="finPeriodo($event)" class="validate" formControlName="finperiodo" required></my-date-picker>
               <div class="alert" *ngIf="!facForm.controls['finperiodo'].value && facForm.controls['finperiodo'].touched">{{ titleAlert }}</div>                                        
             </div>  
+            <div class="col s12 m6 l3">
+              <label for="fechavencimiento" class="label-color">Fecha vencimiento<span class="span-color">*</span></label>
+              <my-date-picker name="fechavencimiento" [options]="myDatePickerOptions" (dateChanged)="fechaVence($event)" class="validate" formControlName="fechavencimiento" required></my-date-picker>
+              <div class="alert" *ngIf="!facForm.controls['fechavencimiento'].value && facForm.controls['fechavencimiento'].touched">{{ titleAlert }}</div>                                        
+            </div>
           </div>
         <div class="row">
           <div class="col s12 m7 l8" *ngIf="subsEdit">

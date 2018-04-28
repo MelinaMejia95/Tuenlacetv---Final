@@ -39,6 +39,7 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
+  fechadoc: string; auxDetalles: any[] = []; model12: any;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -168,6 +169,7 @@ export class SubscriberComponent implements OnInit {
       'facturade': [null, Validators.required],
       'elaboracion': [null, Validators.required],
       'inicioperiodo': [null, Validators.required],
+      'fechavencimiento': [null, Validators.required],
       'finperiodo': [null, Validators.required],
       'valor': [null, Validators.required],
       'observaciones': [null, Validators.required],
@@ -477,9 +479,15 @@ export class SubscriberComponent implements OnInit {
 
   openModalPagos(){
     let ban = 0;
+    if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
+      this.fechadoc =  this.modelDate.date.day + '/' + this.modelDate.date.month + '/' +this.modelDate.date.year;
+    } else {
+      this.fechadoc =  this.modelDate.date.day + '/0' + this.modelDate.date.month + '/' +this.modelDate.date.year;
+      
+    }
     this._paymentservice.getInfoFac(this.subsEdit.id).subscribe(data => {
       this.facts = data.detalle_facturas;
-      this.pdocuments = data.documentos;
+      this.pdocuments = data.conceptos;
       this.formaspago = data.formas_pago;
       this.bancos = data.bancos;
       this.cobradores = data.cobradores;
@@ -519,16 +527,24 @@ export class SubscriberComponent implements OnInit {
   }
 
   createPayment(post){
+    let j = 0;
+    for (let i = 0; i < this.detalles.length; i++) {
+      if(this.detalles[i]['abono'] > 0 ){
+        this.auxDetalles[j] = this.detalles[i];
+        j++;
+      }
+    }
+    console.log(this.auxDetalles)
     if (post) {
       this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
-      "documento_id": post.tipodoc,
-      "fechatrn": this.model9,
+      "concepto_id": post.tipodoc,
+      "fechatrn": this.fechadoc,
       "valor": Number(this.total.valor),
       "observacion": post.observaciones,
       "forma_pago_id": post.formapago, 
       "banco_id": post.banco, 
       "cobrador_id": post.cobradores,
-      "detalle":  this.detalles ,
+      "detalle":  this.auxDetalles ,
       "descuento": Number(post.descuentopago),
       'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
@@ -634,7 +650,7 @@ export class SubscriberComponent implements OnInit {
       this.diferencia =  (Number(this.total.valor) + Number(this.descuento)) - Number(this.totalAplicado);
       this.totalAplicar = Number(this.diferencia);
       console.log(this.pagado);
-      if(this.payForm.valid){
+      if(this.payForm.valid || this.diferencia > 0){
         jQuery('#btn-payment').prop('disabled', false);
       }
     } else {
@@ -1127,6 +1143,11 @@ export class SubscriberComponent implements OnInit {
     this.model9 = event.formatted ;
   }
 
+  fechaVence(event: IMyDateModel) {
+    console.log(event.formatted )
+    this.model12 = event.formatted ;
+  }
+
   onDateChangedOrder(event: IMyDateModel) {
     console.log(event)
     this.model10 = event.formatted;
@@ -1243,6 +1264,7 @@ export class SubscriberComponent implements OnInit {
         "f_elaboracion": this.model5,
         "f_inicio": this.model6,
         "f_fin": this.model7,
+        "f_vencimiento": this.model12,
         "entidad_id": this.subsEdit.id,
         "valor": Number(post.valor),
         "observa": post.observaciones,

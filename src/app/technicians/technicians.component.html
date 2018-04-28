@@ -165,32 +165,32 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s2">
+          <div class="col s12 m6 l2">
             <label for="codigo" class="label-color">Código</label>
             <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="techEdit.entidad_id" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s5">
+          <div class="col s12 m6 l5">
             <label for="nombres" class="label-color">Nombres</label>
             <input disabled placeholder="" id="nombres" type="text" [(ngModel)]="techEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s5">
+          <div class="col s12 m6 l5">
             <label for="telefonos" class="label-color">Teléfonos</label>
             <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="techEdit.telefonos" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label for="direccion" class="label-color">Dirección</label>
             <input disabled placeholder="" id="direccion" type="text" [(ngModel)]="techEdit.direccion" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Barrio</label>
             <select disabled class="browser-default select-city" id="select-neigh">
               <option value="nodisplay" disabled selected>{{ techEdit.barrio }}</option>
               <option [value]="neigh.id" *ngFor="let neigh of neighborhoods">{{ techEdit.barrio }}</option>
             </select>
           </div>
-          <div class="col s4">
+          <div class="col s12 m6 l4">
             <label class="label-color">Zona</label>
             <select disabled class="browser-default select-city" id="select-zone">
               <option value="nodisplay" disabled selected>{{ techEdit.zona }}</option>
@@ -199,33 +199,33 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="estado" class="label-color">Estado</label>
             <input disabled placeholder="" class="not-disabled" id="estado" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechaafi" class="label-color">Fecha afiliación</label>
             <input disabled placeholder="" class="not-disabled" id="fechaafi" type="text" [(ngModel)]="techEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s6">
+          <div class="col s12 m6 l6">
             <label for="observaciones" class="label-color">Observaciones</label>
             <input disabled placeholder="" class="not-disabled" id="observaciones" type="text" [(ngModel)]="techEdit.observacion_senal" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="precinto" class="label-color">Precinto</label>
             <input disabled placeholder="" id="precinto" type="text" [(ngModel)]="techEdit.precinto" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="fechapago" class="label-color">Fecha último pago</label>
             <input disabled placeholder="" id="fechapago" type="text" class="datepicker" [(ngModel)]="techEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="saldo" class="label-color">Saldo televisión</label>
             <input disabled placeholder="" id="saldo" type="text" [(ngModel)]="techEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s3">
+          <div class="col s12 m6 l3">
             <label for="saldo" class="label-color">Saldo internet</label>
             <input disabled placeholder="" id="saldo" type="text" [(ngModel)]="techEdit.saldo_int" [ngModelOptions]="{standalone: true}">
           </div>
@@ -240,64 +240,64 @@
             <div class="separator-order z-depth-3"></div>
           </div>
         </div>
-        <form [formGroup]="orderForm">
+        <form [formGroup]="orderForm" (change)="validate()">
           <div class="row">
-            <div class="col s4">
+            <div class="col s12 m6 l4">
               <label class="label-color">Tipo orden a generar</label>
               <select disabled class="browser-default select-city" id="select-order">
                 <option value="nodisplay" disabled selected>{{ techEdit.tipo_orden }}</option>
                 <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
             </div>
-            <div class="col s2">
+            <div class="col s12 m6 l2">
               <label for="abreviatura" class="label-color">Abreviatura</label>
               <input disabled placeholder="" id="abreviatura" type="text" [(ngModel)]="techEdit.abreviatura" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label for="numorden" class="label-color">Número orden</label>
               <input disabled placeholder="" class="select-edit" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label for="fechaorden" class="label-color">Fecha orden</label>
               <my-date-picker name="fechaorden" [options]="myDatePickerOptions" class="validate" formControlName="fechaorden" [(ngModel)]="modelDate" required [disabled]="disabled"></my-date-picker>          
             </div>
           </div>
           <div class="row">
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label for="fechaven" class="label-color">Fecha vencimiento <span class="span-color">*</span></label>
-              <my-date-picker id="fechaven" name="fechaven" [options]="myDatePickerOptions" class="validate" formControlName="fechaven" [(ngModel)]="model1" required [disabled]="disabled2"></my-date-picker>          
+              <my-date-picker id="fechaven" name="fechaven" [options]="myDatePickerOptions" class="validate" formControlName="fechaven" [(ngModel)]="modelDate" required [disabled]="disabled2"></my-date-picker>          
               <div class="alert" *ngIf="!orderForm.controls['fechaven'].value && orderForm.controls['fechaven'].touched">{{ titleAlert }}</div>                        
             </div>
-            <div class="col s4">
+            <div class="col s12 m6 l4">
               <label for="solicitado" class="label-color">Solicitado por</label>
-              <input disabled placeholder="" class="select-edit" id="solicitado" type="text">
+              <input disabled placeholder="" class="select-edit" id="solicitado" type="text" formControlName="solicitado">
             </div>
-            <div class="col s5">
+            <div class="col s12 m6 l5">
               <label class="label-color">Empleado/Técnico <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city select-edit" id="select-employee" formControlName="empleado">
-                <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
+                <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
               </select>
               <div class="alert" *ngIf="!orderForm.controls['empleado'].value && orderForm.controls['empleado'].touched">{{ titleAlert }}</div>                                      
             </div>
           </div>
           <div class="row">
-            <div class="col s2">
+            <div class="col s12 m6 l2">
               <label for="valortotal" class="label-color">Valor total</label>
               <input disabled placeholder="0" id="valortotal" type="text">
             </div>
-            <div class="col s5">
+            <div class="col s12 m6 sl">
               <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
               <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" formControlName="observaciones">
               <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                 
             </div>
-            <div class="col s3">
+            <div class="col s12 m6 l3">
               <label for="estadoorden" class="label-color">Estado orden</label>
               <input disabled placeholder="" class="select-edit" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
           <div class="row">
-            <div class="col s5">
+            <div class="col s12 m6 l5">
               <label for="solucion" class="label-color">Solución Orden <span class="span-color">*</span></label>
               <input disabled placeholder="" class="select-edit" id="solucion" type="text" [(ngModel)]="techEdit.observacion" formControlName="solucion">
               <div class="alert" *ngIf="!orderForm.controls['solucion'].value && orderForm.controls['solucion'].touched">{{ titleAlert }}</div>                                                            
@@ -399,7 +399,7 @@
                   <td>{{ detail.articulo }}</td>
                   <td>{{ detail.valor }}</td>
                   <td>{{ detail.cantidad }}</td>
-                  <td>{{ detail.porIva }}</td>
+                  <td>{{ detail.porcentajeIva }}</td>
                   <td>{{ detail.iva }}</td>
                   <td>{{ detail.total }}</td>                  
                 </tr>
@@ -411,7 +411,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="editOrder()">Aceptar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="editOrder(rForm.value, orderForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
