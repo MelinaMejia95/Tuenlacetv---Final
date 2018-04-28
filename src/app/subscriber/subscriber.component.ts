@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SubscribersService } from '../services/subscribers.service';
 import { PaymentsService } from '../services/payment.service';
 import { TechniciansService } from '../services/technicians.service';
+import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import swal from 'sweetalert2';
 import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
@@ -75,6 +76,22 @@ export class SubscriberComponent implements OnInit {
    * @type {number} 
    */
   limit: number;
+
+  public maxSize: number = 7;
+  public directionLinks: boolean = true;
+  public autoHide: boolean = false;
+  public config: PaginationInstance = {
+      id: 'advanced',
+      itemsPerPage: 10,
+      currentPage: 1
+  };
+  public labels: any = {
+      previousLabel: 'Anterior',
+      nextLabel: 'Siguiente',
+      screenReaderPaginationLabel: 'Pagination',
+      screenReaderPageLabel: 'page',
+      screenReaderCurrentLabel: `You're on page`
+  };
 
   constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService, private fb: FormBuilder,
               private _techservice: TechniciansService) { 
@@ -234,6 +251,15 @@ export class SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+        console.log('entro')
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+      console.log(jQuery( window ).width());
+    })
     this._suscriberservice.getSubscribers(localStorage.getItem('entidad')).subscribe(data => {
       this.entity = data.entidades;
       //this.entity = data.senales;
@@ -327,24 +353,6 @@ export class SubscriberComponent implements OnInit {
         jQuery(".service-subs")
       }
     });
-    /*jQuery('#television').on('change', () =>{
-        console.log('entro tv')
-        if (jQuery('#television').prop('checked') == true){
-          this.tv = 1;
-          console.log(this.tv)
-        } else {
-          this.tv = 0;
-          console.log(this.tv)
-        }
-        var changeTv = <HTMLInputElement><any>document.getElementById('television');
-        if(changeTv.checked == true) {
-          setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
-          document.getElementById('collapsible-television').setAttribute('style', 'visibility: visible');
-        } else {
-          document.getElementById('collapsible-television').setAttribute('style', 'visibility: hidden');
-        }
-      });  */
-      
     jQuery('#internet').on('change', () =>{
       console.log('checkinternet')
       var changeTv = <HTMLInputElement><any>document.getElementById('internet');
@@ -382,6 +390,20 @@ export class SubscriberComponent implements OnInit {
         }
       }
     });
+    jQuery('#registros').on('change', () => {
+      this.config.itemsPerPage = Number(jQuery('#registros').val()); 
+      console.log(jQuery('#registros').val());
+      if (jQuery('#registros').val() == '10') {
+        document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      } else {
+        document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      }
+    })
+  }
+
+  onPageChange(number: number) {
+    console.log('change to page', number);
+    this.config.currentPage = number;
   }
 
   validateOrder() {
