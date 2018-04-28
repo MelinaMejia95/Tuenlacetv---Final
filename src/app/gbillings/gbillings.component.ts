@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GBillingsService } from '../services/gbillings.service';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import swal from 'sweetalert2';
+import { GBillings } from './gbillings';
+
 
 declare let jQuery:any;
 
@@ -15,6 +17,27 @@ export class GbillingsComponent implements OnInit {
   toogleDelete:boolean = false;
   gbillings: any[] = [];
   gbillingEdit: any;
+
+  /**
+   * @type {GBillings[]} 
+   */
+  count: GBillings[];
+
+  /**
+   * @type {GBillings} 
+   */
+
+  filter: GBillings = new GBillings();
+
+  /**
+   * @type {number} 
+   */
+  numberOfGBillings: number;
+
+  /**
+   * @type {number} 
+   */
+  limit: number;
 
   public maxSize: number = 7;
   public directionLinks: boolean = true;
@@ -47,6 +70,12 @@ export class GbillingsComponent implements OnInit {
     this._gbillingservice.getGbillings().subscribe(data => {
       this.gbillings = data.facturaciones;
     });
+    this._gbillingservice.getGBillingsFilter().subscribe(
+      (count: GBillings[]) => {
+        this.count = count;
+        this.numberOfGBillings = this.count.length;
+        this.limit = this.count.length; // Start off by showing all books on a single page.*/
+      });
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
       console.log(jQuery('#registros').val());

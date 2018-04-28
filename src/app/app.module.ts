@@ -22,6 +22,8 @@ import { UsersFilterPipe } from './users/users-filter.pipe';
 import { PaymentsFilterPipe } from './payment/payments-filter.pipe';
 import { TechsFilterPipe } from './technicians/technicians-filter.pipe';
 import { AdPaymentsFilterPipe } from './advancepayments/adpayments-filter.pipe';
+import { GBillingsFilterPipe } from './gbillings/gbillings-filter.pipe';
+
 //import swal from 'sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -110,7 +112,8 @@ import { TechniciansComponent } from './technicians/technicians.component';
     UsersFilterPipe,
     PaymentsFilterPipe,
     TechsFilterPipe,
-    AdPaymentsFilterPipe
+    AdPaymentsFilterPipe,
+    GBillingsFilterPipe
   ],
   imports: [
     BrowserModule,

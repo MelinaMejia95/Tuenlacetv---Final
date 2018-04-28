@@ -3,6 +3,8 @@ import { Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { GBillings } from '../gbillings/gbillings'
 
 @Injectable()
 export class GBillingsService {
@@ -20,5 +22,20 @@ export class GBillingsService {
     return this._http.get(url, options).map(response =>{
         return response.json();
     })
- }
+  }
+
+ /**
+    @return {Observable<GBillings[]>} 
+   */
+
+  getGBillingsFilter(): Observable<GBillings[]> {
+    const url = this._global.url + `/facturacion/bd/` + localStorage.getItem('db');
+      let header = new Headers();
+      header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+      console.log(header)
+      let options = new RequestOptions({ headers: header });
+      return this._http.get(url, options).map(response =>{
+          return response.json();
+      })
+   }
 }

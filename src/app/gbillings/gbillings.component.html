@@ -37,37 +37,37 @@
     <thead>
       <tr class="tr-background">
         <th class="first-column">
-          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()"/>
+          <input name="group2" type="checkbox" class="filled-in" id="all" (click)="selectAll()" [attr.max]="[numberOfConcepts]"/>
           <label for="all"> </label>
         </th>
         <th>
           <label for="factinicial" class="label-color">Número factura inicial</label>
-          <input id="factinicial" type="text" class="input-custom">
+          <input id="factinicial" type="text" class="input-custom" [(ngModel)]="filter.nrofact_ini">
         </th>
         <th>
           <label for="factfinal" class="label-color">Número factura final</label>
-          <input id="factfinal" type="text" class="input-custom">
+          <input id="factfinal" type="text" class="input-custom" [(ngModel)]="filter.nrofact_fin">
         </th>
         <th>
           <label for="fecelab" class="label-color">Fecha elaboración</label>
-          <input id="fecelab" type="text" class="input-custom">
+          <input id="fecelab" type="text" class="input-custom" [(ngModel)]="filter.fecha_elaboracion">
         </th>
         <th>
           <label for="feciniperiodo" class="label-color">Fecha inicio periodo</label>
-          <input id="feciniperiodo" type="text" class="input-custom">
+          <input id="feciniperiodo" type="text" class="input-custom" [(ngModel)]="filter.fecha_inicio">
         </th>
         <th>
           <label for="fecfinperiodo" class="label-color">Fecha fin periodo</label>
-          <input id="fecfinperiodo" type="text" class="input-custom">
+          <input id="fecfinperiodo" type="text" class="input-custom" [(ngModel)]="filter.fecha_fin">
         </th>
         <th>
           <label for="fecvence" class="label-color">Fecha vencimiento</label>
-          <input id="fecvence" type="text" class="input-custom">
+          <input id="fecvence" type="text" class="input-custom" [(ngModel)]="filter.fecha_vence">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let bill of gbillings | paginate: config; let i = index" name="rows" (click)="selectRow()">
+      <tr *ngFor="let bill of gbillings | gbillingsfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
             <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(bill)"/>
             <label [attr.for]="'radio_'+i"> </label>
