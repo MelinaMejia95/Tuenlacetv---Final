@@ -570,6 +570,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagos(){
+    jQuery(".disabled-fields").prop('disabled',true);    
     let ban = 0;
     if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
       this.fechadoc =  this.modelDate.date.day + '/' + this.modelDate.date.month + '/' +this.modelDate.date.year;
