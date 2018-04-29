@@ -17,7 +17,7 @@ export class ConceptsComponent implements OnInit {
   toogleDelete:boolean = false;
   concepts: any[] = [];
   services: string; createService: string; codigo: string; nombre: string; abreviatura: string; iva: string; operacion: string;
-  serviceEdit: any; conceptEdit: any; concept: any;
+  serviceEdit: any; conceptEdit: any; concept: any; conceptReset: any[] =[]; reset: any []= [];
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -93,8 +93,8 @@ export class ConceptsComponent implements OnInit {
      })
     this._conceptservice.getConcepts().subscribe(data => {
       this.concepts = data.conceptos;
+      this.conceptReset = data.conceptos;
       this.services = data.servicios;
-      console.log(data.servicios)
     });
     this._conceptservice.getConceptsFilter().subscribe(
       (count: Concepts[]) => {
@@ -102,6 +102,9 @@ export class ConceptsComponent implements OnInit {
         this.numberOfConcepts = this.count.length;
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
+    jQuery('#see-form').on('change', () =>{
+      console.log(this.conceptReset)
+    });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -111,6 +114,9 @@ export class ConceptsComponent implements OnInit {
       jQuery('#ivaEdit').prop('disabled',true);
       jQuery('#operacionEdit').prop('disabled',true);
       jQuery('#abreviaturaEdit').prop('disabled',true);
+      console.log('cerro')
+      //<HTMLInputElement><any>document.getElementById("myForm").reset();
+      //jQuery('#see-form').reset();
      }});
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -128,15 +134,22 @@ export class ConceptsComponent implements OnInit {
     this.config.currentPage = number;
   }
 
+  clearFields() {
+    //this.seeForm.reset();
+   /*  this.concepts = this.conceptReset;*/
+    console.log(this.reset) 
+  }
+
   openModal (concept) {
     for (let i = 0; i < this.services.length; i++) {
       if ( concept.servicio == this.services[i]['nombre']) {
         this.serviceEdit = this.services[i]['nombre'];
       }
     }
+    console.log(concept)
+    this.reset = concept;
     this.conceptEdit = concept;
     jQuery('#modal-see').modal('open');
-    document.getElementsByClassName('table-radio');
   }
 
   closeModal () {

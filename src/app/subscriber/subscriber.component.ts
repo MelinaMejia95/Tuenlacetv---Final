@@ -40,10 +40,11 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any;
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0;;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
+  seeSubs: FormGroup; seeServ: FormGroup; seeTV: FormGroup; seeInt: FormGroup;
   titleAlert: string = "Campo requerido";
   correoAlert: string = "Correo inválido"
   
@@ -55,6 +56,8 @@ export class SubscriberComponent implements OnInit {
   private selDate: IMyDate = {year: 0, month: 0, day: 0};
   private selDate2: IMyDate = {year: 0, month: 0, day: 0};
   private selDate3: IMyDate = {year: 0, month: 0, day: 0};
+  private selDate4: IMyDate = {year: 0, month: 0, day: 0};
+  
 
   /**
    * @type {Subs[]} 
@@ -236,6 +239,53 @@ export class SubscriberComponent implements OnInit {
       'nuevazona': [null, Validators.required],
       'nuevobarrio': [null, Validators.required],
       'nuevadir': [null, Validators.required],
+    })
+
+    this.seeServ = fb.group({
+      'direccion': [null, Validators.required],
+      'tel1': [null, Validators.required],
+      'fechacontrato': [this.selDate2, Validators.required],    
+      'numcontrato': [null],
+      'urbanizacion': [null],
+      'torre': [null],
+      'apto': [null],
+      'tel2': [null],
+      'contacto': [null],
+      'observacion': [null],
+      'fechaultpago': [this.selDate4],
+    })
+
+    this.seeSubs = fb.group({
+      'numdoc': [null, Validators.required],
+      'nombre1': [null, Validators.required],
+      'apellido1': [null, Validators.required],
+      'tel1': [null, Validators.required],
+      'direccion': [null, Validators.required],
+      'correo': ['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')],
+      'apellido2': [null],
+      'nombre2': [null],
+      'tel2': [null],
+      'fechanac': [this.selDate]
+    })
+
+    this.seeInt = fb.group({    
+      'velocidad': [null, Validators.required],       
+      'dirip': [null],                           
+      'mac1': [null],
+      'mac2': [null],
+      'serial': [null],                                                           
+      'marcamodem': [null],
+      'mascara': [null],                                                                                                                                                                                                                                        
+      'dns': [null],                                                                                                                                                                                                                                        
+      'gateway': [null],                                                                                                                                                                                                                                        
+      'nodo': [null],                                                                                                                                                                                                                                        
+      'clave': [null],                                                                                                                                                                                                                                        
+    })
+
+    this.seeTV = fb.group({             
+      'televisores': [null],                           
+      'decos': [null], 
+      'precinto': [null],
     })
     
     // Set today date using the patchValue function
@@ -428,27 +478,43 @@ export class SubscriberComponent implements OnInit {
     if(this.tipoUsuario == '1') {
       if(this.rForm.valid == true && this.servForm.valid == true) {
         jQuery('#btn-crear').prop('disabled',false);
+        jQuery('#btn-see').prop('disabled',false);        
         //console.log(this.rForm)
       } else if (this.rForm.valid == false || this.servForm.valid == false){
         jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);                
         //console.log(this.rForm)
       }
     } else {
       if(this.rForm.valid == true) {
         jQuery('#btn-crear').prop('disabled',false);
+        jQuery('#btn-see').prop('disabled',false);                
       } else if (this.rForm.valid == false){
         jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);                
       }
     }
+  }
+
+  validationSee(){
+      if(this.seeSubs.valid == true && this.seeServ.valid == true && this.seeInt.valid == true && this.seeTV.valid == true) {
+        console.log('see valid')
+        jQuery('#btn-see').prop('disabled',false);        
+      } else if (this.seeSubs.valid == false || this.seeServ.valid == false || this.seeInt.valid == false || this.seeTV.valid == false){
+        jQuery('#btn-see').prop('disabled',true);       
+        console.log('see no valid')                 
+      }
   }
 
   validation2(){
     if(this.rForm.valid == true && this.tipoUsuario == '1' && this.servForm.valid == true && (this.tvForm.valid == true || this.intForm.valid == true)
         && (this.servForm.value.tvCtrl == true || this.servForm.value.intCtrl == true)){
       jQuery('#btn-crear').prop('disabled',false);
+      jQuery('#btn-see').prop('disabled',false);              
       console.log('internet o tv valido')
     } else if ( this.servForm.valid == false || this.rForm.valid == false || this.tvForm.valid == false || this.intForm.valid == false){
       jQuery('#btn-crear').prop('disabled',true);
+      jQuery('#btn-see').prop('disabled',true);              
       console.log('internet o tv no valido')
     } 
   }
@@ -457,8 +523,10 @@ export class SubscriberComponent implements OnInit {
     if (this.servForm.value.tvCtrl == true){
       if(this.tvForm.valid == true && this.servForm.valid == true && this.rForm.valid == true){
         jQuery('#btn-crear').prop('disabled',false);
+        jQuery('#btn-see').prop('disabled',false);                
         console.log('tv valido')
       } else if (this.tvForm.valid == false || this.servForm.valid == false || this.rForm.valid == false) {
+        jQuery('#btn-see').prop('disabled',true);        
         jQuery('#btn-crear').prop('disabled',true);
         console.log('tv no valido')
       }
@@ -470,8 +538,10 @@ export class SubscriberComponent implements OnInit {
       if(this.intForm.valid == true && this.servForm.valid == true && this.rForm.valid == true){
         console.log('internet valido')
         jQuery('#btn-crear').prop('disabled',false);
+        jQuery('#btn-see').prop('disabled',false);                
       } else if (this.intForm.valid == false || this.servForm.valid == false || this.rForm.valid == false) {
         jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);                
         console.log('internet no valido')
       }
     }
@@ -896,6 +966,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
+    this.modalSub = 1;
     console.log(subscriber)
     this.disabled = true;
     this.splitted = 0; this.splitted2 = 0; this.splitted3 = 0;
@@ -938,8 +1009,10 @@ export class SubscriberComponent implements OnInit {
           this.splitted3[1] = i.toString();        
         }
       }
-    this.model8 = { date: { year: this.splitted3[2], month: this.splitted3[1], day: this.splitted3[0] } };       
+    this.model8 = { date: { year: this.splitted3[2], month: this.splitted3[1], day: this.splitted3[0] } };      
+    this.selDate4 = str3; 
     }
+    console.log(this.model8.formatted)
     /* for (let i = 0; i < 10; i++) {
       if (this.splitted[0] == "0" + i.toString() || this.splitted2[0] == "0" + i.toString() || this.splitted3[0] == "0" + i.toString()) {
         this.splitted[0] = i.toString();

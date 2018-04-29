@@ -190,7 +190,7 @@
   </div>
   <div class="modal-content">
     <div class="row">
-      <form [formGroup]="seeForm">
+      <form [formGroup]="seeForm" id="see-form">
         <div class="row" *ngIf="conceptEdit">
             <div class="col s12 m6 l4">
               <label class="label-color">Tipo servicio <span class="span-color">*</span></label>
@@ -232,7 +232,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateConcept()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateConcept()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="clearFields()">Cancelar</button>
   </div>
 </div>
