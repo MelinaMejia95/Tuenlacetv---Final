@@ -36,6 +36,9 @@
     width: 50%;
 }
 
+#modal-imprimir {
+    width: 33%;
+}
 
 #modal-factura .modal-content {
     height: 100%;

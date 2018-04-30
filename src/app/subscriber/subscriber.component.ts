@@ -40,11 +40,11 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0;;
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
-  seeSubs: FormGroup; seeServ: FormGroup; seeTV: FormGroup; seeInt: FormGroup;
+  seeSubs: FormGroup; seeServ: FormGroup; seeTV: FormGroup; seeInt: FormGroup; printForm: FormGroup;
   titleAlert: string = "Campo requerido";
   correoAlert: string = "Correo inválido"
   
@@ -287,6 +287,11 @@ export class SubscriberComponent implements OnInit {
       'decos': [null], 
       'precinto': [null],
     })
+
+    this.printForm = fb.group({
+      'fechainicio': [null, Validators.required],
+      'fechafin': [null, Validators.required],      
+    })
     
     // Set today date using the patchValue function
     let date = new Date();
@@ -295,9 +300,6 @@ export class SubscriberComponent implements OnInit {
         month: date.getMonth() + 1,
         day: date.getDate()}
       }
-      
-    console.log(this.modelDate.date.month + 1)
-
   }
 
   ngOnInit() {
@@ -354,6 +356,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
+    jQuery('#modal-imprimir').modal();    
     jQuery('#modal-factura').modal();
     jQuery('#modal-orden').modal();
     jQuery('#modal-pagos').modal();
@@ -449,6 +452,25 @@ export class SubscriberComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.tvForm.reset();
+    this.servForm.reset();
+    this.intForm.reset();
+    this.facForm.reset();
+    this.orderForm.reset();
+    this.newOrder.reset();
+    this.payForm.reset();
+    this.adPayForm.reset();
+    this.printForm.reset();
+    let date = new Date();
+    this.modelDate = {date: {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()}
+    }
   }
 
   onPageChange(number: number) {
@@ -570,6 +592,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagos(){
+    this.disabled = true;    
     jQuery(".disabled-fields").prop('disabled',true);    
     let ban = 0;
     if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
@@ -598,6 +621,8 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagosAnticipados(){
+    this.disabled = true;
+    jQuery(".disabled-fields").prop('disabled',true);        
     this._paymentservice.getInfoPay().subscribe(data => {
       this.pdocuments = data.documentos;
       this.formaspago = data.formas_pago;
