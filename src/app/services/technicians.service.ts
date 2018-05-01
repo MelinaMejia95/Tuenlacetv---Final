@@ -76,4 +76,12 @@ export class TechniciansService {
     return this._http.post(url, { "db": localStorage.getItem('db') } ,options).map(response => response.json());
    }
 
+   downloadOrder(content){
+    const url = this._global.url + `/ordenes/listado_ordenes` ;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: content });
+    return this._http.post(url, content, options).map(response => response.json());
+   }
+
 }

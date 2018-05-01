@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import swal from 'sweetalert2';
 import { TechniciansService } from '../services/technicians.service';
+import { ExcelService } from '../services/excel.service';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import {IMyDpOptions, IMyDateModel, IMyInputFocusBlur, IMyDate} from 'mydatepicker';
 import { Techs } from './technician'
@@ -20,9 +21,9 @@ export class TechniciansComponent implements OnInit {
   valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
   detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
   param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
-  post: any; detail: any; fechaven: string;
+  post: any; detail: any; fechaven: string; model1: any; model2: any;
 
-  rForm: FormGroup;
+  rForm: FormGroup;  printForm: FormGroup;
   orderForm: FormGroup;
   titleAlert: string = "Campo requerido";
 
@@ -71,7 +72,7 @@ export class TechniciansComponent implements OnInit {
       screenReaderCurrentLabel: `You're on page`
   };
 
-  constructor(private _techservice: TechniciansService, private fb: FormBuilder) { 
+  constructor(private _techservice: TechniciansService, private fb: FormBuilder, private excelService: ExcelService) { 
 
     this.rForm = fb.group({
       'grupoArticulos': [null, Validators.required],               
@@ -91,6 +92,11 @@ export class TechniciansComponent implements OnInit {
       'fechaorden': [null]
     })
 
+    this.printForm = fb.group({
+      'fechainicio': [null, Validators.required],
+      'fechafin': [null, Validators.required],          
+    })
+
     let date = new Date();
     this.modelDate = {date: {
         year: date.getFullYear(),
@@ -103,6 +109,7 @@ export class TechniciansComponent implements OnInit {
 
   ngOnInit() {
     jQuery('#modal-crear').modal();
+    jQuery('#modal-imprimir').modal();    
     jQuery('#modal-see').modal();
     this._techservice.getTechs().subscribe(data => {
       console.log(data)
@@ -138,9 +145,29 @@ export class TechniciansComponent implements OnInit {
     })
   }
 
+  resetForms() {
+    this.printForm.reset();
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
+  }
+
+  onDatePrint(event) {
+    this.model1 = event.formatted ;
+  }
+
+  onDatePrint2(event) {
+    this.model2 = event.formatted ;
+  }
+
+  exportToExcel(post){
+  this._techservice.downloadOrder({'fechaini': this.model1, 'fechafin': this.model2,
+                                   "db": localStorage.getItem('db') }).subscribe(data => {
+      this.excelService.exportAsExcelFile(data, 'Ordenes');
+    });
+    this.printForm.reset();
   }
 
   openModal (tech) {
