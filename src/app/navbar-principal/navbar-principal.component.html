@@ -41,31 +41,33 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s12">
-          <h4>Cambiar contraseña</h4>
+          <h5>Cambiar contraseña</h5>
       </div>
     </div>
   </div>
   <div class="modal-content">
     <div class="row">
-      <form class="col s12">
+      <form [formGroup]="passForm">
         <div class="row">
-          <div class="col s12">
-            <label for="antiguacontraseña" class="label-color">Antigua contraseña:</label>
-            <input placeholder="" id="antiguacontraseña" type="text">
+          <div class="col s12 m12 l12">
+            <label for="antiguacontraseña" class="label-color">Antigua contraseña <span class="span-color">*</span></label>
+            <input placeholder="" id="antiguacontraseña" type="password" class="validate" formControlName="contraseña">
+            <div class="alert" *ngIf="!passForm.controls['contraseña'].value && passForm.controls['contraseña'].touched">{{ titleAlert }}</div>                                 
           </div>
         </div>
         <div class="row">
-          <div class="col s12">
-            <label for="nuevacontraseña" class="label-color">Nueva contraseña:</label>
-            <input placeholder="" id="nuevacontraseña" type="text">
+          <div class="col s12 m12 l12">
+            <label for="nuevacontraseña" class="label-color">Nueva contraseña <span class="span-color">*</span></label>
+            <input placeholder="" id="nuevacontraseña" type="password" class="validate" formControlName="nueva">
+            <div class="alert" *ngIf="!passForm.controls['nueva'].value && passForm.controls['nueva'].touched">{{ titleAlert }}</div>                                 
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!passForm.valid" (click)="changePassword(passForm.value)">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForm()">Cancelar</button>
   </div>
 </div>
 

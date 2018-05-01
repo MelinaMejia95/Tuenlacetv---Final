@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsersService } from '../services/users.service';
 import { LoginService } from '../services/login.service';
+import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 declare let jQuery: any;
@@ -13,7 +16,15 @@ export class NavbarPrincipalComponent implements OnInit {
 
   ban:number = 0;
 
-  constructor(private _loginservice: LoginService, private route: Router) {
+  passForm: FormGroup;
+  titleAlert: string = "Campo requerido";
+
+  constructor(private _loginservice: LoginService, private route: Router, private fb: FormBuilder, private _userservie: UsersService) {
+
+    this.passForm = fb.group({
+      'contraseña': [null, Validators.required],
+      'nueva': [null, Validators.required],           
+    });
   }
  
   ngOnInit() {
@@ -56,9 +67,44 @@ export class NavbarPrincipalComponent implements OnInit {
     });
   }
 
-  changePassword(){
+  changePassword(post){
     jQuery('#modal-password').modal('open');
+    if(post){
+      this._userservie.changePassword({'id': localStorage.getItem('usuario_id'), 'antiguaP': post.contraseña, 'nuevaP': post.nueva,  
+                                      'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+        data => {
+          console.log(data)
+          if ( data.message == "Contraseña actualizada!") {
+            swal({
+              title: 'Contraseña actualizada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else  if ( data.message == "Error!") {
+            swal(
+              'No se pudo actualizar la contraseña',
+              '',
+              'warning'
+            )
+          } if ( data.message == "Contraseña antigua incorrecta!") {
+            swal(
+              'Contraseña antigua incorrecta!',
+              '',
+              'warning'
+            )
+          }
+        }
+      );
+    }
     jQuery('#modal1').modal('close');
+    this.passForm.reset();
+  }
+
+  resetForm() {
+    this.passForm.reset();
   }
 
 }
