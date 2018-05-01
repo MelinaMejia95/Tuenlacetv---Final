@@ -12,9 +12,8 @@
   }
 
 .card {
-   /*  width: 140%;
-    margin-left: 30%; */
-    margin-top: 4%;
+    width: 60%;
+    margin: 0 auto;
 }
 
 .card .card-action {
@@ -35,6 +34,10 @@
 .card-content {
     background-color: #fafafa;
     height: 100%;
+}
+
+#option-row {
+    margin-bottom: 8% !important;
 }
 
 .btn-flat {
