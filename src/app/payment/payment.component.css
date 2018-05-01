@@ -31,6 +31,10 @@
     width: 54%
 }
 
+#modal-imprimir {
+    width: 33%;
+}
+
 .modal .modal-content {
     padding: 24px;
     padding-top: 2px;

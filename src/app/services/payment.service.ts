@@ -123,4 +123,12 @@ export class PaymentsService {
   })
 }
 
+ downloadPayments(content){
+    const url = this._global.url + `/pagos/listado_recibos`;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: content });
+    return this._http.post(url, content, options).map(response => response.json());
+   }
+
 }

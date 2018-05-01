@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
+import { ExcelService } from '../services/excel.service';
 import { PaymentsService } from '../services/payment.service';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import { Payments } from './payment';
@@ -15,7 +17,10 @@ declare let jQuery:any;
 export class PaymentComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  payments: any[] = []; concepts: any; payoption: any; banks: any; payEdit: any;
+  payments: any[] = []; concepts: any; payoption: any; banks: any; payEdit: any; model1: any; model2: any;
+
+  printForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {Payments[]} 
@@ -54,7 +59,14 @@ export class PaymentComponent implements OnInit {
       screenReaderCurrentLabel: `You're on page`
   };
 
-  constructor(private _paymentservice: PaymentsService) { }
+  constructor(private _paymentservice: PaymentsService, private excelService: ExcelService, private fb: FormBuilder) {
+    
+    this.printForm = fb.group({
+      'fechainicio': [null, Validators.required],
+      'fechafin': [null, Validators.required],       
+    })
+
+   }
 
   ngOnInit() {
     jQuery( window ).resize( function () {
@@ -79,6 +91,7 @@ export class PaymentComponent implements OnInit {
         this.numberOfPayments = this.count.length;
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
+    jQuery('#modal-imprimir').modal();    
     jQuery('#modal-see').modal();
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -94,6 +107,10 @@ export class PaymentComponent implements OnInit {
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
+  }
+
+  resetForms() {
+    this.printForm.reset();
   }
 
   openModal (payment) {
@@ -170,6 +187,22 @@ export class PaymentComponent implements OnInit {
       }
     })
   }
+
+  onDatePrint(event) {
+    this.model1 = event.formatted ;
+  }
+
+  onDatePrint2(event) {
+    this.model2 = event.formatted ;
+  }
+
+  exportToExcel(post){
+  this._paymentservice.downloadPayments({'fechaini': this.model1, 'fechafin': this.model2, "db": localStorage.getItem('db') }).subscribe(data => {
+      this.excelService.exportAsExcelFile(data, 'Pagos');
+    });
+    this.printForm.reset();
+  }
+
 
   closeModal () {
     jQuery('#modal-see').modal('close');

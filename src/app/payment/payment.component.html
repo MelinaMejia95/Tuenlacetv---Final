@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="col s2 m6 l6 right-align">
-      <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
+      <a class='btn-floating btn button-options modal-trigger' id="btn-print" href="#modal-imprimir"><i class="material-icons">local_printshop</i></a>
     </div>
   </div>
 </div>
@@ -241,4 +241,36 @@
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>
-  
+
+<!--Modal Imprimir -->
+<div id="modal-imprimir" class="modal">
+  <div class="modal-title">
+    <div class="row">
+      <div class="col s12 m6 l6">
+          <h5>Imprimir</h5>
+      </div>
+    </div>
+  </div> 
+  <div class="modal-content">
+    <div class="row">
+      <form [formGroup]="printForm">
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <label for="fechainicio" class="label-color">Fecha inicio <span class="span-color">*</span></label>
+            <my-date-picker name="fechainicio" [options]="myDatePickerOptions" (dateChanged)="onDatePrint($event)" required formControlName="fechainicio"></my-date-picker>
+            <div class="alert" *ngIf="!printForm.controls['fechainicio'].value && printForm.controls['fechainicio'].touched">{{ titleAlert }}</div>          
+          </div>
+          <div class="col s12 m6 l6">
+            <label for="fechafin" class="label-color" >Fecha fin <span class="span-color">*</span></label>
+            <my-date-picker name="fechafin" [options]="myDatePickerOptions" (dateChanged)="onDatePrint($event)" required formControlName="fechafin"></my-date-picker>           
+            <div class="alert" *ngIf="!printForm.controls['fechafin'].value && printForm.controls['fechafin'].touched">{{ titleAlert }}</div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!printForm.valid" (click)="exportToExcel(printForm.value)">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
+  </div>
+</div>
