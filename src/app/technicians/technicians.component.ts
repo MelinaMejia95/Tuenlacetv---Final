@@ -165,7 +165,8 @@ export class TechniciansComponent implements OnInit {
   exportToExcel(post){
   this._techservice.downloadOrder({'fechaini': this.model1, 'fechafin': this.model2,
                                    "db": localStorage.getItem('db') }).subscribe(data => {
-      this.excelService.exportAsExcelFile(data, 'Ordenes');
+      console.log(data)
+      this.excelService.exportAsExcelFile(data.listado_ordenes, 'Ordenes');
     });
     this.printForm.reset();
   }
