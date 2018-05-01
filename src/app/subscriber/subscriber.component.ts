@@ -975,12 +975,11 @@ export class SubscriberComponent implements OnInit {
   }
 
   exportToExcel(post){
-
-    this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
+  this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
                                               'listado': post.tipolistado }).subscribe(data => {
-                                                console.log(data)
       this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');
     });
+    this.printForm.reset();
   }
 
 /*   exportToExcel(event){

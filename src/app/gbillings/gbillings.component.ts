@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { GBillingsService } from '../services/gbillings.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
+import {IMyDpOptions, IMyDateModel, IMyDate} from 'mydatepicker';
 import swal from 'sweetalert2';
+import { ExcelService } from '../services/excel.service';
 import { GBillings } from './gbillings';
-
 
 declare let jQuery:any;
 
@@ -16,7 +18,10 @@ export class GbillingsComponent implements OnInit {
 
   toogleDelete:boolean = false;
   gbillings: any[] = [];
-  gbillingEdit: any;
+  gbillingEdit: any; model1: any; model2: any;
+
+  printForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
   /**
    * @type {GBillings[]} 
@@ -55,7 +60,14 @@ export class GbillingsComponent implements OnInit {
       screenReaderCurrentLabel: `You're on page`
   };
 
-  constructor(private _gbillingservice: GBillingsService) { }
+  constructor(private _gbillingservice: GBillingsService, private fb: FormBuilder, private excelService: ExcelService) {
+
+    this.printForm = fb.group({
+      'fechainicio': [null, Validators.required],
+      'fechafin': [null, Validators.required],           
+    })
+
+   }
 
   ngOnInit() {
     jQuery( window ).resize( function () {
@@ -85,12 +97,33 @@ export class GbillingsComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+    jQuery('#modal-imprimir').modal();    
   }
 
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
   }
+
+  onDatePrint(event) {
+    this.model1 = event.formatted ;
+  }
+
+  onDatePrint2(event) {
+    this.model2 = event.formatted ;
+  }
+
+  resetForms() {
+    this.printForm.reset();
+  }
+
+  exportToExcel(post){
+    this._gbillingservice.downloadGBillings({'fechaini': this.model1, 'fechafin': this.model2 ,
+                                             'db': localStorage.getItem('db')}).subscribe(data => {
+        this.excelService.exportAsExcelFile(data, 'Facturaciones');
+      });
+      this.printForm.reset();
+    }
 
   selectData(bill){
     this.gbillingEdit = bill;
