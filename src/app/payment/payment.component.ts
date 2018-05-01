@@ -198,7 +198,8 @@ export class PaymentComponent implements OnInit {
 
   exportToExcel(post){
   this._paymentservice.downloadPayments({'fechaini': this.model1, 'fechafin': this.model2, "db": localStorage.getItem('db') }).subscribe(data => {
-      this.excelService.exportAsExcelFile(data, 'Pagos');
+    console.log(data)  
+    this.excelService.exportAsExcelFile(data.detalle_recibos, 'Pagos');
     });
     this.printForm.reset();
   }

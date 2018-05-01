@@ -977,7 +977,14 @@ export class SubscriberComponent implements OnInit {
   exportToExcel(post){
   this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
                                               'listado': post.tipolistado }).subscribe(data => {
-      this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');
+      console.log(data)
+      if(post.tipolistado == 'listado_consol'){
+        this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');        
+      } else if (post.tipolistado == 'listado_tv') {
+        this.excelService.exportAsExcelFile(data.senales_tv, 'Suscriptores');
+      } else if (post.tipolistado == 'listado_int') {
+        this.excelService.exportAsExcelFile(data.senales_int, 'Suscriptores');
+      }
     });
     this.printForm.reset();
   }

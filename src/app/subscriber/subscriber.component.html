@@ -2029,7 +2029,7 @@
           </div>
           <div class="col s12 m6 l6">
             <label for="fechafin" class="label-color" >Fecha fin <span class="span-color">*</span></label>
-            <my-date-picker name="fechafin" [options]="myDatePickerOptions" (dateChanged)="onDatePrint($event)" required formControlName="fechafin"></my-date-picker>           
+            <my-date-picker name="fechafin" [options]="myDatePickerOptions" (dateChanged)="onDatePrint2($event)" required formControlName="fechafin"></my-date-picker>           
             <div class="alert" *ngIf="!printForm.controls['fechafin'].value && printForm.controls['fechafin'].touched">{{ titleAlert }}</div>
           </div>
         </div>
