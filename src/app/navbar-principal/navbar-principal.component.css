@@ -8,7 +8,7 @@
     width: 30px;
     height: 30px;
     vertical-align: middle;
-    display: inline-block
+    display: inline-block;
 }
 
 .background ul a {
@@ -169,6 +169,7 @@
     width: 90px;
     height: 90px;
     vertical-align: middle;
+    margin-bottom: 4%;
 }
 
 input[type=text]:not(.browser-default){
@@ -184,7 +185,7 @@ input[type=text]:not(.browser-default){
 .modal{
     background-color: #343e45;
     width: 20em;
-    height: 14em;
+    height: 13em;
     margin-right: 3px;
     margin-top: 1px;
     top: 3.5em !important;

@@ -126,7 +126,7 @@ export class UsersComponent implements OnInit {
   }
 
   openModal (user) {
-    this.userEdit = user;
+    this.userEdit = Object.assign({}, user);
     for (let i = 0; i < this.states.length; i++) {
       if ( user.estado == this.states[i]['nombre']) {
         this.stateEdit = this.states[i]['nombre'];

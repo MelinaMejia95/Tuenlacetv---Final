@@ -104,7 +104,7 @@ export class CountriesComponent implements OnInit {
 
   openModal (country) {
     jQuery('#modal-see').modal('open');
-    this.countriesEdit = country;
+    this.countriesEdit = Object.assign({}, country);
     console.log(this.countriesEdit)
     //document.getElementsByClassName('table-radio');
   }

@@ -112,7 +112,7 @@ export class PlansComponent implements OnInit {
         this.serviceEdit = this.services[i]['nombre'];
       }
     }
-    this.planEdit = plan;
+    this.planEdit = Object.assign({}, plan);
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }

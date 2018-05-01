@@ -137,7 +137,7 @@ export class RatesComponent implements OnInit {
 
   openModal (rate) {
     this.disabled = true;
-    this.rateEdit = rate;
+    this.rateEdit = Object.assign({}, rate);
     let str = this.rateEdit.fechainicio;
     let str2 = this.rateEdit.fechaven;
     this.splitted = str.split("/", 3); this. splitted2 = str2.split("/", 3);

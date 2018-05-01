@@ -85,7 +85,7 @@ export class AdvancepaymentsComponent implements OnInit {
   }
 
   openModal (payment) {
-    this.paymentEdit = payment;
+    this.paymentEdit = Object.assign({}, payment);
     jQuery('#modal-see').modal('open');
   }
 

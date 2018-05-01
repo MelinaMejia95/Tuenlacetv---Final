@@ -139,7 +139,7 @@ export class CompanyComponent implements OnInit {
   }
 
   openModal (company) {
-    this.companyEdit = company;
+    this.companyEdit = Object.assign({}, company);
     this.rep = company.representante;
     console.log(this.rep)
     for (let i = 0; i < this.cities.length; i++) {

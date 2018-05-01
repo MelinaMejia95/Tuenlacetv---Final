@@ -1013,7 +1013,7 @@ export class SubscriberComponent implements OnInit {
     console.log(subscriber)
     this.disabled = true;
     this.splitted = 0; this.splitted2 = 0; this.splitted3 = 0;
-    this.subsEdit = subscriber;
+    this.subsEdit = Object.assign({}, subscriber);
     if(this.subsEdit.fechacontrato != null){
       let str = this.subsEdit.fechacontrato;
       this.splitted = str.split("/", 3);

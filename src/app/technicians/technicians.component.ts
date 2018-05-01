@@ -175,7 +175,7 @@ export class TechniciansComponent implements OnInit {
     this.disabled2 = true;    
     this.editDetail = 0;
     this.valorIva = 0;
-    this.techEdit = tech;
+    this.techEdit = Object.assign({}, tech);
     this.techsLenght = tech.detalle;
     this.selDate = this.techEdit.fechatrn;
     console.log(tech)

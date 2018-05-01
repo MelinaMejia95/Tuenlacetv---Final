@@ -211,7 +211,7 @@ export class NeighborhoodsComponent implements OnInit {
         console.log(this.zoneEdit)
       }
     }
-    this.neighborhoodEdit = neighborhood;
+    this.neighborhoodEdit = Object.assign({}, neighborhood);
     jQuery('#modal-see').modal('open');
     //document.getElementsByClassName('table-radio');
   }

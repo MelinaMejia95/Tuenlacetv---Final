@@ -119,7 +119,7 @@ export class BillsComponent implements OnInit {
 
   openModal (bill) {
     jQuery('#modal-see').modal('open');
-    this.billsEdit = bill;
+    this.billsEdit = Object.assign({}, bill);
     console.log(this.billsEdit)
     //document.getElementsByClassName('table-radio');
   }

@@ -231,7 +231,7 @@ export class CitiesComponent implements OnInit {
       }
     }
     jQuery('#modal-see').modal('open');
-    this.citiesEdit = city;
+    this.citiesEdit = Object.assign({}, city);
     document.getElementsByClassName('table-radio');
   }
 

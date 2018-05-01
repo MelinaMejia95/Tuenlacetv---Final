@@ -103,7 +103,6 @@ export class ConceptsComponent implements OnInit {
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
     jQuery('#see-form').on('change', () =>{
-      console.log(this.conceptReset)
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
@@ -114,7 +113,6 @@ export class ConceptsComponent implements OnInit {
       jQuery('#ivaEdit').prop('disabled',true);
       jQuery('#operacionEdit').prop('disabled',true);
       jQuery('#abreviaturaEdit').prop('disabled',true);
-      console.log('cerro')
       //<HTMLInputElement><any>document.getElementById("myForm").reset();
       //jQuery('#see-form').reset();
      }});
@@ -136,8 +134,7 @@ export class ConceptsComponent implements OnInit {
 
   clearFields() {
     //this.seeForm.reset();
-   /*  this.concepts = this.conceptReset;*/
-    console.log(this.reset) 
+   /*  this.concepts = this.conceptReset;*/ 
   }
 
   openModal (concept) {
@@ -147,8 +144,8 @@ export class ConceptsComponent implements OnInit {
       }
     }
     console.log(concept)
-    this.reset = concept;
-    this.conceptEdit = concept;
+    //this.reset = concept;
+    this.conceptEdit = Object.assign({}, concept);
     jQuery('#modal-see').modal('open');
   }
 

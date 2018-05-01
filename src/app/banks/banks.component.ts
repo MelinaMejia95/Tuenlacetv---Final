@@ -137,7 +137,7 @@ export class BanksComponent implements OnInit {
         console.log(this.cityEdit)
       }
     }
-    this.bankEdit = bank;
+    this.bankEdit = Object.assign({}, bank);
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
     //jQuery('.table-radio').attr('checked');

@@ -220,8 +220,7 @@ export class DepartmentsComponent implements OnInit {
       }
     }
     jQuery('#modal-see').modal('open');
-    this.depEdit = dep;
-    document.getElementsByClassName('table-radio');
+    this.depEdit = Object.assign({}, dep);
   }
 
   closeModal () {

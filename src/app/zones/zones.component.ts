@@ -212,7 +212,7 @@ export class ZonesComponent implements OnInit {
       }
     }
     jQuery('#modal-see').modal('open');
-    this.zoneEdit = zone;
+    this.zoneEdit = Object.assign({}, zone);
     document.getElementsByClassName('table-radio');
   }
 
