@@ -106,14 +106,13 @@ getBills(entity){
   return this._http.post(url, content, options).map(response => response.json());
  }
 
- downloadSubscriber(){
-  const url = this._global.url + `/senales/listado/` + localStorage.getItem('db');
+ downloadSubscriber(content){
+  const url = this._global.url + `/senales/` + content.listado ;
   let header = new Headers();
   header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-  let options = new RequestOptions({ headers: header });
-  return this._http.get(url, options).map(response =>{
-    return response.json();
-  })
+  let options = new RequestOptions({ headers: header, body: {'fechaini': content.fechaini, 
+                                    'fechafin': content.fechafin, "db": localStorage.getItem('db') } });
+  return this._http.post(url, content, options).map(response => response.json());
  }
 
 }

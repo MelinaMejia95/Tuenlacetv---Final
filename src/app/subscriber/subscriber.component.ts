@@ -40,7 +40,7 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0;
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -291,6 +291,7 @@ export class SubscriberComponent implements OnInit {
     this.printForm = fb.group({
       'fechainicio': [null, Validators.required],
       'fechafin': [null, Validators.required],      
+      'tipolistado': [null, Validators.required],      
     })
     
     // Set today date using the patchValue function
@@ -942,7 +943,7 @@ export class SubscriberComponent implements OnInit {
     }  
   }
   
-  downloadPDF(){
+  /* downloadPDF(){
     this._suscriberservice.downloadSubscriber().subscribe(data => {
       this.listado = data.senales;
       for(let i = 0; i < 5 ; i++){
@@ -963,13 +964,30 @@ export class SubscriberComponent implements OnInit {
     doc.save('table.pdf');
     console.log(rows1)
     console.log(this.rows)
-  } 
+  }  */
 
-  exportToExcel(event){
-    this._suscriberservice.downloadSubscriber().subscribe(data => {
+  onDatePrint(event) {
+    this.model13 = event.formatted ;
+  }
+
+  onDatePrint2(event) {
+    this.model14 = event.formatted ;
+  }
+
+  exportToExcel(post){
+
+    this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
+                                              'listado': post.tipolistado }).subscribe(data => {
+                                                console.log(data)
       this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');
     });
   }
+
+/*   exportToExcel(event){
+    this._suscriberservice.downloadSubscriber().subscribe(data => {
+      this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');
+    });
+  } */
 
   llenarTarifas(val) {
     let j = 0;
