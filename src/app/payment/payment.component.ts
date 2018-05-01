@@ -43,6 +43,11 @@ export class PaymentComponent implements OnInit {
    */
   limit: number;
 
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+  };
+
   public maxSize: number = 7;
   public directionLinks: boolean = true;
   public autoHide: boolean = false;
