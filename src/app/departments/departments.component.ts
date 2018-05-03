@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DepartmentsService } from '../services/departments.service';
+import { OnChanges, SimpleChanges, Input } from '@angular/core';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import swal from 'sweetalert2';
 import { Departaments } from './dep';
@@ -15,10 +16,11 @@ declare let jQuery: any;
 export class DepartmentsComponent implements OnInit {
 
   departments: any[] = [];
-  selected: number;
+  selected: number; cont: number = 0;
   toogleDelete:boolean = false;
   countries:string; countryEdit: string; nameCountry: string; codCountry: string;
   depEdit:any; country: any; createCountry: any;
+  toogleEdit: boolean = false; toogleCheck: boolean = false;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -70,10 +72,11 @@ export class DepartmentsComponent implements OnInit {
     });
 
     this.seeForm = fb.group({
-      'nombre-ver': [null, Validators.required]
+      'nombre-ver': [null, Validators.required],
+      'pais': [null]
     });
 
-   }
+  }
 
   ngOnInit() {
     this._departmentservice.getDepartments().subscribe(data => {
@@ -93,6 +96,7 @@ export class DepartmentsComponent implements OnInit {
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectPais').prop('disabled',true);
         jQuery('#codpaisEdit').prop('disabled',true);
+        //this.seeForm.reset();
        }});
 /*     jQuery('#select-country').on('change', () => {
       this.createCountry = jQuery('#select-country').val();
@@ -108,9 +112,34 @@ export class DepartmentsComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
   }
 
   selectData(dep){
@@ -214,13 +243,17 @@ export class DepartmentsComponent implements OnInit {
   }
 
   openModal (dep) {
+    
     for (let i = 0; i < this.countries.length; i++) {
       if ( dep.pais == this.countries[i]['nombre']) {
         this.countryEdit = this.countries[i]['nombre'];
+        console.log(this.countryEdit)
       }
     }
     jQuery('#modal-see').modal('open');
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});    
     this.depEdit = Object.assign({}, dep);
+    console.log(this.depEdit)
   }
 
   closeModal () {
@@ -233,6 +266,8 @@ export class DepartmentsComponent implements OnInit {
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
     var cantidad = document.getElementsByName('group1');
     var rows = <HTMLInputElement><any>document.getElementsByName('rows');
+
+    document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');              
     
     if (radios[0].checked){
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
@@ -255,6 +290,7 @@ export class DepartmentsComponent implements OnInit {
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
     var cantidad = document.getElementsByName('group1');
+    this.cont = 0;
 
     if (this.toogleDelete == true) {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
@@ -263,14 +299,21 @@ export class DepartmentsComponent implements OnInit {
     
     for(var i = 0; i < cantidad.length; i++ ){
       if(check[i].checked){
-        console.log('false');
+        this.cont = this.cont +  1;
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");
       }
-    }    
+    }
+    
+    if(this.cont > 1) {
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');          
+    } else if (this.cont <= 1 && this.toogleDelete == true){
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');           
+    }
+
   }
 
   edit () {

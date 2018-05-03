@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountriesService } from '../services/countries.service';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
+import { OnChanges, SimpleChanges, Input } from '@angular/core';
 import swal from 'sweetalert2';
 import { Countries } from './countries';
 
@@ -12,12 +13,13 @@ declare let jQuery:any;
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.css']
 })
-export class CountriesComponent implements OnInit {
+export class CountriesComponent implements  OnInit {
 
   countries: any[] = [];
   toogleDelete:boolean = false;
   countriesEdit:any; name: string;
-
+  toogleEdit: boolean = false; toogleCheck: boolean = false;
+  cont: number = 0; contador: number = 0;
   rForm: FormGroup;
   titleAlert: string = "Campo requerido";
 
@@ -64,7 +66,16 @@ export class CountriesComponent implements OnInit {
       'nombre': [null, Validators.required],
     });
 
-   }
+  }
+/* 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('onchanges')
+    if(this.rForm.valid == true) {
+      jQuery('#btn-edit').prop('disabled', false);
+    } else  if(this.rForm.valid == false){
+      jQuery('#btn-edit').prop('disabled', true);
+    }   
+  } */
 
   ngOnInit() {
     this._countryservice.getCountries().subscribe(data => {
@@ -93,17 +104,53 @@ export class CountriesComponent implements OnInit {
       })
   }
 
+  inputClicked() {
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.rForm.valueChanges.subscribe(val => {  
+      if(this.rForm.valid == true && this.toogleEdit == true) {
+        console.log('valid')
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.rForm.valid == false){
+        console.log('invalid')      
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
   }
 
   selectData(country){
-    this.countriesEdit = country;
+    /* var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+
+    for(var i = 0; i < cantidad.length; i++ ){
+      if(check[i].checked){
+        this.contador++;
+        if(check[i].checked && this.contador == 1 && this.toogleCheck == true) { */
+        this.countriesEdit = country;
+       /*  this.toogleCheck = true;
+        }
+        console.log(check[i], this.contador)
+      } 
+    }    
+    console.log(this.countriesEdit) */
   }
 
   openModal (country) {
     jQuery('#modal-see').modal('open');
+    this.toogleEdit = false;
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});
     this.countriesEdit = Object.assign({}, country);
     console.log(this.countriesEdit)
     //document.getElementsByClassName('table-radio');
@@ -208,15 +255,17 @@ export class CountriesComponent implements OnInit {
     var cantidad = document.getElementsByName('group1');
     var rows = <HTMLInputElement><any>document.getElementsByName('rows');
     
+    document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');          
+
     if (radios[0].checked){
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+      
       console.log(cantidad.length)
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = true;
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       }
     } else {
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = false;
         rows[i].setAttribute("style", "background-color : none");
@@ -229,6 +278,8 @@ export class CountriesComponent implements OnInit {
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
     var cantidad = document.getElementsByName('group1');
+    var ban = false;
+    this.cont = 0;
 
     if (this.toogleDelete == true) {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
@@ -237,14 +288,27 @@ export class CountriesComponent implements OnInit {
     
     for(var i = 0; i < cantidad.length; i++ ){
       if(check[i].checked){
-        console.log('false');
+        this.cont = this.cont +  1;
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
+        ban = false
       } else {
+        ban = true
         rows[i].setAttribute("style", "background-color : none");
       }
     }    
+
+    if(ban == true) { 
+      this.contador = 0;
+    }
+
+    if(this.cont > 1) {
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');          
+    } else if (this.cont <= 1 && this.toogleDelete == true){
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');           
+    }
+
   }
 
   edit () {

@@ -14,7 +14,7 @@ declare let jQuery:any;
 export class AdvancepaymentsComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  payments: any[] = []; paymentEdit: any;
+  payments: any[] = []; paymentEdit: any; result: number;
 
    /**
    * @type {AdPayments[]} 
@@ -85,6 +85,7 @@ export class AdvancepaymentsComponent implements OnInit {
   }
 
   openModal (payment) {
+    console.log(payment)
     this.paymentEdit = Object.assign({}, payment);
     jQuery('#modal-see').modal('open');
   }
@@ -109,7 +110,6 @@ export class AdvancepaymentsComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
-        if (this.paymentEdit) {
           this._paymentservice.deleteAdPayment(this.paymentEdit.id).subscribe(
             data => {
               console.log(data)
@@ -122,12 +122,14 @@ export class AdvancepaymentsComponent implements OnInit {
                             location.reload();
                           }
                 })
+                this.result = 1;
               } else if ( data.error == "error al anular pago") {
                 swal(
                   'No se pudo anular el pago',
                   '',
                   'warning'
                 )
+                this.result = 2;
               }
             },
           error =>{
@@ -136,10 +138,11 @@ export class AdvancepaymentsComponent implements OnInit {
               '',
               'warning'
             )
+            this.result = 4
           })
-        } 
       }
     })
+    //this.result = 1;
   }
 
   selectAll() {

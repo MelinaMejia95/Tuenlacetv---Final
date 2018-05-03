@@ -111,7 +111,7 @@
         <div class="row">
           <div class="col s12 m6 l6">
             <label for="codigo" class="label-color">Código</label>
-            <input placeholder=" " id="codigo" type="text" class="validate" disabled>
+            <input placeholder=" " id="codigoCreate" type="text" class="validate" disabled>
           </div>
           <div class="col s12 m6 l6">
             <label for="nombre" class="label-color" >Nombre <span class="span-color">*</span></label>
@@ -154,8 +154,8 @@
             <input disabled placeholder="" id="codigoEdit" type="text" class="validate" [(ngModel)]="countriesEdit.id" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l6">
-            <label for="nombreEdit" class="label-color">Nombre</label>
-            <input disabled placeholder="" id="nombreEdit" type="text" formControlName="nombre" required class="validate" [(ngModel)]="countriesEdit.nombre">
+            <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
+            <input disabled placeholder="" id="nombreEdit" type="text" (click)="inputClicked()" formControlName="nombre" required class="validate" [(ngModel)]="countriesEdit.nombre">
             <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
           </div>
         </div>
@@ -163,7 +163,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="updateCountry()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="updateCountry()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>

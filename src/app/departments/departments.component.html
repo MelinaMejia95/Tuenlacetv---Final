@@ -113,7 +113,7 @@
         <div class="row">
           <div class="col s12 m6 l6">
               <label for="codigo" class="label-color">Código</label>
-              <input disabled placeholder=""  id="codigo" type="text">
+              <input disabled placeholder=""  id="codigoCreate" type="text">
           </div>
           <div class="col s12 m6 l6">
               <label class="label-color">País <span class="span-color">*</span></label>
@@ -126,8 +126,8 @@
         </div>
         <div class="row">
           <div class="col s12 m6 l6">
-              <label for="nombre" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" id="nombre" type="text" class="validate" formControlName="nombre" required>
+              <label for="nombreCreate" class="label-color">Nombre <span class="span-color">*</span></label>
+              <input placeholder="" id="nombreCreate" type="text" class="validate" formControlName="nombre" required>
               <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l6">
@@ -172,16 +172,16 @@
             </div>
             <div class="col s12 m6 l6">
               <label class="label-color">País <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city" id="selectPais">
+              <select disabled class="browser-default select-city" id="selectPais" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected >{{ countryEdit }}</option>
-                <option value="1" [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
+                <option [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
               </select>
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l6">
               <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" formControlName="nombre-ver" [(ngModel)]="depEdit.nombre">
+              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" (click)="inputClicked()" formControlName="nombre-ver" [(ngModel)]="depEdit.nombre">
               <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l6">
@@ -194,8 +194,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateDep()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="updateDep()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
   

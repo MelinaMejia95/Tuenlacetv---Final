@@ -40,7 +40,7 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any;
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -1506,8 +1506,8 @@ export class SubscriberComponent implements OnInit {
     var rows = <HTMLInputElement><any>document.getElementsByName('rows');
     
     if (radios[0].checked){
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
-      document.getElementById('btn-options').setAttribute('style', 'visibility: visible');
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-options').setAttribute('style', 'visibility: hidden');
       console.log(cantidad.length)
       for(var i = 0; i < cantidad.length; i++ ) {
         check[i].checked = true;
@@ -1528,6 +1528,7 @@ export class SubscriberComponent implements OnInit {
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
     var cantidad = document.getElementsByName('group1');
+    this.cont = 0;
 
     if (this.toogleDelete == true) {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
@@ -1537,7 +1538,7 @@ export class SubscriberComponent implements OnInit {
     
     for(var i = 0; i < cantidad.length; i++ ){
       if(check[i].checked){
-        console.log('false');
+        this.cont = this.cont +  1;
         this.toogleDelete = true;
         document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         document.getElementById('btn-options').setAttribute('style', 'visibility: visible');
@@ -1546,6 +1547,15 @@ export class SubscriberComponent implements OnInit {
         rows[i].setAttribute("style", "background-color : none");
       }
     }    
+    console.log(this.cont)
+
+    if(this.cont > 1) {
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');    
+      document.getElementById('btn-options').setAttribute('style', 'visibility: hidden');        
+    } else if (this.cont <= 1 && this.toogleDelete == true){
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');    
+      document.getElementById('btn-options').setAttribute('style', 'visibility: visible');        
+    }
   }
 
   selectRowFac() {
