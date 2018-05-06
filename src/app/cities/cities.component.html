@@ -107,8 +107,8 @@
       <form [formGroup]="rForm">
         <div class="row">
           <div class="col s12 m6 l4">
-              <label for="codigo" class="label-color">Código</label>
-              <input disabled placeholder=""  id="codigo" type="text">
+              <label for="cod" class="label-color">Código</label>
+              <input disabled placeholder=""  id="cod" type="text">
           </div>
           <div class="col s12 m12 l4">
               <label class="label-color">País <span class="span-color">*</span></label>
@@ -129,8 +129,8 @@
         </div>
         <div class="row">
             <div class="col s12 m12 l4">
-              <label for="nombre" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" id="nombre" type="text" class="validate" formControlName="nombre" required>
+              <label for="nom" class="label-color">Nombre <span class="span-color">*</span></label>
+              <input placeholder="" id="nom" type="text" class="validate" formControlName="nombre" required>
               <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
@@ -147,7 +147,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createCity(rForm.value)">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
 
@@ -179,14 +179,14 @@
             </div>
             <div class="col s12 m12 l4">
               <label  class="label-color">País <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city" id="selectEdit">
+              <select disabled class="browser-default select-city" id="selectEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected >{{ countryEdit }}</option>
                 <option value="1" [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
               </select>
             </div>
             <div class="col s12 m12 l4">
               <label class="label-color">Departamento <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city" id="selectDep">
+              <select disabled class="browser-default select-city" id="selectDep" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected >{{ depEdit }}</option>
                 <option [value]="dep.id" *ngFor="let dep of departments">{{ dep.nombre }}</option>
               </select>
@@ -195,17 +195,16 @@
           <div class="row">
             <div class="col s12 m12 l4">
               <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" formControlName="nombre-ver" [(ngModel)]="citiesEdit.nombre">
-              <div class="alert" *ngIf="!rForm.controls['pais'].value && rForm.controls['pais'].touched">{{ titleAlert }}</div>
+              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" (click)="inputClicked()" formControlName="nombre-ver" [(ngModel)]="citiesEdit.nombre">
               <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="coddaneEdit" class="label-color">Código Dane</label>
-              <input placeholder="" disabled id="coddaneEdit" type="text" class="validate" [(ngModel)]="citiesEdit.codigoDane" [ngModelOptions]="{standalone: true}">
+              <input placeholder="" disabled id="coddaneEdit" type="text" class="validate" (click)="inputClicked()" [(ngModel)]="citiesEdit.codigoDane" formControlName="coddane">
             </div>
             <div class="col s12 m6 l4">
               <label for="codalternoEdit" class="label-color">Código Alterno</label>
-              <input placeholder="" disabled id="codalternoEdit" type="text" class="validate" [(ngModel)]="citiesEdit.codigoAlterno" [ngModelOptions]="{standalone: true}">
+              <input placeholder="" disabled id="codalternoEdit" type="text" class="validate" (click)="inputClicked()" [(ngModel)]="citiesEdit.codigoAlterno" formControlName="codalt">
             </div>
           </div>
         </div>
@@ -213,8 +212,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateCity()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="updateCity()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
 

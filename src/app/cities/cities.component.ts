@@ -19,6 +19,7 @@ export class CitiesComponent implements OnInit {
   toogleDelete:boolean = false;
   citiesEdit:any; department:any; depEdit:any; countryEdit: any; country:any;
   createCountry:string; createDep:string; countries:string; departments:string; name: string; coddane: string; codalt: string;
+  toogleEdit: boolean = false;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -73,6 +74,8 @@ export class CitiesComponent implements OnInit {
 
     this.seeForm = fb.group({
       'nombre-ver': [null, Validators.required],
+      'coddane': [null],
+      'codalt': [null]
     });
 
   }
@@ -111,9 +114,34 @@ export class CitiesComponent implements OnInit {
     })
   }
 
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
   }
 
   selectData(city){
@@ -220,6 +248,7 @@ export class CitiesComponent implements OnInit {
   }
 
   openModal (city) {
+    this.toogleEdit = false;    
     for (let i = 0; i < this.countries.length; i++) {
       if ( city.pais == this.countries[i]['nombre']) {
         this.countryEdit = this.countries[i]['nombre'];
@@ -231,6 +260,7 @@ export class CitiesComponent implements OnInit {
       }
     }
     jQuery('#modal-see').modal('open');
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
     this.citiesEdit = Object.assign({}, city);
     document.getElementsByClassName('table-radio');
   }

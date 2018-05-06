@@ -186,7 +186,7 @@
             </div>
             <div class="col s12 m6 l6">
               <label for="codpaisEdit" class="label-color">Código País</label>
-              <input placeholder="" disabled id="codpaisEdit" type="text" class="validate" [(ngModel)]="depEdit.codigo" [ngModelOptions]="{standalone: true}">
+              <input placeholder="" disabled id="codpaisEdit" type="text" class="validate" (click)="inputClicked()" [(ngModel)]="depEdit.codigo" formControlName="codpais">
             </div>
           </div>
         </div>

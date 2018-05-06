@@ -73,7 +73,8 @@ export class DepartmentsComponent implements OnInit {
 
     this.seeForm = fb.group({
       'nombre-ver': [null, Validators.required],
-      'pais': [null]
+      'pais': [null],
+      'codpais': [null]
     });
 
   }
@@ -243,7 +244,7 @@ export class DepartmentsComponent implements OnInit {
   }
 
   openModal (dep) {
-    
+    this.toogleEdit = false;
     for (let i = 0; i < this.countries.length; i++) {
       if ( dep.pais == this.countries[i]['nombre']) {
         this.countryEdit = this.countries[i]['nombre'];
