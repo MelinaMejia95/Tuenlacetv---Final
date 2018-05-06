@@ -380,6 +380,10 @@
         </div>
         <div class="row" *ngIf="paymentEdit">
           <div class="col s12 m6 l3">
+            <label class="label-color">Servicio</label>
+            <input placeholder="" id="numdoc" type="text" disabled [(ngModel)]="paymentEdit.servicio" [ngModelOptions]="{standalone: true}">                                      
+          </div>
+          <div class="col s12 m6 l3">
             <label class="label-color">Tipo documento</label>
             <input placeholder="" id="numdoc" type="text" disabled [(ngModel)]="paymentEdit.documento" [ngModelOptions]="{standalone: true}">                                      
           </div>

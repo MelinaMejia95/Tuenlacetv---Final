@@ -21,7 +21,7 @@ export class RatesComponent implements OnInit {
   concepts:string; inicio: string;
   plans:string; fecha: string; states:string; createZone: string; createConcept: string; createPlan: string; createState: string; codigo: string; valor: string;
   zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any; fechaEdit: any; zona: any; concepto: any; plan: any; estado: any; picker: any;
-  fechainicio: any; fechaven: any; splitted: any; splitted2: any; model1: any; model2: any; model3: any; model4: any; disabled: boolean = true
+  fechainicio: any; fechaven: any; splitted: any; splitted2: any; model1: any; model2: any; model3: any; model4: any; disabled: boolean = true; conceptSelect: any[] = [];
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -90,16 +90,16 @@ export class RatesComponent implements OnInit {
       'fechafin-ver': [null, Validators.required],      
     });
 
-   }
+  }
 
   ngOnInit() {
     this._rateservice.getRates().subscribe(data => {
-      console.log(data)
       this.rates = data.tarifas;
       this.zones = data.zonas;
       this.concepts = data.conceptos;
       this.plans = data.planes;
       this.states = data.estados;
+      console.log(this.concepts)
     });
     this._rateservice.getRatesFilter().subscribe(
       (count: Rates[]) => {
@@ -136,6 +136,7 @@ export class RatesComponent implements OnInit {
   }
 
   openModal (rate) {
+    console.log(rate)
     this.disabled = true;
     this.rateEdit = Object.assign({}, rate);
     let str = this.rateEdit.fechainicio;
@@ -315,6 +316,17 @@ export class RatesComponent implements OnInit {
     })
   }
 
+  llenarConceptos(val){
+    console.log(val)
+    let j = 0;
+    for (let i=0; i < this.concepts.length ; i++) {
+      if (val == this.concepts[i]['servicio']) {
+        this.conceptSelect[j] =  this.concepts[i];
+        j++;
+      }
+    }
+    console.log(this.conceptSelect)
+  }
 
   selectAll() {
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
@@ -363,7 +375,6 @@ export class RatesComponent implements OnInit {
 
   edit () {
     this.disabled = false;
-    jQuery('#codigoEdit').prop('disabled',false);
     jQuery('#zonaEdit').prop('disabled',false);
     jQuery('#conceptoEdit').prop('disabled',false);
     jQuery('#planEdit').prop('disabled',false);

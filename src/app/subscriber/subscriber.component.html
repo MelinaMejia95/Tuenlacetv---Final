@@ -562,11 +562,11 @@
                       <div class="alert" *ngIf="!tvForm.controls['tarifastv'].value && tvForm.controls['tarifastv'].touched">{{ titleAlert }}</div>                                                                  
                     </div>
                     <div class="col s12 m6 l3">
-                      <label for="valorafiliaciontv" class="label-color">Valor afiliación:</label>
-                      <input placeholder="" id="valorafiliaciontv" type="text" formControlName="valorafitv" [(ngModel)]="valorafitv">
+                      <label for="valorafiliaciontv" class="label-color">Valor afiliación</label>
+                      <input placeholder="" id="valorafiliaciontv" type="text" formControlName="valorafitv">
                     </div>
                     <div class="col s12 m6 l3">
-                      <label for="descuentotv" class="label-color">Valor descuento:</label>
+                      <label for="descuentotv" class="label-color">Valor descuento</label>
                       <input placeholder="" id="descuentotv" type="text" formControlName="descuento">
                     </div>
                   </div>
@@ -663,7 +663,7 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="valorinternet" class="label-color">Valor afiliación</label>
-                      <input placeholder="" id="valorinternet" type="text" formControlName="valorafiint" [(ngModel)]="valorafiint">
+                      <input placeholder="" id="valorinternet" type="text" formControlName="valorafiint">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="descuentointernet" class="label-color">Valor descuento</label>
@@ -679,7 +679,7 @@
   </div>
   <div class="modal-footer">
     <button id="btn-crear" class="modal-action modal-close waves-effect waves-green btn-flat" disabled
-    (click)="createSubs(rForm.value, cityForm.value, servForm.value, tvForm, intForm.value)">Aceptar</button>
+    (click)="createSubs(rForm.value, cityForm.value, servForm.value, tvForm.value, intForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
@@ -992,7 +992,7 @@
           </div>
           <div class="col s12 m6 l3">
             <label for="fechapagoEdit" class="label-color">Fecha último pago</label>
-            <my-date-picker name="fechapagoEdit" [options]="myDatePickerOptions" [selDate]="selDate4" [disabled]="disabled" formControlName="fechaultpago"></my-date-picker>           
+            <input disabled placeholder="" id="fechapagoEdit" type="text" class="not-disabled" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">           
           </div>
           <div class="col s12 m6 l3 check-type">
             <input disabled type="checkbox" class="filled-in select-disabled" id="televisionEdit" [checked]="subsEdit.tv == '1'" name="group4" />
@@ -1183,7 +1183,7 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="saldointEdit" class="label-color">Saldo</label>
-                      <input disabled placeholder="" id="estadointEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+                      <input disabled placeholder="" id="saldoEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
                 </div>
@@ -1480,61 +1480,61 @@
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m2 l2">
             <label for="codigo" class="label-color">Código</label>
-            <input disabled placeholder="" class="disabled-fields" id="codigo-orden" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="codigo-pagos" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
           </div>
             <div class="col s12 m6 l6">
               <label for="nombres" class="label-color">Nombres y apellidos</label>
-              <input disabled placeholder="" class="disabled-fields" id="nombres-orden" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="nombres-pagos" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m4 l4">
               <label for="direccion" class="label-color">Dirección</label>
-              <input disabled placeholder="" class="disabled-fields" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="direccion-pagos" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
             </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l3">
             <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" class="disabled-fields" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="telefonos-pagos" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Barrio</label>
-            <input disabled placeholder="" class="disabled-fields" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="barrio-pagos" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Zona:</label>
-            <input disabled placeholder="" class="disabled-fields" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="zona-pagos" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
-            <input disabled placeholder="" class="disabled-fields" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="fechaafi-pagos" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l6">
             <label for="observaciones-orden" class="label-color">Observaciones</label>
-            <input disabled placeholder="" class="disabled-fields" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="observaciones-pagos" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m3 l3">
             <label for="estadotv-orden" class="label-color">Estado televisión</label>
-            <input disabled placeholder="" class="disabled-fields" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="estadotv-pagos" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m3 l3">
               <label for="estadoint-orden" class="label-color">Estado internet</label>
-              <input disabled placeholder="" class="disabled-fields" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="estadoint-pagos" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
             </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m4 l4">
             <label for="fechapago-orden" class="label-color">Fecha último pago</label>
-            <input disabled placeholder="" class="disabled-fields" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="fechapago-pagos" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m4 l4">
             <label for="saldotv-orden" class="label-color">Saldo televisión</label>
-            <input disabled placeholder="" class="disabled-fields" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="saldotv-pagos" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m4 l4">
             <label for="saldoint-orden" class="label-color">Saldo internet</label>
-            <input disabled placeholder="" class="disabled-fields" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="saldoint-pagos" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <form [formGroup]="payForm">
@@ -1551,7 +1551,7 @@
           <div class="row">
             <div class="col s12 m4 l4">
               <label class="label-color">Tipo documento <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate disabled-fields" id="select-doc-orden" formControlName="tipodoc" required>
+              <select class="browser-default select-city validate" id="select-doc-orden" formControlName="tipodoc" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
               </select>
@@ -1710,61 +1710,61 @@
         <div class="row" *ngIf="subsEdit">
             <div class="col s12 m2 l2">
               <label for="codigo" class="label-color">Código</label>
-              <input disabled placeholder="" class="disabled-fields" id="codigo-orden" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="codigo-adpagos" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m6 l6">
               <label for="nombres" class="label-color">Nombres y apellidos</label>
-              <input disabled placeholder="" class="disabled-fields" id="nombres-orden" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="nombres-adpagos" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m4 l4">
               <label for="direccion" class="label-color">Dirección</label>
-              <input disabled placeholder="" class="disabled-fields" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="direccion-adpagos" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l3">
             <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" class="disabled-fields" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="telefonos-adpagos" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Barrio</label>
-            <input disabled placeholder="" class="disabled-fields" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="barrio-adpagos" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Zona:</label>
-            <input disabled placeholder="" class="disabled-fields" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="zona-adpagos" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
-            <input disabled placeholder="" class="disabled-fields" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="fechaafi-adpagos" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l6">
             <label for="observaciones-orden" class="label-color">Observaciones</label>
-            <input disabled placeholder="" class="disabled-fields" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="observaciones-adpagos" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m3 l3">
             <label for="estadotv-orden" class="label-color">Estado televisión</label>
-            <input disabled placeholder="" class="disabled-fields" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="estadotv-adpagos" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m3 l3">
               <label for="estadoint-orden" class="label-color">Estado internet</label>
-              <input disabled placeholder="" class="disabled-fields" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" class="disabled-fields" id="estadoint-adpagos" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
             </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m4 l4">
             <label for="fechapago-orden" class="label-color">Fecha último pago</label>
-            <input disabled placeholder="" class="disabled-fields" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="fechapago-adpagos" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m4 l4">
             <label for="saldotv-orden" class="label-color">Saldo televisión</label>
-            <input disabled placeholder="" class="disabled-fields" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="saldotv-adpagos" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m4 l4">
             <label for="saldoint-orden" class="label-color">Saldo internet</label>
-            <input disabled placeholder="" class="disabled-fields" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="saldoint-adpagos" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
@@ -1888,61 +1888,61 @@
         <div class="row" *ngIf="subsEdit">
           <div class="col s2">
             <label for="codigo" class="label-color">Código</label>
-            <input disabled placeholder="" id="codigo-orden" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="codigo-fac" type="text" [(ngModel)]="subsEdit.id" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s4">
             <label for="nombres" class="label-color">Nombres y apellidos</label>
-            <input disabled placeholder="" id="nombres-orden" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="nombres-fac" type="text" [(ngModel)]="subsEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s4">
             <label for="direccion" class="label-color">Dirección</label>
-            <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="direccion-fac" type="text" [(ngModel)]="subsEdit.direccionP" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s3">
             <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="telefonos-fac" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label class="label-color">Barrio</label>
-            <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="barrio-fac" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label class="label-color">Zona:</label>
-            <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="zona-fac" type="text" [(ngModel)]="subsEdit.barrioP" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
-            <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="fechaafi-fac" type="text" [(ngModel)]="subsEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s6">
             <label for="observaciones-orden" class="label-color">Observaciones</label>
-            <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="observaciones-fac" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label for="estadotv-orden" class="label-color">Estado televisión</label>
-            <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="estadotv-fac" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
               <label for="estadoint-orden" class="label-color">Estado internet</label>
-              <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" id="estadoint-fac" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
             </div>
         </div>
         <div class="row" *ngIf="subsEdit">
           <div class="col s4">
             <label for="fechapago-orden" class="label-color">Fecha último pago</label>
-            <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="fechapago-fac" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s4">
             <label for="saldotv-orden" class="label-color">Saldo televisión</label>
-            <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="saldotv-fac" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s4">
             <label for="saldoint-orden" class="label-color">Saldo internet</label>
-            <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="saldoint-fac" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">

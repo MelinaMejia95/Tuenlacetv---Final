@@ -92,6 +92,7 @@ export class ConceptsComponent implements OnInit {
        console.log(jQuery( window ).width());
      })
     this._conceptservice.getConcepts().subscribe(data => {
+      console.log(data)
       this.concepts = data.conceptos;
       this.conceptReset = data.conceptos;
       this.services = data.servicios;
@@ -190,7 +191,7 @@ export class ConceptsComponent implements OnInit {
           console.log(error._body)
           if ( error._body == `{"codigo":["has already been taken"]}`) {
             swal(
-              'El código ya existe',
+              'No se pudo crear el registro, el código ya existe',
               '',
               'warning'
             )

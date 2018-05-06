@@ -136,21 +136,21 @@
         </div>
         <div class="row">
           <div class="col s12 m6 l6">
-              <label class="label-color">Concepto <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-concept" formControlName="concepto" required>
-                <option value="" disabled selected>Seleccione</option>
-                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
-              </select>
-            <div class="alert" *ngIf="!rForm.controls['concepto'].value && rForm.controls['concepto'].touched">{{ titleAlert }}</div>              
-            </div>
-          <div class="col s12 m6 l6">
             <label class="label-color">Plan <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="select-plan" formControlName="plan" required>
+            <select class="browser-default select-city validate" id="select-plan" formControlName="plan" required #planes (change)="llenarConceptos(planes.value)">
               <option value="" disabled selected>Seleccione</option>
               <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!rForm.controls['plan'].value && rForm.controls['plan'].touched">{{ titleAlert }}</div>            
           </div>
+          <div class="col s12 m6 l6">
+              <label class="label-color">Concepto <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-concept" formControlName="concepto" required>
+                <option value="" disabled selected>Seleccione</option>
+                <option [value]="concept.id" *ngFor="let concept of conceptSelect">{{ concept.nombre }}</option>
+              </select>
+            <div class="alert" *ngIf="!rForm.controls['concepto'].value && rForm.controls['concepto'].touched">{{ titleAlert }}</div>              
+            </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l6">
@@ -223,19 +223,19 @@
         </div>
         <div class="row" *ngIf="rateEdit">
           <div class="col s12 m6 l6">
-              <label class="label-color">Concepto <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city" id="conceptoEdit">
-                <option value="nodisplay" disabled selected>{{ conceptEdit }}</option>
-                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
-              </select>
-            </div>
-          <div class="col s12 m6 l6">
             <label class="label-color">Plan <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city" id="planEdit">
+            <select disabled class="browser-default select-city" id="planEdit" #planesEdit (change)="llenarConceptos(planesEdit.value)">
               <option value="nodisplay" disabled selected>{{ planEdit }}</option>
               <option [value]="plan.id" *ngFor="let plan of plans">{{ plan.nombre }}</option>
             </select>
           </div>
+          <div class="col s12 m6 l6">
+              <label class="label-color">Concepto <span class="span-color">*</span></label>
+              <select disabled class="browser-default select-city" id="conceptoEdit">
+                <option value="nodisplay" disabled selected>{{ conceptEdit }}</option>
+                <option [value]="concept.id" *ngFor="let concept of conceptSelect">{{ concept.nombre }}</option>
+              </select>
+            </div>
         </div>
         <div class="row" *ngIf="rateEdit">
           <div class="col s12 m6 l6">

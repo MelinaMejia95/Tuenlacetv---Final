@@ -40,7 +40,7 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0;
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -335,13 +335,24 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
+      console.log(this.paramafi)
       if (this.paramafi == 'N') {
-        jQuery("#valorinternet").prop('disabled',true);
-        jQuery("#valorafiliaciontv").prop('disabled',true);
+       this.tvForm.reset({
+          valorafitv: {value: data.valor_afi_tv, disabled: true},
+        }); 
+        console.log(this.tvForm.get('valorafitv').value)
+        this.intForm.reset({
+          valorafiint: {value: data.valor_afi_int, disabled: true},
+        }); 
         this.valorafitv = Number(data.valor_afi_tv);
-        console.log(this.valorafitv)
         this.valorafiint = Number(data.valor_afi_int);
       } else if (this.paramafi == 'S'){
+        this.tvForm.reset({
+          valorafitv: {value: data.valor_afi_tv, disabled: false},
+        });
+        this.intForm.reset({
+          valorafiint: {value: data.valor_afi_int, disabled: false},
+        }); 
         this.valorafitv = Number(data.valor_afi_tv);
         this.valorafiint = Number(data.valor_afi_int);
       }
@@ -389,15 +400,12 @@ export class SubscriberComponent implements OnInit {
       if ( this.tipoUsuario == '1') {
         jQuery('#ciudad-user').prop('disabled',true);
         this.tv = 1;
-        //jQuery('.check-type').css({"visibility" : "visible"});
-        //jQuery('.hide-info').css({"visibility" : "visible"});
-        //jQuery('#serv-form').css({"visibility" : "visible"});        
+        this.servForm.patchValue( {tvCtrl: true});
+        console.log(this.servForm.value.tvCtrl)
         setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
       } else if ( this.tipoUsuario != '1') {
         this.tv = 0;
-        /* jQuery('.hide-info').css({"visibility" : "hidden"}); */
-        //jQuery('#serv-form').css({"visibility" : "hidden"});     
-        //jQuery('.check-type').css({"visibility" : "hidden"});
+        jQuery('#television').prop('checked', false);
         jQuery('#ciudad-user').prop('disabled',false);
       }
     });
@@ -472,6 +480,10 @@ export class SubscriberComponent implements OnInit {
       month: date.getMonth() + 1,
       day: date.getDate()}
     }
+    this.tipoUsuario = null;
+    this.tv = 0;
+    this.int = 0;
+    this.servicesPay = null;
   }
 
   onPageChange(number: number) {
@@ -632,12 +644,10 @@ export class SubscriberComponent implements OnInit {
       this.paramCobradores = data.param_cobradores;
     })
     if(this.subsEdit.tv == "1" && this.subsEdit.internet == "0"){
-      this.servicesPay[0] = [{'id': 1, 'abreviatura': "TELEVISION"}];
-    }
-    if (this.subsEdit.internet == "1" && this.subsEdit.tv== "0") {
-      this.servicesPay[0] = [{'id': 2, 'abreviatura': "INTERNET"}];
-    }
-    if (this.subsEdit.internet == "1" && this.subsEdit.tv== "1") {
+      this.servicesPay[0] = {'id': 1, 'abreviatura': "TELEVISION"};
+    } else if (this.subsEdit.internet == "1" && this.subsEdit.tv== "0") {
+      this.servicesPay[0] = {'id': 2, 'abreviatura': "INTERNET"};
+    } else if (this.subsEdit.internet == "1" && this.subsEdit.tv== "1") {
       this.servicesPay[0] = {'id': 1, 'abreviatura': "TELEVISION"};
       this.servicesPay[1] = {'id': 2, 'abreviatura': "INTERNET"};
     }
@@ -676,9 +686,9 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear el registro, datos incorrectos',
               '',
               'warning'
             )
@@ -718,9 +728,9 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if(data.error = "no se pudo crear"){
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear el registro, datos incorrectos',
               '',
               'warning'
             )
@@ -853,6 +863,7 @@ export class SubscriberComponent implements OnInit {
   }
   
   selectData(subs){
+    console.log(subs)
     this.subsEdit = subs;
   }
 
@@ -926,9 +937,9 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if (data.error == "no se pudo crear orden"){
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo realizar Orden',
+              'No se pudo crear el registro, datos incorrectos',
               '',
               'warning'
             )
@@ -988,12 +999,6 @@ export class SubscriberComponent implements OnInit {
     });
     this.printForm.reset();
   }
-
-/*   exportToExcel(event){
-    this._suscriberservice.downloadSubscriber().subscribe(data => {
-      this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');
-    });
-  } */
 
   llenarTarifas(val) {
     let j = 0;
@@ -1243,9 +1248,9 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo actualizar el registro',
+              'No se pudo actualizar el registro, datos incorrectos',
               '',
               'warning'
             )
@@ -1253,7 +1258,7 @@ export class SubscriberComponent implements OnInit {
         },
         error =>{
           swal(
-            'No se pudo eliminar el registro',
+            'No se pudo actualizar el registro',
             '',
             'warning'
           )
@@ -1301,7 +1306,10 @@ export class SubscriberComponent implements OnInit {
   }
 
   createSubs(post, city, serv, tv, int){
-      if (post) {
+    console.log(tv)
+    console.log(int)
+    console.log(tv.descuento, tv.tarifastv)
+ /*    if (post) {
       this._suscriberservice.createSubscribers({
         "persona":
          {
@@ -1310,10 +1318,10 @@ export class SubscriberComponent implements OnInit {
              "nombre1": post.nombre1,
              "nombre2": post.nombre2,
              "apellido2": post.apellido2,
-             "apellido1": post.nombre2,
+             "apellido1": post.apellido1,
              "direccion": post.direccion,
              "barrio_id": post.barrio,
-             "zona_id": post.barrio,
+             "zona_id": post.zona,
              "telefono1": post.tel1,
              "telefono2": post.tel2,
              "correo": post.correo,
@@ -1369,11 +1377,11 @@ export class SubscriberComponent implements OnInit {
             },
         "funcion_id": post.tipofuncion,
         "tv": Number(this.tv),
-        "valorafi_tv": Number(tv.valorafitv),
+        "valorafi_tv": Number(this.tvForm.get('valorafitv').value),
         "valor_dcto_tv": Number(tv.descuento),
         "tarifa_id_tv": tv.tarifastv,
         "internet": Number(this.int),
-        "valorafi_int": Number(int.valorafiint),
+        "valorafi_int": Number(this.intForm.get('valorafiint').value),
         "valor_dcto_int": Number(int.descuento),
         "tarifa_id_int": int.tarifasint,
         "tecnico_id": serv.tecnico, 
@@ -1390,15 +1398,15 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear el registro, datos incorrectos',
               '',
               'warning'
             )
           }
         });
-    } 
+    }   */
   } 
 
   createBill(post) {
@@ -1445,6 +1453,12 @@ export class SubscriberComponent implements OnInit {
               '',
               'warning'
             )
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+            swal(
+              'No se pudo crear el registro, datos incorrectos',
+              '',
+              'warning'
+            )
           }
         });
     } 
@@ -1475,9 +1489,9 @@ export class SubscriberComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } else if ( data.error = "El suscriptor no se puede eliminar" ) {
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
                 swal(
-                  'No se pudo eliminar el registro',
+                  'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
                   '',
                   'warning'
                 )

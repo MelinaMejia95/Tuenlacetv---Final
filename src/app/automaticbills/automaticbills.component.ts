@@ -14,7 +14,7 @@ declare let jQuery:any;
 export class AutomaticbillsComponent implements OnInit {
 
   bills: any = []; zones: any; typeFacts: any; model1: any; model2: any; model3: any; model4:any; model5: any; model6: any;
-  createFact: string; createZone: string;
+  createFact: string; createZone: string; showCorte: number; showPagos: number;
 
   rForm: FormGroup;
   titleAlert: string = "Campo requerido";
@@ -39,8 +39,20 @@ export class AutomaticbillsComponent implements OnInit {
 
   ngOnInit() {
     this._autobillservice.getInfo().subscribe(data => {
+      console.log(data)
       this.zones = data.zonas
       this.typeFacts = data.tipo_facturacion;
+      if (data.fecha_corte == 'S'){
+        this.showCorte = 1;
+      } else if (data.fecha_corte == 'N') {
+        this.showCorte = 0;
+      }
+      if (data.fecha_pagos_ven == 'S'){
+        this.showPagos = 1;
+      } else if (data.fecha_pagos_ven == 'N') {
+        this.showPagos = 0;
+      }
+      console.log(this.showCorte, this.showPagos)
     });
   }
 

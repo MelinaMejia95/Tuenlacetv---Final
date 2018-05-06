@@ -21,7 +21,7 @@ export class TechniciansComponent implements OnInit {
   valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
   detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
   param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
-  post: any; detail: any; fechaven: string; model1: any; model2: any;
+  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any;
 
   rForm: FormGroup;  printForm: FormGroup;
   orderForm: FormGroup;
@@ -273,7 +273,7 @@ export class TechniciansComponent implements OnInit {
              this.response = 'N';
            }
            console.log(this.response) 
-           this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.post.empleado), 
+           this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.tech), 
     'solicita': this.post.solicitado, 'detalle': this.details, 'solucion': this.post.solucion, 'respuesta': this.response,
     'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
            data => {
@@ -347,7 +347,7 @@ export class TechniciansComponent implements OnInit {
         console.log(this.articleAdd)
       }
     }
-    this.details[this.details.length] = {'articulo': this.articleAdd, 'cantidad': post.cantidad, 'grupo': this.groupAdd,
+    this.details[this.details.length] = {'articulo_id': this.articleAdd, 'cantidad': post.cantidad, 'grupo': this.groupAdd,
                                         'iva': post.iva, 'porcentajeIva': post.porIva, 'total': Number(this.total), 'valor': post.valor}
   }
 
@@ -415,7 +415,7 @@ export class TechniciansComponent implements OnInit {
           this._techservice.deleteOrder(this.techEdit.id).subscribe(
             data => {
               console.log(data)
-              if ( data.status == "anulado") {
+              if ( data.status == "anulada") {
                 swal({
                   title: 'Orden anulada con éxito',
                   text: '',
@@ -524,10 +524,14 @@ export class TechniciansComponent implements OnInit {
   }
 
   edit () {
+    jQuery('#select-employee').children('option[value="nodisplay"]').css('display','none');    
     jQuery('.select-edit').prop('disabled', false);
     this.editDetail = 1;
     this.disabled2 = false;
     this.techDetail = 1; 
+    jQuery('#select-employee').on('change', () => {
+      this.tech = jQuery('#select-employee').val();
+    });
   }
 
 }

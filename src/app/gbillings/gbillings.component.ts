@@ -80,6 +80,7 @@ export class GbillingsComponent implements OnInit {
       console.log(jQuery( window ).width());
     })
     this._gbillingservice.getGbillings().subscribe(data => {
+      console.log(data)
       this.gbillings = data.facturaciones;
     });
     this._gbillingservice.getGBillingsFilter().subscribe(

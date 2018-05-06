@@ -52,16 +52,16 @@
                 </div>
                 <div class="row">
                   <div class="col s12 m6 l3">
-                    <label for="fechavence" class="label-color">Fecha vencimiento <span class="span-color">*</span></label>
+                    <label for="fechavence" class="label-color">Vencimiento <span class="span-color">*</span></label>
                     <my-date-picker name="fechavence" [options]="myDatePickerOptions" (dateChanged)="fechaVence($event)" class="validate" formControlName="fechavence" required></my-date-picker>
                     <div class="alert" *ngIf="!rForm.controls['fechavence'].value && rForm.controls['fechavence'].touched">{{ titleAlert }}</div>                                
                   </div>
-                  <div class="col s12 m6 l3">
-                    <label for="suspencion" class="label-color">Suspensión del servicio </label>
+                  <div class="col s12 m6 l3" *ngIf="showCorte == 1">
+                    <label for="suspencion" class="label-color">Corte del servicio </label>
                     <my-date-picker name="suspencion" [options]="myDatePickerOptions" (dateChanged)="suspServ($event)"></my-date-picker>
                   </div>
-                  <div class="col s12 m6 l3">
-                    <label for="vencidos" class="label-color">Pagos</label>
+                  <div class="col s12 m6 l3" *ngIf="showPagos == 1">
+                    <label for="vencidos" class="label-color">Pagos vencidos</label>
                     <my-date-picker name="vencidos" [options]="myDatePickerOptions" (dateChanged)="pagoVence($event)"></my-date-picker>
                   </div>
                 </div>

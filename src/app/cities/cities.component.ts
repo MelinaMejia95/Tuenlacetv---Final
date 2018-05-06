@@ -82,7 +82,7 @@ export class CitiesComponent implements OnInit {
       this.cities = data.ciudades;
       this.countries = data.paises;
       this.departments = data.departamentos;
-      console.log(this.countries[0]['nombre'])
+      console.log(data)
     });
     this._cityservice.getCitiesFilter().subscribe(
       (count: Cities[]) => {

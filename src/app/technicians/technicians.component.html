@@ -49,7 +49,7 @@
           <input id="numorden" type="text" class="input-custom" [(ngModel)]="filter.nrorden">
         </th>
         <th>
-          <label for="codsus" class="label-color">Cod suscriptor</label>
+          <label for="codsus" class="label-color">Código</label>
           <input id="codsus" type="text" class="input-custom" [(ngModel)]="filter.codsus">
         </th>
         <th>
@@ -170,8 +170,8 @@
             <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="techEdit.entidad_id" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l5">
-            <label for="nombres" class="label-color">Nombres</label>
-            <input disabled placeholder="" id="nombres" type="text" [(ngModel)]="techEdit.nombres" [ngModelOptions]="{standalone: true}">
+            <label for="nombressub" class="label-color">Nombres</label>
+            <input disabled placeholder="" id="nombressub" type="text" [(ngModel)]="techEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l5">
             <label for="telefonos" class="label-color">Teléfonos</label>
@@ -222,12 +222,22 @@
             <input disabled placeholder="" id="fechapago" type="text" class="datepicker" [(ngModel)]="techEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
-            <label for="saldo" class="label-color">Saldo televisión</label>
-            <input disabled placeholder="" id="saldo" type="text" [(ngModel)]="techEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+            <label for="saldotv" class="label-color">Saldo televisión</label>
+            <input disabled placeholder="" id="saldotv" type="text" [(ngModel)]="techEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
-            <label for="saldo" class="label-color">Saldo internet</label>
-            <input disabled placeholder="" id="saldo" type="text" [(ngModel)]="techEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+            <label for="estadotv" class="label-color">Estado televisión</label>
+            <input disabled placeholder="" id="estadotv" type="text" [(ngModel)]="techEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l3">
+            <label for="saldoint" class="label-color">Saldo internet</label>
+            <input disabled placeholder="" id="saldoint" type="text" [(ngModel)]="techEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="estadoint" class="label-color">Estado internet</label>
+            <input disabled placeholder="" id="estadoint" type="text" [(ngModel)]="techEdit.estado_int" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
@@ -255,7 +265,7 @@
             </div>
             <div class="col s12 m6 l3">
               <label for="numorden" class="label-color">Número orden</label>
-              <input disabled placeholder="" class="select-edit" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" id="numorden" type="text" [(ngModel)]="techEdit.nrorden" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m6 l3">
               <label for="fechaorden" class="label-color">Fecha orden</label>
@@ -272,13 +282,12 @@
               <label for="solicitado" class="label-color">Solicitado por</label>
               <input disabled placeholder="" class="select-edit" id="solicitado" type="text" formControlName="solicitado">
             </div>
-            <div class="col s12 m6 l5">
-              <label class="label-color">Empleado/Técnico <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-edit" id="select-employee" formControlName="empleado">
-                <option value="nodisplay" disabled selected>Seleccione</option>
+            <div class="col s12 m6 l5" *ngIf="techEdit">
+              <label class="label-color">Técnico <span class="span-color">*</span></label>
+              <select disabled class="browser-default select-city select-edit" id="select-employee">
+                <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
-              </select>
-              <div class="alert" *ngIf="!orderForm.controls['empleado'].value && orderForm.controls['empleado'].touched">{{ titleAlert }}</div>                                      
+              </select>                               
             </div>
           </div>
           <div class="row">
@@ -293,13 +302,13 @@
             </div>
             <div class="col s12 m6 l3">
               <label for="estadoorden" class="label-color">Estado orden</label>
-              <input disabled placeholder="" class="select-edit" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l5">
               <label for="solucion" class="label-color">Solución Orden <span class="span-color">*</span></label>
-              <input disabled placeholder="" class="select-edit" id="solucion" type="text" [(ngModel)]="techEdit.observacion" formControlName="solucion">
+              <input disabled placeholder="" class="select-edit" id="solucion" type="text" formControlName="solucion">
               <div class="alert" *ngIf="!orderForm.controls['solucion'].value && orderForm.controls['solucion'].touched">{{ titleAlert }}</div>                                                            
             </div>
           </div>
