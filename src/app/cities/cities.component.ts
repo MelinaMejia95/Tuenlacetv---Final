@@ -102,6 +102,8 @@ export class CitiesComponent implements OnInit {
         jQuery('#selectDep').prop('disabled',true);
         jQuery('#coddaneEdit').prop('disabled',true);
         jQuery('#codalternoEdit').prop('disabled',true);
+        this.toogleEdit = false;    
+        jQuery('#btn-edit').prop('disabled', true);            
        }});
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 

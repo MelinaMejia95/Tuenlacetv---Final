@@ -203,49 +203,49 @@
               </div>
               <div class="col s12 m6 l3">
                 <label for="nitEdit" class="label-color">NIT <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="nitEdit" type="text" class="validate" formControlName="nit-ver" [(ngModel)]="bankEdit.nit">
+                <input disabled placeholder="" id="nitEdit" type="text" class="validate" formControlName="nit-ver" [(ngModel)]="bankEdit.nit" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['nit-ver'].value && seeForm.controls['nit-ver'].touched">{{ titleAlert }}</div>
               </div>
               <div class="col s12 m6 l3">
                 <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="nombreEdit" type="text" class="validate" formControlName="nombre-ver" [(ngModel)]="bankEdit.nombre">
+                <input disabled placeholder="" id="nombreEdit" type="text" class="validate" formControlName="nombre-ver" [(ngModel)]="bankEdit.nombre" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>
               </div>
               <div class="col s12 m6 l3">
                 <label for="direccionEdit" class="label-color">Dirección <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="direccionEdit" type="text" class="validate" formControlName="direccion-ver" [(ngModel)]="bankEdit.direccion">
+                <input disabled placeholder="" id="direccionEdit" type="text" class="validate" formControlName="direccion-ver" [(ngModel)]="bankEdit.direccion" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['direccion-ver'].value && seeForm.controls['direccion-ver'].touched">{{ titleAlert }}</div>
               </div>
             </div>
             <div class="row">
               <div class="col s12 m6 l4">
                 <label for="tel1Edit" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="tel1Edit" type="text" class="validate" formControlName="tel1-ver" [(ngModel)]="bankEdit.telefono1">
+                <input disabled placeholder="" id="tel1Edit" type="text" class="validate" formControlName="tel1-ver" [(ngModel)]="bankEdit.telefono1" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['tel1-ver'].value && seeForm.controls['tel1-ver'].touched">{{ titleAlert }}</div>
               </div>
               <div class="col s12 m6 l4">
                 <label for="tel2Edit" class="label-color">Teléfono 2</label>
-                <input disabled placeholder="" id="tel2Edit" type="text" [(ngModel)]="bankEdit.telefono2" [ngModelOptions]="{standalone: true}">
+                <input disabled placeholder="" id="tel2Edit" type="text" [(ngModel)]="bankEdit.telefono2" formControlName="tel2-ver">
               </div>
               <div class="col s12 m6 l4">
                 <label class="label-color">Ciudad <span class="span-color">*</span></label>
-                <select disabled class="browser-default select-city" id="selectEdit">
+                <select disabled class="browser-default select-city" id="selectEdit" (change)="selectClicked()">
                   <option value="nodisplay" disabled selected>{{ cityEdit }}</option>
                   <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
                 </select>
               </div>
               <div class="col s12 m6 l4">
                 <label for="contactoEdit" class="label-color">Contacto</label>
-                <input disabled placeholder="" id="contactoEdit" type="text" class="validate" [(ngModel)]="bankEdit.contacto" [ngModelOptions]="{standalone: true}">
+                <input disabled placeholder="" id="contactoEdit" type="text" class="validate" [(ngModel)]="bankEdit.contacto" formControlName="contacto-ver" (click)="inputClicked()">
               </div>
               <div class="col s12 m6 l4">
                 <label for="cuenta_banEdit" class="label-color">Cuenta bancaria <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="cuenta_banEdit" type="text" class="validate" formControlName="cuentaban-ver" [(ngModel)]="bankEdit.cuentaBancaria">
+                <input disabled placeholder="" id="cuenta_banEdit" type="text" class="validate" formControlName="cuentaban-ver" [(ngModel)]="bankEdit.cuentaBancaria" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['cuentaban-ver'].value && seeForm.controls['cuentaban-ver'].touched">{{ titleAlert }}</div>
               </div>
               <div class="col s12 m6 l4">
                 <label for="cuenta_conEdit" class="label-color">Cuenta contable <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="cuenta_conEdit" type="text" class="validate" formControlName="cuentacon-ver" [(ngModel)]="bankEdit.cuentaContable">
+                <input disabled placeholder="" id="cuenta_conEdit" type="text" class="validate" formControlName="cuentacon-ver" [(ngModel)]="bankEdit.cuentaContable" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['cuentacon-ver'].value && seeForm.controls['cuentacon-ver'].touched">{{ titleAlert }}</div>
               </div>
             </div>

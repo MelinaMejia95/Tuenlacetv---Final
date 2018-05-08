@@ -117,8 +117,8 @@
       <form [formGroup]="rForm">
         <div class="row">
           <div class="col s12 m6 l4">
-              <label for="nit" class="label-color">NIT <span class="span-color">*</span></label>
-              <input placeholder="" id="nit" type="text" class="validate" formControlName="nit" required>
+              <label for="nitc" class="label-color">NIT <span class="span-color">*</span></label>
+              <input placeholder="" id="nitc" type="text" class="validate" formControlName="nit" required>
               <div class="alert" *ngIf="!rForm.controls['nit'].value && rForm.controls['nit'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l4">
@@ -127,15 +127,15 @@
             <div class="alert" *ngIf="!rForm.controls['razonsocial'].value && rForm.controls['razonsocial'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l4">
-            <label for="direccion" class="label-color">Dirección <span class="span-color">*</span></label>
-            <input placeholder="" id="direccion" type="text" class="validate" formControlName="direccion" required>
+            <label for="dir" class="label-color">Dirección <span class="span-color">*</span></label>
+            <input placeholder="" id="dir" type="text" class="validate" formControlName="direccion" required>
             <div class="alert" *ngIf="!rForm.controls['direccion'].value && rForm.controls['direccion'].touched">{{ titleAlert }}</div>
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l4">
-            <label for="tel1" class="label-color">Teléfono <span class="span-color">*</span></label>
-            <input placeholder="" id="tel1" type="text" class="validate" formControlName="tel1" required>
+            <label for="telefono1" class="label-color">Teléfono <span class="span-color">*</span></label>
+            <input placeholder="" id="telefono1" type="text" class="validate" formControlName="tel1" required>
             <div class="alert" *ngIf="!rForm.controls['tel1'].value && rForm.controls['tel1'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l4">
@@ -208,7 +208,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createCompany(rForm.value)">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
     
@@ -223,9 +223,6 @@
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
       </div>
     </div>
   </div>
@@ -236,33 +233,33 @@
           <div class="row">
             <div class="col s12 m6 l4">
                 <label for="nitEdit" class="label-color">NIT <span class="span-color">*</span></label>
-                <input disabled placeholder="" id="nitEdit" type="text" class="validate" formControlName="nit-ver" required [(ngModel)]="companyEdit.nit">
+                <input disabled placeholder="" id="nitEdit" type="text" class="validate" formControlName="nit-ver" required [(ngModel)]="companyEdit.nit" (click)="inputClicked()">
                 <div class="alert" *ngIf="!seeForm.controls['nit-ver'].value && seeForm.controls['nit-ver'].touched">{{ titleAlert }}</div>
               </div>
             <div class="col s12 m6 l4">
               <label for="razonEdit" class="label-color">Razón social <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="razonEdit" type="text" class="validate" formControlName="razon-ver" required [(ngModel)]="companyEdit.razonsocial">
+              <input disabled placeholder="" id="razonEdit" type="text" class="validate" formControlName="razon-ver" required [(ngModel)]="companyEdit.razonsocial" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['razon-ver'].value && seeForm.controls['razon-ver'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="direccionEdit" class="label-color">Dirección <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="direccionEdit" type="text" class="validate" formControlName="direccion-ver" required [(ngModel)]="companyEdit.direccion">
+              <input disabled placeholder="" id="direccionEdit" type="text" class="validate" formControlName="direccion-ver" required [(ngModel)]="companyEdit.direccion" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['direccion-ver'].value && seeForm.controls['direccion-ver'].touched">{{ titleAlert }}</div>
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l4">
               <label for="tel1Edit" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="tel1Edit" type="text" class="validate" formControlName="tel1-ver" required [(ngModel)]="companyEdit.telefono1">
+              <input disabled placeholder="" id="tel1Edit" type="text" class="validate" formControlName="tel1-ver" required [(ngModel)]="companyEdit.telefono1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['tel1-ver'].value && seeForm.controls['tel1-ver'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="tel2Edit" class="label-color">Teléfono 2</label>
-              <input disabled placeholder="" id="tel2Edit" type="text" [(ngModel)]="companyEdit.telefono2" [ngModelOptions]="{standalone: true}">
+              <input disabled placeholder="" id="tel2Edit" type="text" [(ngModel)]="companyEdit.telefono2" formControlName="tel2-ver" (click)="inputClicked()">
             </div>
             <div class="col s12 m6 l4">
               <label class="label-color">Ciudad <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city validate" id="ciudadEdit">
+              <select disabled class="browser-default select-city validate" id="ciudadEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ cityEdit }}</option>
                 <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
               </select>
@@ -271,7 +268,7 @@
           <div class="row">
             <div class="col s12 m6 l4">
               <label class="label-color">Representante <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city validate" id="representanteEdit">
+              <select disabled class="browser-default select-city validate" id="representanteEdit" (change)="selectClicked()">
                   <option value="nodisplay" disabled selected>{{ rep[0]['nombres'] }}</option>
                   <option [value]="pple.id" *ngFor="let pple of people">{{ pple.nombres }}</option>
               </select>
@@ -291,13 +288,13 @@
           <div class="row">
             <div class="col s12 m6 l4">
               <label for="correoEdit" class="label-color">Correo <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="correoEdit" type="text" class="validate" formControlName="correo-ver" required [(ngModel)]="companyEdit.correo">
+              <input disabled placeholder="" id="correoEdit" type="text" class="validate" formControlName="correo-ver" required [(ngModel)]="companyEdit.correo" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['correo-ver'].value && seeForm.controls['correo-ver'].touched">{{ titleAlert }}</div>
               <div class="alert" *ngIf="seeForm.hasError('email', 'correo-ver') && seeForm.controls['correo-ver'].touched">{{ correoAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label class="label-color">Régimen <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city validate" id="regimenEdit">
+              <select disabled class="browser-default select-city validate" id="regimenEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ companyEdit.regimen }}</option>
                 <option value="S">Simplificado</option>
                 <option value="C">Común</option>
@@ -305,7 +302,7 @@
             </div>
             <div class="col s12 m6 l4">
               <label class="label-color">Contribuyente</label>
-              <select disabled class="browser-default select-city" id="contribuyenteEdit">
+              <select disabled class="browser-default select-city" id="contribuyenteEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ companyEdit.contribuyente }}</option>
                 <option value="S">Sí</option>
                 <option value="N">No</option>
@@ -315,7 +312,7 @@
           <div class="row">
             <div class="col s12 m6 l4">
               <label for="centroEdit" class="label-color">Centro de costo <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="centroEdit" type="text" class="validate" formControlName="centro-ver" required [(ngModel)]="companyEdit.centrocosto">
+              <input disabled placeholder="" id="centroEdit" type="text" class="validate" formControlName="centro-ver" required [(ngModel)]="companyEdit.centrocosto" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['centro-ver'].value && seeForm.controls['centro-ver'].touched">{{ titleAlert }}</div>
             </div>
           </div>
@@ -324,7 +321,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateCompany()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="updateCompany()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>

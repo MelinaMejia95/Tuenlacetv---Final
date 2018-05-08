@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
   
   loginUser(user, password){
+    console.log(user, password)
     if (user && password) {
       this.conect = {'login': user, 'password': password};
       this._LoginService.login(this.conect).subscribe(data =>{

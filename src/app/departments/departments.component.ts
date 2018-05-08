@@ -97,6 +97,8 @@ export class DepartmentsComponent implements OnInit {
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectPais').prop('disabled',true);
         jQuery('#codpaisEdit').prop('disabled',true);
+        this.toogleEdit = false;    
+        jQuery('#btn-edit').prop('disabled', true);  
         //this.seeForm.reset();
        }});
 /*     jQuery('#select-country').on('change', () => {

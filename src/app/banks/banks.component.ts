@@ -15,10 +15,10 @@ declare let jQuery:any;
 export class BanksComponent implements OnInit {
 
   banks: any[] = [];
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   cities: string; createCity: string; nit: string; nombre: string; direccion: string; tel1: string; tel2: string; contacto: string; cuentacon: string;
   cuentaban: string;
-  cityEdit: any; bankEdit: any; bank: any;
+  cityEdit: any; bankEdit: any; bank: any; 
   
 
   rForm: FormGroup;
@@ -83,6 +83,8 @@ export class BanksComponent implements OnInit {
       'tel1-ver': [null, Validators.required],
       'cuentacon-ver': [null, Validators.required],
       'cuentaban-ver': [null, Validators.required],
+      'tel2-ver': [null],
+      'contacto-ver': [null],
     });
 
   }
@@ -111,7 +113,10 @@ export class BanksComponent implements OnInit {
       jQuery('#contactoEdit').prop('disabled',true);
       jQuery('#cuenta_banEdit').prop('disabled',true);
       jQuery('#cuenta_conEdit').prop('disabled',true);
+      jQuery('#nombreEdit').prop('disabled',true);
       jQuery('#selectEdit').prop('disabled',true);
+      this.toogleEdit = false;    
+      jQuery('#btn-edit').prop('disabled', true);  
      }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -129,8 +134,29 @@ export class BanksComponent implements OnInit {
     this.config.currentPage = number;
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
   
   openModal (bank) {
+    this.toogleEdit = false;
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
     for (let i = 0; i < this.cities.length; i++) {
       if ( bank.ciudad == this.cities[i]['nombre']) {
         this.cityEdit = this.cities[i]['nombre'];

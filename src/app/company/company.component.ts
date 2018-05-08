@@ -18,7 +18,7 @@ export class CompanyComponent implements OnInit {
   companies: any[] = []; rep: any[] = [];
   companyEdit: any; cityEdit: any; city: any; entity: any; contr: any; regi: any;
   cities: string; people: string; createCity: string; createEntity: string; createRegi: string; createContr: string; nit: string; razonsocial: string;
-  direccion: string; tel1: string; tel2: string; correo: string; centrocosto: string;
+  direccion: string; tel1: string; tel2: string; correo: string; centrocosto: string; toogleEdit: boolean = false;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -84,7 +84,8 @@ export class CompanyComponent implements OnInit {
       'direccion-ver': [null, Validators.required],
       'tel1-ver': [null, Validators.required],
       'correo-ver': [null, Validators.email],
-      'centro-ver': [null, Validators.required]
+      'centro-ver': [null, Validators.required],
+      'tel2-ver': [null],
     });
 
   }
@@ -121,6 +122,8 @@ export class CompanyComponent implements OnInit {
       jQuery('#contribuyenteEdit').prop('disabled',true);
       jQuery('#regimenEdit').prop('disabled',true);
       jQuery('#centroEdit').prop('disabled',true);
+      this.toogleEdit = false;    
+      jQuery('#btn-edit').prop('disabled', true);  
      }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -133,12 +136,38 @@ export class CompanyComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
   }
 
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
+  }
+
   openModal (company) {
+    this.toogleEdit = false;
     this.companyEdit = Object.assign({}, company);
     this.rep = company.representante;
     console.log(this.rep)
@@ -152,6 +181,7 @@ export class CompanyComponent implements OnInit {
         this.cityEdit = this.people[i]['nombres'];
       }
     }
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }

@@ -14,6 +14,7 @@ export class LoginService{
      }
 
     login(content: object) {
+        console.log(content)
         const url = this._global.url+ '/signin';
         return this._http.post(url, content).map(response => response.json());
     }
