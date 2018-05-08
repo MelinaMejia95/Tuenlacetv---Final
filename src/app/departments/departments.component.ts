@@ -80,6 +80,15 @@ export class DepartmentsComponent implements OnInit {
   }
 
   ngOnInit() {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+        console.log('entro')
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+      console.log(jQuery( window ).width());
+    })
     this._departmentservice.getDepartments().subscribe(data => {
       this.departments = data.departamentos;
       this.countries = data.paises;

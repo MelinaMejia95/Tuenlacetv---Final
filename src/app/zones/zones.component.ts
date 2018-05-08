@@ -15,7 +15,7 @@ declare let jQuery:any;
 export class ZonesComponent implements OnInit {
 
   zones: any[] = [];
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   zoneEdit:any; zone:any; cityEdit:any; 
   cities:string; nombre: string; createCity: string;
 
@@ -91,6 +91,8 @@ export class ZonesComponent implements OnInit {
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
+        this.toogleEdit = false;    
+        jQuery('#btn-edit').prop('disabled', true);  
     }});
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -103,9 +105,35 @@ export class ZonesComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});  
   }
   
   selectData(zone){
@@ -205,6 +233,7 @@ export class ZonesComponent implements OnInit {
   }
 
   openModal (zone) {
+    this.toogleEdit = false;
     for (let i = 0; i < this.cities.length; i++) {
       if ( zone.ciudad == this.cities[i]['nombre']) {
         this.cityEdit = this.cities[i]['nombre'];
@@ -213,6 +242,7 @@ export class ZonesComponent implements OnInit {
     }
     jQuery('#modal-see').modal('open');
     this.zoneEdit = Object.assign({}, zone);
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});    
     document.getElementsByClassName('table-radio');
   }
 

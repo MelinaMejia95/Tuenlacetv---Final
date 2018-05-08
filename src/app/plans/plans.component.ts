@@ -14,7 +14,7 @@ declare let jQuery:any;
 })
 export class PlansComponent implements OnInit {
 
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   plans: any[] = []; planEdit: any; serviceEdit: any; plan: string;
   services: string; createService: string; nombre: string;
 
@@ -73,6 +73,15 @@ export class PlansComponent implements OnInit {
   }
 
   ngOnInit() {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+        console.log('entro')
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+      console.log(jQuery( window ).width());
+    })
     this._planservice.getPlans().subscribe(data => {
       this.plans = data.planes;
       this.services = data.servicios;
@@ -89,6 +98,8 @@ export class PlansComponent implements OnInit {
       jQuery('#codigoEdit').prop('disabled',true);
       jQuery('#tiposervicioEdit').prop('disabled',true);
       jQuery('#nombreEdit').prop('disabled',true);
+      this.toogleEdit = false;    
+      jQuery('#btn-edit').prop('disabled', true);  
      }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -99,6 +110,31 @@ export class PlansComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
   }
 
   onPageChange(number: number) {

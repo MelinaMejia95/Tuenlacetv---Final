@@ -14,7 +14,7 @@ declare let jQuery:any;
 })
 export class ConceptsComponent implements OnInit {
 
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   concepts: any[] = [];
   services: string; createService: string; codigo: string; nombre: string; abreviatura: string; iva: string; operacion: string;
   serviceEdit: any; conceptEdit: any; concept: any; conceptReset: any[] =[]; reset: any []= [];
@@ -114,6 +114,8 @@ export class ConceptsComponent implements OnInit {
       jQuery('#ivaEdit').prop('disabled',true);
       jQuery('#operacionEdit').prop('disabled',true);
       jQuery('#abreviaturaEdit').prop('disabled',true);
+      this.toogleEdit = false;    
+      jQuery('#btn-edit').prop('disabled', true);  
       //<HTMLInputElement><any>document.getElementById("myForm").reset();
       //jQuery('#see-form').reset();
      }});
@@ -133,12 +135,33 @@ export class ConceptsComponent implements OnInit {
     this.config.currentPage = number;
   }
 
-  clearFields() {
-    //this.seeForm.reset();
-   /*  this.concepts = this.conceptReset;*/ 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
   }
 
   openModal (concept) {
+    this.toogleEdit = false;
     for (let i = 0; i < this.services.length; i++) {
       if ( concept.servicio == this.services[i]['nombre']) {
         this.serviceEdit = this.services[i]['nombre'];
@@ -147,6 +170,7 @@ export class ConceptsComponent implements OnInit {
     console.log(concept)
     //this.reset = concept;
     this.conceptEdit = Object.assign({}, concept);
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});    
     jQuery('#modal-see').modal('open');
   }
 

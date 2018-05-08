@@ -15,7 +15,7 @@ declare let jQuery:any;
 export class NeighborhoodsComponent implements OnInit {
 
   neighborhoods: any[] = [];
-  toogleDelete: boolean = false;
+  toogleDelete: boolean = false; toogleEdit: boolean = false;
   zones: string; nombre: string; createZone: string;
   neighborhoodEdit: any; zoneEdit: any; neighborhood: any;
 
@@ -74,6 +74,15 @@ export class NeighborhoodsComponent implements OnInit {
   }
 
   ngOnInit() {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+        console.log('entro')
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+      console.log(jQuery( window ).width());
+    })
     this._neighborhoodservice.getNeighborhoods().subscribe(data => {
       this.neighborhoods = data.barrios;
       this.zones = data.zonas;
@@ -91,6 +100,8 @@ export class NeighborhoodsComponent implements OnInit {
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
+        this.toogleEdit = false;    
+        jQuery('#btn-edit').prop('disabled', true);  
        }});
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -101,6 +112,32 @@ export class NeighborhoodsComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
   }
 
   onPageChange(number: number) {
@@ -205,6 +242,7 @@ export class NeighborhoodsComponent implements OnInit {
   }
 
   openModal (neighborhood) {
+    this.toogleEdit = false;    
     for (let i = 0; i < this.zones.length; i++) {
       if ( neighborhood.zona == this.zones[i]['nombre']) {
         this.zoneEdit = this.zones[i]['nombre'];
@@ -212,6 +250,7 @@ export class NeighborhoodsComponent implements OnInit {
       }
     }
     this.neighborhoodEdit = Object.assign({}, neighborhood);
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
     jQuery('#modal-see').modal('open');
     //document.getElementsByClassName('table-radio');
   }
