@@ -112,7 +112,7 @@
           </div>
           <div class="col s12 m12 l4">
               <label class="label-color">País <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-country" formControlName="pais" required>
+              <select class="browser-default select-city validate" id="select-country" formControlName="pais" required #paises (change)="llenarDep(paises.value)">
                 <option value="" disabled selected>Seleccione</option>
                 <option [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
               </select>
@@ -122,7 +122,7 @@
             <label class="label-color">Departamento <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="select-depart" formControlName="depart" required>
               <option value="" disabled selected>Seleccione</option>
-              <option value="1" [value]="dep.id" *ngFor="let dep of departments">{{ dep.nombre }}</option>
+              <option value="1" [value]="dep.id" *ngFor="let dep of depSelect">{{ dep.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!rForm.controls['depart'].value && rForm.controls['depart'].touched">{{ titleAlert }}</div>
           </div>

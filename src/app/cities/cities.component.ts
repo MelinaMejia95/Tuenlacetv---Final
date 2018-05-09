@@ -14,7 +14,7 @@ declare let jQuery: any;
 })
 export class CitiesComponent implements OnInit {
 
-  cities: any[] = [];
+  cities: any[] = []; depSelect: any[] = [];
   selected: number;
   toogleDelete:boolean = false;
   citiesEdit:any; department:any; depEdit:any; countryEdit: any; country:any;
@@ -139,6 +139,17 @@ export class CitiesComponent implements OnInit {
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
+  }
+
+  llenarDep(val) {
+    let j = 0;
+    for (let i=0; i < this.departments.length ; i++) {
+      if (val == this.departments[i]['pais_id']) {
+        this.depSelect[j] =  this.departments[i];
+        j++;
+      }
+    }
+    console.log(this.depSelect)
   }
 
   resetForms() {
