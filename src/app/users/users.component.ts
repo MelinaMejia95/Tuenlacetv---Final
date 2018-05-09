@@ -14,12 +14,11 @@ declare let jQuery:any;
 })
 export class UsersComponent implements OnInit {
 
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false; toogleLevel: boolean = false;
   users: any[] = []; userEdit: any; stateEdit: any; user: any; impEdit: any; levelEdit: any;
   states: string; createState: string; createImp: string; createLevel: any; usuario: string; nombres: string; password: string;
 
-  rForm: FormGroup;
-  seeForm: FormGroup;
+  rForm: FormGroup; seeForm: FormGroup; passwordForm: FormGroup; resetForm: FormGroup;
   titleAlert: string = "Campo requerido";
 
   /**
@@ -75,7 +74,16 @@ export class UsersComponent implements OnInit {
       'nombres-ver': [null, Validators.required],      
     });
 
-   }
+    this.passwordForm = fb.group({
+      'antigua': [null, Validators.required],
+      'nueva': [null, Validators.required],      
+    });
+
+    this.resetForm = fb.group({
+      'reset': [null, Validators.required],    
+    });
+
+  }
 
   ngOnInit() {
     jQuery( window ).resize( function () {
@@ -97,6 +105,13 @@ export class UsersComponent implements OnInit {
         this.numberOfUsers = this.count.length;
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
+    if (localStorage.getItem('nivel') != '1') {
+      this.toogleLevel = true;
+      /* document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');    
+      document.getElementById('btn-footer-create').setAttribute('style', 'visibility: hidden');         */
+    }
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-changePassword').modal();
@@ -108,6 +123,8 @@ export class UsersComponent implements OnInit {
       jQuery('#nivelEdit').prop('disabled',true);
       jQuery('#estadoEdit').prop('disabled',true);
       jQuery('#tipoimpresoraEdit').prop('disabled',true);
+      this.toogleEdit = false;    
+      jQuery('#btn-edit').prop('disabled', true); 
      }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -120,12 +137,48 @@ export class UsersComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
+  }
+  
+  resetP(){
+    this.passwordForm.reset();
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
+  }
+
+  resetF(){
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
+    this.resetForm.reset();
+  }
+  
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
   }
 
   openModal (user) {
+    this.toogleEdit = false;    
     this.userEdit = Object.assign({}, user);
     for (let i = 0; i < this.states.length; i++) {
       if ( user.estado == this.states[i]['nombre']) {
@@ -139,6 +192,7 @@ export class UsersComponent implements OnInit {
         this.impEdit = 'Post';
       }
     }
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});    
     jQuery('#modal-see').modal('open');
     document.getElementsByClassName('table-radio');
   }
@@ -244,9 +298,9 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  changePassword(antigua, nueva) {
-    if(antigua){
-      this._userservie.changePassword({'id': this.userEdit.id, 'antiguaP': antigua, 'nuevaP': nueva,  
+  changePassword(post) {
+    if(post){
+      this._userservie.changePassword({'id': this.userEdit.id, 'antiguaP': post.antigua, 'nuevaP': post.nueva,  
                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
@@ -277,9 +331,9 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  resetPassword(nueva) {
-    if(nueva){
-      this._userservie.resetPassword({'id': this.userEdit.id,  'nuevaP': nueva,  
+  resetPassword(post) {
+    if(post){
+      this._userservie.resetPassword({'id': this.userEdit.id,  'nuevaP': post.reset,  
                                       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
           console.log(data)
@@ -347,9 +401,11 @@ export class UsersComponent implements OnInit {
     var cantidad = document.getElementsByName('group1');
 
     if (this.toogleDelete == true) {
-      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
-      document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');
-      document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: hidden');
+      if(this.toogleLevel == false){
+        document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+        document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');
+        document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: hidden');
+      }
       this.toogleDelete = false;
     }
     
@@ -357,9 +413,13 @@ export class UsersComponent implements OnInit {
       if(check[i].checked){
         console.log('false');
         this.toogleDelete = true;
-        document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
-        document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');
-        document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: visible');
+        if (localStorage.getItem('nivel') == '1') {
+          document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+          document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');
+          document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: visible');
+        } else if (localStorage.getItem('nivel') != '1') {
+          document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: visible');          
+        }
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");

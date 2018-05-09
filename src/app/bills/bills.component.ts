@@ -15,7 +15,7 @@ declare let jQuery:any;
 export class BillsComponent implements OnInit {
 
   bills: any[] = [];
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   billsEdit:any
   nombre: string;
 
@@ -96,6 +96,8 @@ export class BillsComponent implements OnInit {
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
         jQuery('#selectEdit').prop('disabled',true);
+        this.toogleEdit = false;    
+        jQuery('#btn-edit').prop('disabled', true); 
        }}); 
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -108,6 +110,31 @@ export class BillsComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
@@ -118,9 +145,11 @@ export class BillsComponent implements OnInit {
   }
 
   openModal (bill) {
+    this.toogleEdit = false;    
     jQuery('#modal-see').modal('open');
     this.billsEdit = Object.assign({}, bill);
     console.log(this.billsEdit)
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
     //document.getElementsByClassName('table-radio');
   }
 

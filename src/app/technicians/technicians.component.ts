@@ -108,6 +108,15 @@ export class TechniciansComponent implements OnInit {
   }
 
   ngOnInit() {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+        console.log('entro')
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+      console.log(jQuery( window ).width());
+    })
     jQuery('#modal-crear').modal();
     jQuery('#modal-imprimir').modal();    
     jQuery('#modal-see').modal();

@@ -282,7 +282,7 @@
               <label for="solicitado" class="label-color">Solicitado por</label>
               <input disabled placeholder="" class="select-edit" id="solicitado" type="text" formControlName="solicitado">
             </div>
-            <div class="col s12 m6 l5" *ngIf="techEdit">
+            <div class="col s12 m6 l5" *ngIf="techEdit" style="margin-left: 1px;">
               <label class="label-color">Técnico <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city select-edit" id="select-employee">
                 <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
@@ -333,7 +333,7 @@
               </select>
               <div class="alert" *ngIf="!rForm.controls['grupoArticulos'].value && rForm.controls['grupoArticulos'].touched">{{ titleAlert }}</div>                                                    
             </div>
-            <div class="col s12 m3 l2">
+            <div class="col s12 m4 l2">
               <label for="articulos" class="label-color">Artículos</label>
               <select class="browser-default select-city validate" id="articles" formControlName="articulos" (change)="selectArticle()">
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -341,26 +341,26 @@
               </select>
               <div class="alert" *ngIf="!rForm.controls['articulos'].value && rForm.controls['articulos'].touched">{{ titleAlert }}</div>                                                    
             </div>
-            <div class="col s12 m3 l2">
+            <div class="col s12 m4 l2">
               <label for="valor" class="label-color">Valor</label>
               <input placeholder="" id="valor" type="text" class="validate" [(ngModel)]="valor" (ngModelChange)="changeData()" formControlName="valor">
               <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>                                                  
             </div>
-            <div class="col s12 m2 l1">
+            <div class="col s12 m4 l1">
               <label for="cantidad" class="label-color">Cantidad</label>
               <input placeholder="" id="cantidad" type="text" class="validate" [(ngModel)]="cantidad" formControlName="cantidad">
               <div class="alert" *ngIf="!rForm.controls['cantidad'].value && rForm.controls['cantidad'].touched">{{ titleAlert }}</div>                                                    
             </div>
-            <div class="col s12 m3 l1">
+            <div class="col s12 m4 l1">
               <label for="iva" class="label-color">%IVA</label>
               <input placeholder="" id="iva" type="text" class="validate" [(ngModel)]="porIva" (ngModelChange)="changeData()" formControlName="porIva">
               <div class="alert" *ngIf="!rForm.controls['porIva'].value && rForm.controls['porIva'].touched">{{ titleAlert }}</div>                                                 
             </div>
-            <div class="col s12 m3 l2">
+            <div class="col s12 m4 l2">
               <label for="valoriva" class="label-color">Valor IVA</label>
               <input placeholder="" disabled id="valoriva" type="text" [(ngModel)]="valorIva" formControlName="iva">                                                
             </div>
-            <div class="col s12 m3 l2">
+            <div class="col s12 m4 l2">
               <button class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3" id="btn-detail" disabled (click)="addDetail(rForm.value)">+</button>
               <button class="btn-floating btn-large waves-effect waves-light table-btn grey darken-3" id="btn-remove-detail" (click)="removeDetail()">-</button>
             </div>

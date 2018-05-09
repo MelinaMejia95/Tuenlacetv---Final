@@ -93,10 +93,10 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <li><a class="btn-floating btn-eliminar red" (click)="deleteUser()" id="btn-footer-delete">Eliminar</a></li>
-    <li class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-resetPassword" id="btn-footer-reset">Resetear contraseña</a></li>
+    <li *ngIf="toogleLevel == false"><a class="btn-floating btn-eliminar red" (click)="deleteUser()" id="btn-footer-delete">Eliminar</a></li>
+    <li *ngIf="toogleLevel == false" class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-resetPassword" id="btn-footer-reset">Resetear contraseña</a></li>
     <li class="li-button"><a class="btn-floating btn-pssword modal-trigger" href="#modal-changePassword" id="btn-footer-pss">Cambiar contraseña</a></li>
-    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear">Crear</a></li>
+    <li *ngIf="toogleLevel == false" class="li-button"><a class="btn-floating btn-crear modal-trigger" href="#modal-crear" id="btn-footer-create">Crear</a></li>
   </ul>
 </div>
     
@@ -122,7 +122,7 @@
             <input placeholder="" id="nomusuario" type="text" class="validate" formControlName="usuario" required>
             <div class="alert" *ngIf="!rForm.controls['usuario'].value && rForm.controls['usuario'].touched">{{ titleAlert }}</div>                        
           </div>
-          <div class="col s12 m6 l4">
+          <div class="col s12 m12 l4">
             <label for="nomapeU" class="label-color">Nombres y apellidos <span class="span-color">*</span></label>
             <input placeholder="" id="nomapeU" type="text" class="validate" formControlName="nombres" required>
             <div class="alert" *ngIf="!rForm.controls['nombres'].value && rForm.controls['nombres'].touched">{{ titleAlert }}</div>                        
@@ -172,7 +172,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createUser(rForm.value)">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
     
@@ -187,9 +187,6 @@
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
       </div>
     </div>
   </div> 
@@ -203,17 +200,19 @@
           </div>
           <div class="col s12 m6 l4">
             <label for="nomusuarioEdit" class="label-color">Usuario <span class="span-color">*</span></label>
-            <input disabled placeholder="" id="nomusuarioEdit" type="text" class="validate" formControlName="usuario-ver" [(ngModel)]="userEdit.login">
+            <input disabled placeholder="" id="nomusuarioEdit" type="text" class="validate" formControlName="usuario-ver" [(ngModel)]="userEdit.login" (click)="inputClicked()">
+            <div class="alert" *ngIf="!seeForm.controls['usuario-ver'].value && seeForm.controls['usuario-ver'].touched">{{ titleAlert }}</div>         
           </div>
-          <div class="col s12 m6 l6">
+          <div class="col s12 m12 l6">
             <label for="nomapeEdit" class="label-color">Nombres y apellidos <span class="span-color">*</span></label>
-            <input disabled placeholder="" id="nomapeEdit" type="text" class="validate" formControlName="nombres-ver" [(ngModel)]="userEdit.nombre">
+            <input disabled placeholder="" id="nomapeEdit" type="text" class="validate" formControlName="nombres-ver" [(ngModel)]="userEdit.nombre" (click)="inputClicked()">
+            <div class="alert" *ngIf="!seeForm.controls['nombres-ver'].value && seeForm.controls['nombres-ver'].touched">{{ titleAlert }}</div>                   
           </div>
         </div>
         <div class="row" *ngIf="userEdit">
           <div class="col s12 m6 l2">
             <label for="nivelEdit" class="label-color">Nivel <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city" id="nivelEdit">
+            <select disabled class="browser-default select-city" id="nivelEdit" (change)="selectClicked()">
               <option  value="nodisplay" disabled selected>{{ userEdit.nivel }}</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -225,14 +224,14 @@
           </div>
           <div class="col s12 m6 l4">
             <label class="label-color">Estado <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city" id="estadoEdit">
+            <select disabled class="browser-default select-city" id="estadoEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ stateEdit }}</option>
               <option [value]="state.id" *ngFor="let state of states">{{ state.nombre }}</option>
             </select>
           </div>
           <div class="col s12 m6 l4">
             <label class="label-color">Tipo impresora <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city" id="tipoimpresoraEdit">
+            <select disabled class="browser-default select-city" id="tipoimpresoraEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ impEdit }}</option>
               <option value="L">Laser</option>
               <option value="P">Post</option>
@@ -243,8 +242,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!seeForm.valid" (click)="updateUser()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="updateUser()">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
 
@@ -252,30 +251,32 @@
 <div id="modal-changePassword" class="modal">
   <div class="modal-title">
     <div class="row">
-      <div class="col s12 m6 l6">
+      <div class="col s12 m6 l12">
           <h5>Cambiar contraseña</h5>
       </div>
     </div>
   </div>
   <div class="modal-content">
     <div class="row">
-      <form >
+      <form [formGroup]="passwordForm">
         <div class="row">
           <div class="col s12 m12 l12">
-            <label for="passwordChange" class="label-color">Antigua contraseña:</label>
-            <input placeholder="" id="passwordChange" type="password" #antigua>
+            <label for="passwordChange" class="label-color">Antigua contraseña <span class="span-color">*</span></label>
+            <input placeholder="" id="passwordChange" type="password" class="validate" formControlName="antigua">
+            <div class="alert" *ngIf="!passwordForm.controls['antigua'].value && passwordForm.controls['antigua'].touched">{{ titleAlert }}</div>                   
           </div>
           <div class="col s12 m12 l12">
-            <label for="newpassword" class="label-color">Nueva contraseña:</label>
-            <input placeholder="" id="newpassword" type="password" #nueva>
+            <label for="newpassword" class="label-color">Nueva contraseña <span class="span-color">*</span></label>
+            <input placeholder="" id="newpassword" type="password" class="validate" formControlName="nueva">
+            <div class="alert" *ngIf="!passwordForm.controls['nueva'].value && passwordForm.controls['nueva'].touched">{{ titleAlert }}</div>                     
           </div>
         </div>
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="changePassword(antigua.value, nueva.value)">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!passwordForm.valid" (click)="changePassword(passwordForm.value)">Aceptar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetP()">Cancelar</button>
   </div>
 </div>
 
@@ -290,19 +291,20 @@
     </div>
     <div class="modal-content">
       <div class="row">
-        <form>
+        <form [formGroup]="resetForm">
           <div class="row">
             <div class="col s12 m12 l12">
-              <label for="resetpassword" class="label-color">Nueva contraseña:</label>
-              <input placeholder="" id="resetpassword" type="password" #resetear>
+              <label for="resetpassword" class="label-color">Nueva contraseña <span class="span-color">*</span></label>
+              <input placeholder="" id="resetpassword" type="password" class="validate" formControlName="reset">
+              <div class="alert" *ngIf="!resetForm.controls['reset'].value && resetForm.controls['reset'].touched">{{ titleAlert }}</div>           
             </div>
           </div>
         </form>
       </div>
     </div>
     <div class="modal-footer">
-      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetPassword(resetear.value)">Aceptar</button>
-      <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+      <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!resetForm.valid" (click)="resetPassword(resetForm.value)">Aceptar</button>
+      <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetF()">Cancelar</button>
     </div>
-  </div>
+</div>
   

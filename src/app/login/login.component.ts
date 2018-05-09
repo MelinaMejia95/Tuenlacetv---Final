@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
         console.log(data)
         localStorage.setItem('usuario_id', data.usuario_id);
         localStorage.setItem('auth_token', data.auth_token);
+        localStorage.setItem('nivel', data.nivel);
         localStorage.setItem('db', this.bd);
         localStorage.setItem('entidad', '1');
         if (data.auth_token) {
