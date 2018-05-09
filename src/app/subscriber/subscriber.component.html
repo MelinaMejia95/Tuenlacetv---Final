@@ -1197,7 +1197,7 @@
   </div>
   <div class="modal-footer">
     <button id="btn-see" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="updateSubs()">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
 
@@ -1832,7 +1832,7 @@
                 <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
               </select>
             </div>
-            <div class="col s12 m6 l3">
+            <div class="col s12 m6 l3" style="margin-left: 1px">
               <label class="label-color">Forma de pago <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-payment-order-pay" formControlName="formapago" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
@@ -1840,7 +1840,7 @@
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['formapago'].value && adPayForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
             </div>
-            <div class="col s12 m6 l3">
+            <div class="col s12 m6 l3" style="margin-left: -1px">
               <label class="label-color">Banco <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-bank-order-pay" formControlName="banco" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>

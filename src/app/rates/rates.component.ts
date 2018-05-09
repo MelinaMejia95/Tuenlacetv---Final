@@ -15,7 +15,7 @@ declare let jQuery:any;
 })
 export class RatesComponent implements OnInit {
 
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   rates: any[] = [];
   zones:string;
   concepts:string; inicio: string;
@@ -93,6 +93,15 @@ export class RatesComponent implements OnInit {
   }
 
   ngOnInit() {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+        console.log('entro')
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+      console.log(jQuery( window ).width());
+    })
     this._rateservice.getRates().subscribe(data => {
       this.rates = data.tarifas;
       this.zones = data.zonas;
@@ -118,6 +127,8 @@ export class RatesComponent implements OnInit {
       jQuery('#estadoEdit').prop('disabled',true);
       jQuery('#fechainicioEdit').prop('disabled',true);
       jQuery('#fechafinEdit').prop('disabled',true);
+      this.toogleEdit = false;    
+       jQuery('#btn-edit').prop('disabled', true); 
      }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -130,12 +141,39 @@ export class RatesComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
+  onChanges(): void { 
+    this.seeForm.valueChanges.subscribe(val => {  
+      if(this.seeForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.seeForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
+      }
+    });
+  }
+
+  resetForms() {
+    this.rForm.reset();
+    this.seeForm.reset();
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
   }
 
   openModal (rate) {
+    this.toogleEdit = false;
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});            
     console.log(rate)
     this.disabled = true;
     this.rateEdit = Object.assign({}, rate);
@@ -325,7 +363,8 @@ export class RatesComponent implements OnInit {
         j++;
       }
     }
-    console.log(this.conceptSelect)
+    this.toogleEdit = true;
+    this.onChanges()
   }
 
   selectAll() {

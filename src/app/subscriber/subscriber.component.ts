@@ -315,7 +315,6 @@ export class SubscriberComponent implements OnInit {
     })
     this._suscriberservice.getSubscribers(localStorage.getItem('entidad')).subscribe(data => {
       this.entity = data.entidades;
-      //this.entity = data.senales;
       this.subscribers = data.senales;
       this.services = data.servicios;
       this.neighborhoods = data.barrios;
@@ -379,6 +378,7 @@ export class SubscriberComponent implements OnInit {
     jQuery('.dropdown-button').dropdown();
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery(".select-disabled:enabled").prop('disabled',true);
+      jQuery('#btn-see').prop('disabled', true);        
       this.disabled = true;
     }});
     jQuery('#mostrar').on('change', () => {
@@ -483,7 +483,8 @@ export class SubscriberComponent implements OnInit {
     this.tipoUsuario = null;
     this.tv = 0;
     this.int = 0;
-    this.servicesPay = null;
+    this.servicesPay = [];
+    jQuery('input[type=text]').attr({style:' box-shadow: none'});        
   }
 
   onPageChange(number: number) {
@@ -986,7 +987,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   exportToExcel(post){
-  this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
+    this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
                                               'listado': post.tipolistado }).subscribe(data => {
       console.log(data)
       if(post.tipolistado == 'listado_consol'){
@@ -1067,20 +1068,6 @@ export class SubscriberComponent implements OnInit {
     this.model8 = { date: { year: this.splitted3[2], month: this.splitted3[1], day: this.splitted3[0] } };      
     this.selDate4 = str3; 
     }
-    console.log(this.model8.formatted)
-    /* for (let i = 0; i < 10; i++) {
-      if (this.splitted[0] == "0" + i.toString() || this.splitted2[0] == "0" + i.toString() || this.splitted3[0] == "0" + i.toString()) {
-        this.splitted[0] = i.toString();
-        this.splitted2[0] = i.toString();
-        this.splitted3[0] = i.toString();        
-      }
-      if (this.splitted[1] == "0" + i.toString() || this.splitted2[1] == "0" + i.toString() || this.splitted3[1] == "0" + i.toString() ) {
-        this.splitted[1] = i.toString();
-        this.splitted2[1] = i.toString();
-        this.splitted3[1] = i.toString();        
-      }
-    } */
-    
      
     let j = 0;
     for (let i=0; i < this.ratestv.length ; i++) {
