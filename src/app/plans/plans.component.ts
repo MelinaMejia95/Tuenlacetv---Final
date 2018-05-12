@@ -177,13 +177,20 @@ export class PlansComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear registro, datos incorrectos',
               '',
               'warning'
             )
           }
+        },
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
         });
     }
   } 
@@ -193,7 +200,6 @@ export class PlansComponent implements OnInit {
       this._planservice.updatePlans({ 'servicio_id': this.plan, 'id': this.planEdit.id, 'nombre': this.planEdit.nombre,
                                     'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
-          console.log(data)
           if ( data.status == "updated") {
             swal({
               title: 'Registro actualizado con éxito',
@@ -203,13 +209,20 @@ export class PlansComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo eactualizar el registro',
+              'No se pudo actualizar registro, datos incorrectos',
               '',
               'warning'
             )
           }
+        },
+        error =>{
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
         }
       );
     }
@@ -239,13 +252,20 @@ export class PlansComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } else {
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
                 swal(
-                  'No se pudo eliminar el registro',
+                  'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
                   '',
                   'warning'
                 )
               }
+            },
+            error =>{
+              swal(
+                'No se pudo eliminar el registro',
+                '',
+                'warning'
+              )
             });
         } 
       }

@@ -849,6 +849,12 @@ export class SubscriberComponent implements OnInit {
                   '',
                   'warning'
                 )
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+                swal(
+                  'No se pudo anular el registro ya que tiene relación con otro módulo del sistema',
+                  '',
+                  'warning'
+                )
               }
             },
             error =>{
@@ -952,6 +958,13 @@ export class SubscriberComponent implements OnInit {
             )
           }
         });
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        }
     }  
   }
   
@@ -1393,6 +1406,13 @@ export class SubscriberComponent implements OnInit {
             )
           }
         });
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        }
     }   
   } 
 
@@ -1448,6 +1468,13 @@ export class SubscriberComponent implements OnInit {
             )
           }
         });
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        }
     } 
   }
 
@@ -1467,6 +1494,7 @@ export class SubscriberComponent implements OnInit {
           console.log(this.subsEdit.id)
           this._suscriberservice.deleteSubscribers(this.subsEdit.id).subscribe(
             data => {
+              console.log(data)
               if ( data.status == "deleted") {
                 swal({
                   title: 'Registro eliminado con éxito',

@@ -67,15 +67,6 @@ export class CountriesComponent implements  OnInit {
     });
 
   }
-/* 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('onchanges')
-    if(this.rForm.valid == true) {
-      jQuery('#btn-edit').prop('disabled', false);
-    } else  if(this.rForm.valid == false){
-      jQuery('#btn-edit').prop('disabled', true);
-    }   
-  } */
 
   ngOnInit() {
     this._countryservice.getCountries().subscribe(data => {
@@ -171,14 +162,21 @@ export class CountriesComponent implements  OnInit {
                         location.reload();
                       }
             })
-          } else {
+          }else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear el registro, datos incorrectos',
               '',
               'warning'
             )
-          }
+          } 
         });
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        }
     }
   } 
  
@@ -196,13 +194,20 @@ export class CountriesComponent implements  OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo eactualizar el registro',
+              'No se pudo actualizar registro, datos incorrectos',
               '',
               'warning'
             )
           }
+        },
+        error =>{
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
         }
       );
     }
@@ -232,13 +237,20 @@ export class CountriesComponent implements  OnInit {
                             location.reload();
                           }
                 })
-              } else {
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
                 swal(
-                  'No se pudo eliminar el registro',
+                  'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
                   '',
                   'warning'
                 )
               }
+            },
+            error =>{
+              swal(
+                'No se pudo eliminar el registro',
+                '',
+                'warning'
+              )
             });
         } 
       }

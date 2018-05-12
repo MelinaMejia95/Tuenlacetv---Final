@@ -130,6 +130,12 @@ export class AdvancepaymentsComponent implements OnInit {
                   'warning'
                 )
                 this.result = 2;
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+                swal(
+                  'No se pudo anular el registro ya que tiene relación con otro módulo del sistema',
+                  '',
+                  'warning'
+                )
               }
             },
           error =>{

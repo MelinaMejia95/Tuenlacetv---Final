@@ -71,7 +71,7 @@ export class PaymentComponent implements OnInit {
       'fechafin': [null, Validators.required],       
     })
 
-   }
+  }
 
   ngOnInit() {
     jQuery( window ).resize( function () {
@@ -179,6 +179,12 @@ export class PaymentComponent implements OnInit {
                   '',
                   'warning'
                 )
+              } else if ( data.error == "Entidad no aceptable o error de clave foranea" ) {
+                swal(
+                  'No se pudo anular el registro ya que tiene relación con otro módulo del sistema',
+                  '',
+                  'warning'
+                )
               }
             },
           error =>{
@@ -208,7 +214,6 @@ export class PaymentComponent implements OnInit {
     });
     this.printForm.reset();
   }
-
 
   closeModal () {
     jQuery('#modal-see').modal('close');

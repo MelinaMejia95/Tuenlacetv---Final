@@ -124,8 +124,21 @@ export class AutomaticbillsComponent implements OnInit {
               '',
               'warning'
             )
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+            swal(
+              'No se pudo crear registro, datos incorrectos',
+              '',
+              'warning'
+            )
           }
         },
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        }
       );
     } 
   }

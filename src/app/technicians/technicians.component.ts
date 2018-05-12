@@ -283,29 +283,34 @@ export class TechniciansComponent implements OnInit {
            }
            console.log(this.response) 
            this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.tech), 
-    'solicita': this.post.solicitado, 'detalle': this.details, 'solucion': this.post.solucion, 'respuesta': this.response,
-    'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
+                                          'solicita': this.post.solicitado, 'detalle': this.details, 'solucion': this.post.solucion, 'respuesta': this.response,
+                                          'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
            data => {
-        console.log(data)
-        if ( data.status == "updated") {
-          swal({
-            title: 'Registro actualizado con éxito',
-            text: '',
-            type: 'success',
-            onClose: function reload() {
-              location.reload();
+            if ( data.status == "updated") {
+              swal({
+                title: 'Registro actualizado con éxito',
+                text: '',
+                type: 'success',
+                onClose: function reload() {
+                  location.reload();
+                }
+              })
+            } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+              swal(
+                'No se pudo actualizar registro, datos incorrectos',
+                '',
+                'warning'
+              )
             }
-          })
-        } else {
-          swal(
-            'No se pudo actualizar el registro',
-            '',
-            'warning'
-          )
-        }
-      },
-      );
-        
+          },
+          error =>{
+            swal(
+              'No se pudo actualizar el registro',
+              '',
+              'warning'
+            )
+          }
+         );
       })
     } else {
       this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.post.empleado), 
@@ -322,14 +327,21 @@ export class TechniciansComponent implements OnInit {
                 location.reload();
               }
             })
-          } else {
+          }  else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo actualizar el registro',
+              'No se pudo actualizar registro, datos incorrectos',
               '',
               'warning'
             )
           }
         },
+        error =>{
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
+        }
         )
     }
     if(this.response) {
@@ -433,9 +445,9 @@ export class TechniciansComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } else if ( data.error == "no se pudo anular orden") {
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
                 swal(
-                  'No se pudo anular la orden',
+                  'No se pudo anular el registro ya que tiene relación con otro módulo del sistema',
                   '',
                   'warning'
                 )

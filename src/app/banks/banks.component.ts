@@ -203,13 +203,20 @@ export class BanksComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear registro, datos incorrectos',
               '',
               'warning'
             )
           }
+        },
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
         });
     }
   } 
@@ -221,7 +228,6 @@ export class BanksComponent implements OnInit {
                                     'contacto': this.bankEdit.contacto, 'cuentaBancaria': this.bankEdit.cuentaBancaria, 'cuentaContable': this.bankEdit.cuentaContable,
                                     'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
-          console.log(data)
           if ( data.status == "updated") {
             swal({
               title: 'Registro actualizado con éxito',
@@ -231,15 +237,21 @@ export class BanksComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo eactualizar el registro',
+              'No se pudo actualizar registro, datos incorrectos',
               '',
               'warning'
             )
           }
-        }
-      );
+        },
+        error =>{
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
+        });
     }
   }
 
@@ -258,7 +270,6 @@ export class BanksComponent implements OnInit {
         if (this.bankEdit) {
           this._bankservice.deleteBanks(this.bankEdit.id).subscribe(
             data => {
-              console.log(data)
               if ( data.status == "deleted") {
                 swal({
                   title: 'Registro eliminado con éxito',
@@ -268,7 +279,13 @@ export class BanksComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } 
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+                swal(
+                  'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
+                  '',
+                  'warning'
+                )
+              }
             },
           error =>{
             swal(

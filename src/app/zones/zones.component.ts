@@ -155,13 +155,20 @@ export class ZonesComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo crear el registro',
+              'No se pudo crear registro, datos incorrectos',
               '',
               'warning'
             )
           }
+        },
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
         });
     }
   } 
@@ -181,15 +188,21 @@ export class ZonesComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else {
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
             swal(
-              'No se pudo eactualizar el registro',
+              'No se pudo actualizar registro, datos incorrectos',
               '',
               'warning'
             )
           }
-        }
-      );
+        },
+        error =>{
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
+        });
     }
   }
 
@@ -218,7 +231,13 @@ export class ZonesComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } 
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+                swal(
+                  'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
+                  '',
+                  'warning'
+                )
+              }
             },
           error =>{
             swal(
