@@ -334,7 +334,7 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      console.log(this.paramafi)
+      console.log(this.tipoFactEdit)
       if (this.paramafi == 'N') {
        this.tvForm.reset({
           valorafitv: {value: data.valor_afi_tv, disabled: true},
@@ -405,7 +405,9 @@ export class SubscriberComponent implements OnInit {
         setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
       } else if ( this.tipoUsuario != '1') {
         this.tv = 0;
+        this.int = 0;
         jQuery('#television').prop('checked', false);
+        this.servForm.patchValue( {intCtrl: false});
         jQuery('#ciudad-user').prop('disabled',false);
       }
     });
@@ -468,7 +470,6 @@ export class SubscriberComponent implements OnInit {
     this.tvForm.reset();
     this.servForm.reset();
     this.intForm.reset();
-    this.facForm.reset();
     this.orderForm.reset();
     this.newOrder.reset();
     this.payForm.reset();
@@ -485,6 +486,10 @@ export class SubscriberComponent implements OnInit {
     this.int = 0;
     this.servicesPay = [];
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
+  }
+
+  resetFacForm() {
+    this.facForm.reset();
   }
 
   onPageChange(number: number) {
@@ -879,7 +884,17 @@ export class SubscriberComponent implements OnInit {
     this.nroDoc = fac.nrodcto;
   }
 
+  changeConcept(val) {
+    console.log(val)
+    for(let i = 0; i < this.rates.length; i++){
+      if((Number(val) == this.rates[i]['concepto_id']) && (this.subsEdit.zona_id == this.rates[i]['zona_id'])){
+        this.orderForm.controls['valortotal'].setValue(this.rates[i]['valor']);
+      }
+    }
+  }
+
   openModalOrden(){
+    console.log(this.subsEdit)
     this._techservice.getInfoTechs().subscribe(data => {
       this.concepts = data.conceptos;
       this.rates = data.tarifas;
@@ -911,8 +926,12 @@ export class SubscriberComponent implements OnInit {
           disableSince: {year: 0, month: 0, day: 0},
           disableUntil: {year: 0, month: 0, day: 0}          
         }
-        console.log('since')
       } 
+      if (data.param_valor == 'N'){
+        jQuery('#valortotal').prop('disabled', true);
+      } else  if (data.param_valor == 'S'){
+        jQuery('#valortotal').prop('disabled', false)
+      }
     }); 
     jQuery('#modal-orden').modal('open');
   }
@@ -1417,9 +1436,15 @@ export class SubscriberComponent implements OnInit {
   } 
 
   createBill(post) {
+    let tipofactura;
+    if (post.tipofac == 'ANTICIPADA') { 
+      tipofactura = 1;
+    } else if (post.tipofac == 'VENCIDA') { 
+      tipofactura = 2;
+    }
     if (post) {
       this._suscriberservice.createBills({
-        "tipo_facturacion_id": Number(post.tipofac),
+        "tipo_facturacion_id": Number(tipofactura),
         "servicio_id": Number(post.facturade),
         "f_elaboracion": this.model5,
         "f_inicio": this.model6,

@@ -1216,9 +1216,10 @@
           <div class="row">
             <div class="col s12 m6 l4" *ngIf="subsEdit">
               <label class="label-color">Tipo facturación</label>
-              <select disabled class="browser-default select-city" id="select-tipofac" formControlName="tipofac">
+              <input disabled placeholder="" id="tipofac" type="text" class="validate" [(ngModel)]="subsEdit.tipo_facturacion" formControlName="tipofac" required>
+            <!--   <select disabled class="browser-default select-city" id="select-tipofac" formControlName="tipofac">
                 <option>{{ subsEdit.tipo_facturacion }}</option>
-              </select>
+              </select> -->
             </div>
             <div class="col s12 m6 l4">
               <label class="label-color">Factura de <span class="span-color">*</span></label>
@@ -1274,7 +1275,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!facForm.valid" (click)="createBill(facForm.value)">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetFacForm()">Cancelar</button>
   </div>
 </div>
 
@@ -1373,7 +1374,7 @@
           <div class="row">
             <div class="col s12 m6 l3">
               <label class="label-color">Tipo orden a generar <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-order" formControlName="tipoorden">
+              <select class="browser-default select-city validate" id="select-order" formControlName="tipoorden" #concepto (change)="changeConcept(concepto.value)">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.abreviatura }}</option>
               </select>
@@ -1414,7 +1415,7 @@
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="valortotal" class="label-color">Valor total</label>
-              <input placeholder="" id="valortotal" type="text" formControlName="valortotal">
+              <input disabled placeholder="" id="valortotal" type="text" formControlName="valortotal">
             </div>
             <div class="col s12 m6 l6">
               <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>

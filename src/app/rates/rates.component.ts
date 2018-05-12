@@ -369,7 +369,7 @@ export class RatesComponent implements OnInit {
   }
 
   llenarConceptos(val){
-    console.log(val)
+    this.conceptSelect = [];
     let j = 0;
     for (let i=0; i < this.concepts.length ; i++) {
       if (val == this.concepts[i]['servicio']) {
