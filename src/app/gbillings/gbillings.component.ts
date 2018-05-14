@@ -16,11 +16,11 @@ declare let jQuery:any;
 })
 export class GbillingsComponent implements OnInit {
 
-  toogleDelete:boolean = false;
-  gbillings: any[] = [];
-  gbillingEdit: any; model1: any; model2: any;
+  toogleDelete:boolean = false; tooglePrint: boolean = false;
+  gbillings: any[] = []; zones: any[] = []; typefac: any[] = [];
+  gbillingEdit: any; model1: any; model2: any; splitted: any; splitted2: any; splitted3: any; splitted4: any;
 
-  printForm: FormGroup;
+  printForm: FormGroup; facForm: FormGroup;
   titleAlert: string = "Campo requerido";
 
   /**
@@ -67,6 +67,23 @@ export class GbillingsComponent implements OnInit {
       'fechafin': [null, Validators.required],           
     })
 
+    this.facForm = fb.group({
+      'zona': [null, Validators.required],
+      'tipofac': [null, Validators.required],           
+      'fechaelaboracion': [null, Validators.required],           
+      'inicioPeriodo': [null, Validators.required],           
+      'finPeriodo': [null, Validators.required],           
+      'fechaven': [null, Validators.required],           
+      'facinicial': [null, Validators.required],           
+      'facfinal': [null, Validators.required],           
+      'saldoinicial': [null, Validators.required],           
+      'saldofinal': [null, Validators.required],           
+      'corte': [null, Validators.required],           
+      'nota1': [null],           
+      'nota2': [null],           
+      'nota3': [null]
+    })
+
    }
 
   ngOnInit() {
@@ -98,7 +115,9 @@ export class GbillingsComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+    jQuery('.dropdown-button').dropdown();
     jQuery('#modal-imprimir').modal();    
+    jQuery('#modal-factura').modal();    
   }
 
   onPageChange(number: number) {
@@ -116,6 +135,7 @@ export class GbillingsComponent implements OnInit {
 
   resetForms() {
     this.printForm.reset();
+    this.facForm.reset();
   }
 
   exportToExcel(post){
@@ -124,10 +144,150 @@ export class GbillingsComponent implements OnInit {
         this.excelService.exportAsExcelFile(data, 'Facturaciones');
       });
       this.printForm.reset();
-    }
+  }
 
   selectData(bill){
     this.gbillingEdit = bill;
+    console.log(bill)
+  }
+
+  openModalImprimir() {
+    if(this.tooglePrint == false){
+      jQuery('#modal-imprimir').modal('open');
+      console.log('null')
+    } else if(this.tooglePrint == true){
+      let str = this.gbillingEdit.fecha_inicio;
+      let str2 = this.gbillingEdit.fecha_fin;
+      this.splitted = str.split("/", 3);
+      this.splitted2 = str2.split("/", 3);      
+      for (let i = 0; i < 10; i++) {
+        if (this.splitted[0] == "0" + i.toString()) {
+          this.splitted[0] = i.toString();
+        }
+        if (this.splitted2[0] == "0" + i.toString()) {
+          this.splitted2[0] = i.toString();
+        }
+        if (this.splitted[1] == "0" + i.toString()) {
+          this.splitted[1] = i.toString();
+        }
+        if ( this.splitted2[1] == "0" + i.toString() ) {
+          this.splitted2[1] = i.toString();
+        }
+      }
+      this.printForm.patchValue({fechainicio: {
+        date: {
+            year: this.splitted[2],
+            month:this.splitted[1],
+            day: this.splitted[0]}
+        }});
+      this.printForm.patchValue({fechafin: {
+        date: {
+            year: this.splitted2[2],
+            month:this.splitted2[1],
+            day: this.splitted2[0]}
+        }});
+      jQuery('#modal-imprimir').modal('open');      
+    }
+  }
+
+  openModalFacturar() {
+    this._gbillingservice.getInfoGbillings().subscribe(data => {
+      this.zones = data.zonas;
+      this.typefac = data.tipo_facturacion;
+    });
+    if(this.tooglePrint == false){
+      jQuery('#modal-factura').modal('open');      
+    } else if(this.tooglePrint == true) {
+      let str = this.gbillingEdit.fecha_inicio;
+      let str2 = this.gbillingEdit.fecha_fin;
+      let str3 = this.gbillingEdit.fecha_elaboracion;
+      let str4 = this.gbillingEdit.fecha_vence;
+      this.splitted = str.split("/", 3);
+      this.splitted2 = str2.split("/", 3);   
+      this.splitted3 = str3.split("/", 3);   
+      this.splitted4 = str4.split("/", 3);   
+      for (let i = 0; i < 10; i++) {
+        if (this.splitted[0] == "0" + i.toString()) this.splitted[0] = i.toString();
+        if (this.splitted[1] == "0" + i.toString()) this.splitted[1] = i.toString();
+        if (this.splitted2[0] == "0" + i.toString()) this.splitted2[0] = i.toString();
+        if (this.splitted2[1] == "0" + i.toString()) this.splitted2[1] = i.toString();
+        if (this.splitted3[0] == "0" + i.toString()) this.splitted3[0] = i.toString();
+        if (this.splitted3[1] == "0" + i.toString()) this.splitted3[1] = i.toString();
+        if (this.splitted4[0] == "0" + i.toString()) this.splitted4[0] = i.toString();
+        if (this.splitted4[1] == "0" + i.toString()) this.splitted4[1] = i.toString();
+      }
+      this.facForm.patchValue({fechaelaboracion: this.gbillingEdit.fecha_elaboracion});
+      this.facForm.patchValue({inicioPeriodo: {
+        date: {
+            year: this.splitted[2],
+            month:this.splitted[1],
+            day: this.splitted[0]}
+      }});
+      this.facForm.patchValue({finPeriodo: {
+        date: {
+            year: this.splitted2[2],
+            month:this.splitted2[1],
+            day: this.splitted2[0]}
+      }});
+      this.facForm.patchValue({fechaven: {
+        date: {
+            year: this.splitted4[2],
+            month:this.splitted4[1],
+            day: this.splitted4[0]}
+      }});
+      jQuery('#modal-factura').modal('open');      
+    }
+  }
+
+  printFac(post) {
+    console.log(this.facForm.controls.fechaelaboracion)
+    console.log(post)
+   /*  if (post) {
+      this._gbillingservice.printGBillings({
+        "zona": post.zona,
+        "tipo_fact": Number(post.tipofac),
+        "f_elaboracion": post.fechaelaboracion.formatted,
+        "f_inicio": post.inicioPeriodo.formatted,
+        "f_fin": post.finPeriodo.formatted,
+        "f_vencimiento": post.fechaven.formatted,
+        "fact_inicial": Number(post.facinicial),
+        "fact_final": Number(post.facfinal),
+        "saldo_inicial": Number(post.saldoinicial),
+        "saldo_final": Number(post.saldofinal),
+        "f_corte": post.corte.formatted,
+        "nota_1": post.nota1,
+        "nota_2": post.nota2,
+        "nota_3": post.nota3,
+        "usuario_id": localStorage.getItem('usuario_id'),
+        "db": localStorage.getItem('db')
+    }).subscribe(
+        data => {
+          console.log(data)
+          if (data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet") {
+            swal({
+              title: 'Registro creado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+            swal(
+              'No se pudo crear el registro, datos incorrectos',
+              '',
+              'warning'
+            )
+          }
+        });
+        error =>{
+          swal(
+            'No se pudo crear el registro',
+            '',
+            'warning'
+          )
+        }
+    }    */
   }
 
   selectAll() {
@@ -167,10 +327,12 @@ export class GbillingsComponent implements OnInit {
       if(check[i].checked){
         console.log('false');
         this.toogleDelete = true;
+        this.tooglePrint = true;
         //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");
+        this.tooglePrint = false;
       }
     }    
   }

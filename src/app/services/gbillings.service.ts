@@ -24,6 +24,17 @@ export class GBillingsService {
     })
   }
 
+  getInfoGbillings(){
+    const url = this._global.url + `/facturacion/info/bd/` + localStorage.getItem('db');
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    console.log(header)
+    let options = new RequestOptions({ headers: header });
+    return this._http.get(url, options).map(response =>{
+        return response.json();
+    })
+  }
+
  /**
     @return {Observable<GBillings[]>} 
    */
@@ -40,7 +51,16 @@ export class GBillingsService {
    }
 
    downloadGBillings(content){
-    const url = this._global.url + `facturacion/listado_fras_venta`;
+    const url = this._global.url + `/facturacion/listado_fras_venta`;
+    let header = new Headers();
+    header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
+    let options = new RequestOptions({ headers: header, body: content });
+    return this._http.post(url, content, options).map(response => response.json());
+   }
+
+   printGBillings(content){
+     console.log(content)
+    const url = this._global.url + `/facturacion/generar_impresion.pdf`;
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     let options = new RequestOptions({ headers: header, body: content });

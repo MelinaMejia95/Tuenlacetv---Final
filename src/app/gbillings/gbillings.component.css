@@ -3,6 +3,11 @@
     line-height: 1em;
 }
 
+.option-dropdown{
+    line-height: 100% !important;
+    padding: 9px 15px !important;
+}
+
 #modal-crear{
     width: 40%;
 }
@@ -18,6 +23,27 @@
 #modal-imprimir .modal-content {
     height: 7em;
 }
+
+#modal-factura {
+    width: 50%;
+}
+
+#modal-factura .modal-content {
+    padding-bottom: 4% !important;
+    padding-top: 3%;
+}
+
+#modal-factura .modal-title {
+    height: 10%;
+}
+
+.modal.modal-fixed-footer .modal-content {
+    height: calc(100% - 89px) !important;
+}
+
+/* #modal-factura .modal-content {
+    height: 28em;
+} */
 
 .modal .modal-content {
     padding: 24px;
