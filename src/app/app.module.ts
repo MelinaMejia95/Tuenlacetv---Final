@@ -128,7 +128,7 @@ import { TechniciansComponent } from './technicians/technicians.component';
   FormsModule,
   ReactiveFormsModule,
   MyDatePickerModule,
-  NgxPaginationModule
+  NgxPaginationModule,
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,

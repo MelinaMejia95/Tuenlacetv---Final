@@ -103,6 +103,11 @@ export class NavbarPrincipalComponent implements OnInit {
     this.passForm.reset();
   }
 
+  openModalPass(){
+    jQuery('#modal-password').modal('open');
+    jQuery('#modal1').modal('close');
+  }
+
   resetForm() {
     this.passForm.reset();
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { AppGlobals } from '../shared/app.global';
 import swal from 'sweetalert2';
 
 declare let jQuery: any;
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   conect: any = [];
   bd:string;
 
-  constructor(private _LoginService: LoginService, private route: Router) { }
+  constructor(private _LoginService: LoginService, private route: Router, private _global: AppGlobals) { }
 
   ngOnInit() {
     jQuery('select').material_select(); 
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('nivel', data.nivel);
         localStorage.setItem('db', this.bd);
         localStorage.setItem('entidad', '1');
+        this._global.entity = 'Suscriptor';
         if (data.auth_token) {
           jQuery('#ref-navbar').show();
           jQuery('#ref-footer').show();

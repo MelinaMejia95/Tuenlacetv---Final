@@ -8,6 +8,7 @@ import swal from 'sweetalert2';
 import { Subs } from './subs';
 import { ExcelService } from '../services/excel.service';
 import {IMyDpOptions, IMyDateModel, IMyDate} from 'mydatepicker';
+import { AppGlobals } from '../shared/app.global';
 import { DatePipe } from '@angular/common';
 //import 'jspdf-autotable';
 //import * as jsPDF from 'jspdf-autotable';
@@ -23,7 +24,7 @@ declare let jsPDF;
 })
 export class SubscriberComponent implements OnInit {
 
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; toogleEdit: boolean = false;
   tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string; disabled: boolean = true; showint: number = 1;
   planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any; splitted: any; model: any;
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string; splitted2: any; model2: any;
@@ -40,7 +41,7 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true;
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string;
 
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -97,7 +98,7 @@ export class SubscriberComponent implements OnInit {
   };
 
   constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService, private fb: FormBuilder,
-              private _techservice: TechniciansService) { 
+              private _techservice: TechniciansService, private _global: AppGlobals) { 
   
     this.rForm = fb.group({
       'tipofuncion': [null, Validators.required],
@@ -334,7 +335,17 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      console.log(this.tipoFactEdit)
+      console.log(this.functions)
+      for (let i = 0; i < this.functions.length; i++) {
+        if(localStorage.getItem('entidad') == this.functions[i]['id']){
+          this.showEntity = this.functions[i]['nombre'];
+        }
+      }
+      if (this.showEntity != 'Suscriptor'){
+        jQuery('#modal-see .modal-content').css('padding-top', '37px');
+      } else {
+        jQuery('#modal-see .modal-content').css('padding-top', '3px');        
+      }
       if (this.paramafi == 'N') {
        this.tvForm.reset({
           valorafitv: {value: data.valor_afi_tv, disabled: true},
@@ -380,11 +391,23 @@ export class SubscriberComponent implements OnInit {
       jQuery(".select-disabled:enabled").prop('disabled',true);
       jQuery('#btn-see').prop('disabled', true);        
       this.disabled = true;
+      this.toogleEdit = false;   
     }});
     jQuery('#mostrar').on('change', () => {
       this._suscriberservice.getEntities(jQuery('#mostrar').val()).subscribe(data => {
         localStorage.setItem('entidad', jQuery('#mostrar').val());
+        for (let i = 0; i < this.functions.length; i++) {
+          if(localStorage.getItem('entidad') == this.functions[i]['id']){
+            this.showEntity = this.functions[i]['nombre'];
+          }
+        }
+        if (this.showEntity != 'Suscriptor'){
+          jQuery('#modal-see .modal-content').css('padding-top', '37px');
+        } else {
+          jQuery('#modal-see .modal-content').css('padding-top', '3px');        
+        }
         this.entity = data.entidades;
+        console.log(this.showEntity)
       });
     });
     jQuery('#select-order').on('change', () => {
@@ -401,7 +424,6 @@ export class SubscriberComponent implements OnInit {
         jQuery('#ciudad-user').prop('disabled',true);
         this.tv = 1;
         this.servForm.patchValue( {tvCtrl: true});
-        console.log(this.servForm.value.tvCtrl)
         setTimeout(() => jQuery('.collapsible').collapsible(), 1000);
       } else if ( this.tipoUsuario != '1') {
         this.tv = 0;
@@ -410,6 +432,7 @@ export class SubscriberComponent implements OnInit {
         this.servForm.patchValue( {intCtrl: false});
         jQuery('#ciudad-user').prop('disabled',false);
       }
+      console.log(this.tipoUsuario)
     });
     jQuery('#funcion').on('change', () => {
       this.createFunc = jQuery('#funcion').val();
@@ -465,6 +488,47 @@ export class SubscriberComponent implements OnInit {
     })
   }
 
+  selectClicked(){
+    jQuery('#btn-see').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    console.log('input clicked')
+    this.toogleEdit = true;
+    this.onChanges();
+  }
+
+  onChanges(): void { 
+    this.seeSubs.valueChanges.subscribe(val => {  
+      if(this.seeSubs.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-see').prop('disabled', false);
+      } else if(this.seeSubs.valid == false){    
+        jQuery('#btn-see').prop('disabled', true);
+      }
+    });
+    this.seeServ.valueChanges.subscribe(val => {  
+      if(this.seeServ.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-see').prop('disabled', false);
+      } else if(this.seeServ.valid == false){    
+        jQuery('#btn-see').prop('disabled', true);
+      }
+    });
+    this.seeInt.valueChanges.subscribe(val => {  
+      if(this.seeInt.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-see').prop('disabled', false);
+      } else if(this.seeInt.valid == false){    
+        jQuery('#btn-see').prop('disabled', true);
+      }
+    });
+    this.seeTV.valueChanges.subscribe(val => {  
+      if(this.seeTV.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-see').prop('disabled', false);
+      } else if(this.seeTV.valid == false){    
+        jQuery('#btn-see').prop('disabled', true);
+      }
+    });
+  }
+
   resetForms() {
     this.rForm.reset();
     this.tvForm.reset();
@@ -485,6 +549,7 @@ export class SubscriberComponent implements OnInit {
     this.tv = 0;
     this.int = 0;
     this.servicesPay = [];
+    jQuery('#btn-see').prop('disabled', false);
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
   }
 
@@ -742,7 +807,7 @@ export class SubscriberComponent implements OnInit {
             )
           } else if (data.error = "cliente saldo 0"){
             swal(
-              'El cliente debe tener saldo 0',
+              ' No se pudo crear el pago anticipado debido a que el suscriptor tiene saldo diferente de 0',
               '',
               'warning'
             )
@@ -1034,6 +1099,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   llenarTarifas(val) {
+    jQuery('#btn-see').prop('disabled', false);  
     let j = 0;
     for (let i=0; i < this.ratestv.length ; i++) {
       if (val == this.ratestv[i]['plan_id']) {
@@ -1044,6 +1110,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   llenarTarifasInt(val) {
+    jQuery('#btn-see').prop('disabled', false);  
     let j = 0;
       for (let i=0; i < this.ratesint.length ; i++) {
         if( val == this.ratesint[i]['plan_id']){
@@ -1054,6 +1121,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
+    this.toogleEdit = false;
     this.modalSub = 1;
     console.log(subscriber)
     this.disabled = true;
@@ -1186,7 +1254,7 @@ export class SubscriberComponent implements OnInit {
         "senal": 
             {
                 "contrato": this.subsEdit.contrato,
-                "direccion": this.subsEdit.contrato,
+                "direccion": this.subsEdit.direccion,
                 "urbanizacion": this.subsEdit.urbanizacion,
                 "torre": this.subsEdit.torre,
                 "apto": this.subsEdit.apto,
@@ -1325,14 +1393,14 @@ export class SubscriberComponent implements OnInit {
   }
 
   createSubs(post, city, serv, tv, int){
-    console.log(tv)
+    console.log(post)
     console.log(int)
     console.log(tv.descuento, tv.tarifastv)
-    if (post) {
+    /* if (post) {
       this._suscriberservice.createSubscribers({
         "persona":
          {
-             "tipo_documento_id": post.tipofuncion,
+             "tipo_documento_id": post.tipodoc,
              "documento": post.numdoc,
              "nombre1": post.nombre1,
              "nombre2": post.nombre2,
@@ -1423,6 +1491,15 @@ export class SubscriberComponent implements OnInit {
               '',
               'warning'
             )
+          } else if (data.message == "creado servicio tv") {
+            swal({
+              title: 'Persona creada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
           }
         });
         error =>{
@@ -1432,7 +1509,7 @@ export class SubscriberComponent implements OnInit {
             'warning'
           )
         }
-    }   
+    }    */
   } 
 
   createBill(post) {

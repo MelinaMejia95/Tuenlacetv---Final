@@ -22,6 +22,7 @@ export class RatesComponent implements OnInit {
   plans:string; fecha: string; states:string; createZone: string; createConcept: string; createPlan: string; createState: string; codigo: string; valor: string;
   zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any; fechaEdit: any; zona: any; concepto: any; plan: any; estado: any; picker: any;
   fechainicio: any; fechaven: any; splitted: any; splitted2: any; model1: any; model2: any; model3: any; model4: any; disabled: boolean = true; conceptSelect: any[] = [];
+  fechaprueba: Date = new Date();
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -164,6 +165,7 @@ export class RatesComponent implements OnInit {
   resetForms() {
     this.rForm.reset();
     this.seeForm.reset();
+    //jQuery("select").val("None");
   }
 
   onPageChange(number: number) {
@@ -172,11 +174,28 @@ export class RatesComponent implements OnInit {
   }
 
   openModal (rate) {
+    jQuery('select').material_select();
     this.toogleEdit = false;
     jQuery('input[type=text]').attr({style:' box-shadow: none'});            
     console.log(rate)
     this.disabled = true;
     this.rateEdit = Object.assign({}, rate);
+    let j = 0;
+    if (this.rateEdit.plan == 'TELEVISION'){
+      for (let i=0; i < this.concepts.length ; i++) {
+        if (this.concepts[i]['servicio'] == 1) {
+          this.conceptSelect[j] =  this.concepts[i];
+          j++;
+        }
+      }
+    } else if (this.rateEdit.plan == 'INTERNET 2 MEGAS'){
+      for (let i=0; i < this.concepts.length ; i++) {
+        if (this.concepts[i]['servicio'] == 2) {
+          this.conceptSelect[j] =  this.concepts[i];
+          j++;
+        }
+      }
+    }
     let str = this.rateEdit.fechainicio;
     let str2 = this.rateEdit.fechaven;
     this.splitted = str.split("/", 3); this. splitted2 = str2.split("/", 3);
@@ -222,6 +241,7 @@ export class RatesComponent implements OnInit {
         console.log(this.stateEdit)
       }
     }
+    
     jQuery('#modal-see').modal('open');
   }
 
@@ -287,8 +307,8 @@ export class RatesComponent implements OnInit {
   }
 
   updateRate() {
-    this.selDate = this.model1.formatted;
-    this.selDate2 = this.model2.formatted;
+ /*    this.selDate = this.model1.formatted;
+    this.selDate2 = this.model2.formatted; */
     console.log(this.selDate, this.selDate2)
     if(this.rateEdit){
       this._rateservice.updateRates({ 'id': this.rateEdit.id, 'zona_id': this.zona, 'concepto_id': this.concepto, 'plan_id': this.plan, 'valor': this.rateEdit.valor,

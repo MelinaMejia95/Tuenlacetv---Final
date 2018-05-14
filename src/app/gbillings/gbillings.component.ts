@@ -20,6 +20,10 @@ export class GbillingsComponent implements OnInit {
   gbillings: any[] = []; zones: any[] = []; typefac: any[] = [];
   gbillingEdit: any; model1: any; model2: any; splitted: any; splitted2: any; splitted3: any; splitted4: any;
 
+  public myDatePickerOptions: IMyDpOptions = {
+    dateFormat: 'dd/mm/yyyy',
+  };
+
   printForm: FormGroup; facForm: FormGroup;
   titleAlert: string = "Campo requerido";
 

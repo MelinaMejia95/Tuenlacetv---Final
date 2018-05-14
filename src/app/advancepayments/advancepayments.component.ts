@@ -132,7 +132,7 @@ export class AdvancepaymentsComponent implements OnInit {
                 this.result = 2;
               } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
                 swal(
-                  'No se pudo anular el registro ya que tiene relación con otro módulo del sistema',
+                  'No se pudo anular el pago anticipado ya que está asociado a una factura',
                   '',
                   'warning'
                 )

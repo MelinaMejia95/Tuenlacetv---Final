@@ -194,7 +194,7 @@ export class DepartmentsComponent implements OnInit {
     }
   } 
 
-  updateDep(dep){
+  updateDep(){
     if(this.depEdit){
       this._departmentservice.updateDepartments({ 'nombre': this.depEdit.nombre, 'id': this.depEdit.id, 'pais_id': this.country, 'codigo': this.depEdit.codigo,
                                                   'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(

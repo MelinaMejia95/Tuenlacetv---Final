@@ -18,13 +18,13 @@
         <div class="col s12 m6 l4" id="col-mostrar">
           <label class="label-color">Mostrar:</label>
           <select class="browser-default select-city" id="mostrar">
-            <option value="nodisplay" disabled selected>Suscriptor</option>
+            <option value="nodisplay" disabled selected>{{ showEntity }}</option>
             <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
           </select>
         </div>
         <div class="col s12 m6 l4" id="col-reg">
           <label class="label-color">Registros por página:</label>
-          <select class="browser-default select-city">
+          <select class="browser-default select-city" id="registros">
             <option value="nodisplay" disabled selected>10</option>
             <option value="10">10</option>
             <option value="20">20</option>
@@ -100,7 +100,7 @@
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.id }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.documento }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.nombres }}</td>
-        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccionP }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccion }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.telefono1P }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.saldo_tv }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.estado_tv }}</td>
@@ -309,7 +309,7 @@
     <form [formGroup]="servForm" *ngIf="tipoUsuario=='1'" (change)="validation2()">
       <div class="row">
         <div class="row service-subs">
-          <div class="col s12 m12 l6">
+          <div class="col s12 m12 l12">
             <span class="service-title">Información general servicio</span>
           </div>
         </div>
@@ -708,62 +708,62 @@
           <div class="row">
             <div class="col s12 m6 l4">
               <label class="label-color">Tipo función <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled validate" id="funcionEdit" required>
+              <select disabled class="browser-default select-city select-disabled validate" id="funcionEdit" required (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ funEdit }}</option>
                 <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
               </select>
             </div>
             <div class="col s12 m6 l4">
                 <label class="label-color">Tipo documento <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled" id="tipodocEdit" required>
+              <select disabled class="browser-default select-city select-disabled" id="tipodocEdit" required (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ subsEdit.tipo_documento }}</option>
                 <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
               </select>
             </div>
             <div class="col s12 m6 l4">
               <label for="documentopersonaEdit" class="label-color">Número de documento <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="documentopersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.documento" formControlName="numdoc" required>
+              <input disabled placeholder="" id="documentopersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.documento" formControlName="numdoc" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['numdoc'].value && seeSubs.controls['numdoc'].touched">{{ titleAlert }}</div>                        
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="nombre1Edit" class="label-color">Primer nombre <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="nombre1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nombre1" formControlName="nombre1" required>
+              <input disabled placeholder="" id="nombre1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nombre1" formControlName="nombre1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['nombre1'].value && seeSubs.controls['nombre1'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label for="nombre2Edit" class="label-color">Segundo nombre</label>
-              <input disabled id="nombre2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.nombre2" formControlName="nombre2">
+              <input disabled id="nombre2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.nombre2" formControlName="nombre2" (click)="inputClicked()">
             </div>
             <div class="col s12 m6 l3">
               <label for="apellido1Edit" class="label-color">Primer apellido <span class="span-color">*</span></label>
-              <input disabled id="apellido1Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido1" formControlName="apellido1">
+              <input disabled id="apellido1Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido1" formControlName="apellido1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['apellido1'].value && seeSubs.controls['apellido1'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label for="apellido2Edit" class="label-color">Segundo apellido</label>
-              <input disabled id="apellido2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido2" formControlName="apellido2">
+              <input disabled id="apellido2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido2" formControlName="apellido2" (click)="inputClicked()">
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="tel1Edit" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="tel1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1P" formControlName="tel1">
+              <input disabled placeholder="" id="tel1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1P" formControlName="tel1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['tel1'].value && seeSubs.controls['tel1'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label for="tel2Edit" class="label-color">Teléfono 2:</label>
-              <input disabled placeholder="" id="tel2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2P" formControlName="tel2">
+              <input disabled placeholder="" id="tel2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2P" formControlName="tel2" (click)="inputClicked()">
             </div>
             <div class="col s12 m6 l3">
               <label for="direccionpersonaEdit" class="label-color">Dirección <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="direccionpersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccionP" formControlName="direccion">
+              <input disabled placeholder="" id="direccionpersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccionP" formControlName="direccion" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['direccion'].value && seeSubs.controls['direccion'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label class="label-color">Barrio <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled" id="barrioEdit">
+              <select disabled class="browser-default select-city select-disabled" id="barrioEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ subsEdit.barrioP }}</option>
                 <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
               </select>
@@ -773,7 +773,7 @@
           <div class="row">
             <div class="col s12 m6 l3">
               <label class="label-color">Zona <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled" id="zonaEdit">
+              <select disabled class="browser-default select-city select-disabled" id="zonaEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ subsEdit.zonaP }}</option>
                 <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
               </select>
@@ -781,26 +781,26 @@
             </div>
             <div class="col s12 m6 l3">
               <label class="label-color">Ciudad <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled" id="ciudadEdit">
+              <select disabled class="browser-default select-city select-disabled" id="ciudadEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected></option>
                 <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
               </select>
             </div>
             <div class="col s12 m6 l3">
               <label for="correoEdit" class="label-color">Correo</label>
-              <input disabled placeholder="" id="correoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.correo" formControlName="correo">
+              <input disabled placeholder="" id="correoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.correo" formControlName="correo" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['correo'].value && seeSubs.controls['correo'].touched">{{ correoAlert }}</div>            
             </div>
             <div class="col s12 m6 l3">
               <label for="fechanacimientoEdit" class="label-color">Fecha de nacimiento</label>
               <my-date-picker name="fechanacimientoEdit" [options]="myDatePickerOptions" [disabled]="disabled"
-              [selDate]="selDate" formControlName="fechanac"></my-date-picker>
+              [selDate]="selDate" formControlName="fechanac" (click)="inputClicked()"></my-date-picker>
             </div>
           </div>
           <div class="row">      
             <div class="col s12 m6 l3">
               <label class="label-color">Tipo persona <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled" id="tipopersonaEdit">
+              <select disabled class="browser-default select-city select-disabled" id="tipopersonaEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ subsEdit.tipopersona }}</option>
                 <option value="N">Natural</option>
                 <option value="J">Jurídica</option>
@@ -809,7 +809,7 @@
             </div>   
             <div class="col s12 m6 l3">
               <label class="label-color">Estrato <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-disabled" id="estratoEdit">
+              <select disabled class="browser-default select-city select-disabled" id="estratoEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ subsEdit.estratoP }}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -826,7 +826,7 @@
             </div>
             <div class="col s12 m6 l3">
               <label class="label-color">Condición física</label>
-              <select disabled class="browser-default select-city select-disabled" id="condicionEdit">
+              <select disabled class="browser-default select-city select-disabled" id="condicionEdit" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ subsEdit.condicion_fisica }}</option>
                 <option value="N">Normal</option>
                 <option value="D">Discapacitado</option>
@@ -835,10 +835,10 @@
         </div> 
         </div>
       </form>
-      <form [formGroup]="seeServ" *ngIf="subsEdit" (change)="validationSee()">
+      <form [formGroup]="seeServ" *ngIf="subsEdit && showEntity=='Suscriptor'" (change)="validationSee()">
         <div class="row">
           <div class="row service-subs">
-            <div class="col s12 m12 l3">
+            <div class="col s12 m12 l12">
               <span class="service-title">Información general servicio</span>
             </div>
           </div>
@@ -849,37 +849,37 @@
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="numcontratoEdit" class="label-color">Número de contrato</label>
-            <input disabled placeholder="" id="numcontratoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contrato" formControlName="numcontrato">
+            <input disabled placeholder="" id="numcontratoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contrato" formControlName="numcontrato" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label for="dirtvEdit" class="label-color">Dirección <span class="span-color">*</span></label>
-            <input disabled placeholder="" id="dirtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccion" formControlName="direccion">
+            <input disabled placeholder="" id="dirtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.direccion" formControlName="direccion" (click)="inputClicked()">
             <div class="alert" *ngIf="!seeServ.controls['direccion'].value && seeServ.controls['direccion'].touched">{{ titleAlert }}</div>                                    
           </div>
           <div class="col s12 m6 l3">
             <label for="urbanizacionEdit" class="label-color">Urbanización</label>
-            <input disabled placeholder="" id="urbanizacionEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.urbanizacion" formControlName="urbanizacion">
+            <input disabled placeholder="" id="urbanizacionEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.urbanizacion" formControlName="urbanizacion" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label for="torreEdit" class="label-color">Torre</label>
-            <input disabled placeholder="" id="torreEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.torre" formControlName="torre">
+            <input disabled placeholder="" id="torreEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.torre" formControlName="torre" (click)="inputClicked()">
           </div>
         </div>    
         <div class="row"> 
           <div class="col s12 m6 l3">
             <label for="apartamentoEdit" class="label-color">Apartamento</label>
-            <input disabled placeholder="" id="apartamentoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.apto" formControlName="apto"> 
+            <input disabled placeholder="" id="apartamentoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.apto" formControlName="apto" (click)="inputClicked()"> 
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Barrio <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="barriotvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="barriotvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.barrio }}</option>
               <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
             </select>
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Zona <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="zonatvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="zonatvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.zona }}</option>
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
@@ -887,22 +887,22 @@
           </div>
           <div class="col s12 m6 l3">
             <label for="tel1tvEdit" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-            <input disabled placeholder="" id="tel1tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1" formControlName="tel1">
+            <input disabled placeholder="" id="tel1tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1" formControlName="tel1" (click)="inputClicked()">
             <div class="alert" *ngIf="!seeServ.controls['tel1'].value && seeServ.controls['tel1'].touched">{{ titleAlert }}</div>                                                  
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="te21tvEdit" class="label-color">Teléfono 2</label>
-            <input disabled placeholder="" id="tel2tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2" formControlName="tel2">
+            <input disabled placeholder="" id="tel2tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2" formControlName="tel2" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label for="contactotvEdit" class="label-color">Contacto</label>
-            <input disabled placeholder="" id="contactotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contacto" formControlName="contacto">
+            <input disabled placeholder="" id="contactotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contacto" formControlName="contacto" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Estrato <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="estratotvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="estratotvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.estrato }}</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -918,7 +918,7 @@
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo vivienda <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="tipoviviendatvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="tipoviviendatvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.vivienda }}</option>
               <option value="P">Propia</option>
               <option value="A">Alquilada</option>
@@ -928,22 +928,22 @@
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="observacionEdit" class="label-color">Observación</label>
-            <input disabled placeholder="" id="observacionEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.observacion" formControlName="observacion">
+            <input disabled placeholder="" id="observacionEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.observacion" formControlName="observacion" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label for="fechacontratotvEdit" class="label-color">Fecha del contrato <span class="span-color">*</span></label>
-            <my-date-picker name="fechacontratoEdit" [options]="myDatePickerOptions" [selDate]="selDate2" [disabled]="disabled" formControlName="fechacontrato"></my-date-picker> 
+            <my-date-picker name="fechacontratoEdit" [options]="myDatePickerOptions" [selDate]="selDate2" [disabled]="disabled" formControlName="fechacontrato" (click)="inputClicked()"></my-date-picker> 
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Vendedor <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="vendedortvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="vendedortvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.vendedor }}</option>
               <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
             </select>
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Técnicos <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="tecnicoEdit">
+            <select disabled class="browser-default select-city select-disabled" id="tecnicoEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.tecnico }}</option>
               <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
             </select>
@@ -952,21 +952,21 @@
         <div class="row">
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo instalación <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="tipoinstalaciontvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="tipoinstalaciontvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.tipo_instalacion }}</option>
               <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
             </select>
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo tecnología <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="tipotecnologiatvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="tipotecnologiatvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.tecnologia }}</option>
               <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
             </select>
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo de servicio <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="tiposerviciotvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="tiposerviciotvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.tiposervicio }}</option>
               <option value="R">Residencial</option>
               <option value="C">Comercial</option>
@@ -974,7 +974,7 @@
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Área de instalación <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="areainstalaciontvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="areainstalaciontvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.areainstalacion }}</option>
               <option value="U">Urbana</option>
               <option value="R">Rural</option>
@@ -985,14 +985,14 @@
         <div class="row">
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo facturación <span class="span-color">*</span></label>
-            <select disabled class="browser-default select-city select-disabled" id="tipofacturaciontvEdit">
+            <select disabled class="browser-default select-city select-disabled" id="tipofacturaciontvEdit" (change)="selectClicked()">
               <option value="nodisplay" disabled selected>{{ subsEdit.tipo_facturacion }}</option>
               <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
             </select>
           </div>
           <div class="col s12 m6 l3">
             <label for="fechapagoEdit" class="label-color">Fecha último pago</label>
-            <input disabled placeholder="" id="fechapagoEdit" type="text" class="not-disabled" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">           
+            <input disabled placeholder="" id="fechapagoEdit" type="text" class="not-disabled" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">           
           </div>
           <div class="col s12 m6 l3 check-type">
             <input disabled type="checkbox" class="filled-in select-disabled" id="televisionEdit" [checked]="subsEdit.tv == '1'" name="group4" />
@@ -1016,15 +1016,15 @@
                       <div class="row">
                         <div class="col s12 m6 l4">
                           <label for="numtvEdit" class="label-color">Televisores</label>
-                          <input disabled placeholder="" id="numtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.televisores" [ngModelOptions]="{standalone: true}">
+                          <input disabled placeholder="" id="numtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.televisores" formControlName="televisores" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label for="numdecotvEdit" class="label-color">Decodificadores</label>
-                          <input disabled placeholder="" id="numdecotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.decos" [ngModelOptions]="{standalone: true}">
+                          <input disabled placeholder="" id="numdecotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.decos" formControlName="decos" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label class="label-color">Permanencia</label>
-                          <select disabled class="browser-default select-city select-disabled" id="permanenciaEdit">
+                          <select disabled class="browser-default select-city select-disabled" id="permanenciaEdit" (change)="selectClicked()">
                             <option value="nodisplay" disabled selected>{{ subsEdit.permanencia }}</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -1066,7 +1066,7 @@
                         </div>
                         <div class="col s12 m6 l4">
                           <label for="precintotvEdit" class="label-color">Precinto</label>
-                          <input disabled placeholder="" id="precintotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.precinto" [ngModelOptions]="{standalone: true}">
+                          <input disabled placeholder="" id="precintotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.precinto" formControlName="precinto" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label class="label-color">Planes <span class="span-color">*</span></label>
@@ -1077,18 +1077,18 @@
                         </div>
                         <div class="col s12 m6 l4">
                           <label class="label-color">Tarifas <span class="span-color">*</span></label>
-                          <select disabled class="browser-default select-city select-disabled" id="tarifastvEdit">
+                          <select disabled class="browser-default select-city select-disabled" id="tarifastvEdit" (change)="selectClicked()">
                             <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_tv }}</option>
                             <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
                           </select>
                         </div>      
                         <div class="col s12 m6 l4">
                           <label for="estadotvEdit" class="label-color">Estado</label>
-                          <input disabled placeholder="" id="estadotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+                          <input disabled placeholder="" id="estadotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label for="saldotvEdit" class="label-color">Saldo</label>
-                          <input disabled placeholder="" id="saldotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
+                          <input disabled placeholder="" id="saldotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">
                         </div>
                       </div>
                   </div>
@@ -1112,52 +1112,52 @@
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label for="diripEdit" class="label-color">Dirección IP</label>
-                      <input disabled placeholder="" id="diripEdit" type="text" class="validate select-disabled int-disabled" [(ngModel)]="subsEdit.direccionip" formControlName="dirip">
+                      <input disabled placeholder="" id="diripEdit" type="text" class="validate select-disabled int-disabled" [(ngModel)]="subsEdit.direccionip" formControlName="dirip" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="velocidadEdit" class="label-color">Velocidad <span class="span-color">*</span></label>
-                      <input disabled placeholder="" id="velocidadEdit" type="text" class="validate select-disabled " [(ngModel)]="subsEdit.velocidad" formControlName="velocidad">
+                      <input disabled placeholder="" id="velocidadEdit" type="text" class="validate select-disabled " [(ngModel)]="subsEdit.velocidad" formControlName="velocidad" (click)="inputClicked()">
                       <div class="alert" *ngIf="!seeInt.controls['velocidad'].value && seeInt.controls['velocidad'].touched">{{ titleAlert }}</div>                                                              
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mac1Edit" class="label-color">MAC 1</label>
-                      <input disabled placeholder="" id="mac1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac1" formControlName="mac1">
+                      <input disabled placeholder="" id="mac1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac1" formControlName="mac1" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mac2Edit" class="label-color">MAC 2</label>
-                      <input disabled placeholder="" id="mac2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac2" formControlName="mac2">
+                      <input disabled placeholder="" id="mac2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac2" formControlName="mac2" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="modemEdit" class="label-color">Serial módem</label>
-                      <input disabled placeholder="" id="modemEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.serialm"  formControlName="serial">
+                      <input disabled placeholder="" id="modemEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.serialm"  formControlName="serial" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="marcamodemEdit" class="label-color">Marca módem</label>
-                      <input disabled placeholder="" id="marcamodemEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.marcam"  formControlName="marcamodem">
+                      <input disabled placeholder="" id="marcamodemEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.marcam"  formControlName="marcamodem" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mascaraEdit" class="label-color">Máscara subred</label>
-                      <input disabled placeholder="" id="mascaraEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mascarasub"  formControlName="mascara">
+                      <input disabled placeholder="" id="mascaraEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mascarasub"  formControlName="mascara" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="dnsEdit" class="label-color">DNS</label>
-                      <input disabled placeholder="" id="dnsEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.dns"  formControlName="dns">
+                      <input disabled placeholder="" id="dnsEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.dns"  formControlName="dns" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="gatewayEdit" class="label-color">Gateway</label>
-                      <input disabled placeholder="" id="gatewayEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.gateway"  formControlName="gateway">
+                      <input disabled placeholder="" id="gatewayEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.gateway"  formControlName="gateway" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="nodoEdit" class="label-color">Nodo</label>
-                      <input disabled placeholder="" id="nodoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nodo"  formControlName="nodo">
+                      <input disabled placeholder="" id="nodoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nodo"  formControlName="nodo" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="clavewifiEdit" class="label-color">Clave Wi-Fi</label>
-                      <input disabled placeholder="" id="clavewifiEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.clavewifi" formControlName="clave">
+                      <input disabled placeholder="" id="clavewifiEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.clavewifi" formControlName="clave" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label class="label-color">Equipo</label>
-                      <select disabled class="browser-default select-city select-disabled" id="equipoEdit">
+                      <select disabled class="browser-default select-city select-disabled" id="equipoEdit" (change)="selectClicked()">
                         <option value="nodisplay" disabled selected>{{ equipo }}</option>
                         <option value="S">Si</option>
                         <option value="N">No</option>
@@ -1172,7 +1172,7 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label class="label-color">Tarifas <span class="span-color">*</span></label>
-                      <select disabled class="browser-default select-city select-disabled" id="tarifasintEdit">
+                      <select disabled class="browser-default select-city select-disabled" id="tarifasintEdit" (change)="selectClicked()">
                         <option value="nodisplay" disabled selected>{{ subsEdit.tarifa_int }}</option>
                         <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                       </select>
