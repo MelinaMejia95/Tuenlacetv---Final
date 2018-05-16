@@ -1396,7 +1396,7 @@ export class SubscriberComponent implements OnInit {
     console.log(post)
     console.log(int)
     console.log(tv.descuento, tv.tarifastv)
-    /* if (post) {
+    if (post) {
       this._suscriberservice.createSubscribers({
         "persona":
          {
@@ -1509,7 +1509,7 @@ export class SubscriberComponent implements OnInit {
             'warning'
           )
         }
-    }    */
+    }   
   } 
 
   createBill(post) {
