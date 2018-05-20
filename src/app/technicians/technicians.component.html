@@ -170,19 +170,19 @@
             <input disabled placeholder="" id="codigo" type="text" [(ngModel)]="techEdit.entidad_id" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l5">
-            <label for="nombressub" class="label-color">Nombres</label>
+            <label for="nombressub" class="label-color">Nombres y Apellidos</label>
             <input disabled placeholder="" id="nombressub" type="text" [(ngModel)]="techEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m6 l5">
+          <div class="col s12 m6 l3">
             <label for="telefonos" class="label-color">Teléfonos</label>
             <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="techEdit.telefonos" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l4">
+          <div class="col s12 m6 l2">
             <label for="direccion" class="label-color">Dirección</label>
             <input disabled placeholder="" id="direccion" type="text" [(ngModel)]="techEdit.direccion" [ngModelOptions]="{standalone: true}">
           </div>
+        </div>
+        <div class="row">
           <div class="col s12 m6 l4">
             <label class="label-color">Barrio</label>
             <select disabled class="browser-default select-city" id="select-neigh">
@@ -197,26 +197,26 @@
               <option [value]="zone.id" *ngFor="let zone of zones">{{ techEdit.zona }}</option>
             </select>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="estado" class="label-color">Estado</label>
-            <input disabled placeholder="" class="not-disabled" id="estado" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
-          </div>
-          <div class="col s12 m6 l3">
+          <div class="col s12 m6 l4">
             <label for="fechaafi" class="label-color">Fecha afiliación</label>
             <input disabled placeholder="" class="not-disabled" id="fechaafi" type="text" [(ngModel)]="techEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
           </div>
+        </div>
+        <div class="row">
           <div class="col s12 m6 l6">
             <label for="observaciones" class="label-color">Observaciones</label>
             <input disabled placeholder="" class="not-disabled" id="observaciones" type="text" [(ngModel)]="techEdit.observacion_senal" [ngModelOptions]="{standalone: true}">
           </div>
+          <div class="col s12 m6 l3">
+            <label for="estado_tv" class="label-color">Estado televisión</label>
+            <input disabled placeholder="" class="not-disabled" id="estado_tv" type="text" [(ngModel)]="techEdit.estado_tv" [ngModelOptions]="{standalone: true}">
+          </div> 
+          <div class="col s12 m6 l3">
+            <label for="estado_int" class="label-color">Estado internet</label>
+            <input disabled placeholder="" class="not-disabled" id="estado_int" type="text" [(ngModel)]="techEdit.estado_int" [ngModelOptions]="{standalone: true}">
+          </div>
         </div>
         <div class="row">
-          <div class="col s12 m6 l3">
-            <label for="precinto" class="label-color">Precinto</label>
-            <input disabled placeholder="" id="precinto" type="text" [(ngModel)]="techEdit.precinto" [ngModelOptions]="{standalone: true}">
-          </div>
           <div class="col s12 m6 l3">
             <label for="fechapago" class="label-color">Fecha último pago</label>
             <input disabled placeholder="" id="fechapago" type="text" class="datepicker" [(ngModel)]="techEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
@@ -226,18 +226,8 @@
             <input disabled placeholder="" id="saldotv" type="text" [(ngModel)]="techEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
-            <label for="estadotv" class="label-color">Estado televisión</label>
-            <input disabled placeholder="" id="estadotv" type="text" [(ngModel)]="techEdit.estado_tv" [ngModelOptions]="{standalone: true}">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m6 l3">
             <label for="saldoint" class="label-color">Saldo internet</label>
             <input disabled placeholder="" id="saldoint" type="text" [(ngModel)]="techEdit.saldo_int" [ngModelOptions]="{standalone: true}">
-          </div>
-          <div class="col s12 m6 l3">
-            <label for="estadoint" class="label-color">Estado internet</label>
-            <input disabled placeholder="" id="estadoint" type="text" [(ngModel)]="techEdit.estado_int" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
@@ -343,17 +333,17 @@
             </div>
             <div class="col s12 m4 l2">
               <label for="valor" class="label-color">Valor</label>
-              <input placeholder="" id="valor" type="text" class="validate" [(ngModel)]="valor" (ngModelChange)="changeData()" formControlName="valor">
+              <input placeholder="" id="valor" type="text" class="validate" formControlName="valor" [(ngModel)]="valor" (ngModelChange)="changeData()">
               <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>                                                  
             </div>
             <div class="col s12 m4 l1">
               <label for="cantidad" class="label-color">Cantidad</label>
-              <input placeholder="" id="cantidad" type="text" class="validate" [(ngModel)]="cantidad" formControlName="cantidad">
+              <input placeholder="" id="cantidad" type="text" class="validate" [(ngModel)]="cantidad" formControlName="cantidad" (click)="disableButton()">
               <div class="alert" *ngIf="!rForm.controls['cantidad'].value && rForm.controls['cantidad'].touched">{{ titleAlert }}</div>                                                    
             </div>
             <div class="col s12 m4 l1">
               <label for="iva" class="label-color">%IVA</label>
-              <input placeholder="" id="iva" type="text" class="validate" [(ngModel)]="porIva" (ngModelChange)="changeData()" formControlName="porIva">
+              <input placeholder="" id="iva" type="text" class="validate" formControlName="porIva" [(ngModel)]="porIva" (ngModelChange)="changeData()" >
               <div class="alert" *ngIf="!rForm.controls['porIva'].value && rForm.controls['porIva'].touched">{{ titleAlert }}</div>                                                 
             </div>
             <div class="col s12 m4 l2">

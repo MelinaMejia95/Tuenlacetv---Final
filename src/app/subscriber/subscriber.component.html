@@ -44,7 +44,7 @@
         <li><a (click)="openModalPagos()">Pagos</a></li>
         <li><a (click)="openModalPagosAnticipados()">Pagos anticipados</a></li> 
         <li><a class="modal-trigger" (click)="openModalOrden()">Órdenes técnicas</a></li>
-        <li><a class="modal-trigger" href="#modal-factura">Generar factura</a></li>
+        <li><a class="modal-trigger" (click)="openModalFactura()">Generar factura</a></li>
         <li><a (click)="openModalAnular()">Anular factura</a></li>
         <li><a href="#!">PQR</a></li>
       </ul>
@@ -1376,13 +1376,17 @@
               <label class="label-color">Tipo orden a generar <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-order" formControlName="tipoorden" #concepto (change)="changeConcept(concepto.value)">
                 <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.abreviatura }}</option>
+                <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!orderForm.controls['tipoorden'].value && orderForm.controls['tipoorden'].touched">{{ titleAlert }}</div>                                    
             </div>
+            <div class="col s12 m6 l2" *ngIf="decos == 1">
+              <label for="decodificadores" class="label-color">Decodificadores</label>
+              <input placeholder="" id="decodificadores" type="text" formControlName="decodificadores">
+            </div>
             <div class="col s12 m6 l2">
               <label for="abreviatura" class="label-color">Abreviatura</label>
-              <input placeholder="" id="abreviatura" type="text" disabled>
+              <input placeholder="" id="abreviatura" type="text" disabled [(ngModel)]="abreviatura" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="col s12 m6 l2">
               <label for="numorden" class="label-color">Número orden</label>
@@ -1603,14 +1607,6 @@
                 <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
               </select>
             </div>
-            <div class="col s12 m6 l2">
-              <label class="label-color">Forma de pago <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-payment-order" formControlName="formapago" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
-              </select>
-              <div class="alert" *ngIf="!payForm.controls['formapago'].value && payForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
-            </div>
             <div class="col s12 m6 l3">
               <label class="label-color">Banco <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-bank-order" formControlName="banco" required>
@@ -1618,6 +1614,14 @@
                 <option [value]="banco.id" *ngFor="let banco of bancos">{{ banco.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!payForm.controls['banco'].value && payForm.controls['banco'].touched">{{ titleAlert }}</div>                                                 
+            </div>
+            <div class="col s12 m6 l2">
+              <label class="label-color">Forma de pago <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-payment-order" formControlName="formapago" required>
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
+              </select>
+              <div class="alert" *ngIf="!payForm.controls['formapago'].value && payForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
             </div>
           </div>
           <div class="row">
@@ -1833,14 +1837,6 @@
                 <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
               </select>
             </div>
-            <div class="col s12 m6 l3" style="margin-left: 1px">
-              <label class="label-color">Forma de pago <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-payment-order-pay" formControlName="formapago" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
-              </select>
-              <div class="alert" *ngIf="!adPayForm.controls['formapago'].value && adPayForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
-            </div>
             <div class="col s12 m6 l3" style="margin-left: -1px">
               <label class="label-color">Banco <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-bank-order-pay" formControlName="banco" required>
@@ -1848,6 +1844,14 @@
                 <option [value]="banco.id" *ngFor="let banco of bancos">{{ banco.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['banco'].value && adPayForm.controls['banco'].touched">{{ titleAlert }}</div>                                                 
+            </div>
+            <div class="col s12 m6 l3" style="margin-left: 1px">
+              <label class="label-color">Forma de pago <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-payment-order-pay" formControlName="formapago" required>
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
+              </select>
+              <div class="alert" *ngIf="!adPayForm.controls['formapago'].value && adPayForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
             </div>
           </div>
         </form>

@@ -19,6 +19,7 @@ export class GbillingsComponent implements OnInit {
   toogleDelete:boolean = false; tooglePrint: boolean = false;
   gbillings: any[] = []; zones: any[] = []; typefac: any[] = [];
   gbillingEdit: any; model1: any; model2: any; splitted: any; splitted2: any; splitted3: any; splitted4: any;
+  counter: number = 0;
 
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd/mm/yyyy',
@@ -199,9 +200,15 @@ export class GbillingsComponent implements OnInit {
       this.zones = data.zonas;
       this.typefac = data.tipo_facturacion;
     });
+    console.log(this.tooglePrint)
     if(this.tooglePrint == false){
+      this.facForm.patchValue({fechaelaboracion: null });
+      this.facForm.patchValue({inicioPeriodo: null});
+      this.facForm.patchValue({finPeriodo: null});
+      this.facForm.patchValue({fechaven: null});
       jQuery('#modal-factura').modal('open');      
     } else if(this.tooglePrint == true) {
+      this.tooglePrint = false;
       let str = this.gbillingEdit.fecha_inicio;
       let str2 = this.gbillingEdit.fecha_fin;
       let str3 = this.gbillingEdit.fecha_elaboracion;
@@ -220,7 +227,12 @@ export class GbillingsComponent implements OnInit {
         if (this.splitted4[0] == "0" + i.toString()) this.splitted4[0] = i.toString();
         if (this.splitted4[1] == "0" + i.toString()) this.splitted4[1] = i.toString();
       }
-      this.facForm.patchValue({fechaelaboracion: this.gbillingEdit.fecha_elaboracion});
+      this.facForm.patchValue({fechaelaboracion: {
+        date: {
+            year: this.splitted3[2],
+            month:this.splitted3[1],
+            day: this.splitted3[0]}
+      }});
       this.facForm.patchValue({inicioPeriodo: {
         date: {
             year: this.splitted[2],
@@ -239,6 +251,8 @@ export class GbillingsComponent implements OnInit {
             month:this.splitted4[1],
             day: this.splitted4[0]}
       }});
+      this.facForm.patchValue({ facinicial: this.gbillingEdit.nrofact_ini });
+      this.facForm.patchValue({ facfinal: this.gbillingEdit.nrofact_fin });
       jQuery('#modal-factura').modal('open');      
     }
   }
@@ -246,7 +260,7 @@ export class GbillingsComponent implements OnInit {
   printFac(post) {
     console.log(this.facForm.controls.fechaelaboracion)
     console.log(post)
-   /*  if (post) {
+    if (post) {
       this._gbillingservice.printGBillings({
         "zona": post.zona,
         "tipo_fact": Number(post.tipofac),
@@ -265,33 +279,9 @@ export class GbillingsComponent implements OnInit {
         "usuario_id": localStorage.getItem('usuario_id'),
         "db": localStorage.getItem('db')
     }).subscribe(
-        data => {
-          console.log(data)
-          if (data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet") {
-            swal({
-              title: 'Registro creado con éxito',
-              text: '',
-              type: 'success',
-              onClose: function reload() {
-                        location.reload();
-                      }
-            })
-          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
-            swal(
-              'No se pudo crear el registro, datos incorrectos',
-              '',
-              'warning'
-            )
-          }
-        });
-        error =>{
-          swal(
-            'No se pudo crear el registro',
-            '',
-            'warning'
-          )
-        }
-    }    */
+      data => console.log(data)
+    )   
+    }   
   }
 
   selectAll() {
@@ -321,6 +311,7 @@ export class GbillingsComponent implements OnInit {
     var radios = <HTMLInputElement><any>document.getElementsByName('group2');
     var check = <HTMLInputElement><any>document.getElementsByName('group1');
     var cantidad = document.getElementsByName('group1');
+    this.counter = 0;
 
     if (this.toogleDelete == true) {
       //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
@@ -329,16 +320,23 @@ export class GbillingsComponent implements OnInit {
     
     for(var i = 0; i < cantidad.length; i++ ){
       if(check[i].checked){
-        console.log('false');
         this.toogleDelete = true;
-        this.tooglePrint = true;
+        this.counter = cantidad.length;
         //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");
-        this.tooglePrint = false;
+        this.counter --;
+        //this.tooglePrint = true;
       }
     }    
+    console.log(this.counter)
+    if (this.counter == 1){
+      this.tooglePrint = true;
+    } else {
+      this.tooglePrint = false;
+    }
+    console.log(this.tooglePrint)
   }
 
 

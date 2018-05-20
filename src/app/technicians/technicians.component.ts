@@ -16,12 +16,12 @@ declare let jQuery:any;
 })
 export class TechniciansComponent implements OnInit {
 
-  toogleDelete:boolean = false; toogleArticle: boolean = true;
+  toogleDelete:boolean = false; toogleArticle: boolean = true; toogleEdit: boolean = false;
   technicians: any[] = []; techEdit: any; concepts: any; rates: any; techs: any; employee: any; groups: any; articles: any; details: any[] = [];
-  valor: number; porIva: number; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
+  valor: number; porIva: number = 0; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
   detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
   param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
-  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any;
+  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any; 
 
   rForm: FormGroup;  printForm: FormGroup;
   orderForm: FormGroup;
@@ -136,6 +136,7 @@ export class TechniciansComponent implements OnInit {
         this.numberOfTechs = this.count.length;
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
+    this.valorIva = 0;
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -152,6 +153,21 @@ export class TechniciansComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  disableButton(){
+    this.toogleEdit = true;
+    this.onChanges();
+  }
+
+  onChanges(): void { 
+    this.rForm.valueChanges.subscribe(val => {  
+      if(this.rForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-detail').prop('disabled', false);
+      } else if(this.rForm.valid == false){    
+        jQuery('#btn-detail').prop('disabled', true);
+      }
+    });
   }
 
   resetForms() {
@@ -172,7 +188,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   exportToExcel(post){
-  this._techservice.downloadOrder({'fechaini': this.model1, 'fechafin': this.model2,
+    this._techservice.downloadOrder({'fechaini': this.model1, 'fechafin': this.model2,
                                    "db": localStorage.getItem('db') }).subscribe(data => {
       console.log(data)
       this.excelService.exportAsExcelFile(data.listado_ordenes, 'Ordenes');
@@ -344,13 +360,6 @@ export class TechniciansComponent implements OnInit {
         }
         )
     }
-    if(this.response) {
-      this.updateOrder();
-    }
-  }
-
-  updateOrder(){
-    
   }
 
   addDetail(post){
@@ -387,10 +396,15 @@ export class TechniciansComponent implements OnInit {
   }
 
   changeData(){
+    console.log('entro change')
     this.valorSinIva = 0;
     this.valorIva = 0;
-    this.valorSinIva = Number(this.valor / (this.porIva / 100 + 1));
-    this.valorIva = Math.round(this.valor - this.valorSinIva);
+    if(this.toogleEdit == false){
+      this.toogleEdit = true;
+    } else {
+      this.valorSinIva = Number(this.valor / (this.porIva / 100 + 1));
+      this.valorIva = Math.round(this.valor - this.valorSinIva);
+    }
   }
 
   validate() {
@@ -545,6 +559,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   edit () {
+    this.toogleEdit = false;
     jQuery('#select-employee').children('option[value="nodisplay"]').css('display','none');    
     jQuery('.select-edit').prop('disabled', false);
     this.editDetail = 1;

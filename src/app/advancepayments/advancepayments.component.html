@@ -158,29 +158,29 @@
             <label for="codigo" class="label-color">Código</label>
             <input disabled placeholder="" id="codigo-orden" type="text" [(ngModel)]="paymentEdit.entidad_id" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m6 l6">
+          <div class="col s12 m6 l5">
             <label for="nombres" class="label-color">Nombres y apellidos</label>
             <input disabled placeholder="" id="nombres-orden" type="text" [(ngModel)]="paymentEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m4 l4">
+          <div class="col s12 m4 l3">
             <label for="direccion" class="label-color">Dirección</label>
             <input disabled placeholder="" id="direccion-orden" type="text" [(ngModel)]="paymentEdit.direccion" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row" *ngIf="paymentEdit">
-          <div class="col s12 m6 l3">
+          <div class="col s12 m6 l2">
             <label for="telefonos" class="label-color">Teléfonos</label>
             <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="paymentEdit.telefonos" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m6 l3">
+        </div>
+        <div class="row" *ngIf="paymentEdit">
+          <div class="col s12 m6 l4">
             <label class="label-color">Barrio</label>
             <input disabled placeholder="" id="barrio-orden" type="text" [(ngModel)]="paymentEdit.barrio" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m6 l3">
-            <label class="label-color">Zona:</label>
+          <div class="col s12 m6 l4">
+            <label class="label-color">Zona</label>
             <input disabled placeholder="" id="zona-orden" type="text" [(ngModel)]="paymentEdit.zona" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m6 l3">
+          <div class="col s12 m6 l4">
             <label for="fechaafi-orden" class="label-color">Fecha afiliación</label>
             <input disabled placeholder="" id="fechaafi-orden" type="text" [(ngModel)]="paymentEdit.fechacontrato" [ngModelOptions]="{standalone: true}">
             </div>

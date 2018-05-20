@@ -307,8 +307,8 @@ export class RatesComponent implements OnInit {
   }
 
   updateRate() {
- /*    this.selDate = this.model1.formatted;
-    this.selDate2 = this.model2.formatted; */
+    this.selDate = this.model1.formatted;
+    this.selDate2 = this.model2.formatted;
     console.log(this.selDate, this.selDate2)
     if(this.rateEdit){
       this._rateservice.updateRates({ 'id': this.rateEdit.id, 'zona_id': this.zona, 'concepto_id': this.concepto, 'plan_id': this.plan, 'valor': this.rateEdit.valor,

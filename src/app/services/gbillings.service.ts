@@ -4,7 +4,8 @@ import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { GBillings } from '../gbillings/gbillings'
+import { GBillings } from '../gbillings/gbillings';
+import { saveAs } from 'file-saver';
 
 @Injectable()
 export class GBillingsService {
@@ -64,7 +65,14 @@ export class GBillingsService {
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
     let options = new RequestOptions({ headers: header, body: content });
-    return this._http.post(url, content, options).map(response => response.json());
+    return this._http.post(url, content, options).map(response => this.saveToFileSystem(response));
    }
+
+   private saveToFileSystem(response) {
+    response.responseType = 'blob';
+    const filename = "Facturas";
+    const blob = new Blob([response._body], { type: 'application/pdf' });
+    saveAs(blob, filename);
+  }
 
 }

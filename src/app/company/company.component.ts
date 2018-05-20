@@ -270,7 +270,7 @@ export class CompanyComponent implements OnInit {
     }
   }
 
-  deleteCompany(){
+  /* deleteCompany(){
     swal({
       title: '¿Desea eliminar el registro?',
       text: "",
@@ -312,7 +312,7 @@ export class CompanyComponent implements OnInit {
         } 
       }
     })
-  }
+  } */
 
   closeModal () {
     jQuery('#modal-see').modal('close');

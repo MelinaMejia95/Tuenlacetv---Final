@@ -25,7 +25,7 @@ declare let jsPDF;
 export class SubscriberComponent implements OnInit {
 
   toogleDelete:boolean = false; toogleEdit: boolean = false;
-  tipoUsuario:string; services: string; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string; disabled: boolean = true; showint: number = 1;
+  tipoUsuario:string; services: any[] = []; neighborhoods: string; zones: string; tipoUsuarioEdit: string; tipoFactEdit: string; listado: string; disabled: boolean = true; showint: number = 1;
   planstv: string; plansint: string; ratestv: string; typeinst: string; ratesint: string; cities: string; paramafi: string; valorafitv: any; valorafiint: any; splitted: any; model: any;
   technologies: string; typedoc: string; functions: string; states: string; equipo: any; template_fact_tv: string; createNeigh: string; createZone: string; splitted2: any; model2: any;
   createPer: string; createStrat: string; createCond: string; createNeightv: string; createZonetv: string; createStrattv: string; createTypevivtv: string; model3 : any; model4: any;
@@ -41,8 +41,9 @@ export class SubscriberComponent implements OnInit {
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
-  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string;
-
+  fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string; abreviatura: string;
+  decos: number;
+  
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
   seeSubs: FormGroup; seeServ: FormGroup; seeTV: FormGroup; seeInt: FormGroup; printForm: FormGroup;
@@ -234,6 +235,7 @@ export class SubscriberComponent implements OnInit {
       'valortotal': [null],
       'fechaorden': [null],
       'fechavence': [null],      
+      'decodificadores': [null],      
     })
 
     this.newOrder = fb.group({
@@ -317,7 +319,7 @@ export class SubscriberComponent implements OnInit {
     this._suscriberservice.getSubscribers(localStorage.getItem('entidad')).subscribe(data => {
       this.entity = data.entidades;
       this.subscribers = data.senales;
-      this.services = data.servicios;
+      //this.services = data.servicios;
       this.neighborhoods = data.barrios;
       this.zones = data.zonas;
       this.cities = data.ciudades;
@@ -335,7 +337,7 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      console.log(this.functions)
+      console.log(this.services)
       for (let i = 0; i < this.functions.length; i++) {
         if(localStorage.getItem('entidad') == this.functions[i]['id']){
           this.showEntity = this.functions[i]['nombre'];
@@ -393,6 +395,17 @@ export class SubscriberComponent implements OnInit {
       this.disabled = true;
       this.toogleEdit = false;   
     }});
+    if (localStorage.getItem('entidad') != '1') {
+      jQuery('.modal-title').css('height', '12% !important');
+      jQuery('.modal.modal-fixed-footer.modal-content').css('height', '80% !important');
+      jQuery('.modal.modal-fixed-footer').css('height', '58%');
+      jQuery('.modal.modal-content').css('padding-top', '3px');
+    } else {
+      jQuery('.modal-title').css('height', '10% !important');                
+      jQuery('.modal.modal-fixed-footer.modal-content').css('height', 'calc(100% - 89px) !important');
+      jQuery('.modal.modal-fixed-footer').css('height', '70%');
+      jQuery('.modal.modal-content').css('padding-top', '3px');   
+    }
     jQuery('#mostrar').on('change', () => {
       this._suscriberservice.getEntities(jQuery('#mostrar').val()).subscribe(data => {
         localStorage.setItem('entidad', jQuery('#mostrar').val());
@@ -402,9 +415,15 @@ export class SubscriberComponent implements OnInit {
           }
         }
         if (this.showEntity != 'Suscriptor'){
-          jQuery('#modal-see .modal-content').css('padding-top', '37px');
+          /* jQuery('.modal-title').css('height', '12%');
+          jQuery('.modal.modal-fixed-footer.modal-content').css('height', '80% !important');
+          jQuery('.modal.modal-fixed-footer').css('height', '58%');
+          jQuery('.modal.modal-content').css('padding-top', '3px'); */
         } else {
-          jQuery('#modal-see .modal-content').css('padding-top', '3px');        
+          /* jQuery('.modal-title').css('height', '10%');                
+          jQuery('.modal.modal-fixed-footer.modal-content').css('height', 'calc(100% - 89px) !important');
+          jQuery('.modal.modal-fixed-footer').css('height', '70%');
+          jQuery('.modal.modal-content').css('padding-top', '3px');  */         
         }
         this.entity = data.entidades;
         console.log(this.showEntity)
@@ -549,6 +568,7 @@ export class SubscriberComponent implements OnInit {
     this.tv = 0;
     this.int = 0;
     this.servicesPay = [];
+    this.services = [];
     jQuery('#btn-see').prop('disabled', false);
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
   }
@@ -881,6 +901,22 @@ export class SubscriberComponent implements OnInit {
     this.totalAplicar = Number(this.diferencia); 
   }
 
+  openModalFactura(){
+    if (this.subsEdit.tv == '1' && this.subsEdit.internet == '0' ) {
+      this.services[0] = {id: 1, nombre: 'TELEVISIÓN'}
+      if ( this.subsEdit.decos > 0)  this.services[1] = {id: 4, nombre: 'DECODIFICADORES'}
+    } else if (this.subsEdit.tv == '0' && this.subsEdit.internet == '1') {
+      this.services[0] = {id: 2, nombre: 'INTERNET'}
+      if ( this.subsEdit.decos > 0)  this.services[1] = {id: 4, nombre: 'DECODIFICADORES'}
+    } else if (this.subsEdit.tv == '1' && this.subsEdit.internet == '1' || this.subsEdit.decos > 0) {
+      this.services[0] = {id: 1, nombre: 'TELEVISIÓN'}
+      this.services[1] = {id: 2, nombre: 'INTERNET'}
+      this.services[2] = {id: 3, nombre: 'TELEVISIÓN E INTERNET'}      
+      if ( this.subsEdit.decos > 0)  this.services[1] = {id: 4, nombre: 'DECODIFICADORES'}         
+    }
+    jQuery('#modal-factura').modal('open');
+  }
+
   openModalAnular(){
     this._suscriberservice.getBills(this.subsEdit.id).subscribe(data => {
       this.facts = data.detalle_facturas;
@@ -956,6 +992,16 @@ export class SubscriberComponent implements OnInit {
         this.orderForm.controls['valortotal'].setValue(this.rates[i]['valor']);
       }
     }
+    for (let i = 0; i < this.concepts.length; i++) {
+      if (Number(val) == this.concepts[i]['id']) {
+        this.abreviatura = this.concepts[i]['abreviatura']
+      }
+    }
+    if(val == '51') {
+      this.decos = 1;
+    } else {
+      this.decos = 0;
+    }
   }
 
   openModalOrden(){
@@ -1011,6 +1057,7 @@ export class SubscriberComponent implements OnInit {
         "valor": Number(order.valortotal),
         "observacion": order.observaciones,
         "tecnico_id": Number(order.tecnico),
+        "decos": order.decodificadores,
         "zonaNue": newOrder.nuevazona,
         "barrioNue": newOrder.nuevobarrio,  
         "direccionNue": newOrder.nuevadir,              
