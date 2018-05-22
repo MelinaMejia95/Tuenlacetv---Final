@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { AppGlobals } from '../shared/app.global';
@@ -17,7 +18,18 @@ export class LoginComponent implements OnInit {
   conect: any = [];
   bd:string;
 
-  constructor(private _LoginService: LoginService, private route: Router, private _global: AppGlobals) { }
+  rForm: FormGroup;
+  titleAlert: string = "Campo requerido";
+
+  constructor(private _LoginService: LoginService, private route: Router, private _global: AppGlobals, private fb: FormBuilder) { 
+
+    this.rForm = fb.group({
+      'nombre': [null, Validators.required],
+      'contraseña': [null, Validators.required],
+      'bd': [null],
+    });
+
+  }
 
   ngOnInit() {
     jQuery('select').material_select(); 
@@ -30,16 +42,15 @@ export class LoginComponent implements OnInit {
     document.getElementById('main').style.marginLeft = "0";
   }
   
-  loginUser(user, password){
-    console.log(user, password)
-    if (user && password) {
-      this.conect = {'login': user, 'password': password};
+  loginUser(post){
+    if (post) {
+      this.conect = {'login': post.nombre, 'password': post.contraseña};
       this._LoginService.login(this.conect).subscribe(data =>{
         console.log(data)
         localStorage.setItem('usuario_id', data.usuario_id);
         localStorage.setItem('auth_token', data.auth_token);
         localStorage.setItem('nivel', data.nivel);
-        localStorage.setItem('db', this.bd);
+        localStorage.setItem('db', post.bd);
         localStorage.setItem('entidad', '1');
         this._global.entity = 'Suscriptor';
         if (data.auth_token) {

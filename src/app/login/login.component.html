@@ -6,33 +6,40 @@
         <h5 class="white-text">TUENLACETV</h5>
       </div>
       <div class="card-content">
-        <form class="row login-form"> 
-          <div class="input-field col s12 m6 l6">
-            <i class="material-icons prefix">account_circle</i>
-            <input id="nom" type="text" class="validate login-input" required="" aria-required="true" #user autofocus>
-            <label for="nom" class="label-login active">Nombre de usuario</label>
+        <form class="login-form" [formGroup]="rForm"> 
+          <div class="row">
+            <div class="input-field col s12 m6 l6">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="nom" type="text" class="validate login-input" formControlName="nombre" autofocus>
+              <label for="nom" class="label-login active">Nombre de usuario</label>
+              <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>            
+            </div>
+            <div class="input-field col s12 m6 l6">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="password" type="password" class="validate login-input" formControlName="contraseña" autofocus>
+              <label for="password" class="label-login">Contraseña</label>
+              <div class="alert" *ngIf="!rForm.controls['contraseña'].value && rForm.controls['contraseña'].touched">{{ titleAlert }}</div>            
+            </div>
           </div>
-          <div class="input-field col s12 m6 l6">
-            <i class="material-icons prefix">vpn_key</i>
-            <input id="password" type="password" class="validate login-input" required="" aria-required="true" #pss autofocus>
-            <label for="password" class="label-login">Contraseña</label>
-          </div>
-          <div class="input-field col s12 m6 offset-m3">
-            <select id="select-bd">
-              <option value="" disabled selected>Seleccione la filial a trabajar</option>
-              <option value="TUENLACETV">TUENLACETV</option>
-              <option value="MEDELLIN">MEDELLIN</option>
-              <option value="BOGOTA">BOGOTA</option>
-              <option value="CALI">CALI</option>
-            </select>
-          </div>
-          <div class="col s12">
-            <button class="btn waves-effect waves-light login-button" type="submit" (click)="loginUser(user.value, pss.value)">
-              Conectar
-              <i class="material-icons right">send</i>
-            </button>
+          <div class="row">
+            <div class="input-field col s12 m6 offset-m3">
+              <select id="select-bd" class="validate" formControlName="bd">
+                <option value="1" disabled selected>Seleccione la filial a trabajar</option>
+                <option value="TUENLACETV">TUENLACETV</option>
+                <option value="MEDELLIN">MEDELLIN</option>
+                <option value="BOGOTA">BOGOTA</option>
+                <option value="CALI">CALI</option>
+              </select>
+              <div class="alert" *ngIf="!rForm.controls['bd'].value != 1 && rForm.controls['bd'].touched">{{ titleAlert }}</div>            
+            </div>
           </div>
         </form>
+        <div class="row">
+          <button class="btn waves-effect waves-light login-button" [disabled]="!rForm.valid" (click)="loginUser(rForm.value)">
+            Conectar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
       </div>
     </div>
   </div>

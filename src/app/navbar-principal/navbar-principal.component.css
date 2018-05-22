@@ -1,3 +1,11 @@
+#modal1 {
+    height: 30% !important;
+}
+
+#modal1 .modal-content {
+    height: 74%;
+}
+
 .background{
     background-color: #468EBC;
     height: auto;
