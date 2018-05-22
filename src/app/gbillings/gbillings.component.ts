@@ -258,21 +258,32 @@ export class GbillingsComponent implements OnInit {
   }
 
   printFac(post) {
-    console.log(this.facForm.controls.fechaelaboracion)
-    console.log(post)
+    for (let i = 0; i < 10; i++) {
+      if (post.fechaelaboracion.date.day == i.toString())  post.fechaelaboracion.date.day = "0" + i.toString();        
+      if (post.fechaelaboracion.date.month == i.toString() )  post.fechaelaboracion.date.month = "0" + i.toString();  
+      if (post.inicioPeriodo.date.day == i.toString())  post.inicioPeriodo.date.day = "0" + i.toString();        
+      if (post.inicioPeriodo.date.month == i.toString() )  post.inicioPeriodo.date.month = "0" + i.toString();
+      if (post.finPeriodo.date.day == i.toString())  post.finPeriodo.date.day = "0" + i.toString();        
+      if (post.finPeriodo.date.month == i.toString() )  post.finPeriodo.date.month = "0" + i.toString();
+      if (post.fechaven.date.day == i.toString())  post.fechaven.date.day = "0" + i.toString();        
+      if (post.fechaven.date.month == i.toString() )  post.fechaven.date.month = "0" + i.toString();
+      if (post.corte.date.day == i.toString())  post.corte.date.day = "0" + i.toString();        
+      if (post.corte.date.month == i.toString() )  post.corte.date.month = "0" + i.toString();
+    }
+    console.log(post.fechaelaboracion.date.day + '/' + post.fechaelaboracion.date.month + '/' + post.fechaelaboracion.date.year)
     if (post) {
       this._gbillingservice.printGBillings({
         "zona": post.zona,
         "tipo_fact": Number(post.tipofac),
-        "f_elaboracion": post.fechaelaboracion.formatted,
-        "f_inicio": post.inicioPeriodo.formatted,
-        "f_fin": post.finPeriodo.formatted,
-        "f_vencimiento": post.fechaven.formatted,
+        "f_elaboracion": post.fechaelaboracion.date.day + '/' + post.fechaelaboracion.date.month + '/' + post.fechaelaboracion.date.year,
+        "f_inicio": post.inicioPeriodo.date.day + '/' + post.inicioPeriodo.date.month + '/' + post.inicioPeriodo.date.year,
+        "f_fin": post.finPeriodo.date.day + '/' + post.finPeriodo.date.month + '/' + post.finPeriodo.date.year,
+        "f_vencimiento": post.fechaven.date.day + '/' + post.fechaven.date.month + '/' + post.fechaven.date.year,
         "fact_inicial": Number(post.facinicial),
         "fact_final": Number(post.facfinal),
         "saldo_inicial": Number(post.saldoinicial),
         "saldo_final": Number(post.saldofinal),
-        "f_corte": post.corte.formatted,
+        "f_corte": post.corte.date.day + '/' + post.corte.date.month + '/' + post.corte.date.year,
         "nota_1": post.nota1,
         "nota_2": post.nota2,
         "nota_3": post.nota3,

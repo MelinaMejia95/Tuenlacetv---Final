@@ -30,12 +30,12 @@
                 <option value="BOGOTA">BOGOTA</option>
                 <option value="CALI">CALI</option>
               </select>
-              <div class="alert" *ngIf="!rForm.controls['bd'].value != 1 && rForm.controls['bd'].touched">{{ titleAlert }}</div>            
+              <div class="alert" *ngIf="!rForm.controls['bd'].value && rForm.controls['bd'].touched">{{ titleAlert }}</div>            
             </div>
           </div>
         </form>
         <div class="row">
-          <button class="btn waves-effect waves-light login-button" [disabled]="!rForm.valid" (click)="loginUser(rForm.value)">
+          <button id="conectar" class="btn waves-effect waves-light login-button" [disabled]="!rForm.valid" (click)="loginUser(rForm.value)">
             Conectar
             <i class="material-icons right">send</i>
           </button>

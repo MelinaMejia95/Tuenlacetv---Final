@@ -36,13 +36,24 @@ export class LoginComponent implements OnInit {
     jQuery('#select-bd').on('change', () => {
       this.bd = jQuery('#select-bd').val();
       console.log(this.bd);
+      if(this.rForm.valid == true) {
+        jQuery('#conectar').prop('disabled', false)
+      } else {
+        jQuery('#conectar').prop('disabled', true)      
+        console.log('false')  
+      }
     });
     jQuery('#ref-navbar').hide();
     jQuery('#ref-footer').hide();
     document.getElementById('main').style.marginLeft = "0";
   }
+
+  changeBD(val) {
+    console.log(val)
+  }
   
   loginUser(post){
+    console.log(post.bd)
     if (post) {
       this.conect = {'login': post.nombre, 'password': post.contraseña};
       this._LoginService.login(this.conect).subscribe(data =>{
@@ -50,7 +61,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('usuario_id', data.usuario_id);
         localStorage.setItem('auth_token', data.auth_token);
         localStorage.setItem('nivel', data.nivel);
-        localStorage.setItem('db', post.bd);
+        localStorage.setItem('db', this.bd);
         localStorage.setItem('entidad', '1');
         this._global.entity = 'Suscriptor';
         if (data.auth_token) {
