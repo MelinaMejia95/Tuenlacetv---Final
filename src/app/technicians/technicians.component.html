@@ -173,13 +173,13 @@
             <label for="nombressub" class="label-color">Nombres y Apellidos</label>
             <input disabled placeholder="" id="nombressub" type="text" [(ngModel)]="techEdit.nombres" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col s12 m6 l3">
-            <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="techEdit.telefonos" [ngModelOptions]="{standalone: true}">
-          </div>
           <div class="col s12 m6 l2">
             <label for="direccion" class="label-color">Dirección</label>
             <input disabled placeholder="" id="direccion" type="text" [(ngModel)]="techEdit.direccion" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
+            <label for="telefonos" class="label-color">Teléfonos</label>
+            <input disabled placeholder="" id="telefonos" type="text" [(ngModel)]="techEdit.telefonos" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="row">
@@ -208,15 +208,19 @@
             <input disabled placeholder="" class="not-disabled" id="observaciones" type="text" [(ngModel)]="techEdit.observacion_senal" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
+            <label for="precinto" class="label-color">Precinto</label>
+            <input disabled placeholder="" class="not-disabled" id="precinto" type="text" [(ngModel)]="techEdit.precinto" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col s12 m6 l3">
             <label for="estado_tv" class="label-color">Estado televisión</label>
             <input disabled placeholder="" class="not-disabled" id="estado_tv" type="text" [(ngModel)]="techEdit.estado_tv" [ngModelOptions]="{standalone: true}">
           </div> 
+        </div>
+        <div class="row">
           <div class="col s12 m6 l3">
             <label for="estado_int" class="label-color">Estado internet</label>
             <input disabled placeholder="" class="not-disabled" id="estado_int" type="text" [(ngModel)]="techEdit.estado_int" [ngModelOptions]="{standalone: true}">
           </div>
-        </div>
-        <div class="row">
           <div class="col s12 m6 l3">
             <label for="fechapago" class="label-color">Fecha último pago</label>
             <input disabled placeholder="" id="fechapago" type="text" class="datepicker" [(ngModel)]="techEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
@@ -268,31 +272,31 @@
               <my-date-picker id="fechaven" name="fechaven" [options]="myDatePickerOptions" class="validate" formControlName="fechaven" [(ngModel)]="modelDate" required [disabled]="disabled2"></my-date-picker>          
               <div class="alert" *ngIf="!orderForm.controls['fechaven'].value && orderForm.controls['fechaven'].touched">{{ titleAlert }}</div>                        
             </div>
-            <div class="col s12 m6 l4">
-              <label for="solicitado" class="label-color">Solicitado por</label>
-              <input disabled placeholder="" class="select-edit" id="solicitado" type="text" formControlName="solicitado">
+            <div class="col s12 m6 l3">
+              <label for="valortotal" class="label-color">Valor total</label>
+              <input disabled placeholder="0" id="valortotal" type="text">
             </div>
-            <div class="col s12 m6 l4" *ngIf="techEdit" style="margin-left: 1px;">
+            <div class="col s12 m6 l6">
+              <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
+              <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" formControlName="observaciones">
+              <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                 
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6 l4">
+              <label for="estadoorden" class="label-color">Estado orden</label>
+              <input disabled placeholder="" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col s12 m6 l4" *ngIf="techEdit">
               <label class="label-color">Técnico <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city select-edit" id="select-employee">
                 <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
               </select>                               
             </div>
-          </div>
-          <div class="row">
-            <div class="col s12 m6 l2">
-              <label for="valortotal" class="label-color">Valor total</label>
-              <input disabled placeholder="0" id="valortotal" type="text">
-            </div>
-            <div class="col s12 m6 sl">
-              <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
-              <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" formControlName="observaciones">
-              <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                 
-            </div>
-            <div class="col s12 m6 l3">
-              <label for="estadoorden" class="label-color">Estado orden</label>
-              <input disabled placeholder="" id="estadoorden" type="text" [(ngModel)]="techEdit.estado" [ngModelOptions]="{standalone: true}">
+            <div class="col s12 m6 l4">
+              <label for="solicitado" class="label-color">Solicitado por</label>
+              <input disabled placeholder="" class="select-edit" id="solicitado" type="text" formControlName="solicitado">
             </div>
           </div>
           <div class="row">
@@ -410,7 +414,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="editOrder(rForm.value, orderForm.value)">Aceptar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!orderForm.valid" (click)="editOrder(rForm.value, orderForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

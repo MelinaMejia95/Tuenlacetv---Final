@@ -41,6 +41,10 @@
           <label for="all"> </label>
         </th>
         <th class="pago-th">
+          <label for="tipodocumento" class="label-color">Tipo Documento</label>
+          <input id="tipodocumento" type="text" class="input-custom" [(ngModel)]="filter.tipodocu">
+        </th>
+        <th class="pago-th">
           <label for="numpago" class="label-color">Número pago</label>
           <input id="numpago" type="text" class="input-custom" [(ngModel)]="filter.nropago">
         </th>
@@ -72,6 +76,7 @@
           <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(payment)"/>
           <label [attr.for]="'radio_'+i"> </label>
         </td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.documento }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.nropago }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.entidad_id }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.nombres }}</td>
@@ -221,16 +226,16 @@
             <input disabled placeholder="" id="obserpago" type="text" [(ngModel)]="payEdit.observacion" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
-            <label class="label-color">Forma de pago</label>
-            <input disabled placeholder="" id="formapago" type="text" [(ngModel)]="payEdit.forma_pago" [ngModelOptions]="{standalone: true}">
+            <label class="label-color">Cobrador</label>
+            <input disabled placeholder="" id="cobrador" type="text" [(ngModel)]="payEdit.cobrador" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Banco</label>
             <input disabled placeholder="" id="banco" type="text" [(ngModel)]="payEdit.banco" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
-            <label class="label-color">Cobrador</label>
-            <input disabled placeholder="" id="cobrador" type="text" [(ngModel)]="payEdit.cobrador" [ngModelOptions]="{standalone: true}">
+            <label class="label-color">Forma de pago</label>
+            <input disabled placeholder="" id="formapago" type="text" [(ngModel)]="payEdit.forma_pago" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
       </form>

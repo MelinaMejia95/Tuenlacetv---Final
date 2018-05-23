@@ -19,7 +19,7 @@ export class GbillingsComponent implements OnInit {
   toogleDelete:boolean = false; tooglePrint: boolean = false;
   gbillings: any[] = []; zones: any[] = []; typefac: any[] = [];
   gbillingEdit: any; model1: any; model2: any; splitted: any; splitted2: any; splitted3: any; splitted4: any;
-  counter: number = 0;
+  counter: number = 0; saldoini: number = 1; saldofin: number = 1000000;
 
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd/mm/yyyy',
@@ -89,7 +89,7 @@ export class GbillingsComponent implements OnInit {
       'nota3': [null]
     })
 
-   }
+  }
 
   ngOnInit() {
     jQuery( window ).resize( function () {
@@ -293,6 +293,7 @@ export class GbillingsComponent implements OnInit {
       data => console.log(data)
     )   
     }   
+    //this.facForm.reset();
   }
 
   selectAll() {

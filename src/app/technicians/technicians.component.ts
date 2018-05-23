@@ -85,7 +85,7 @@ export class TechniciansComponent implements OnInit {
 
     this.orderForm = fb.group({ 
       'fechaven': [null, Validators.required],
-      'empleado': [null, Validators.required],
+      //'empleado': [null, Validators.required],
       'observaciones': [null, Validators.required],
       'solucion': [null, Validators.required],    
       'solicitado': [null],
@@ -121,7 +121,6 @@ export class TechniciansComponent implements OnInit {
     jQuery('#modal-imprimir').modal();    
     jQuery('#modal-see').modal();
     this._techservice.getTechs().subscribe(data => {
-      console.log(data)
       this.technicians= data.ordenes;
       this.groups = data.grupos;
       this.articles = data.articulos;
@@ -204,21 +203,20 @@ export class TechniciansComponent implements OnInit {
     this.techEdit = Object.assign({}, tech);
     this.techsLenght = tech.detalle;
     this.selDate = this.techEdit.fechatrn;
-    console.log(tech)
-    /* for (let i = 0; i < this.techsLenght.length; i++) {
-      this.details[i] = {'id': i,'articulo':this.techsLenght[i]['articulo'], 'cantidad':this.techsLenght[i]['cantidad'], 'grupo':this.techsLenght[i]['grupo'],
-                        'iva':this.techsLenght[i]['iva'], 'porIva':this.techsLenght[i]['porIva'], 'total':this.techsLenght[i]['total'], 
-                        'valor':this.techsLenght[i]['valor']}
-    } */
-
-      this.techDetail = 0;
-    
+    this.tech = tech.tecnico;
+    this.techDetail = 0
     this._techservice.getInfoTechs().subscribe(data => {
-      console.log(data)
+      console.log(data.tecnicos)
       this.concepts = data.conceptos;
       this.rates = data.tarifas;
       this.techs = data.tecnicos;
       this.employee = data.empleados;
+      for (let i = 0; i < this.techs.length; i++){
+        if(this.tech == this.techs[i]['nombres']){
+          this.tech = this.techs[i]['id'];
+          console.log(this.tech)
+        }
+      }
     });
     
     switch (this.techEdit.abreviatura){
@@ -272,6 +270,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   editOrder (detail, post) {
+    console.log(post)
     this.post = post;
     if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
       this.fechaven =  this.modelDate.date.day + '/' + this.modelDate.date.month + '/' +this.modelDate.date.year;
@@ -329,7 +328,7 @@ export class TechniciansComponent implements OnInit {
          );
       })
     } else {
-      this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.post.empleado), 
+      this._techservice.updateOrder({'id': this.techEdit.id, 'fechaven': this.fechaven, 'observacion': this.post.observaciones, 'tecnico_id': Number(this.tech), 
       'solicita': this.post.solicitado, 'detalle': this.details, 'solucion': this.post.solucion, 'respuesta': this.response,
       'usuario_id': localStorage.getItem('usuario_id'), 'db': localStorage.getItem('db')}).subscribe(
         data => {
@@ -408,10 +407,10 @@ export class TechniciansComponent implements OnInit {
   }
 
   validate() {
-    if(this.rForm.valid == true && this.orderForm.valid == true) {
+    if(this.orderForm.valid == true) {
       jQuery('#btn-edit').prop('disabled', false);
       console.log('valid')
-    } else  if(this.rForm.valid == false || this.orderForm.valid == false){
+    } else if( this.orderForm.valid == false){
       jQuery('#btn-edit').prop('disabled', true);
       console.log('invalid')
     }
@@ -461,7 +460,13 @@ export class TechniciansComponent implements OnInit {
                 })
               } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
                 swal(
-                  'No se pudo anular el registro ya que tiene relación con otro módulo del sistema',
+                  'No se pudo anular orden porque tiene asociada un pago',
+                  '',
+                  'warning'
+                )
+              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+                swal(
+                  'No se puede anular orden de adicionar decodificadores',
                   '',
                   'warning'
                 )

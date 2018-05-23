@@ -7,7 +7,7 @@ export class Payments {
     /**
      * @type {string} 
      */
-    id: String;
+    id: string;
 
     /**
      * @type {string} 
@@ -28,5 +28,11 @@ export class Payments {
      * @type {string} 
      */
     banco: String;
+
+     /**
+     * @type {string} 
+     */
+    tipodocu: string;
+
   
   }

@@ -241,7 +241,7 @@ export class ZonesComponent implements OnInit {
             },
           error =>{
             swal(
-              'No se pudo eliminar el registro',
+              'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
               '',
               'warning'
             )

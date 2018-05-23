@@ -10,20 +10,20 @@
           <div class="row">
             <div class="input-field col s12 m6 l6">
               <i class="material-icons prefix">account_circle</i>
-              <input id="nom" type="text" class="validate login-input" formControlName="nombre" autofocus>
+              <input id="nom" type="text" class="validate login-input" formControlName="nombre" autofocus (click)="inputClicked()">
               <label for="nom" class="label-login active">Nombre de usuario</label>
               <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>            
             </div>
             <div class="input-field col s12 m6 l6">
               <i class="material-icons prefix">vpn_key</i>
-              <input id="password" type="password" class="validate login-input" formControlName="contraseña" autofocus>
+              <input id="password" type="password" class="validate login-input" formControlName="contraseña" autofocus (click)="inputClicked()">
               <label for="password" class="label-login">Contraseña</label>
               <div class="alert" *ngIf="!rForm.controls['contraseña'].value && rForm.controls['contraseña'].touched">{{ titleAlert }}</div>            
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12 m6 offset-m3">
-              <select id="select-bd" class="validate" formControlName="bd">
+              <select id="select-bd" class="validate" formControlName="bd" (change)="selectClicked()">
                 <option value="1" disabled selected>Seleccione la filial a trabajar</option>
                 <option value="TUENLACETV">TUENLACETV</option>
                 <option value="MEDELLIN">MEDELLIN</option>
@@ -35,7 +35,7 @@
           </div>
         </form>
         <div class="row">
-          <button id="conectar" class="btn waves-effect waves-light login-button" [disabled]="!rForm.valid" (click)="loginUser(rForm.value)">
+          <button id="conectar" class="btn waves-effect waves-light login-button" disabled (click)="loginUser(rForm.value)">
             Conectar
             <i class="material-icons right">send</i>
           </button>

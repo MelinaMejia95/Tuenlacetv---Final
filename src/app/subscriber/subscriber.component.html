@@ -689,7 +689,7 @@
   <div class="modal-title">
     <div class="row">
       <div class="col s6">
-          <h5>Suscriptor</h5>
+          <h5>{{showEntity}}</h5>
       </div>
       <div class="col s6 right-align">
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
@@ -1337,25 +1337,29 @@
           <label for="observaciones-orden" class="label-color">Observaciones</label>
           <input disabled placeholder="" id="observaciones-orden" type="text" [(ngModel)]="subsEdit.observacion" [ngModelOptions]="{standalone: true}">
         </div>
+        <div class="col s12 m6 l3">
+          <label for="precinto-orden" class="label-color">Precinto</label>
+          <input disabled placeholder="" id="precinto-orden" type="text" [(ngModel)]="subsEdit.precinto" [ngModelOptions]="{standalone: true}">
+        </div>
         <div class="col s12 m3 l3">
           <label for="estadotv-orden" class="label-color">Estado televisión</label>
           <input disabled placeholder="" id="estadotv-orden" type="text" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}">
         </div>
-        <div class="col s12 m3 l3">
-            <label for="estadoint-orden" class="label-color">Estado internet</label>
-            <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
-          </div>
       </div>
       <div class="row" *ngIf="subsEdit">
-        <div class="col s12 m4 l4">
+        <div class="col s12 m3 l3">
+          <label for="estadoint-orden" class="label-color">Estado internet</label>
+          <input disabled placeholder="" id="estadoint-orden" type="text" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col s12 m4 l3">
           <label for="fechapago-orden" class="label-color">Fecha último pago</label>
           <input disabled placeholder="" id="fechapago-orden" type="text" [(ngModel)]="subsEdit.fecha_ult_pago" [ngModelOptions]="{standalone: true}">
         </div>
-        <div class="col s12 m4 l4">
+        <div class="col s12 m4 l3">
           <label for="saldotv-orden" class="label-color">Saldo televisión</label>
           <input disabled placeholder="" id="saldotv-orden" type="text" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}">
         </div>
-        <div class="col s12 m4 l4">
+        <div class="col s12 m4 l3">
           <label for="saldoint-orden" class="label-color">Saldo internet</label>
           <input disabled placeholder="" id="saldoint-orden" type="text" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
         </div>
@@ -1372,17 +1376,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m6 l3">
+            <div class="col s12 m6 l4">
               <label class="label-color">Tipo orden a generar <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-order" formControlName="tipoorden" #concepto (change)="changeConcept(concepto.value)">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!orderForm.controls['tipoorden'].value && orderForm.controls['tipoorden'].touched">{{ titleAlert }}</div>                                    
-            </div>
-            <div class="col s12 m6 l2" *ngIf="decos == 1">
-              <label for="decodificadores" class="label-color">Decodificadores</label>
-              <input placeholder="" id="decodificadores" type="text" formControlName="decodificadores">
             </div>
             <div class="col s12 m6 l2">
               <label for="abreviatura" class="label-color">Abreviatura</label>
@@ -1392,31 +1392,17 @@
               <label for="numorden" class="label-color">Número orden</label>
               <input placeholder="" id="numorden" type="text" disabled>
             </div>
-          </div>
-          <div class="row">
             <div class="col s12 m6 l3">
               <label for="fechaorden" class="label-color">Fecha orden</label>
               <my-date-picker name="fechaorden" [options]="myDatePickerOptions" (dateChanged)="onDateChangedOrder($event)" class="validate" required 
               formControlName="fechaorden"></my-date-picker>
             </div>
+          </div>
+          <div class="row">
             <div class="col s12 m6 l3">
               <label for="fechavence" class="label-color">Fecha vencimiento</label>
               <my-date-picker name="fechavence" [options]="myDatePickerOptions" [disabled]="disabled" [selDate]="selDate3" formControlName="fechavence"></my-date-picker>            
             </div>
-            <div class="col s12 m6 l3">
-              <label for="solicitado" class="label-color">Solicitado por</label>
-              <input placeholder="" id="solicitado" type="text" formControlName="solicitado"> 
-            </div>
-            <div class="col s12 m6 l3">
-              <label class="label-color">Técnico <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico">
-                <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
-              </select>
-              <div class="alert" *ngIf="!orderForm.controls['tecnico'].value && orderForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                                
-            </div>
-          </div>
-          <div class="row">
             <div class="col s12 m6 l3">
               <label for="valortotal" class="label-color">Valor total</label>
               <input disabled placeholder="" id="valortotal" type="text" formControlName="valortotal">
@@ -1425,6 +1411,24 @@
               <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
               <input placeholder="" id="observorden" type="text" formControlName="observaciones" class="validate">
               <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                            
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m6 l3">
+              <label class="label-color">Técnico <span class="span-color">*</span></label>
+              <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico">
+                <option value="nodisplay" disabled selected>Seleccione</option>
+                <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
+              </select>
+              <div class="alert" *ngIf="!orderForm.controls['tecnico'].value && orderForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                                
+            </div>
+            <div class="col s12 m6 l5">
+              <label for="solicitado" class="label-color">Solicitado por</label>
+              <input placeholder="" id="solicitado" type="text" formControlName="solicitado"> 
+            </div>
+            <div class="col s12 m6 l2" *ngIf="decos == 1">
+              <label for="decodificadores" class="label-color">Decodificadores</label>
+              <input placeholder="" id="decodificadores" type="text" formControlName="decodificadores">
             </div>
           </div>
       </form>
@@ -1675,8 +1679,8 @@
                   <td>{{ fac.valor }}</td>
                   <td>{{ fac.iva }}</td>
                   <td>{{ fac.saldo }}</td>
-                  <td><input id="abono" type="text" class="input-td" [(ngModel)]="fac.abono" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAbono()"></td>
-                  <td><input disabled id="total" type="text" class="input-td" [(ngModel)]="fac.total" [ngModelOptions]="{standalone: true}"></td>
+                  <td><input type="text" class="input-td" [(ngModel)]="fac.abono" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeAbono()"></td>
+                  <td><input disabled type="text" class="input-td" [(ngModel)]="fac.total" [ngModelOptions]="{standalone: true}"></td>
                 </tr>
               </tbody>
             </table>
@@ -1817,7 +1821,7 @@
             </div>
             <div class="col s12 m6 l3">
               <label for="descuentopago" class="label-color">Descuento</label>
-              <input placeholder="" id="descuentopago" type="text" formControlName="descuentopago">
+              <input placeholder="" id="descuentopago" type="text" formControlName="descuentopago" [(ngModel)]="adDescuento">
             </div>
             <div class="col s12 m6 l6">
               <label for="obserpagoEdit" class="label-color">Observaciones <span class="span-color">*</span></label>

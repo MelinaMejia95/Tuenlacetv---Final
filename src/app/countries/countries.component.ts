@@ -228,6 +228,7 @@ export class CountriesComponent implements  OnInit {
         if (this.countriesEdit) {
           this._countryservice.deleteCountries(this.countriesEdit.id).subscribe(
             data => {
+              console.log(data)
               if ( data.status == "deleted") {
                 swal({
                   title: 'Registro eliminado con éxito',
@@ -237,7 +238,7 @@ export class CountriesComponent implements  OnInit {
                             location.reload();
                           }
                 })
-              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+              } else if ( data.error == "Entidad no aceptable o error de clave foranea" ) {
                 swal(
                   'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
                   '',
@@ -247,7 +248,7 @@ export class CountriesComponent implements  OnInit {
             },
             error =>{
               swal(
-                'No se pudo eliminar el registro',
+                'No se pudo eliminar el registro ya que tiene relación con otro módulo del sistema',
                 '',
                 'warning'
               )

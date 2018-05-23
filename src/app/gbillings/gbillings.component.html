@@ -206,14 +206,14 @@
           </div>
           <div class="col s12 m6 l3">
             <label for="saldoinicial" class="label-color">Saldo inicial <span class="span-color">*</span></label>
-            <input placeholder="" id="saldoinicial" type="text" formControlName="saldoinicial"> 
+            <input placeholder="" id="saldoinicial" type="text" formControlName="saldoinicial" [(ngModel)]="saldoini"> 
             <div class="alert" *ngIf="!facForm.controls['saldoinicial'].value && facForm.controls['saldoinicial'].touched">{{ titleAlert }}</div>
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="saldofinal" class="label-color">Saldo final <span class="span-color">*</span></label>
-            <input placeholder="" id="saldofinal" type="text" formControlName="saldofinal"> 
+            <input placeholder="" id="saldofinal" type="text" formControlName="saldofinal" [(ngModel)]="saldofin"> 
             <div class="alert" *ngIf="!facForm.controls['saldofinal'].value && facForm.controls['saldofinal'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l3">

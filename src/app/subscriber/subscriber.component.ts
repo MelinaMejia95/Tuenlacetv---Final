@@ -39,7 +39,7 @@ export class SubscriberComponent implements OnInit {
   tipopersonaEdit: any; estratoEdit: any; condicionEdit: any; equipoEdit: any; funcionEdit: any; tarifastvEdit: any; tarifasintEdit: any; tecnicoEdit: any; facts: any;
   ratestvSelect: any[] = []; ratesintSelect: any[] = []; entity: any[] = []; option: any; createFac: string; createTypeFac: string; model5: any; model6: any; model7: any;
   pdocuments: any; ppayment : any; banks: any; nroDoc: any; formaspago: any; bancos: any; cobradores: any; total: any; abono: any[] = []; totalAplicado: number = 0; diferencia: number = 0;
-  totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0;
+  totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0; adDescuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
   fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string; abreviatura: string;
   decos: number;
@@ -377,6 +377,8 @@ export class SubscriberComponent implements OnInit {
         this.limit = this.subs.length; 
     });
     this.disabled = true;
+    this.descuento = 0;
+    this.adDescuento = 0;
     jQuery('.select-city').children('option[value="nodisplay"]').css('display','none');
     jQuery('.collapsible').collapsible();
     jQuery('#modal-crear').modal();
@@ -415,10 +417,10 @@ export class SubscriberComponent implements OnInit {
           }
         }
         if (this.showEntity != 'Suscriptor'){
-          /* jQuery('.modal-title').css('height', '12%');
-          jQuery('.modal.modal-fixed-footer.modal-content').css('height', '80% !important');
-          jQuery('.modal.modal-fixed-footer').css('height', '58%');
-          jQuery('.modal.modal-content').css('padding-top', '3px'); */
+          jQuery('#modal-see.modal-title').css('height', '12% !important');
+          jQuery('#modal-see.modal.modal-fixed-footer.modal-content').css('height', '80% !important');
+          jQuery('#modal-see.modal-fixed-footer').css('height', '58% !important');
+          jQuery('#modal-see.modal-content').css('padding-top', '3px');
         } else {
           /* jQuery('.modal-title').css('height', '10%');                
           jQuery('.modal.modal-fixed-footer.modal-content').css('height', 'calc(100% - 89px) !important');
@@ -435,6 +437,15 @@ export class SubscriberComponent implements OnInit {
         this.showNew = '1';
       } else {
         this.showNew = '0';
+      }
+    })
+    jQuery('#select-doc-orden').on('change', () => {
+      if(jQuery('#select-doc-orden').val() == 39 || jQuery('#select-doc-orden').val() == 40){
+        console.log('30 or 40')
+        jQuery('#descuento').prop('disabled', true);
+      } else{
+        jQuery('#descuento').prop('disabled', false);
+        console.log('not 30 or 40')   
       }
     })
     jQuery('#funcion').on('change', () => {
@@ -569,6 +580,8 @@ export class SubscriberComponent implements OnInit {
     this.int = 0;
     this.servicesPay = [];
     this.services = [];
+    this.descuento = 0;
+    this.adDescuento = 0;
     jQuery('#btn-see').prop('disabled', false);
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
   }
@@ -696,7 +709,9 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagos(){
-    this.disabled = true;    
+    this.descuento = 0;
+    this.disabled = true;  
+    this.payForm.patchValue( {descuentopago: 0});  
     jQuery(".disabled-fields").prop('disabled',true);    
     let ban = 0;
     if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
@@ -715,7 +730,7 @@ export class SubscriberComponent implements OnInit {
       this.totalAplicado = this.total.valor;
       this.totalDescuento = this.total.valor;
       this.paramCobradores = data.param_cobradores;
-      console.log(this.facts);
+      console.log(this.pdocuments);
       for (let i=0; i < this.facts.length; i++) {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
@@ -725,6 +740,8 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagosAnticipados(){
+    this.adDescuento = 0;
+    this.adPayForm.patchValue( {descuentopago: 0});      
     this.disabled = true;
     jQuery(".disabled-fields").prop('disabled',true);        
     this._paymentservice.getInfoPay().subscribe(data => {
@@ -810,6 +827,7 @@ export class SubscriberComponent implements OnInit {
       "cobrador_id": post.cobradores,
       'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
+          console.log(data)
           if ( data.status == "created") {
             swal({
               title: 'Registro creado con éxito',
@@ -819,13 +837,13 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+          } else if ( data.error == "Entidad no aceptable o error de clave foranea" ) {
             swal(
               'No se pudo crear el registro, datos incorrectos',
               '',
               'warning'
             )
-          } else if (data.error = "cliente saldo 0"){
+          } else if (data.error == "cliente saldo 0"){
             swal(
               ' No se pudo crear el pago anticipado debido a que el suscriptor tiene saldo diferente de 0',
               '',
@@ -987,11 +1005,15 @@ export class SubscriberComponent implements OnInit {
 
   changeConcept(val) {
     console.log(val)
+    let ban = 0;
+    let valor = 0;
+    console.log(this.rates)
     for(let i = 0; i < this.rates.length; i++){
       if((Number(val) == this.rates[i]['concepto_id']) && (this.subsEdit.zona_id == this.rates[i]['zona_id'])){
-        this.orderForm.controls['valortotal'].setValue(this.rates[i]['valor']);
+        valor = this.rates[i]['valor'];
       }
     }
+    this.orderForm.controls['valortotal'].setValue(valor);    
     for (let i = 0; i < this.concepts.length; i++) {
       if (Number(val) == this.concepts[i]['id']) {
         this.abreviatura = this.concepts[i]['abreviatura']
@@ -1044,6 +1066,7 @@ export class SubscriberComponent implements OnInit {
         jQuery('#valortotal').prop('disabled', false)
       }
     }); 
+    this.orderForm.patchValue( {solicitado: this.subsEdit.nombres}); 
     jQuery('#modal-orden').modal('open');
   }
 
@@ -1056,6 +1079,7 @@ export class SubscriberComponent implements OnInit {
         "fechaven": this.model11,
         "valor": Number(order.valortotal),
         "observacion": order.observaciones,
+        "solicita": order.solicitado,
         "tecnico_id": Number(order.tecnico),
         "decos": order.decodificadores,
         "zonaNue": newOrder.nuevazona,
@@ -1532,7 +1556,7 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+          } else if ( data.error == "Entidad no aceptable o error de clave foranea" ) {
             swal(
               'No se pudo crear el registro, datos incorrectos',
               '',
@@ -1547,6 +1571,21 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
+          } else if (data.message == "Persona creada con exito") {
+            swal({
+              title: 'Persona creada con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else if ( data.error == "datos incorrectos o ya existe un suscriptor con esa informacion" ) {
+            swal(
+              'No se pudo crear la persona, los datos son incorrectos o ya existe una persona con esa información',
+              '',
+              'warning'
+            )
           }
         });
         error =>{

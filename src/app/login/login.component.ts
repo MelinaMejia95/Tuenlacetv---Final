@@ -48,6 +48,25 @@ export class LoginComponent implements OnInit {
     document.getElementById('main').style.marginLeft = "0";
   }
 
+  selectClicked(){
+    jQuery('#conectar').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    this.onChanges()
+    console.log(this.rForm.value)
+  }
+
+  onChanges(): void { 
+    this.rForm.valueChanges.subscribe(val => {  
+      if(this.rForm.valid == true && this.rForm.value.bd != null && this.rForm.value.bd != 1) {
+        jQuery('#conectar').prop('disabled', false);
+      } else if(this.rForm.valid == false){    
+        jQuery('#conectar').prop('disabled', true);
+      }
+    });
+  }
+
   changeBD(val) {
     console.log(val)
   }
