@@ -196,6 +196,12 @@ export class TechniciansComponent implements OnInit {
   }
 
   openModal (tech) {
+    console.log(tech)
+    if(tech.estado == 'APLICADO' || tech.estado == 'ANULADO'){
+      jQuery('#btn-modal').css('visibility', 'hidden');
+    } else {
+      jQuery('#btn-modal').css('visibility', 'visible');
+    }
     this.disabled = true;
     this.disabled2 = true;    
     this.editDetail = 0;
@@ -206,7 +212,6 @@ export class TechniciansComponent implements OnInit {
     this.tech = tech.tecnico;
     this.techDetail = 0
     this._techservice.getInfoTechs().subscribe(data => {
-      console.log(data.tecnicos)
       this.concepts = data.conceptos;
       this.rates = data.tarifas;
       this.techs = data.tecnicos;

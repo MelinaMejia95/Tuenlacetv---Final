@@ -1416,14 +1416,14 @@
             </div>
             <div class="col s12 m6 l6">
               <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
-              <input placeholder="" id="observorden" type="text" formControlName="observaciones" class="validate">
+              <input placeholder="" id="observorden" type="text" formControlName="observaciones" class="validate" (click)="inputClicked()">
               <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                            
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l3">
               <label class="label-color">Técnico <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico">
+              <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico" (change)="selectTech()">
                 <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
               </select>

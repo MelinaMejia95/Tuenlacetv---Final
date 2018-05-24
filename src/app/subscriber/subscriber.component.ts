@@ -541,6 +541,11 @@ export class SubscriberComponent implements OnInit {
     this.onChanges();
   }
 
+  selectTech(){
+    this.toogleEdit = true;    
+    this.onChanges();
+  }
+
   inputClicked() {
     console.log('input clicked')
     this.toogleEdit = true;
@@ -574,6 +579,13 @@ export class SubscriberComponent implements OnInit {
         jQuery('#btn-see').prop('disabled', false);
       } else if(this.seeTV.valid == false){    
         jQuery('#btn-see').prop('disabled', true);
+      }
+    });
+    this.orderForm.valueChanges.subscribe(val => {  
+      if(this.orderForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-crearorden').prop('disabled', false);
+      } else if(this.orderForm.valid == false){    
+        jQuery('#btn-crearorden').prop('disabled', true);
       }
     });
     this.facForm.valueChanges.subscribe(val => {  
@@ -1077,6 +1089,7 @@ export class SubscriberComponent implements OnInit {
     } else {
       this.decos = 0;
     }
+    this.onChanges();
   }
 
   openModalOrden(){
