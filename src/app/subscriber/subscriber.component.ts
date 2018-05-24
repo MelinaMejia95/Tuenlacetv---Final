@@ -42,11 +42,11 @@ export class SubscriberComponent implements OnInit {
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0; adDescuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
   fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string; abreviatura: string;
-  decos: number;
+  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0;
   
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
-  seeSubs: FormGroup; seeServ: FormGroup; seeTV: FormGroup; seeInt: FormGroup; printForm: FormGroup;
+  seeSubs: FormGroup; seeServ: FormGroup; seeTV: FormGroup; seeInt: FormGroup; printForm: FormGroup; valueForm: FormGroup;
   titleAlert: string = "Campo requerido";
   correoAlert: string = "Correo inválido"
   
@@ -196,6 +196,10 @@ export class SubscriberComponent implements OnInit {
       'valor': [null, Validators.required],
       'observaciones': [null, Validators.required],
       "tipofac": [null]
+    });
+
+    this.valueForm = fb.group({
+      'valor2': [null, Validators.required],     
     });
 
     this.payForm = fb.group({
@@ -438,6 +442,16 @@ export class SubscriberComponent implements OnInit {
       } else {
         this.showNew = '0';
       }
+    });
+    jQuery('#select-fac').on('change', () => {
+      if (jQuery('#select-fac').val() == 3){
+        this.nameService = 'Valor Televisión';
+        this.bothServices = 1;
+      } else {
+        this.nameService = 'Valor';        
+        this.bothServices = 0;
+      }
+      console.log(this.bothServices)
     })
     jQuery('#select-doc-orden').on('change', () => {
       if(jQuery('#select-doc-orden').val() == 39 || jQuery('#select-doc-orden').val() == 40){
@@ -447,7 +461,7 @@ export class SubscriberComponent implements OnInit {
         jQuery('#descuento').prop('disabled', false);
         console.log('not 30 or 40')   
       }
-    })
+    });
     jQuery('#funcion').on('change', () => {
       this.tipoUsuario = jQuery('#funcion').val();
       if ( this.tipoUsuario == '1') {
@@ -522,6 +536,11 @@ export class SubscriberComponent implements OnInit {
     jQuery('#btn-see').prop('disabled', false);    
   }
 
+  selectBill() {
+    this.toogleEdit = true;    
+    this.onChanges();
+  }
+
   inputClicked() {
     console.log('input clicked')
     this.toogleEdit = true;
@@ -557,6 +576,35 @@ export class SubscriberComponent implements OnInit {
         jQuery('#btn-see').prop('disabled', true);
       }
     });
+    this.facForm.valueChanges.subscribe(val => {  
+      console.log(this.facForm)
+      if(this.facForm.value.facturade == '3'){
+        if(this.facForm.valid == true && this.toogleEdit == true && this.valueForm.valid == true) {
+          console.log('fac valid')
+          jQuery('#btn-fac').prop('disabled', false);
+        } else if(this.facForm.valid == false || this.valueForm.valid == false){    
+          jQuery('#btn-fac').prop('disabled', true);
+          console.log('fac no valid')          
+        }
+      } else {
+        if(this.facForm.valid == true && this.toogleEdit == true) {
+          console.log('fac valid with no both services')
+          jQuery('#btn-fac').prop('disabled', false);
+        } else if(this.facForm.valid == false){    
+          jQuery('#btn-fac').prop('disabled', true);
+          console.log('fac no valid with no both services')          
+        }
+      }
+    });
+    this.valueForm.valueChanges.subscribe(val => {
+      if(this.bothServices == 1){
+        if(this.facForm.valid == true && this.toogleEdit == true && this.valueForm.valid == true) {
+          jQuery('#btn-fac').prop('disabled', false);
+        } else if(this.facForm.valid == false || this.valueForm.valid == false){    
+          jQuery('#btn-fac').prop('disabled', true);
+        }
+      }
+    });
   }
 
   resetForms() {
@@ -582,6 +630,9 @@ export class SubscriberComponent implements OnInit {
     this.services = [];
     this.descuento = 0;
     this.adDescuento = 0;
+    this.bothServices = 0;
+    this.nameService = 'Valor';
+    jQuery('#btn-fac').prop('disabled', true);
     jQuery('#btn-see').prop('disabled', false);
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
   }
@@ -920,17 +971,19 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalFactura(){
-    if (this.subsEdit.tv == '1' && this.subsEdit.internet == '0' ) {
+    this.bothServices = 0;
+    this.nameService = 'Valor';
+    if (this.subsEdit.tv == '1' && this.subsEdit.internet == '0' ) {    
       this.services[0] = {id: 1, nombre: 'TELEVISIÓN'}
       if ( this.subsEdit.decos > 0)  this.services[1] = {id: 4, nombre: 'DECODIFICADORES'}
-    } else if (this.subsEdit.tv == '0' && this.subsEdit.internet == '1') {
+    } else if (this.subsEdit.tv == '0' && this.subsEdit.internet == '1') {     
       this.services[0] = {id: 2, nombre: 'INTERNET'}
       if ( this.subsEdit.decos > 0)  this.services[1] = {id: 4, nombre: 'DECODIFICADORES'}
     } else if (this.subsEdit.tv == '1' && this.subsEdit.internet == '1' || this.subsEdit.decos > 0) {
       this.services[0] = {id: 1, nombre: 'TELEVISIÓN'}
       this.services[1] = {id: 2, nombre: 'INTERNET'}
       this.services[2] = {id: 3, nombre: 'TELEVISIÓN E INTERNET'}      
-      if ( this.subsEdit.decos > 0)  this.services[1] = {id: 4, nombre: 'DECODIFICADORES'}         
+      if ( this.subsEdit.decos > 0)  this.services[3] = {id: 4, nombre: 'DECODIFICADORES'}         
     }
     jQuery('#modal-factura').modal('open');
   }
@@ -1598,7 +1651,7 @@ export class SubscriberComponent implements OnInit {
     }   
   } 
 
-  createBill(post) {
+  createBill(post, val) {
     let tipofactura;
     if (post.tipofac == 'ANTICIPADA') { 
       tipofactura = 1;
@@ -1615,6 +1668,7 @@ export class SubscriberComponent implements OnInit {
         "f_vencimiento": this.model12,
         "entidad_id": this.subsEdit.id,
         "valor": Number(post.valor),
+        "valor2": Number(val.valor2),        
         "observa": post.observaciones,
         "usuario_id": localStorage.getItem('usuario_id'),
         "db": localStorage.getItem('db')
