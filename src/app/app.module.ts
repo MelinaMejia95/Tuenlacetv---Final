@@ -5,6 +5,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { SubsFilterPipe } from './subscriber/subs-filter.pipe';
 import { CountriesFilterPipe } from './countries/countries-filter.pipe';
@@ -128,7 +129,14 @@ import { TechniciansComponent } from './technicians/technicians.component';
   FormsModule,
   ReactiveFormsModule,
   MyDatePickerModule,
-  NgxPaginationModule
+  NgxPaginationModule,
+  LoadingModule.forRoot({
+    backdropBackgroundColour: 'rgba(255, 255, 255, 0.2)', 
+    //backdropBorderRadius: '4px',
+    primaryColour: '#468EBC', 
+    secondaryColour: '#468EBC', 
+    tertiaryColour: '#468EBC'
+})
   ],
   providers: [ LoginService, AppGlobals, CountriesService, CitiesService, ZonesService, NeighborhoodsService,
               BanksService, RatesService, ConceptsService, PlansService, UsersService, SubscribersService, BillService,

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   conect: any = [];
   bd:string;
+  public loading = false;
 
   rForm: FormGroup;
   titleAlert: string = "Campo requerido";
@@ -73,10 +74,11 @@ export class LoginComponent implements OnInit {
   
   loginUser(post){
     console.log(post.bd)
+    this.loading = true;
     if (post) {
       this.conect = {'login': post.nombre, 'password': post.contraseña};
       this._LoginService.login(this.conect).subscribe(data =>{
-        console.log(data)
+        this.loading = false;
         localStorage.setItem('usuario_id', data.usuario_id);
         localStorage.setItem('auth_token', data.auth_token);
         localStorage.setItem('nivel', data.nivel);
@@ -94,6 +96,7 @@ export class LoginComponent implements OnInit {
         } 
       },
       error => {
+        this.loading = false;
         swal(
           'Error con tu nombre de usuario y/o contraseña',
           '',

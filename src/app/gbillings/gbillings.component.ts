@@ -146,7 +146,7 @@ export class GbillingsComponent implements OnInit {
   exportToExcel(post){
     this._gbillingservice.downloadGBillings({'fechaini': this.model1, 'fechafin': this.model2 ,
                                              'db': localStorage.getItem('db')}).subscribe(data => {
-        this.excelService.exportAsExcelFile(data, 'Facturaciones');
+        this.excelService.exportAsExcelFile(data.fras_venta, 'Facturaciones');
       });
       this.printForm.reset();
   }

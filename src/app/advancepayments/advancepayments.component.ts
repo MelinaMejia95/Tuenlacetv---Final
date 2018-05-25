@@ -53,6 +53,8 @@ export class AdvancepaymentsComponent implements OnInit {
       screenReaderCurrentLabel: `You're on page`
   };
 
+  public loading = false;
+
   constructor(private _paymentservice: PaymentsService) { }
 
   ngOnInit() {
@@ -110,8 +112,10 @@ export class AdvancepaymentsComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
+        this.loading = true;
           this._paymentservice.deleteAdPayment(this.paymentEdit.id).subscribe(
             data => {
+              this.loading = false;              
               console.log(data)
               if ( data.status == "anulado") {
                 swal({
@@ -139,6 +143,7 @@ export class AdvancepaymentsComponent implements OnInit {
               }
             },
           error =>{
+            this.loading = false;                          
             swal(
               'No se pudo anular el pago',
               '',

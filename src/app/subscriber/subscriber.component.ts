@@ -98,6 +98,8 @@ export class SubscriberComponent implements OnInit {
       screenReaderCurrentLabel: `You're on page`
   };
 
+  public loading = false;
+
   constructor(private _suscriberservice: SubscribersService, private excelService: ExcelService, private _paymentservice: PaymentsService, private fb: FormBuilder,
               private _techservice: TechniciansService, private _global: AppGlobals) { 
   
@@ -341,7 +343,7 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      console.log(this.services)
+      console.log(this.functions)
       for (let i = 0; i < this.functions.length; i++) {
         if(localStorage.getItem('entidad') == this.functions[i]['id']){
           this.showEntity = this.functions[i]['nombre'];
@@ -653,6 +655,11 @@ export class SubscriberComponent implements OnInit {
     this.facForm.reset();
   }
 
+  openCreateSubs() {
+    jQuery('#modal-crear').modal('open');
+    
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
@@ -696,9 +703,13 @@ export class SubscriberComponent implements OnInit {
         jQuery('#btn-see').prop('disabled',true);                
       }
     }
+    this.tvForm.patchValue({descuento: 0});
+    this.intForm.patchValue({descuento: 0});
+    jQuery('#modal-crear').modal('open');    
   }
 
   validationSee(){
+    if (this.showEntity == 'Suscriptor'){
       if(this.seeSubs.valid == true && this.seeServ.valid == true && this.seeInt.valid == true && this.seeTV.valid == true) {
         console.log('see valid')
         jQuery('#btn-see').prop('disabled',false);        
@@ -706,6 +717,13 @@ export class SubscriberComponent implements OnInit {
         jQuery('#btn-see').prop('disabled',true);       
         console.log('see no valid')                 
       }
+    } else{
+      if (this.seeSubs.valid == true){
+        jQuery('#btn-see').prop('disabled',false);                
+      } else {
+        jQuery('#btn-see').prop('disabled',true);               
+      }
+    }
   }
 
   validation2(){
@@ -836,6 +854,7 @@ export class SubscriberComponent implements OnInit {
     }
     console.log(this.auxDetalles)
     if (post) {
+      this.loading = true;
       this._paymentservice.createPayment({ "entidad_id": this.subsEdit.id,
       "concepto_id": post.tipodoc,
       "fechatrn": this.fechadoc,
@@ -848,6 +867,7 @@ export class SubscriberComponent implements OnInit {
       "descuento": Number(post.descuentopago),
       'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
+          this.loading = false;
           if ( data.status == "created") {
             swal({
               title: 'Registro creado con éxito',
@@ -866,6 +886,7 @@ export class SubscriberComponent implements OnInit {
           }
         }),
         error => {
+          this.loading = false;
           swal(
             'No se pudo crear el registro',
             '',
@@ -877,6 +898,7 @@ export class SubscriberComponent implements OnInit {
 
   createAdPayment(post){
     if (post) {
+      this.loading = true;
       this._paymentservice.createAdPayment({ "entidad_id": this.subsEdit.id,
       "documento_id": post.tipodoc,
       "servicio_id": post.servicio,
@@ -890,6 +912,7 @@ export class SubscriberComponent implements OnInit {
       "cobrador_id": post.cobradores,
       'db': localStorage.getItem('db'), 'usuario_id': localStorage.getItem('usuario_id') }).subscribe(
         data => {
+          this.loading = false;
           console.log(data)
           if ( data.status == "created") {
             swal({
@@ -915,6 +938,7 @@ export class SubscriberComponent implements OnInit {
           }
         }),
         error => {
+          this.loading = false;
           swal(
             'No se pudo crear el registro',
             '',
@@ -1019,10 +1043,12 @@ export class SubscriberComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
+        this.loading = true;
         if (this.subsEdit) {
           console.log(this.subsEdit.id, this.nroDoc)
           this._suscriberservice.cancelBills({'entidad_id':this.subsEdit.id, 'nrodcto': this.nroDoc}).subscribe(
             data => {
+              this.loading = false;
               if ( data.status == "anulada") {
                 swal({
                   title: 'Factura anulada con éxito',
@@ -1047,6 +1073,7 @@ export class SubscriberComponent implements OnInit {
               }
             },
             error =>{
+              this.loading = false;
               swal(
                 'No se pudo anular la factura',
                 '',
@@ -1138,6 +1165,7 @@ export class SubscriberComponent implements OnInit {
 
   createOrder(order, newOrder){
    if (order) {
+    this.loading = true;
       this._techservice.createOrder({
         "entidad_id": this.subsEdit.id,
         "concepto_id": Number(order.tipoorden),
@@ -1155,6 +1183,7 @@ export class SubscriberComponent implements OnInit {
         "db": localStorage.getItem('db')
     }).subscribe(
         data => {
+          this.loading = false;
           console.log(data)
           if (data.status == "created") {
             swal({
@@ -1180,6 +1209,7 @@ export class SubscriberComponent implements OnInit {
           }
         });
         error =>{
+          this.loading = false;
           swal(
             'No se pudo crear el registro',
             '',
@@ -1221,9 +1251,11 @@ export class SubscriberComponent implements OnInit {
   }
 
   exportToExcel(post){
+    this.loading = true;
     this._suscriberservice.downloadSubscriber({'fechaini': this.model13, 'fechafin': this.model14,
                                               'listado': post.tipolistado }).subscribe(data => {
       console.log(data)
+      this.loading = false;
       if(post.tipolistado == 'listado_consol'){
         this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');        
       } else if (post.tipolistado == 'listado_tv') {
@@ -1386,6 +1418,7 @@ export class SubscriberComponent implements OnInit {
 
   updateSubs() {
     if(this.subsEdit){
+      this.loading = true;
       console.log(this.model.formatted)
       this._suscriberservice.updateSubscribers({
         "senal": 
@@ -1462,6 +1495,7 @@ export class SubscriberComponent implements OnInit {
         "id": this.subsEdit.id
     }).subscribe(
         data => {
+          this.loading = false;
           console.log(data)
           if ( data.message1 == "actualizado servicio tv" || data.message2 == "actualizado servicio internet") {
             swal({
@@ -1481,6 +1515,7 @@ export class SubscriberComponent implements OnInit {
           }
         },
         error =>{
+          this.loading = false;
           swal(
             'No se pudo actualizar el registro',
             '',
@@ -1534,6 +1569,7 @@ export class SubscriberComponent implements OnInit {
     console.log(int)
     console.log(tv.descuento, tv.tarifastv)
     if (post) {
+      this.loading = true;
       this._suscriberservice.createSubscribers({
         "persona":
          {
@@ -1612,8 +1648,10 @@ export class SubscriberComponent implements OnInit {
         "db": localStorage.getItem('db')
     }).subscribe(
         data => {
+          this.loading = false;
           console.log(data)
-          if (data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet") {
+          if ((data.message1 == "creado servicio tv" || data.message2 == "creado servicio internet")
+              && (data.message1 != "error al crear servicio tv" && data.message2 != "error al crear servicio internet")) {
             swal({
               title: 'Registro creado con éxito',
               text: '',
@@ -1652,9 +1690,22 @@ export class SubscriberComponent implements OnInit {
               '',
               'warning'
             )
+          } else if ( data.message1 == "error al crear servicio tv" && data.message2 == "creado servicio internet") {
+            swal(
+              'Error al crear servicio de televisión',
+              '',
+              'warning'
+            )
+          } else if ( data.message1 == "creado servicio tv" && data.message2 == "error al crear servicio internet") {
+            swal(
+              'Error al crear servicio de internet',
+              '',
+              'warning'
+            )
           }
         });
         error =>{
+          this.loading = false;
           swal(
             'No se pudo crear el registro',
             '',
@@ -1672,6 +1723,7 @@ export class SubscriberComponent implements OnInit {
       tipofactura = 2;
     }
     if (post) {
+      this.loading = true;
       this._suscriberservice.createBills({
         "tipo_facturacion_id": Number(tipofactura),
         "servicio_id": Number(post.facturade),
@@ -1687,6 +1739,7 @@ export class SubscriberComponent implements OnInit {
         "db": localStorage.getItem('db')
     }).subscribe(
         data => {
+          this.loading = false;
           console.log(data)
           if (data.status == "created") {
             swal({
@@ -1724,6 +1777,7 @@ export class SubscriberComponent implements OnInit {
           }
         });
         error =>{
+          this.loading = false;
           swal(
             'No se pudo crear el registro',
             '',
@@ -1745,10 +1799,12 @@ export class SubscriberComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
+        this.loading = true;
         if (this.subsEdit) {
           console.log(this.subsEdit.id)
           this._suscriberservice.deleteSubscribers(this.subsEdit.id).subscribe(
             data => {
+              this.loading = false;
               console.log(data)
               if ( data.status == "deleted") {
                 swal({
@@ -1768,6 +1824,7 @@ export class SubscriberComponent implements OnInit {
               }
             },
             error =>{
+              this.loading = false;
               swal(
                 'No se pudo eliminar el registro',
                 '',

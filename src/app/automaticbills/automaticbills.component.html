@@ -1,3 +1,5 @@
+<ngx-loading [show]="loading"></ngx-loading>
+
 <!-- Breadcrum-->
 <div class="row module-position">
   <div class="row process">
@@ -87,7 +89,7 @@
         </div>
         <div class="card-action card-footer">
           <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createBill(rForm.value)">Aceptar</button>
-          <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
+          <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForm()">Cancelar</button>
         </div>
       </div>
     </div>

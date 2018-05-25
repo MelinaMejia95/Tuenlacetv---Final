@@ -23,6 +23,8 @@ export class AutomaticbillsComponent implements OnInit {
     dateFormat: 'dd/mm/yyyy',
   };
 
+  public loading = false;
+
   constructor(private _autobillservice: AutoBillsService, private fb: FormBuilder) { 
 
     this.rForm = fb.group({
@@ -56,6 +58,10 @@ export class AutomaticbillsComponent implements OnInit {
     });
   }
 
+  resetForm(){
+    this.rForm.reset();
+  }
+
   elabFactura(event: IMyDateModel) {
     this.model1 = event.formatted ;
   }
@@ -82,6 +88,7 @@ export class AutomaticbillsComponent implements OnInit {
 
   createBill(post) {
     if (post) {
+      this.loading = true;
       this._autobillservice.createAutobills({
         "tipo_facturacion_id": Number(post.tipofacturacion),
         "f_elaboracion": this.model1,
@@ -96,6 +103,7 @@ export class AutomaticbillsComponent implements OnInit {
         "db": localStorage.getItem('db')
     }).subscribe(
         data => {
+          this.loading = false;
           console.log(data)
           if (data.status == "created" ) {
             swal({
@@ -133,6 +141,7 @@ export class AutomaticbillsComponent implements OnInit {
           }
         },
         error =>{
+          this.loading = false;          
           swal(
             'No se pudo crear el registro',
             '',

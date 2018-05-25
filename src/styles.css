@@ -521,6 +521,15 @@ select:disabled{
     border: 1px solid #CCC !important;
 }
 
+.spinner-three-bounce {
+    width: 148px !important;
+}
+
+.spinner-three-bounce > div {
+    width: 40px !important;
+    height: 40px !important;
+}
+
 @media only screen and (max-width: 992px) {
     nav .brand-logo{    
         left: 15%;

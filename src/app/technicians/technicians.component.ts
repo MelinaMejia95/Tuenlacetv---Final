@@ -463,15 +463,27 @@ export class TechniciansComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+              } else if ( data.error == "no se puede anular orden decos" ) {
                 swal(
-                  'No se pudo anular orden porque tiene asociada un pago',
+                  'No se puede anular una orden de adicionar decodificadores, para ello realice un retiro de decodificadores',
                   '',
                   'warning'
                 )
-              } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+              } else if ( data.error == "orden aplicada" ) {
                 swal(
-                  'No se puede anular orden de adicionar decodificadores',
+                  'No se puede anular una orden que ya está aplicada',
+                  '',
+                  'warning'
+                )
+              } else if ( data.error == "orden con pago" ) {
+                swal(
+                  'No se pudo anular la orden ya que tiene un pago asociado',
+                  '',
+                  'warning'
+                )
+              }else if ( data.error == "no se pudo anular orden" ) {
+                swal(
+                  'No se pudo anular la orden',
                   '',
                   'warning'
                 )
