@@ -179,16 +179,14 @@
             </div>
             <div class="col s12 m12 l4">
               <label  class="label-color">País <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city" id="selectEdit" (change)="selectClicked()">
-                <option value="nodisplay" disabled selected >{{ countryEdit }}</option>
-                <option value="1" [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
+              <select disabled class="browser-default select-city" id="selectEdit" (change)="selectClicked()" formControlName="pais" [compareWith]="compare" >
+                <option [ngValue]="countryPrueba"  *ngFor="let countryPrueba of countries">{{ countryPrueba.nombre }}</option>
               </select>
             </div>
             <div class="col s12 m12 l4">
               <label class="label-color">Departamento <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city" id="selectDep" (change)="selectClicked()">
-                <option value="nodisplay" disabled selected >{{ depEdit }}</option>
-                <option [value]="dep.id" *ngFor="let dep of departments">{{ dep.nombre }}</option>
+              <select disabled class="browser-default select-city" id="selectDep" (change)="selectClicked()" formControlName="dep" [compareWith]="compare">
+                <option [ngValue]="depEdit" *ngFor="let depEdit of departments">{{ depEdit.nombre }}</option>
               </select>
             </div>
           </div>

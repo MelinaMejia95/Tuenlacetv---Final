@@ -142,6 +142,7 @@ export class TechniciansComponent implements OnInit {
       jQuery('#codigoEdit').prop('disabled',true);
       jQuery('#tiposervicioEdit').prop('disabled',true);
       jQuery('#nombreEdit').prop('disabled',true);
+      jQuery('.select-edit').prop('disabled', true);          
      }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
@@ -197,6 +198,7 @@ export class TechniciansComponent implements OnInit {
 
   openModal (tech) {
     console.log(tech)
+    jQuery('.select-edit').prop('disabled', true);    
     if(tech.estado == 'APLICADO' || tech.estado == 'ANULADO'){
       jQuery('#btn-modal').css('visibility', 'hidden');
     } else {
@@ -403,11 +405,18 @@ export class TechniciansComponent implements OnInit {
     console.log('entro change')
     this.valorSinIva = 0;
     this.valorIva = 0;
-    if(this.toogleEdit == false){
-      this.toogleEdit = true;
+    if(this.toogleEdit == true){
+      this.toogleEdit = false;
     } else {
       this.valorSinIva = Number(this.valor / (this.porIva / 100 + 1));
-      this.valorIva = Math.round(this.valor - this.valorSinIva);
+      console.log(this.valorSinIva)
+      if(isNaN(this.valorSinIva)){
+        this.valorIva = 0;
+      } else{
+        this.valorIva = Math.round(this.valor - this.valorSinIva);
+        console.log('entro iva')
+      }
+      
     }
   }
 
@@ -463,13 +472,7 @@ export class TechniciansComponent implements OnInit {
                             location.reload();
                           }
                 })
-              } else if ( data.error == "no se puede anular orden decos" ) {
-                swal(
-                  'No se puede anular una orden de adicionar decodificadores, para ello realice un retiro de decodificadores',
-                  '',
-                  'warning'
-                )
-              } else if ( data.error == "orden aplicada" ) {
+              }  else if ( data.error == "orden aplicada" ) {
                 swal(
                   'No se puede anular una orden que ya está aplicada',
                   '',

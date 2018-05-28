@@ -4,6 +4,7 @@ import { CitiesService } from '../services/cities.service';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import swal from 'sweetalert2';
 import { Cities } from './cities';
+import { callNgModuleLifecycle } from '@angular/core/src/view/ng_module';
 
 declare let jQuery: any;
 
@@ -17,7 +18,7 @@ export class CitiesComponent implements OnInit {
   cities: any[] = []; depSelect: any[] = [];
   selected: number;
   toogleDelete:boolean = false;
-  citiesEdit:any; department:any; depEdit:any; countryEdit: any; country:any;
+  citiesEdit:any; department:any; depEdit:any; countryEdit: any; country:any; countryPrueba:any;
   createCountry:string; createDep:string; countries:string; departments:string; name: string; coddane: string; codalt: string;
   toogleEdit: boolean = false;
 
@@ -75,7 +76,9 @@ export class CitiesComponent implements OnInit {
     this.seeForm = fb.group({
       'nombre-ver': [null, Validators.required],
       'coddane': [null],
-      'codalt': [null]
+      'codalt': [null],
+      'pais': [null],
+      'dep': [null]
     });
 
   }
@@ -154,7 +157,9 @@ export class CitiesComponent implements OnInit {
 
   resetForms() {
     this.rForm.reset();
-    this.seeForm.reset();
+    this.seeForm.reset({
+      pais: ''
+    });
   }
 
   selectData(city){
@@ -199,7 +204,7 @@ export class CitiesComponent implements OnInit {
     }
   } 
 
-  updateCity(){
+  updateCity(){ 
     if(this.citiesEdit){
       this._cityservice.updateCities({'pais_id': this.country, 'nombre': this.citiesEdit.nombre, 'id': this.citiesEdit.id, 'codigoDane': this.citiesEdit.codigoDane, 
       'codigoAlterno': this.citiesEdit.codigoAlterno, 'usuario_id': localStorage.getItem('usuario_id'),
@@ -279,22 +284,31 @@ export class CitiesComponent implements OnInit {
     })
   }
 
+  compare(val1, val2){
+    console.log('hola',val1, val2)
+    return val1.id === val2.id
+  }
+
   openModal (city) {
+    console.log(city)
     this.toogleEdit = false;    
     for (let i = 0; i < this.countries.length; i++) {
       if ( city.pais == this.countries[i]['nombre']) {
-        this.countryEdit = this.countries[i]['nombre'];
+      /*   this.countryEdit = this.countries[i]['nombre']; */
+        this.countryPrueba = this.countries[i];
+        this.seeForm.controls.pais.setValue(this.countries[i])
       }
     }
     for (let i = 0; i < this.departments.length; i++) {
       if ( city.departamento == this.departments[i]['nombre']) {
-        this.depEdit = this.departments[i]['nombre'];
+        this.depEdit = this.departments[i];
+        this.seeForm.controls.dep.setValue(this.departments[i])
       }
     }
     jQuery('#modal-see').modal('open');
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
     this.citiesEdit = Object.assign({}, city);
-    document.getElementsByClassName('table-radio');
+    //document.getElementsByClassName('table-radio');
   }
 
   closeModal () {
@@ -357,8 +371,8 @@ export class CitiesComponent implements OnInit {
     jQuery('#coddaneEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#codalternoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
-    jQuery('#selectDep').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#selectEdit').children('option[id="nodisplay"]').css('display','none');
+    jQuery('#selectDep').children('option[id="nodisplay"]').css('display','none');
     jQuery('#selectEdit').on('change', () => {
       this.country = jQuery('#selectEdit').val();
       console.log(this.country)

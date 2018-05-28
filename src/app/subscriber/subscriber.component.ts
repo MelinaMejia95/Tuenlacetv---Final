@@ -1417,9 +1417,8 @@ export class SubscriberComponent implements OnInit {
   }
 
   updateSubs() {
-    if(this.subsEdit){
+    if(this.subsEdit.tv != null || this.subsEdit.internet != null){
       this.loading = true;
-      console.log(this.model.formatted)
       this._suscriberservice.updateSubscribers({
         "senal": 
             {
@@ -1491,6 +1490,62 @@ export class SubscriberComponent implements OnInit {
         "tv": Number(this.tvEdit),
         "tarifa_id_int": this.tarifasintEdit,
         "tecnico_id": this.tecnicoEdit,
+        "db": localStorage.getItem('db'),
+        "id": this.subsEdit.id
+    }).subscribe(
+        data => {
+          this.loading = false;
+          console.log(data)
+          if ( data.message1 == "actualizado servicio tv" || data.message2 == "actualizado servicio internet") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
+          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+            swal(
+              'No se pudo actualizar el registro, datos incorrectos',
+              '',
+              'warning'
+            )
+          }
+        },
+        error =>{
+          this.loading = false;
+          swal(
+            'No se pudo actualizar el registro',
+            '',
+            'warning'
+          )
+        }
+      )
+    } else {
+      this.loading = true;
+      this._suscriberservice.updateSubscribers({
+        "persona": 
+            {
+              "tipo_documento_id": this.tipodocEdit,
+              "documento": this.subsEdit.documento,
+              "nombre1": this.subsEdit.nombre1,
+              "nombre2": this.subsEdit.nombre2,
+              "apellido1": this.subsEdit.apellido1,
+              "apellido2": this.subsEdit.apellido2,
+              "direccion":  this.subsEdit.direccionP,
+              "barrio_id": this.barrioEdit,
+              "zona_id": this.zonaEdit,
+              "telefono1": this.subsEdit.telefono1P,
+              "telefono2": this.subsEdit.telefono2P,
+              "correo": this.subsEdit.correo,
+              "fechanac": this.model2.formatted,
+              "tipopersona": this.tipopersonaEdit,
+              "estrato": this.estratoEdit,
+              "condicionfisica": this.condicionEdit,
+              "usuario_id": localStorage.getItem('usuario_id')
+            },
+        "funcion_id": this.funcionEdit,
         "db": localStorage.getItem('db'),
         "id": this.subsEdit.id
     }).subscribe(
