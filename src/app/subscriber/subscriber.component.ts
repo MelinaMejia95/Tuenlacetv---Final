@@ -136,7 +136,7 @@ export class SubscriberComponent implements OnInit {
       'tiposervicio': [null, Validators.required],
       'areainstalacion': [null, Validators.required],
       'tipofacturacion': [null, Validators.required],
-      'direccion': [null],                           
+      'direccion': [null, Validators.required],                           
       'urbanizacion': [null], 
       'apartamento': [null],
       'tel2': [null],
@@ -684,7 +684,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   validation(){
-    if(this.tipoUsuario == '1') {
+    /* if(this.tipoUsuario == '1') {
       if(this.rForm.valid == true && this.servForm.valid == true) {
         jQuery('#btn-crear').prop('disabled',false);
         jQuery('#btn-see').prop('disabled',false);        
@@ -701,6 +701,85 @@ export class SubscriberComponent implements OnInit {
       } else if (this.rForm.valid == false){
         jQuery('#btn-crear').prop('disabled',true);
         jQuery('#btn-see').prop('disabled',true);                
+      }
+    } */
+    if (this.tipoUsuario == '1'){
+      console.log(this.servForm.value.tvCtrl, this.servForm.value.intCtrl)
+      if (this.servForm.value.tvCtrl == true && this.servForm.value.intCtrl == true){
+        if (this.rForm.valid == true && this.servForm.valid == true && this.tvForm.valid == true && this.intForm.valid == true) {
+          jQuery('#btn-crear').prop('disabled',false);
+          jQuery('#btn-see').prop('disabled',false);    
+          console.log('Tv valid' + this.tvForm.valid)    
+          console.log('Pers valid' + this.rForm.valid)    
+          console.log('Int valid' + this.intForm.valid)              
+          console.log('Serv valid' + this.servForm.valid)  
+        } else if (this.servForm.valid == false || this.rForm.valid == false || this.tvForm.valid == false || this.intForm.valid == false){
+          jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);  
+        console.log('Tv novalid' + this.tvForm.valid)    
+        console.log('Pers novalid' + this.rForm.valid)    
+        console.log('Int novalid' + this.intForm.valid)              
+        console.log('Serv novalid' + this.servForm.valid)  
+        }
+      }
+      if (this.servForm.value.tvCtrl == false && this.servForm.value.intCtrl == true) {
+        if (this.rForm.valid == true && this.servForm.valid == true && this.intForm.valid == true) {
+          jQuery('#btn-crear').prop('disabled',false);
+          jQuery('#btn-see').prop('disabled',false);     
+          console.log('Tv valid' + this.tvForm.valid)    
+          console.log('Pers valid' + this.rForm.valid)    
+          console.log('Int valid' + this.intForm.valid)              
+          console.log('Serv valid' + this.servForm.valid) 
+        } else if (this.servForm.valid == false || this.rForm.valid == false || this.intForm.valid == false){
+          jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);  
+        console.log('Tv novalid' + this.tvForm.valid)    
+        console.log('Pers novalid' + this.rForm.valid)    
+        console.log('Int novalid' + this.intForm.valid)              
+        console.log('Serv novalid' + this.servForm.valid)  
+        }
+      }
+      if (this.servForm.value.tvCtrl == true && (this.servForm.value.intCtrl == false || this.servForm.value.intCtrl == null)) {
+        if (this.rForm.valid == true && this.servForm.valid == true && this.tvForm.valid == true) {
+          jQuery('#btn-crear').prop('disabled',false);
+          jQuery('#btn-see').prop('disabled',false); 
+          console.log('Tv valid' + this.tvForm.valid)    
+          console.log('Pers valid' + this.rForm.valid)    
+          console.log('Int valid' + this.intForm.valid)              
+          console.log('Serv valid' + this.servForm.valid)              
+        } else if (this.servForm.valid == false || this.rForm.valid == false || this.tvForm.valid == false){
+          jQuery('#btn-crear').prop('disabled',true);
+          jQuery('#btn-see').prop('disabled',true);  
+          console.log('Tv novalid' + this.tvForm.valid)    
+          console.log('Pers novalid' + this.rForm.valid)    
+          console.log('Int novalid' + this.intForm.valid)              
+          console.log('Serv novalid' + this.servForm.valid)    
+        }
+      }
+      if (this.servForm.value.tvCtrl == false && this.servForm.value.intCtrl == false) {
+        if (this.rForm.valid == true && this.servForm.valid == true) {
+          jQuery('#btn-crear').prop('disabled',false);
+          jQuery('#btn-see').prop('disabled',false);    
+          console.log('Tv valid' + this.tvForm.valid)    
+          console.log('Pers valid' + this.rForm.valid)    
+          console.log('Int valid' + this.intForm.valid)              
+          console.log('Serv valid' + this.servForm.valid)  
+        } else if (this.servForm.valid == false || this.rForm.valid == false){
+          jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);  
+        console.log('Tv novalid' + this.tvForm.valid)    
+        console.log('Pers novalid' + this.rForm.valid)    
+        console.log('Int novalid' + this.intForm.valid)              
+        console.log('Serv novalid' + this.servForm.valid)  
+        }
+      }
+    } else {
+      if (this.rForm.valid == true) {
+        jQuery('#btn-crear').prop('disabled',false);
+        jQuery('#btn-see').prop('disabled',false);     
+      } else {
+        jQuery('#btn-crear').prop('disabled',true);
+        jQuery('#btn-see').prop('disabled',true);  
       }
     }
     this.tvForm.patchValue({descuento: 0});
@@ -727,7 +806,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   validation2(){
-    if(this.rForm.valid == true && this.tipoUsuario == '1' && this.servForm.valid == true && (this.tvForm.valid == true || this.intForm.valid == true)
+    if(this.rForm.valid == true && this.tipoUsuario == '1' && this.servForm.valid == true && (this.tvForm.valid == true && this.intForm.valid == true)
         && (this.servForm.value.tvCtrl == true || this.servForm.value.intCtrl == true)){
       jQuery('#btn-crear').prop('disabled',false);
       jQuery('#btn-see').prop('disabled',false);              
