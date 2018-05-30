@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { PaymentsService } from "../services/payment.service";
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ExcelService } from '../services/excel.service';
+import {IMyDpOptions, IMyDateModel} from 'mydatepicker';
 import {PaginationInstance} from '../../../node_modules/ngx-pagination';
 import { AdPayments } from './adpayment';
 
@@ -14,7 +17,10 @@ declare let jQuery:any;
 export class AdvancepaymentsComponent implements OnInit {
 
   toogleDelete:boolean = false;
-  payments: any[] = []; paymentEdit: any; result: number;
+  payments: any[] = []; paymentEdit: any; result: number; model1: any; model2: any;
+
+  printForm: FormGroup;
+  titleAlert: string = "Campo requerido";
 
    /**
    * @type {AdPayments[]} 
@@ -37,6 +43,11 @@ export class AdvancepaymentsComponent implements OnInit {
    */
   limit: number;
 
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd/mm/yyyy',
+  };
+
   public maxSize: number = 7;
   public directionLinks: boolean = true;
   public autoHide: boolean = false;
@@ -55,7 +66,14 @@ export class AdvancepaymentsComponent implements OnInit {
 
   public loading = false;
 
-  constructor(private _paymentservice: PaymentsService) { }
+  constructor(private _paymentservice: PaymentsService, private excelService: ExcelService, private fb: FormBuilder) {
+
+    this.printForm = fb.group({
+      'fechainicio': [null, Validators.required],
+      'fechafin': [null, Validators.required],       
+    })
+
+   }
 
   ngOnInit() {
     this._paymentservice.getAdvancePayment().subscribe(data => {
@@ -70,6 +88,7 @@ export class AdvancepaymentsComponent implements OnInit {
       });
     jQuery('select').material_select();
     jQuery('#modal-see').modal();
+    jQuery('#modal-imprimir').modal();   
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
       console.log(jQuery('#registros').val());
@@ -86,6 +105,10 @@ export class AdvancepaymentsComponent implements OnInit {
     this.config.currentPage = number;
   }
 
+  changeEntity(){
+    localStorage.setItem('entidad', '1');
+  }
+
   openModal (payment) {
     console.log(payment)
     this.paymentEdit = Object.assign({}, payment);
@@ -96,9 +119,25 @@ export class AdvancepaymentsComponent implements OnInit {
     jQuery('#modal-see').modal('close');
   }
 
+  onDatePrint(event) {
+    this.model1 = event.formatted ;
+  }
+
+  onDatePrint2(event) {
+    this.model2 = event.formatted ;
+  }
+
   selectData(payment){
     this.paymentEdit = payment;
   }
+
+  exportToExcel(post){
+    this._paymentservice.downloadPayments({'fechaini': this.model1, 'fechafin': this.model2, "db": localStorage.getItem('db') }).subscribe(data => {
+      console.log(data)  
+      this.excelService.exportAsExcelFile(data.detalle_recibos, 'Pagos', 6);
+      });
+      this.printForm.reset();
+    }
 
   deletePayment() {
     swal({

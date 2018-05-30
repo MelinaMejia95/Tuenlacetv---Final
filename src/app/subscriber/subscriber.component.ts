@@ -1336,11 +1336,11 @@ export class SubscriberComponent implements OnInit {
       console.log(data)
       this.loading = false;
       if(post.tipolistado == 'listado_consol'){
-        this.excelService.exportAsExcelFile(data.senales, 'Suscriptores');        
+        this.excelService.exportAsExcelFile(data.senales, 'Suscriptores', 1);        
       } else if (post.tipolistado == 'listado_tv') {
-        this.excelService.exportAsExcelFile(data.senales_tv, 'Suscriptores');
+        this.excelService.exportAsExcelFile(data.senales_tv, 'Suscriptores', 2);
       } else if (post.tipolistado == 'listado_int') {
-        this.excelService.exportAsExcelFile(data.senales_int, 'Suscriptores');
+        this.excelService.exportAsExcelFile(data.senales_int, 'Suscriptores', 3);
       }
     });
     this.printForm.reset();

@@ -114,6 +114,10 @@ export class PaymentComponent implements OnInit {
     this.config.currentPage = number;
   }
 
+  changeEntity(){
+    localStorage.setItem('entidad', '1');
+  }
+
   resetForms() {
     this.printForm.reset();
   }
@@ -210,7 +214,7 @@ export class PaymentComponent implements OnInit {
   exportToExcel(post){
   this._paymentservice.downloadPayments({'fechaini': this.model1, 'fechafin': this.model2, "db": localStorage.getItem('db') }).subscribe(data => {
     console.log(data)  
-    this.excelService.exportAsExcelFile(data.detalle_recibos, 'Pagos');
+    this.excelService.exportAsExcelFile(data.detalle_recibos, 'Pagos', 6);
     });
     this.printForm.reset();
   }

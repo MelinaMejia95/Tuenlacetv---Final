@@ -174,6 +174,10 @@ export class TechniciansComponent implements OnInit {
     this.printForm.reset();
   }
 
+  changeEntity(){
+    localStorage.setItem('entidad', '1');
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
@@ -191,7 +195,7 @@ export class TechniciansComponent implements OnInit {
     this._techservice.downloadOrder({'fechaini': this.model1, 'fechafin': this.model2,
                                    "db": localStorage.getItem('db') }).subscribe(data => {
       console.log(data)
-      this.excelService.exportAsExcelFile(data.listado_ordenes, 'Ordenes');
+      this.excelService.exportAsExcelFile(data.listado_ordenes, 'Ordenes', 4);
     });
     this.printForm.reset();
   }
