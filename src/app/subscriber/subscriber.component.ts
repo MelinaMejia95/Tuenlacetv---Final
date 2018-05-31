@@ -363,7 +363,7 @@ export class SubscriberComponent implements OnInit {
           valorafitv: {value: this.afitv, disabled: true},
         }); 
         this.intForm.reset({
-          valorafiint: {value: 0, disabled: true},
+          valorafiint: {value: this.afiint, disabled: true},
         }); 
       } else if (this.paramafi == 'S'){
         this.afitv = data.valor_afi_tv;
@@ -1637,9 +1637,27 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+          }  else if ( data.error == "Entidad no aceptable o error de clave foranea" ) {
             swal(
               'No se pudo actualizar el registro, datos incorrectos',
+              '',
+              'warning'
+            )
+          } else if ( data.message1 == "error al actualizar servicio tv" && data.message2 == null) {
+            swal(
+              'Error al actualizar servicio de televisión',
+              '',
+              'warning'
+            )
+          } else if ( data.message1 == null && data.message2 == 'errpr al actualizar servicio internet') {
+            swal(
+              'Error al actualizar servicio de internet',
+              '',
+              'warning'
+            )
+          }else if ( data.message1 == "error al actualizar servicio tv" && data.message2 == 'errpr al actualizar servicio internet') {
+            swal(
+              'Error al actualizar servicio de televisión e internet',
               '',
               'warning'
             )
