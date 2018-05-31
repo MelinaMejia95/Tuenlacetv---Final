@@ -121,6 +121,7 @@ export class TechniciansComponent implements OnInit {
     jQuery('#modal-imprimir').modal();    
     jQuery('#modal-see').modal();
     this._techservice.getTechs().subscribe(data => {
+      console.log(data)
       this.technicians= data.ordenes;
       this.groups = data.grupos;
       this.articles = data.articulos;

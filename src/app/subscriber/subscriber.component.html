@@ -1326,7 +1326,7 @@
       <div class="row" *ngIf="subsEdit">
         <div class="col s12 m6 l3">
           <label for="telefonos" class="label-color">Teléfonos</label>
-          <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+          <input disabled placeholder="" id="telefonos-orden" type="text" [(ngModel)]="telefonos" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="col s12 m6 l3">
           <label class="label-color">Barrio</label>
@@ -1512,7 +1512,7 @@
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l3">
             <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" class="disabled-fields" id="telefonos-pagos" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="telefonos-pagos" type="text" [(ngModel)]="telefonos" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Barrio</label>
@@ -1571,7 +1571,7 @@
               <label class="label-color">Tipo documento <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-doc-orden" formControlName="tipodoc" required>
                 <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
+                <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.id }}</option>
               </select>
               <div class="alert" *ngIf="!payForm.controls['tipodoc'].value && payForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                                      
             </div>
@@ -1742,7 +1742,7 @@
         <div class="row" *ngIf="subsEdit">
           <div class="col s12 m6 l3">
             <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" class="disabled-fields" id="telefonos-adpagos" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" class="disabled-fields" id="telefonos-adpagos" type="text" [(ngModel)]="telefonos" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Barrio</label>
@@ -1921,7 +1921,7 @@
         <div class="row" *ngIf="subsEdit">
           <div class="col s3">
             <label for="telefonos" class="label-color">Teléfonos</label>
-            <input disabled placeholder="" id="telefonos-fac" type="text" [(ngModel)]="subsEdit.telefono1P + ' ' + subsEdit.telefono2P" [ngModelOptions]="{standalone: true}">
+            <input disabled placeholder="" id="telefonos-fac" type="text" [(ngModel)]="telefonos" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col s3">
             <label class="label-color">Barrio</label>

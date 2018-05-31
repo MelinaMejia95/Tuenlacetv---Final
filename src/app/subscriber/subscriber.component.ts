@@ -42,7 +42,7 @@ export class SubscriberComponent implements OnInit {
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0; adDescuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
   fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string; abreviatura: string;
-  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0;
+  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0; telefonos: string; concepto_id: string; afitv: string; afiint: string;
   
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -343,7 +343,7 @@ export class SubscriberComponent implements OnInit {
       this.entities = data.entidades;
       this.tipoFactEdit = data.tipo_facturacion;
       this.paramafi = data.param_valor_afi;
-      console.log(this.functions)
+      console.log(this.paramafi)
       for (let i = 0; i < this.functions.length; i++) {
         if(localStorage.getItem('entidad') == this.functions[i]['id']){
           this.showEntity = this.functions[i]['nombre'];
@@ -355,24 +355,27 @@ export class SubscriberComponent implements OnInit {
         jQuery('#modal-see .modal-content').css('padding-top', '3px');        
       }
       if (this.paramafi == 'N') {
-       this.tvForm.reset({
-          valorafitv: {value: data.valor_afi_tv, disabled: true},
-        }); 
-        console.log(this.tvForm.get('valorafitv').value)
-        this.intForm.reset({
-          valorafiint: {value: data.valor_afi_int, disabled: true},
-        }); 
-        this.valorafitv = Number(data.valor_afi_tv);
-        this.valorafiint = Number(data.valor_afi_int);
-      } else if (this.paramafi == 'S'){
+        this.afitv = data.valor_afi_tv;
+        this.afiint = data.valor_afi_int;
+        if(this.afitv == null) this.afitv = '0';
+        if(this.afiint == null) this.afiint = '0';
         this.tvForm.reset({
-          valorafitv: {value: data.valor_afi_tv, disabled: false},
+          valorafitv: {value: this.afitv, disabled: true},
+        }); 
+        this.intForm.reset({
+          valorafiint: {value: 0, disabled: true},
+        }); 
+      } else if (this.paramafi == 'S'){
+        this.afitv = data.valor_afi_tv;
+        this.afiint = data.valor_afi_int;
+        if(this.afitv == null) this.afitv = '0';
+        if(this.afiint == null) this.afiint = '0';
+        this.tvForm.reset({
+          valorafitv: {value: this.afitv, disabled: false},
         });
         this.intForm.reset({
-          valorafiint: {value: data.valor_afi_int, disabled: false},
+          valorafiint: {value: this.afiint, disabled: false},
         }); 
-        this.valorafitv = Number(data.valor_afi_tv);
-        this.valorafiint = Number(data.valor_afi_int);
       }
     });
     this._suscriberservice.getSubsFilter(localStorage.getItem('entidad')).subscribe(
@@ -646,6 +649,12 @@ export class SubscriberComponent implements OnInit {
     this.adDescuento = 0;
     this.bothServices = 0;
     this.nameService = 'Valor';
+    this.tvForm.reset({
+      valorafitv: {value: this.afitv, disabled: true},
+    }); 
+    this.intForm.reset({
+      valorafiint: {value: this.afiint, disabled: true},
+    }); 
     jQuery('#btn-fac').prop('disabled', true);
     jQuery('#btn-see').prop('disabled', false);
     jQuery('input[type=text]').attr({style:' box-shadow: none'});        
@@ -869,6 +878,15 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagos(){
+    if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
+      this.telefonos = '';
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
+      this.telefonos = this.subsEdit.telefono1P;
+    } else if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P != null){
+      this.telefonos = this.subsEdit.telefono2P;
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P != null) {
+      this.telefonos = this.subsEdit.telefon1P + ' ' + this.subsEdit.telefono2P;
+    }
     this.descuento = 0;
     this.disabled = true;  
     this.payForm.patchValue( {descuentopago: 0});  
@@ -894,12 +912,28 @@ export class SubscriberComponent implements OnInit {
       for (let i=0; i < this.facts.length; i++) {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
+      for (let i = 0; i < data.conceptos; i++){
+        if(this.subsEdit.tv == '1' && this.subsEdit.internet == '1') {
+          this.pdocuments = data.conceptos;
+        } else if(this.subsEdit.tv == '1' && this.subsEdit.internet == '0'){
+          
+        }
+      }
     })
     console.log(this.modelDate)    
     jQuery('#modal-pagos').modal('open');
   }
 
   openModalPagosAnticipados(){
+    if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
+      this.telefonos = '';
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
+      this.telefonos = this.subsEdit.telefono1P;
+    } else if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P != null){
+      this.telefonos = this.subsEdit.telefono2P;
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P != null) {
+      this.telefonos = this.subsEdit.telefon1P + ' ' + this.subsEdit.telefono2P;
+    }
     this.adDescuento = 0;
     this.adPayForm.patchValue( {descuentopago: 0});      
     this.disabled = true;
@@ -1104,6 +1138,15 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalAnular(){
+    if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
+      this.telefonos = '';
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
+      this.telefonos = this.subsEdit.telefono1P;
+    } else if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P != null){
+      this.telefonos = this.subsEdit.telefono2P;
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P != null) {
+      this.telefonos = this.subsEdit.telefon1P + ' ' + this.subsEdit.telefono2P;
+    }
     this._suscriberservice.getBills(this.subsEdit.id).subscribe(data => {
       this.facts = data.detalle_facturas;
     })
@@ -1125,7 +1168,7 @@ export class SubscriberComponent implements OnInit {
         this.loading = true;
         if (this.subsEdit) {
           console.log(this.subsEdit.id, this.nroDoc)
-          this._suscriberservice.cancelBills({'entidad_id':this.subsEdit.id, 'nrodcto': this.nroDoc}).subscribe(
+          this._suscriberservice.cancelBills({'entidad_id':this.subsEdit.id, 'nrodcto': this.nroDoc, 'concepto_id': this.concepto_id}).subscribe(
             data => {
               this.loading = false;
               if ( data.status == "anulada") {
@@ -1172,6 +1215,7 @@ export class SubscriberComponent implements OnInit {
   selectFac(fac){
     console.log(fac)
     this.nroDoc = fac.nrodcto;
+    this.concepto_id = fac.concepto;
   }
 
   changeConcept(val) {
@@ -1190,7 +1234,7 @@ export class SubscriberComponent implements OnInit {
         this.abreviatura = this.concepts[i]['abreviatura']
       }
     }
-    if(val == '51') {
+    if(val == '27' || val == '28') {
       this.decos = 1;
     } else {
       this.decos = 0;
@@ -1199,6 +1243,15 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalOrden(){
+    if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
+      this.telefonos = '';
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
+      this.telefonos = this.subsEdit.telefono1P;
+    } else if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P != null){
+      this.telefonos = this.subsEdit.telefono2P;
+    } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P != null) {
+      this.telefonos = this.subsEdit.telefon1P + ' ' + this.subsEdit.telefono2P;
+    }
     console.log(this.subsEdit)
     this._techservice.getInfoTechs().subscribe(data => {
       this.concepts = data.conceptos;
@@ -1631,7 +1684,7 @@ export class SubscriberComponent implements OnInit {
         data => {
           this.loading = false;
           console.log(data)
-          if ( data.message1 == "actualizado servicio tv" || data.message2 == "actualizado servicio internet") {
+          if ( data.message == "Persona acutalizada con exito") {
             swal({
               title: 'Registro actualizado con éxito',
               text: '',
@@ -1640,9 +1693,9 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if ( data.error = "Entidad no aceptable o error de clave foranea" ) {
+          } else if ( data.error = "Informacion persona" ) {
             swal(
-              'No se pudo actualizar el registro, datos incorrectos',
+              'No se pudo actualizar el registro',
               '',
               'warning'
             )
