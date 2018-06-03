@@ -39,13 +39,15 @@ export class NavbarPrincipalComponent implements OnInit {
   }
 
   toggleShow() {
+    console.log(this.ban)
     if (this.ban == 0) {
-      document.querySelector('#slide-out').classList.toggle('show');
+      document.querySelector('#slide-out').classList.add('show');
       document.getElementById("slide-out").style.width = "15em";
       document.getElementById('main').style.marginLeft = "15em";
       localStorage.setItem('sideNavOpen', 'true');
       this.ban = 1;
     } else if (this.ban == 1) {
+      document.querySelector('#slide-out').classList.remove('show');
       document.getElementById("slide-out").style.width = "0";
       document.getElementById("slide-out").style.marginRight = "0";
       document.getElementById('main').style.marginLeft = "0";

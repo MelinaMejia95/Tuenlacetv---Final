@@ -1569,9 +1569,9 @@
           <div class="row">
             <div class="col s12 m4 l4">
               <label class="label-color">Tipo documento <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-doc-orden" formControlName="tipodoc" required>
+              <select class="browser-default select-city validate" id="select-doc-orden" formControlName="tipodoc" required (change)="validateConcept(tconcept.value)" #tconcept>
                 <option value="nodisplay" disabled selected>Seleccione</option>
-                <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.id }}</option>
+                <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
               </select>
               <div class="alert" *ngIf="!payForm.controls['tipodoc'].value && payForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                                      
             </div>

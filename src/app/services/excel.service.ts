@@ -13,8 +13,10 @@ export class ExcelService {
 
   objectMap(data, type){
     console.log("esta es data: ", data)
-    let customized
+    let customized = {};
+    this.arrayData = [];
     if(type == 1){
+      console.log('consolidado')
       data.forEach((dato) => {
         customized = {
           "Código": dato.codigo,
@@ -43,6 +45,7 @@ export class ExcelService {
       })
     }
     if (type == 2) {
+      console.log('tv')      
       data.forEach((dato) => {
       customized = {
         "Código": dato.codigo,
@@ -150,6 +153,7 @@ export class ExcelService {
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string, type: number): void {
+    console.log(type)
     this.objectMap(json, type)
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.arrayData);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };

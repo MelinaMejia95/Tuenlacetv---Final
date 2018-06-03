@@ -94,6 +94,8 @@ export class RatesComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.querySelector('.principal-container').classList.add('modal-flow');
+    console.log(document.querySelector('.modal'))
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
         console.log('entro')
@@ -140,6 +142,10 @@ export class RatesComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  ngOnDestroy () {
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
   }
 
   selectClicked(){

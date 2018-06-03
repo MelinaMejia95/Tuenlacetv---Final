@@ -313,6 +313,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.querySelector('.principal-container').classList.add('modal-flow');    
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
         console.log('entro')
@@ -349,11 +350,11 @@ export class SubscriberComponent implements OnInit {
           this.showEntity = this.functions[i]['nombre'];
         }
       }
-      if (this.showEntity != 'Suscriptor'){
+      /* if (this.showEntity != 'Suscriptor'){
         jQuery('#modal-see .modal-content').css('padding-top', '37px');
       } else {
         jQuery('#modal-see .modal-content').css('padding-top', '3px');        
-      }
+      } */
       if (this.paramafi == 'N') {
         this.afitv = data.valor_afi_tv;
         this.afiint = data.valor_afi_int;
@@ -426,18 +427,19 @@ export class SubscriberComponent implements OnInit {
           }
         }
         if (this.showEntity != 'Suscriptor'){
-          jQuery('#modal-see.modal-title').css('height', '12% !important');
-          jQuery('#modal-see.modal.modal-fixed-footer.modal-content').css('height', '80% !important');
-          jQuery('#modal-see.modal-fixed-footer').css('height', '58% !important');
-          jQuery('#modal-see.modal-content').css('padding-top', '3px');
+          setTimeout(() => {
+            document.getElementById('modal-see').style.height = '58% !important';
+          }, 3000);
+          document.querySelector('#modal-see .modal-title').setAttribute('style', 'height: 12% !important');
+          document.querySelector('#modal-content-see').setAttribute('css', 'max-height: calc(100% - 84px) !important');
         } else {
-          /* jQuery('.modal-title').css('height', '10%');                
-          jQuery('.modal.modal-fixed-footer.modal-content').css('height', 'calc(100% - 89px) !important');
-          jQuery('.modal.modal-fixed-footer').css('height', '70%');
-          jQuery('.modal.modal-content').css('padding-top', '3px');  */         
+          setTimeout(() => {
+            document.getElementById('modal-see').style.height = '70% !important';
+          }, 3000);
+          document.querySelector('#modal-see .modal-title').setAttribute('style', 'height: 10% !important');
+          document.querySelector('#modal-content-see').setAttribute('style', 'max-height: calc(100% - 89px) !important');
         }
         this.entity = data.entidades;
-        console.log(this.showEntity)
       });
     });
     jQuery('#select-order').on('change', () => {
@@ -877,7 +879,15 @@ export class SubscriberComponent implements OnInit {
     }
   }
 
+  validateConcept(val) {
+    if(val == ''){
+
+    }
+  }
+
   openModalPagos(){
+    let auxFac = [];
+    let auxCon = [];
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
       this.telefonos = '';
     } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
@@ -909,15 +919,42 @@ export class SubscriberComponent implements OnInit {
       this.totalDescuento = this.total.valor;
       this.paramCobradores = data.param_cobradores;
       console.log(this.pdocuments);
+      console.log(this.facts);
       for (let i=0; i < this.facts.length; i++) {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
-      for (let i = 0; i < data.conceptos; i++){
-        if(this.subsEdit.tv == '1' && this.subsEdit.internet == '1') {
-          this.pdocuments = data.conceptos;
-        } else if(this.subsEdit.tv == '1' && this.subsEdit.internet == '0'){
-          
+      let j = 0;
+      /* for (let i = 0; i < data.detalle_facturas.length; i++){
+        if(this.subsEdit.tv == '1' && this.subsEdit.internet == '0'){
+          if(this.facts[i]['servicio_id'] == 1) {
+            auxFac[j] = this.facts[i];
+            j++;
+          }
+        } else if (this.subsEdit.tv == '0' && this.subsEdit.internet == '1'){
+          if(this.facts[i]['servicio_id'] == 2) {
+            auxFac[j] = this.facts[i];
+            j++;            
+          }
         }
+        this.facts = auxFac;
+      } */
+      let k = 0;
+      for(let i = 0; i < data.conceptos.length; i++) {
+        if(this.subsEdit.tv == '1' && this.subsEdit.internet == '0'){
+          if(this.pdocuments[i]['servicio_id'] == 1) {
+            auxCon[k] = this.pdocuments[i];
+            k++;          
+          }
+        } else if (this.subsEdit.tv == '0' && this.subsEdit.internet == '1'){
+          if(this.pdocuments[i]['servicio_id'] == 2) {
+            auxCon[k] = this.pdocuments[i];
+            k++;
+          }
+        }
+      }
+      if(this.subsEdit.tv == '0' || this.subsEdit.internet == '0'){
+        this.pdocuments = auxCon;
+        this.pdocuments = auxCon;  
       }
     })
     console.log(this.modelDate)    
@@ -1111,7 +1148,7 @@ export class SubscriberComponent implements OnInit {
     this.diferencia = 0;
     for (let i = 0; i < this.facts.length; i++) {
       this.facts[i]['total'] = (Number(this.facts[i]['saldo']) - Number(this.facts[i]['abono']));
-      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto'], "saldo": this.facts[i]['saldo'],
+      this.detalles[i] = {"nrodcto": this.facts[i]['nrodcto'], "concepto_id": this.facts[i]['concepto_id'], "saldo": this.facts[i]['saldo'],
       "abono": Number(this.facts[i]['abono']), "total": this.facts[i]['total']} 
       this.totalAplicado = Number(this.totalAplicado) + Number(this.facts[i]['abono']);
     }
@@ -1702,7 +1739,7 @@ export class SubscriberComponent implements OnInit {
         data => {
           this.loading = false;
           console.log(data)
-          if ( data.message == "Persona acutalizada con exito") {
+          if ( data.message == "Persona actualizada con exito") {
             swal({
               title: 'Registro actualizado con éxito',
               text: '',
@@ -1711,7 +1748,7 @@ export class SubscriberComponent implements OnInit {
                         location.reload();
                       }
             })
-          } else if ( data.error = "Informacion persona" ) {
+          } else if ( data.error == "Informacion persona" ) {
             swal(
               'No se pudo actualizar el registro',
               '',
