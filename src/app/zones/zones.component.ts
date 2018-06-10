@@ -75,6 +75,18 @@ export class ZonesComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+     } else {
+      document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+     }
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+    })
     this._zoneservice.getZones().subscribe(data => {
       this.zones = data.zonas;
       this.cities = data.ciudades;

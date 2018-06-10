@@ -96,15 +96,18 @@ export class RatesComponent implements OnInit {
 
   ngOnInit() {
     document.querySelector('.principal-container').classList.add('modal-flow');
-    console.log(document.querySelector('.modal'))
+    console.log(document.querySelector('.modal'));
+    if(jQuery( window ).width() <= 600) {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+    } else {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+    }
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
-        console.log('entro')
        document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       } else {
        document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
       }
-      console.log(jQuery( window ).width());
     })
     this._rateservice.getRates().subscribe(data => {
       this.rates = data.tarifas;

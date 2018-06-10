@@ -75,14 +75,17 @@ export class NeighborhoodsComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(jQuery( window ).width() <= 600) {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+    } else {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+    }
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
-        console.log('entro')
        document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       } else {
        document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
       }
-      console.log(jQuery( window ).width());
     })
     this._neighborhoodservice.getNeighborhoods().subscribe(data => {
       this.neighborhoods = data.barrios;

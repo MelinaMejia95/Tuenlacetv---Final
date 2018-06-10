@@ -91,6 +91,18 @@ export class BanksComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+     } else {
+      document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+     }
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+      }
+    })
     this._bankservice.getBanks().subscribe(data => {
       this.banks = data.bancos;
       this.cities = data.ciudades;

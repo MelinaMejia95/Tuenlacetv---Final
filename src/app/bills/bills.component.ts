@@ -74,6 +74,11 @@ export class BillsComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(jQuery( window ).width() <= 600) {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+    } else {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+    }
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
         console.log('entro')

@@ -314,6 +314,11 @@ export class SubscriberComponent implements OnInit {
 
   ngOnInit() {
     //document.querySelector('.principal-container').classList.add('modal-flow');    
+    if(jQuery( window ).width() <= 600) {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+    } else {
+     document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
+    }
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
         console.log('entro')
@@ -350,11 +355,6 @@ export class SubscriberComponent implements OnInit {
           this.showEntity = this.functions[i]['nombre'];
         }
       }
-      /* if (this.showEntity != 'Suscriptor'){
-        jQuery('#modal-see .modal-content').css('padding-top', '37px');
-      } else {
-        jQuery('#modal-see .modal-content').css('padding-top', '3px');        
-      } */
       if (this.paramafi == 'N') {
         this.afitv = data.valor_afi_tv;
         this.afiint = data.valor_afi_int;
