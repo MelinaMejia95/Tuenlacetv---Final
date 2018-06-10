@@ -18,6 +18,7 @@ export class AdvancepaymentsComponent implements OnInit {
 
   toogleDelete:boolean = false;
   payments: any[] = []; paymentEdit: any; result: number; model1: any; model2: any;
+  contador: number = 0;
 
   printForm: FormGroup;
   titleAlert: string = "Campo requerido";
@@ -128,7 +129,22 @@ export class AdvancepaymentsComponent implements OnInit {
   }
 
   selectData(payment){
-    this.paymentEdit = payment;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.payments.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.payments[j]['id']){
+        this.paymentEdit = this.payments[j]
+      }
+    }
+    console.log(this.paymentEdit) 
   }
 
   exportToExcel(post){

@@ -21,7 +21,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { AdvancepaymentsComponent } from './advancepayments/advancepayments.component';
 import { TechniciansComponent } from './technicians/technicians.component';
 
-class Permissions {
+/* class Permissions {
   canActivate(): boolean {
     const token = localStorage.getItem('auth_token');
     return !token;
@@ -39,35 +39,35 @@ class CanActivateSection implements CanActivate {
     }
     return true;
   }
-}
+} */
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full', canActivate: [CanActivateSection] },
-  { path: 'login', component: LoginComponent, canActivate: [CanActivateSection] },
-  { path: 'principal', component: PrincipalComponent, canActivate: [CanActivateSection] },
-  { path: 'cities', component: CitiesComponent, canActivate: [CanActivateSection] },
-  { path: 'subscriber', component: SubscriberComponent, canActivate: [CanActivateSection] },
-  { path: 'countries', component: CountriesComponent, canActivate: [CanActivateSection] },
-  { path: 'zones', component: ZonesComponent, canActivate: [CanActivateSection] },
-  { path: 'neighborhoods', component: NeighborhoodsComponent, canActivate: [CanActivateSection] },
-  { path: 'banks', component: BanksComponent, canActivate: [CanActivateSection] },
-  { path: 'company', component: CompanyComponent, canActivate: [CanActivateSection] },
-  { path: 'rates', component: RatesComponent, canActivate: [CanActivateSection] },
-  { path: 'concepts', component: ConceptsComponent, canActivate: [CanActivateSection] },
-  { path: 'plans', component: PlansComponent, canActivate: [CanActivateSection] },
-  { path: 'users', component: UsersComponent, canActivate: [CanActivateSection] },
-  { path: 'bills', component: BillsComponent, canActivate: [CanActivateSection] },
-  { path: 'departments', component: DepartmentsComponent, canActivate: [CanActivateSection] },
-  { path: 'gbillings', component: GbillingsComponent, canActivate: [CanActivateSection] },
-  { path: 'autobills', component: AutomaticbillsComponent, canActivate: [CanActivateSection] },
-  { path: 'payments', component: PaymentComponent, canActivate: [CanActivateSection] },
-  { path: 'advancepayments', component: AdvancepaymentsComponent, canActivate: [CanActivateSection] },
-  { path: 'technicians', component: TechniciansComponent, canActivate: [CanActivateSection] }   
+  { path: '', component: LoginComponent, pathMatch: 'full', /* canActivate: [CanActivateSection] */ },
+  { path: 'login', component: LoginComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'principal', component: PrincipalComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'cities', component: CitiesComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'subscriber', component: SubscriberComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'countries', component: CountriesComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'zones', component: ZonesComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'neighborhoods', component: NeighborhoodsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'banks', component: BanksComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'company', component: CompanyComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'rates', component: RatesComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'concepts', component: ConceptsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'plans', component: PlansComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'users', component: UsersComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'bills', component: BillsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'departments', component: DepartmentsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'gbillings', component: GbillingsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'autobills', component: AutomaticbillsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'payments', component: PaymentComponent,/*  canActivate: [CanActivateSection] */ },
+  { path: 'advancepayments', component: AdvancepaymentsComponent, /* canActivate: [CanActivateSection] */ },
+  { path: 'technicians', component: TechniciansComponent, /* canActivate: [CanActivateSection] */ }   
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [CanActivateSection, Permissions]
+  providers: [/* CanActivateSection, Permissions */]
 })
 export class AppRoutingModule { }

@@ -57,8 +57,8 @@
     <tbody>
       <tr *ngFor="let concept of concepts | conceptsfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()" >
         <td>
-            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(concept)"/>
-            <label [attr.for]="'radio_'+i"> </label>
+            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+concept.id" (change)="selectData(concept)"/>
+            <label [attr.for]="'radio_'+concept.id"> </label>
         </td>
         <td (click)="openModal(concept)" href="#modal-see">{{ concept.codigo }}</td>
         <td (click)="openModal(concept)" href="#modal-see">{{ concept.servicio }}</td>

@@ -73,8 +73,8 @@
     <tbody>
       <tr *ngFor="let payment of payments | paymentsfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(payment)"/>
-          <label [attr.for]="'radio_'+i"> </label>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+payment.id" (change)="selectData(payment)"/>
+          <label [attr.for]="'radio_'+payment.id"> </label>
         </td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.documento }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.nropago }}</td>

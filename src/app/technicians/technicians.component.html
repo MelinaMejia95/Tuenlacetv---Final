@@ -77,8 +77,8 @@
     <tbody>
       <tr *ngFor="let tech of technicians | techsfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
-            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(tech)"/>
-            <label [attr.for]="'radio_'+i"> </label>
+            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+tech.id" (change)="selectData(tech)"/>
+            <label [attr.for]="'radio_'+tech.id"> </label>
         </td>
         <td (click)="openModal(tech)" href="#modal-see">{{ tech.tipo_orden }}</td>
         <td (click)="openModal(tech)" href="#modal-see">{{ tech.nrorden }}</td>

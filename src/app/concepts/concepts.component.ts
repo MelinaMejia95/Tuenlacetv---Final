@@ -18,6 +18,7 @@ export class ConceptsComponent implements OnInit {
   concepts: any[] = [];
   services: string; createService: string; codigo: string; nombre: string; abreviatura: string; iva: string; operacion: string;
   serviceEdit: any; conceptEdit: any; concept: any; conceptReset: any[] =[]; reset: any []= [];
+  contador: number = 0;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -179,7 +180,22 @@ export class ConceptsComponent implements OnInit {
   }
 
   selectData(concept){
-    this.conceptEdit = concept;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.concepts.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.concepts[j]['id']){
+        this.conceptEdit = this.concepts[j]
+      }
+    }
+    console.log(this.conceptEdit) 
   }
 
   createConcept(post){

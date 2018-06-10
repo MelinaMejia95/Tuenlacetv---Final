@@ -42,7 +42,7 @@ export class SubscriberComponent implements OnInit {
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0; adDescuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
   fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string; abreviatura: string;
-  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0; telefonos: string; concepto_id: string; afitv: string; afiint: string;
+  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0; telefonos: string; concepto_id: string; afitv: string; afiint: string; contador: number = 0;
   
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -313,7 +313,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.querySelector('.principal-container').classList.add('modal-flow');    
+    //document.querySelector('.principal-container').classList.add('modal-flow');    
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
         console.log('entro')
@@ -886,6 +886,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagos(){
+    document.querySelector('.principal-container').classList.remove('modal-flow');        
     let auxFac = [];
     let auxCon = [];
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
@@ -962,6 +963,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagosAnticipados(){
+    document.querySelector('.principal-container').classList.add('modal-flow');        
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
       this.telefonos = '';
     } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
@@ -1245,8 +1247,22 @@ export class SubscriberComponent implements OnInit {
   }
   
   selectData(subs){
-    console.log(subs)
-    this.subsEdit = subs;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.entity.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.entity[j]['id']){
+        this.subsEdit = this.entity[j]
+      }
+    }
+    console.log(this.subsEdit) 
   }
 
   selectFac(fac){
@@ -1459,6 +1475,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
+    document.querySelector('.principal-container').classList.add('modal-flow');
     this.toogleEdit = false;
     this.modalSub = 1;
     console.log(subscriber)

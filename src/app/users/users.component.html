@@ -57,8 +57,8 @@
     <tbody>
       <tr *ngFor="let user of users | usersfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
-            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(user)"/>
-            <label [attr.for]="'radio_'+i"> </label>
+            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+user.id" (change)="selectData(user)"/>
+            <label [attr.for]="'radio_'+user.id"> </label>
         </td>
         <td (click)="openModal(user)" href="#modal-see">{{ user.id }}</td>
         <td (click)="openModal(user)" href="#modal-see">{{ user.login }}</td>

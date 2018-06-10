@@ -19,6 +19,7 @@ export class BanksComponent implements OnInit {
   cities: string; createCity: string; nit: string; nombre: string; direccion: string; tel1: string; tel2: string; contacto: string; cuentacon: string;
   cuentaban: string;
   cityEdit: any; bankEdit: any; bank: any; 
+  contador: number = 0;
   
 
   rForm: FormGroup;
@@ -175,7 +176,23 @@ export class BanksComponent implements OnInit {
   }
 
   selectData(bank){
-    this.bankEdit = bank;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.banks.length; j++) {
+      console.log(this.banks[j]['id'])
+      if(this.contador == 1 && Number(splitted[1]) == this.banks[j]['id']){
+        this.bankEdit = this.banks[j]
+      }
+    }
+    console.log(this.bankEdit) 
   }
 
   createBank(post){

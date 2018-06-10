@@ -18,6 +18,7 @@ export class NeighborhoodsComponent implements OnInit {
   toogleDelete: boolean = false; toogleEdit: boolean = false;
   zones: string; nombre: string; createZone: string;
   neighborhoodEdit: any; zoneEdit: any; neighborhood: any;
+  contador: number = 0;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -146,7 +147,22 @@ export class NeighborhoodsComponent implements OnInit {
   }
 
   selectData(neighborhood){
-    this.neighborhoodEdit = neighborhood;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.neighborhoods.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.neighborhoods[j]['id']){
+        this.neighborhoodEdit = this.neighborhoods[j]
+      }
+    }
+    console.log(this.neighborhoodEdit) 
   }
 
   createNeighborhood(post){

@@ -16,7 +16,7 @@ declare let jQuery: any;
 export class DepartmentsComponent implements OnInit {
 
   departments: any[] = [];
-  selected: number; cont: number = 0;
+  selected: number; cont: number = 0; contador: number = 0;
   toogleDelete:boolean = false;
   countries:string; countryEdit: string; nameCountry: string; codCountry: string;
   depEdit:any; country: any; createCountry: any;
@@ -155,8 +155,22 @@ export class DepartmentsComponent implements OnInit {
   }
 
   selectData(dep){
-    this.depEdit = dep;
-    console.log(this.depEdit.id)
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.departments.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.departments[j]['id']){
+        this.depEdit = this.departments[j]
+      }
+    }
+    console.log(this.depEdit) 
   }
 
   createDep(post){

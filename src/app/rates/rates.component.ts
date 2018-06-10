@@ -23,6 +23,7 @@ export class RatesComponent implements OnInit {
   zoneEdit: any; conceptEdit: any; planEdit: any; stateEdit: any; rateEdit: any; fechaEdit: any; zona: any; concepto: any; plan: any; estado: any; picker: any;
   fechainicio: any; fechaven: any; splitted: any; splitted2: any; model1: any; model2: any; model3: any; model4: any; disabled: boolean = true; conceptSelect: any[] = [];
   fechaprueba: Date = new Date();
+  contador: number = 0;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -260,7 +261,22 @@ export class RatesComponent implements OnInit {
   }
 
   selectData(rate){
-    this.rateEdit = rate;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.rates.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.rates[j]['id']){
+        this.rateEdit = this.rates[j]
+      }
+    }
+    console.log(this.rateEdit) 
   }
 
   createRate(post){

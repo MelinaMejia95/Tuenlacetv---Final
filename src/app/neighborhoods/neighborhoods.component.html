@@ -57,8 +57,8 @@
     <tbody>
       <tr *ngFor="let neighborhood of neighborhoods | neighsfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(neighborhood)"/>
-          <label [attr.for]="'radio_'+i"> </label>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+neighborhood.id" (change)="selectData(neighborhood)"/>
+          <label [attr.for]="'radio_'+neighborhood.id"> </label>
         </td>
         <td (click)="openModal(neighborhood)" href="#modal-see">{{ neighborhood.id }}</td>
         <td (click)="openModal(neighborhood)" href="#modal-see">{{ neighborhood.nombre }}</td>

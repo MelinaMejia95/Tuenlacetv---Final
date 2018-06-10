@@ -65,8 +65,8 @@
     <tbody>
       <tr *ngFor="let rate of rates | ratesfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(rate)"/>
-          <label [attr.for]="'radio_'+i"> </label>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+rate.id" (change)="selectData(rate)"/>
+          <label [attr.for]="'radio_'+rate.id"> </label>
         </td>
         <td (click)="openModal(rate)" href="#modal-see">{{ rate.id }}</td>
         <td (click)="openModal(rate)" href="#modal-see">{{ rate.zona }}</td>

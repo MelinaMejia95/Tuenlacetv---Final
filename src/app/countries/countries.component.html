@@ -53,8 +53,8 @@
     <tbody>
     <tr *ngFor="let country of countries | countriesfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
       <td>
-          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(country)"/>
-          <label [attr.for]="'radio_'+i"> </label>
+          <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+country.id" (change)="selectData(country)"/>
+          <label [attr.for]="'radio_'+country.id"> </label>
       </td>
       <td (click)="openModal(country)" href="#modal-see">{{ country.id }}</td>
       <td (click)="openModal(country)" href="#modal-see">{{ country.nombre }}</td>

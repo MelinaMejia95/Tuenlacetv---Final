@@ -14,7 +14,7 @@ declare let jQuery:any;
 })
 export class CompanyComponent implements OnInit {
 
-  toogleDelete:boolean = false;
+  toogleDelete:boolean = false; contador: number = 0;
   companies: any[] = []; rep: any[] = [];
   companyEdit: any; cityEdit: any; city: any; entity: any; contr: any; regi: any;
   cities: string; people: string; createCity: string; createEntity: string; createRegi: string; createContr: string; nit: string; razonsocial: string;
@@ -187,7 +187,22 @@ export class CompanyComponent implements OnInit {
   }
 
   selectData(company){
-    this.companyEdit = company;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.companies.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.companies[j]['id']){
+        this.companyEdit = this.companies[j]
+      }
+    }
+    console.log(this.companyEdit) 
     this.rep = company.representante;
   }
 

@@ -122,20 +122,23 @@ export class CountriesComponent implements  OnInit {
   }
 
   selectData(country){
-    /* var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
     var cantidad = document.getElementsByName('group1');
-
-    for(var i = 0; i < cantidad.length; i++ ){
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
       if(check[i].checked){
+        splitted = check[i].id.split('_',2);
         this.contador++;
-        if(check[i].checked && this.contador == 1 && this.toogleCheck == true) { */
-        this.countriesEdit = country;
-       /*  this.toogleCheck = true;
-        }
-        console.log(check[i], this.contador)
-      } 
-    }    
-    console.log(this.countriesEdit) */
+      }
+    }
+    for(var j = 0; j < this.countries.length; j++) {
+      console.log(this.countries[j]['id'])
+      if(this.contador == 1 && Number(splitted[1]) == this.countries[j]['id']){
+        this.countriesEdit = this.countries[j]
+      }
+    }
+    console.log(this.countriesEdit) 
   }
 
   openModal (country) {
@@ -312,9 +315,9 @@ export class CountriesComponent implements  OnInit {
       }
     }    
 
-    if(ban == true) { 
+   /*  if(ban == true) { 
       this.contador = 0;
-    }
+    } */
 
     if(this.cont > 1) {
       document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');          

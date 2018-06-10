@@ -21,7 +21,7 @@ export class TechniciansComponent implements OnInit {
   valor: number; porIva: number = 0; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
   detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
   param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
-  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any; 
+  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any; contador: number = 0;
 
   rForm: FormGroup;  printForm: FormGroup;
   orderForm: FormGroup;
@@ -274,7 +274,22 @@ export class TechniciansComponent implements OnInit {
   }
 
   selectData(tech){
-    this.techEdit = tech;
+    var check = <HTMLInputElement><any>document.getElementsByName('group1');
+    var cantidad = document.getElementsByName('group1');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.technicians.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.technicians[j]['id']){
+        this.techEdit = this.technicians[j]
+      }
+    }
+    console.log(this.techEdit) 
   }
   
   selectDetail(detail) {

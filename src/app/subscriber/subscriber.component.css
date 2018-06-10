@@ -66,6 +66,7 @@
 
 .modal .modal-content {
     padding-top: 3px;
+    height: 100%;
 }
 
 .check-type {

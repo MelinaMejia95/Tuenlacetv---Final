@@ -57,8 +57,8 @@
     <tbody>
       <tr *ngFor="let bank of banks | banksfilter:filter | paginate: config; let i = index" name="rows" (click)="selectRow()">
         <td>
-            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+i" (change)="selectData(bank)"/>
-            <label [attr.for]="'radio_'+i"> </label>
+            <input name="group1" type="checkbox" class="filled-in" [id]="'radio_'+bank.id" (change)="selectData(bank)"/>
+            <label [attr.for]="'radio_'+bank.id"> </label>
         </td>
         <td (click)="openModal(bank)" href="#modal-see">{{ bank.id }}</td>
         <td (click)="openModal(bank)" href="#modal-see">{{ bank.nit }}</td>
@@ -113,11 +113,11 @@
         <div class="row"> 
           <div class="col s12 m6 l3">
             <label for="codigo" class="label-color">Código</label>
-            <input placeholder="" id="codigo" type="text" disabled>
+            <input placeholder="" id="cod" type="text" disabled>
           </div>
           <div class="col s12 m6 l3">
-            <label for="nit" class="label-color">NIT <span class="span-color">*</span></label>
-            <input placeholder="" id="nit" type="text" class="validate" formControlName="nit" required>
+            <label for="nite" class="label-color">NIT <span class="span-color">*</span></label>
+            <input placeholder="" id="nite" type="text" class="validate" formControlName="nit" required>
             <div class="alert" *ngIf="!rForm.controls['nit'].value && rForm.controls['nit'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l3">
