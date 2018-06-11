@@ -47,7 +47,7 @@
         <li><a (click)="openModalPagosAnticipados()">Pagos anticipados</a></li> 
         <li><a class="modal-trigger" (click)="openModalOrden()">Órdenes técnicas</a></li>
         <li><a class="modal-trigger" (click)="openModalFactura()">Generar factura</a></li>
-        <li><a (click)="openModalAnular()">Anular factura</a></li>
+        <li *ngIf="nivel=='1'"><a (click)="openModalAnular()">Anular factura</a></li>
         <li><a href="#!">PQR</a></li>
       </ul>
     </div>    
@@ -132,13 +132,13 @@
  
 <!-- Footer Button -->
 <div class="fixed-action-btn horizontal">
-  <a class="btn-floating btn-large button-crud">
+  <a class="btn-floating btn-large button-crud" id="footer-create">
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
     <li><a class="btn-floating btn-eliminar red" (click)="deleteSubs()" id="btn-footer-delete">Eliminar</a></li>
     <!--<li><a class="btn-floating btn-señal">Adicionar Señal</a></li>-->
-    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" (click)="validation()">Crear</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" (click)="validation()" >Crear</a></li>
   </ul>
 </div>
 
@@ -694,11 +694,8 @@
           <h5>{{showEntity}}</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
+        <a class="btn-floating btn-large btn-print btn-modal" (click)="edit()" id="btn-modal-edit">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
-        </a>
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
         </a>
       </div>
     </div>

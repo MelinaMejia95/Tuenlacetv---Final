@@ -19,6 +19,7 @@ export class AdvancepaymentsComponent implements OnInit {
   toogleDelete:boolean = false;
   payments: any[] = []; paymentEdit: any; result: number; model1: any; model2: any;
   contador: number = 0;
+  nivel: string;
 
   printForm: FormGroup;
   titleAlert: string = "Campo requerido";
@@ -77,6 +78,7 @@ export class AdvancepaymentsComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.nivel = localStorage.getItem('nivel');
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
      } else {

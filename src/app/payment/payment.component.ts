@@ -18,7 +18,7 @@ export class PaymentComponent implements OnInit {
 
   toogleDelete:boolean = false;
   payments: any[] = []; concepts: any; payoption: any; banks: any; payEdit: any; model1: any; model2: any;
-  contador: number = 0;
+  contador: number = 0; nivel: string;
 
   printForm: FormGroup;
   titleAlert: string = "Campo requerido";
@@ -75,6 +75,7 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nivel = localStorage.getItem('nivel');
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
      } else {

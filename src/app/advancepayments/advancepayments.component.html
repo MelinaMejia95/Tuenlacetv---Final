@@ -123,7 +123,7 @@
     <i class="large material-icons icon-horizontal">add</i>
   </a>
   <ul class="ul-button">
-    <li><a class="btn-floating btn-eliminar red" (click)="deletePayment()" id="btn-footer-delete">Anular</a></li>
+    <li *ngIf="nivel=='1'"><a class="btn-floating btn-eliminar red" (click)="deletePayment()" id="btn-footer-delete">Anular</a></li>
     <li class="li-button"><a class="btn-floating btn-crear modal-trigger" routerLink="/subscriber" (click)="changeEntity()">Crear</a></li>
   </ul>
 </div>

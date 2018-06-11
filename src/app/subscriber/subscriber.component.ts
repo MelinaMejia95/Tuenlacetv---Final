@@ -42,7 +42,7 @@ export class SubscriberComponent implements OnInit {
   totalAplicar: number = 0; createDoc: string; model9: any; createPay: string; createBank: string; createDebt: string; detalles: any[] = []; pagado: number; totalfac: number; descuento: number = 0; adDescuento: number = 0;
   paramCobradores: string; today:any; modelDate: any; servicesPay: any[] = []; rates: any; concepts: any;  employee: any; groups: any; articles: any; showNew: string; model10: any; model11: any;
   fechadoc: string; auxDetalles: any[] = []; model12: any; modalSub: number = 0; model13: any; model14: any; cont: number = 0; disableControl: boolean = true; showEntity: string; abreviatura: string;
-  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0; telefonos: string; concepto_id: string; afitv: string; afiint: string; contador: number = 0;
+  decos: number; bothServices: number = 0; nameService: string = 'Valor'; valFac: number = 0; telefonos: string; concepto_id: string; afitv: string; afiint: string; contador: number = 0; nivel: string;
   
   rForm: FormGroup; seeForm: FormGroup; cityForm: FormGroup; servForm: FormGroup; tvForm: FormGroup; intForm: FormGroup;
   tvCtrl: FormControl; facForm: FormGroup; payForm: FormGroup; adPayForm: FormGroup; orderForm: FormGroup; newOrder: FormGroup;
@@ -313,7 +313,16 @@ export class SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
-    //document.querySelector('.principal-container').classList.add('modal-flow');    
+    this.nivel = localStorage.getItem('nivel')
+    if(localStorage.getItem('nivel') == '2'){
+      document.getElementById('footer-create').setAttribute('style', 'visibility: hidden');      
+      document.getElementById('btn-see').setAttribute('style', 'visibility: hidden');      
+      document.getElementById('btn-modal-edit').setAttribute('style', 'visibility: hidden');      
+    } else {
+      document.getElementById('btn-see').setAttribute('style', 'visibility: visible');      
+      document.getElementById('footer-create').setAttribute('style', 'visibility: visible');   
+      document.getElementById('btn-modal-edit').setAttribute('style', 'visibility: visible');                     
+    }
     if(jQuery( window ).width() <= 600) {
      document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
     } else {
@@ -932,25 +941,22 @@ export class SubscriberComponent implements OnInit {
       this.totalDescuento = this.total.valor;
       this.paramCobradores = data.param_cobradores;
       console.log(this.pdocuments);
-      console.log(this.facts);
+      if (localStorage.getItem('nivel') == '2') {
+        let aux = [];
+        let c = 0;
+        for(let i = 0; i < this.pdocuments.length; i++){
+          if(this.pdocuments[i]['abreviatura'] != 'CDT' && this.pdocuments[i]['abreviatura'] != 'CDI' && this.pdocuments[i]['abreviatura'] != 'DBT'
+            && this.pdocuments[i]['abreviatura'] != 'DBI') {
+              aux[c] = this.pdocuments[i];
+              c++;
+            }
+        }
+        this.pdocuments = aux;
+      }
       for (let i=0; i < this.facts.length; i++) {
         this.facts[i]['abono'] = this.facts[i]['saldo']
       }
       let j = 0;
-      /* for (let i = 0; i < data.detalle_facturas.length; i++){
-        if(this.subsEdit.tv == '1' && this.subsEdit.internet == '0'){
-          if(this.facts[i]['servicio_id'] == 1) {
-            auxFac[j] = this.facts[i];
-            j++;
-          }
-        } else if (this.subsEdit.tv == '0' && this.subsEdit.internet == '1'){
-          if(this.facts[i]['servicio_id'] == 2) {
-            auxFac[j] = this.facts[i];
-            j++;            
-          }
-        }
-        this.facts = auxFac;
-      } */
       let k = 0;
       for(let i = 0; i < data.conceptos.length; i++) {
         if(this.subsEdit.tv == '1' && this.subsEdit.internet == '0'){
@@ -970,7 +976,7 @@ export class SubscriberComponent implements OnInit {
         this.pdocuments = auxCon;  
       }
     })
-    console.log(this.modelDate)    
+    console.log(this.pdocuments)    
     jQuery('#modal-pagos').modal('open');
   }
 
@@ -1501,7 +1507,11 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
-    //document.querySelector('.principal-container').classList.add('modal-flow');
+    if(localStorage.getItem('nivel') == '2'){ 
+      document.getElementById('btn-modal-edit').setAttribute('style', 'visibility: hidden');      
+    } else {   
+      document.getElementById('btn-modal-edit').setAttribute('style', 'visibility: visible');                     
+    }
     this.toogleEdit = false;
     this.modalSub = 1;
     console.log(subscriber)

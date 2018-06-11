@@ -113,10 +113,13 @@ export class UsersComponent implements OnInit {
       });
     if (localStorage.getItem('nivel') != '1') {
       this.toogleLevel = true;
+      document.getElementById('footer-btn').setAttribute('style', 'visibility: hidden');      
       /* document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
       document.getElementById('btn-footer-reset').setAttribute('style', 'visibility: hidden');
       document.getElementById('btn-footer-pss').setAttribute('style', 'visibility: hidden');    
       document.getElementById('btn-footer-create').setAttribute('style', 'visibility: hidden');         */
+    } else {
+      document.getElementById('footer-btn').setAttribute('style', 'visibility: visible');            
     }
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
@@ -199,7 +202,9 @@ export class UsersComponent implements OnInit {
       }
     }
     jQuery('input[type=text]').attr({style:' box-shadow: none'});    
-    jQuery('#modal-see').modal('open');
+    if(localStorage.getItem('nivel') == '1') {
+      jQuery('#modal-see').modal('open');
+    }
     document.getElementsByClassName('table-radio');
   }
 
