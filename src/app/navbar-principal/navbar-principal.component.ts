@@ -17,7 +17,7 @@ export class NavbarPrincipalComponent implements OnInit {
   ban:number = 0;
 
   passForm: FormGroup;
-  titleAlert: string = "Campo requerido";
+  titleAlert: string = "Campo requerido"; nombreUsuario: string;
 
   constructor(private _loginservice: LoginService, private route: Router, private fb: FormBuilder, private _userservie: UsersService) {
 
@@ -28,6 +28,7 @@ export class NavbarPrincipalComponent implements OnInit {
   }
  
   ngOnInit() {
+    this.nombreUsuario = localStorage.getItem('nombre')
     jQuery('.modal').modal({
       startingTop: '2%',
       opacity: 0,

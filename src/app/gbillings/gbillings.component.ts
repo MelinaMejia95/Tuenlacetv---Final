@@ -92,6 +92,7 @@ export class GbillingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.querySelector('.principal-container').classList.add('modal-flow');    
     if(jQuery( window ).width() <= 600) {
      document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
     } else {
@@ -149,6 +150,11 @@ export class GbillingsComponent implements OnInit {
   }
 
   exportToExcel(post){
+    console.log(post.fechainicio.date.day)
+    if(this.model1 == null || this.model2 == null) {
+      this.model1 = post.fechainicio.date.day + "/" + post.fechainicio.date.month + "/" + post.fechainicio.date.year
+      this.model2 = post.fechafin.date.day + "/" + post.fechafin.date.month + "/" + post.fechafin.date.year
+    }
     this._gbillingservice.downloadGBillings({'fechaini': this.model1, 'fechafin': this.model2 ,
                                              'db': localStorage.getItem('db')}).subscribe(data => {
         this.excelService.exportAsExcelFile(data.fras_venta, 'Facturaciones', 5);

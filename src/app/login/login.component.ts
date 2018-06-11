@@ -73,9 +73,10 @@ export class LoginComponent implements OnInit {
   }
   
   loginUser(post){
-    console.log(post.bd)
+    console.log(post.nombre)
     this.loading = true;
     if (post) {
+      localStorage.setItem('nombre', post.nombre);      
       this.conect = {'login': post.nombre, 'password': post.contraseña, 'db': this.bd};
       this._LoginService.login(this.conect).subscribe(data =>{
         this.loading = false;

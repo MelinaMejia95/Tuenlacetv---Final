@@ -184,6 +184,13 @@ input[type=text]:not(.browser-default) .input-td {
     visibility: hidden;
 }
 
+#btn-modal-edit{
+    width: 32px;
+    height: 32px;
+    margin-top: 1.5%;
+    line-height: 3em;
+}
+
 .collapsible-body {
     padding: 1rem;
 }

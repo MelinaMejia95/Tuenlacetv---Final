@@ -48,7 +48,6 @@
         <li><a class="modal-trigger" (click)="openModalOrden()">Órdenes técnicas</a></li>
         <li><a class="modal-trigger" (click)="openModalFactura()">Generar factura</a></li>
         <li *ngIf="nivel=='1'"><a (click)="openModalAnular()">Anular factura</a></li>
-        <li><a href="#!">PQR</a></li>
       </ul>
     </div>    
   </div> 
@@ -694,7 +693,7 @@
           <h5>{{showEntity}}</h5>
       </div>
       <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print btn-modal" (click)="edit()" id="btn-modal-edit">
+        <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal-edit">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
       </div>
