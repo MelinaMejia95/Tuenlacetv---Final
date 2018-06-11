@@ -18,7 +18,7 @@ export class GbillingsComponent implements OnInit {
 
   toogleDelete:boolean = false; tooglePrint: boolean = false;
   gbillings: any[] = []; zones: any[] = []; typefac: any[] = [];
-  gbillingEdit: any; model1: any; model2: any; splitted: any; splitted2: any; splitted3: any; splitted4: any;
+  gbillingEdit: any; model1: any; model2: any; splitted: any; splitted2: any; splitted3: any; splitted4: any; splitted5: any;
   counter: number = 0; saldoini: number = 1; saldofin: number = 1000000;
 
   public myDatePickerOptions: IMyDpOptions = {
@@ -201,6 +201,8 @@ export class GbillingsComponent implements OnInit {
   }
 
   openModalFacturar() {
+    this.saldofin = 1000000;
+    this.saldoini = 1;
     this._gbillingservice.getInfoGbillings().subscribe(data => {
       this.zones = data.zonas;
       this.typefac = data.tipo_facturacion;
@@ -211,6 +213,7 @@ export class GbillingsComponent implements OnInit {
       this.facForm.patchValue({inicioPeriodo: null});
       this.facForm.patchValue({finPeriodo: null});
       this.facForm.patchValue({fechaven: null});
+      this.facForm.patchValue({corte: null});
       jQuery('#modal-factura').modal('open');      
     } else if(this.tooglePrint == true) {
       this.tooglePrint = false;
@@ -218,10 +221,12 @@ export class GbillingsComponent implements OnInit {
       let str2 = this.gbillingEdit.fecha_fin;
       let str3 = this.gbillingEdit.fecha_elaboracion;
       let str4 = this.gbillingEdit.fecha_vence;
+      let str5 = this.gbillingEdit.fecha_corte;      
       this.splitted = str.split("/", 3);
       this.splitted2 = str2.split("/", 3);   
       this.splitted3 = str3.split("/", 3);   
       this.splitted4 = str4.split("/", 3);   
+      this.splitted5 = str5.split("/", 3);   
       for (let i = 0; i < 10; i++) {
         if (this.splitted[0] == "0" + i.toString()) this.splitted[0] = i.toString();
         if (this.splitted[1] == "0" + i.toString()) this.splitted[1] = i.toString();
@@ -231,6 +236,8 @@ export class GbillingsComponent implements OnInit {
         if (this.splitted3[1] == "0" + i.toString()) this.splitted3[1] = i.toString();
         if (this.splitted4[0] == "0" + i.toString()) this.splitted4[0] = i.toString();
         if (this.splitted4[1] == "0" + i.toString()) this.splitted4[1] = i.toString();
+        if (this.splitted5[0] == "0" + i.toString()) this.splitted5[1] = i.toString();
+        if (this.splitted5[1] == "0" + i.toString()) this.splitted5[1] = i.toString();
       }
       this.facForm.patchValue({fechaelaboracion: {
         date: {
@@ -255,6 +262,12 @@ export class GbillingsComponent implements OnInit {
             year: this.splitted4[2],
             month:this.splitted4[1],
             day: this.splitted4[0]}
+      }});
+      this.facForm.patchValue({corte: {
+        date: {
+            year: this.splitted5[2],
+            month:this.splitted5[1],
+            day: this.splitted5[0]}
       }});
       this.facForm.patchValue({ facinicial: this.gbillingEdit.nrofact_ini });
       this.facForm.patchValue({ facfinal: this.gbillingEdit.nrofact_fin });
