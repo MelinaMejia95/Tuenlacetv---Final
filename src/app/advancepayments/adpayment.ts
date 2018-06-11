@@ -7,7 +7,7 @@ export class AdPayments {
     /**
      * @type {string} 
      */
-    codigo: String;
+    entidad_id: String;
 
     /**
      * @type {string} 

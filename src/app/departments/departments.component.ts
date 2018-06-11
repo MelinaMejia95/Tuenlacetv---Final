@@ -151,7 +151,9 @@ export class DepartmentsComponent implements OnInit {
 
   resetForms() {
     this.rForm.reset();
-    this.seeForm.reset();
+    this.seeForm.reset({
+
+    });
   }
 
   selectData(dep){
@@ -291,8 +293,8 @@ export class DepartmentsComponent implements OnInit {
     this.toogleEdit = false;
     for (let i = 0; i < this.countries.length; i++) {
       if ( dep.pais == this.countries[i]['nombre']) {
-        this.countryEdit = this.countries[i]['nombre'];
-        console.log(this.countryEdit)
+        this.seeForm.controls.pais.setValue(this.countries[i])
+        this.countryEdit = this.countries[i];
       }
     }
     jQuery('#modal-see').modal('open');
@@ -371,6 +373,7 @@ export class DepartmentsComponent implements OnInit {
     jQuery('#selectPais').children('option[value="nodisplay"]').css('display','none');
     jQuery('#selectPais').on('change', () => {
       this.country = jQuery('#selectPais').val();
+      console.log(this.country)
     });
   }
 

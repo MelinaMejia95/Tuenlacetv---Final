@@ -1404,7 +1404,7 @@
             <div class="col s12 m6 l3">
               <label for="fechaorden" class="label-color">Fecha orden</label>
               <my-date-picker name="fechaorden" [options]="myDatePickerOptions" (dateChanged)="onDateChangedOrder($event)" class="validate" required 
-              formControlName="fechaorden"></my-date-picker>
+              [(ngModel)]="modelDate" formControlName="fechaorden"></my-date-picker>
             </div>
           </div>
           <div class="row">
@@ -1642,7 +1642,7 @@
           </div>
           <div class="row">
             <!-- Table -->
-            <div class="container-table">
+            <div class="container-table" id="container-payment">
             <table class="striped highlight">
               <thead>
                 <tr class="tr-background">
@@ -1968,56 +1968,58 @@
           <div class="separator-payment z-depth-3"></div>
         </div>
         <div class="row">
-          <!-- Table -->
-          <table class="striped highlight">
-            <thead>
-              <tr class="tr-background">
-                <th>
-                  <label class="label-color"></label>
-                </th>
-                <th>
-                  <label class="label-color">Concepto</label>
-                </th>
-                <th>
-                  <label class="label-color">Descripción</label>
-                </th>
-                <th>
-                  <label class="label-color">Num doc</label>
-                </th>
-                <th>
-                  <label class="label-color">Fecha</label>
-                </th>
-                <th>
-                  <label class="label-color">Vence</label>
-                </th>
-                <th>
-                  <label class="label-color">Valor</label>
-                </th>
-                <th>
-                  <label class="label-color">IVA</label>
-                </th>
-                <th>
-                  <label class="label-color">Saldo</label>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let fac of facts; let j = index" name="rows_fac" class="table-anularfac" (click)="selectRowFac()">
-                <td>
-                  <input name="group5" type="checkbox" class="filled-in" [id]="'radiofac_'+j" (change)="selectFac(fac)"/>
-                  <label [attr.for]="'radiofac_'+j"> </label>
-                </td>
-                <td>{{ fac.concepto }}</td>
-                <td>{{ fac.descripcion }}</td>
-                <td>{{ fac.nrodcto }}</td>
-                <td>{{ fac.fechatrn }}</td>
-                <td>{{ fac.fechaven }}</td>
-                <td>{{ fac.valor }}</td>
-                <td>{{ fac.iva }}</td>
-                <td>{{ fac.saldo }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="container-table" id="container-bills"> 
+            <!-- Table -->
+            <table class="striped highlight">
+              <thead>
+                <tr class="tr-background">
+                  <th>
+                    <label class="label-color"></label>
+                  </th>
+                  <th>
+                    <label class="label-color">Concepto</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Descripción</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Num doc</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Fecha</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Vence</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Valor</label>
+                  </th>
+                  <th>
+                    <label class="label-color">IVA</label>
+                  </th>
+                  <th>
+                    <label class="label-color">Saldo</label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fac of facts; let j = index" name="rows_fac" class="table-anularfac" (click)="selectRowFac()">
+                  <td>
+                    <input name="group5" type="checkbox" class="filled-in" [id]="'radiofac_'+j" (change)="selectFac(fac)"/>
+                    <label [attr.for]="'radiofac_'+j"> </label>
+                  </td>
+                  <td>{{ fac.concepto }}</td>
+                  <td>{{ fac.descripcion }}</td>
+                  <td>{{ fac.nrodcto }}</td>
+                  <td>{{ fac.fechatrn }}</td>
+                  <td>{{ fac.fechaven }}</td>
+                  <td>{{ fac.valor }}</td>
+                  <td>{{ fac.iva }}</td>
+                  <td>{{ fac.saldo }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </form>
     </div>

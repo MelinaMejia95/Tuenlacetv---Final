@@ -176,7 +176,7 @@ export class CompanyComponent implements OnInit {
     console.log(this.rep)
     for (let i = 0; i < this.cities.length; i++) {
       if ( company.ciudad == this.cities[i]['nombre']) {
-        this.cityEdit = this.cities[i]['nombre'];
+        this.cityEdit = this.cities[i];
       }
     }
     for (let i = 0; i < this.people.length; i++) {

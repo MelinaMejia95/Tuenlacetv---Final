@@ -118,7 +118,6 @@
           <div class="col s12 m6 l6">
               <label class="label-color">País <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-country" formControlName="pais" required>
-                <option value="" disabled selected>Seleccione</option>
                 <option [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!rForm.controls['pais'].value && rForm.controls['pais'].touched">{{ titleAlert }}</div>
@@ -170,11 +169,17 @@
               <label for="codigoEdit" class="label-color">Código</label>
               <input placeholder="" disabled id="codigoEdit" type="text" class="validate" [(ngModel)]="depEdit.id" [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="col s12 m6 l6">
+           <!--  <div class="col s12 m6 l6">
               <label class="label-color">País <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city" id="selectPais" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected >{{ countryEdit }}</option>
                 <option [value]="country.id" *ngFor="let country of countries">{{ country.nombre }}</option>
+              </select>
+            </div> -->
+            <div class="col s12 m6 l6">
+              <label class="label-color">País <span class="span-color">*</span></label>
+              <select disabled class="browser-default select-city" id="selectPais" (change)="selectClicked()" formControlName="pais">
+                <option [ngValue]="countryEdit" *ngFor="let countryEdit of countries">{{ countryEdit.nombre }}</option>
               </select>
             </div>
           </div>

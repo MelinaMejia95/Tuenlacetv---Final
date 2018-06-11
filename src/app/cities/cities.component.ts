@@ -308,8 +308,8 @@ export class CitiesComponent implements OnInit {
     this.toogleEdit = false;    
     for (let i = 0; i < this.countries.length; i++) {
       if ( city.pais == this.countries[i]['nombre']) {
-      /*   this.countryEdit = this.countries[i]['nombre']; */
-        this.countryPrueba = this.countries[i];
+        this.countryEdit = this.countries[i]['nombre'];
+        /* this.countryPrueba = this.countries[i]; */
         this.seeForm.controls.pais.setValue(this.countries[i])
       }
     }

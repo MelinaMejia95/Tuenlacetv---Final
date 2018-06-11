@@ -12,7 +12,7 @@ export class Techs {
     /**
      * @type {string} 
      */
-    codsus: String;
+    entidad_id: String;
 
     /**
      * @type {string} 
@@ -22,7 +22,7 @@ export class Techs {
     /**
      * @type {string} 
      */
-    fechain: String;
+    fechatrn: String;
 
     /**
      * @type {string} 

@@ -408,16 +408,10 @@ export class SubscriberComponent implements OnInit {
       this.toogleEdit = false;   
     }});
     if (localStorage.getItem('entidad') != '1') {
-      jQuery('.modal-title').css('height', '12% !important');
-      jQuery('.modal.modal-fixed-footer.modal-content').css('height', '80% !important');
-      jQuery('.modal.modal-fixed-footer').css('height', '58%');
-      jQuery('.modal.modal-content').css('padding-top', '3px');
+      document.querySelector('#modal-see .modal-content').setAttribute('style', 'padding-top: 38px !important');          
     } else {
-      jQuery('.modal-title').css('height', '10% !important');                
-      jQuery('.modal.modal-fixed-footer.modal-content').css('height', 'calc(100% - 89px) !important');
-      jQuery('.modal.modal-fixed-footer').css('height', '70%');
-      jQuery('.modal.modal-content').css('padding-top', '3px');   
-    }
+      document.querySelector('#modal-see .modal-content').setAttribute('style', 'padding-top: 3px !important');                    
+    } 
     jQuery('#mostrar').on('change', () => {
       this._suscriberservice.getEntities(jQuery('#mostrar').val()).subscribe(data => {
         localStorage.setItem('entidad', jQuery('#mostrar').val());
@@ -427,17 +421,23 @@ export class SubscriberComponent implements OnInit {
           }
         }
         if (this.showEntity != 'Suscriptor'){
-          setTimeout(() => {
+        document.querySelector('#modal-see .modal-content').setAttribute('style', 'padding-top: 38px !important');          
+         /*  setTimeout(() => {
             document.getElementById('modal-see').style.height = '58% !important';
-          }, 3000);
-          document.querySelector('#modal-see .modal-title').setAttribute('style', 'height: 12% !important');
-          document.querySelector('#modal-content-see').setAttribute('css', 'max-height: calc(100% - 84px) !important');
-        } else {
-          setTimeout(() => {
-            document.getElementById('modal-see').style.height = '70% !important';
+            document.querySelector('#modal-see').setAttribute('style', 'height: 58% !important');              
           }, 3000);
           document.querySelector('#modal-see .modal-title').setAttribute('style', 'height: 10% !important');
-          document.querySelector('#modal-content-see').setAttribute('style', 'max-height: calc(100% - 89px) !important');
+          document.querySelector('#modal-content-see').setAttribute('css', 'max-height: calc(100% - 84px) !important'); */
+        } else {
+         //jQuery('#modal-see .modal-content').css('padding-top', '3px !important'); 
+         console.log('subs')         
+        document.querySelector('#modal-see .modal-content').setAttribute('style', 'padding-top: 3px !important');                    
+          /* setTimeout(() => {
+            document.getElementById('modal-see').style.height = '70% !important';
+            //document.querySelector('#modal-see').setAttribute('style', 'height: 70% !important');  
+          }, 3000);
+          document.querySelector('#modal-see .modal-title').setAttribute('style', 'height: 10% !important');
+          document.querySelector('#modal-content-see').setAttribute('style', 'max-height: calc(100% - 89px) !important'); */
         }
         this.entity = data.entidades;
       });
@@ -886,6 +886,18 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagos(){
+    if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-payment').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-payment').setAttribute('style', 'overflow-y: hidden');
+      }
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-payment').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-payment').setAttribute('style', 'overflow-y: hidden');
+      }
+    })
     document.querySelector('.principal-container').classList.remove('modal-flow');        
     let auxFac = [];
     let auxCon = [];
@@ -1177,6 +1189,18 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalAnular(){
+    if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-bills').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-bills').setAttribute('style', 'overflow-y: hidden');
+      }
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-bills').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-bills').setAttribute('style', 'overflow-y: hidden');
+      }
+    })
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
       this.telefonos = '';
     } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
@@ -1442,11 +1466,11 @@ export class SubscriberComponent implements OnInit {
       console.log(data)
       this.loading = false;
       if(post.tipolistado == 'listado_consol'){
-        this.excelService.exportAsExcelFile(data.senales, 'Suscriptores', 1);        
+        this.excelService.exportAsExcelFile(data.senales, 'LISTADOENTIDADESTOTAL', 1);        
       } else if (post.tipolistado == 'listado_tv') {
-        this.excelService.exportAsExcelFile(data.senales_tv, 'Suscriptores', 2);
+        this.excelService.exportAsExcelFile(data.senales_tv, 'LISTADOENTIDADESTELEVISION', 2);
       } else if (post.tipolistado == 'listado_int') {
-        this.excelService.exportAsExcelFile(data.senales_int, 'Suscriptores', 3);
+        this.excelService.exportAsExcelFile(data.senales_int, 'LISTADOENTIDADESINTERNET', 3);
       }
     });
     this.printForm.reset();

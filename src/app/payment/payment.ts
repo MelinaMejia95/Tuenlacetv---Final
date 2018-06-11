@@ -32,7 +32,7 @@ export class Payments {
      /**
      * @type {string} 
      */
-    tipodocu: string;
+    documento: string;
 
   
   }

@@ -50,7 +50,7 @@
         </th>
         <th>
           <label for="codsus" class="label-color">Código</label>
-          <input id="codsus" type="text" class="input-custom" [(ngModel)]="filter.codsus">
+          <input id="codsus" type="text" class="input-custom" [(ngModel)]="filter.entidad_id">
         </th>
         <th>
           <label for="nombres" class="label-color">Nombres</label>
@@ -58,7 +58,7 @@
         </th>
         <th>
           <label for="fechain" class="label-color">Fecha inicial</label>
-          <input id="fechain" type="text" class="input-custom" [(ngModel)]="filter.fechain">
+          <input id="fechain" type="text" class="input-custom" [(ngModel)]="filter.fechatrn">
         </th>
         <th>
           <label for="fechaven" class="label-color">Fecha vencimiento</label>
@@ -86,7 +86,7 @@
         <td (click)="openModal(tech)" href="#modal-see">{{ tech.nombres }}</td>
         <td (click)="openModal(tech)" href="#modal-see">{{ tech.fechatrn }}</td>
         <td (click)="openModal(tech)" href="#modal-see">{{ tech.fechaven }}</td>
-        <td (click)="openModal(tech)" href="#modal-see">0</td>
+        <td (click)="openModal(tech)" href="#modal-see">{{ tech.valor }}</td>
         <td (click)="openModal(tech)" href="#modal-see">{{ tech.estado }}</td>
       </tr>
     </tbody>
@@ -361,7 +361,7 @@
           </div>
         </form>
         <div class="row" *ngIf="techDetail == 1 && editDetail == 1">
-          <div class="container-table"> 
+          <div class="container-table" id="container-articles"> 
             <!-- Table -->
             <table class="striped highlight">
               <thead>
@@ -395,8 +395,8 @@
               <tbody>
                 <tr *ngFor="let detail of details; let i = index" name="rows-detail" class="tr-detail" (click)="selectRowDetail()">
                   <td>
-                    <input name="group3" type="checkbox" class="filled-in" [id]="'radio1_'+i" (click)="selectDetail(detail)"/>
-                    <label [attr.for]="'radio1_'+i"> </label>
+                    <input name="group3" type="checkbox" class="filled-in" [id]="'radio1_'+detail.id" (click)="selectDetail(detail)"/>
+                    <label [attr.for]="'radio1_'+detail.id"> </label>
                   </td>
                   <td>{{ detail.grupo }}</td>
                   <td>{{ detail.articulo }}</td>

@@ -21,7 +21,7 @@ export class TechniciansComponent implements OnInit {
   valor: number; porIva: number = 0; valorIva: number = 0; valorSinIva: number = 0; total: number = 0; cantidad: number ; groupAdd: any; articleAdd: any;
   detailEdit: any[] =[]; techsLenght: any; auxArray: any[] = []; techDetail: number; param_corte: string; param_instalacion: string; param_rco: string;
   param_retiro: string; switchAlert: number; response: string; editDetail: number; modelDate: any; disabled: boolean = true; disabled2: boolean = true;
-  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any; contador: number = 0;
+  post: any; detail: any; fechaven: string; model1: any; model2: any; tech: any; contador: number = 0; counter: number = 0;
 
   rForm: FormGroup;  printForm: FormGroup;
   orderForm: FormGroup;
@@ -108,6 +108,18 @@ export class TechniciansComponent implements OnInit {
   }
 
   ngOnInit() {
+/*     if(jQuery( window ).width() <= 600) {
+      document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
+     } else {
+      document.getElementById('container-articles').setAttribute('style', 'overflow-y: hidden');
+     }
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+       document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-articles').setAttribute('style', 'overflow-y: hidden');
+      }
+    }) */
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
      } else {
@@ -115,7 +127,7 @@ export class TechniciansComponent implements OnInit {
      }
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
-       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
+      document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       } else {
        document.getElementById('container-pag').setAttribute('style', 'overflow-y: hidden');
       }
@@ -176,6 +188,8 @@ export class TechniciansComponent implements OnInit {
 
   resetForms() {
     this.printForm.reset();
+    this.counter = 0;
+    this.details = [];
   }
 
   changeEntity(){
@@ -205,6 +219,13 @@ export class TechniciansComponent implements OnInit {
   }
 
   openModal (tech) {
+    jQuery( window ).resize( function () {
+      if(jQuery( window ).width() <= 600) {
+       document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
+      } else {
+       document.getElementById('container-articles').setAttribute('style', 'overflow-y: hidden');
+      }
+    })
     console.log(tech)
     jQuery('.select-edit').prop('disabled', true);    
     if(tech.estado == 'APLICADO' || tech.estado == 'ANULADO'){
@@ -296,11 +317,27 @@ export class TechniciansComponent implements OnInit {
   }
   
   selectDetail(detail) {
-    this.detailEdit = detail;
+    var check = <HTMLInputElement><any>document.getElementsByName('group3');
+    var cantidad = document.getElementsByName('group3');
+    let splitted;
+    this.contador = 0;
+    for(var i = 0; i < cantidad.length; i++){
+      console.log(check[i])
+      if(check[i].checked){
+        splitted = check[i].id.split('_',2);
+        this.contador++;
+      }
+    }
+    for(var j = 0; j < this.details.length; j++) {
+      if(this.contador == 1 && Number(splitted[1]) == this.details[j]['id']){
+        this.detailEdit = this.details[j]
+      }
+    }
+    console.log(this.detailEdit)
   }
 
   editOrder (detail, post) {
-    console.log(post)
+    console.log(this.switchAlert)
     this.post = post;
     if(this.modelDate.date.month == '10' || this.modelDate.date.month == '11' || this.modelDate.date.month == '12') {
       this.fechaven =  this.modelDate.date.day + '/' + this.modelDate.date.month + '/' +this.modelDate.date.year;
@@ -392,6 +429,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   addDetail(post){
+    this.counter++;
     console.log(post.cantidad)
     this.total = Number(post.valor) * Number(post.cantidad)
     for(let i = 0; i < this.groups.length ; i++) {
@@ -406,8 +444,9 @@ export class TechniciansComponent implements OnInit {
         console.log(this.articleAdd)
       }
     }
-    this.details[this.details.length] = {'articulo_id': this.articleAdd, 'cantidad': post.cantidad, 'grupo': this.groupAdd,
+    this.details[this.details.length] = {'id': this.counter, 'articulo_id': this.articleAdd, 'cantidad': post.cantidad, 'grupo': this.groupAdd,
                                         'iva': post.iva, 'porcentajeIva': post.porIva, 'total': Number(this.total), 'valor': post.valor}
+    console.log(this.details)
   }
 
   removeDetail() {
@@ -607,6 +646,14 @@ export class TechniciansComponent implements OnInit {
   }
 
   edit () {
+    setTimeout(() => {
+      if(jQuery( window ).width() <= 600) {
+        document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
+       } else {
+        document.getElementById('container-articles').setAttribute('style', 'overflow-y: hidden');
+       }
+    }, 2000);
+    /*  */
     this.toogleEdit = false;
     jQuery('#select-employee').children('option[value="nodisplay"]').css('display','none');    
     jQuery('.select-edit').prop('disabled', false);
