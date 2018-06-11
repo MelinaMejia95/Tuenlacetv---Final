@@ -28,6 +28,10 @@
     width: 70%;
 }
 
+#modal-crear .modal-content {
+    padding-top: 3px !important;
+}
+
 #modal-see{
     width: 70%
 }
@@ -64,10 +68,14 @@
     width: 62%;
 }
 
-.modal .modal-content {
-    /*padding-top: 3px;*/
-    height: 100%;
+#modal-pagosAnticipados .modal-content, #modal-orden .modal-content{
+    overflow-y: -webkit-paged-x;
 }
+
+/* .modal .modal-content {
+    padding-top: 3px;
+     height: 100%; 
+} */
 
 .check-type {
     margin-top: 1.5em;

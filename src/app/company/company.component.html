@@ -158,7 +158,7 @@
             </select>
             <div class="alert" *ngIf="!rForm.controls['representante'].value && rForm.controls['representante'].touched">{{ titleAlert }}</div>
           </div>
-          <div class="col s12 m12 l8">
+         <!--  <div class="col s12 m12 l8">
             <div class="file-field">
               <div class="btn btn-logo">
                 <span>Logo</span>
@@ -168,9 +168,7 @@
                 <input class="file-path validate" type="text">
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
+          </div> -->
           <div class="col s12 m6 l4">
             <label for="correo" class="label-color">Correo <span class="span-color">*</span></label>
             <input placeholder="" id="correo" type="text" class="validate" formControlName="correo" required>
@@ -186,6 +184,8 @@
             </select>
             <div class="alert" *ngIf="!rForm.controls['regimen'].value && rForm.controls['regimen'].touched">{{ titleAlert }}</div>
           </div>
+        </div>
+        <div class="row">
           <div class="col s12 m6 l4 ">
             <label class="label-color">Contribuyente</label>
             <select class="browser-default select-city" id="select-contr" formControlName="contribuyente">
@@ -194,13 +194,13 @@
               <option value="N">No</option>
             </select>
           </div>
-        </div>
-        <div class="row">
           <div class="col s12 m6 l4">
             <label for="centro" class="label-color">Centro de costo <span class="span-color">*</span></label>
             <input placeholder="" id="centro" type="text" class="validate" formControlName="centrocosto" required>
             <div class="alert" *ngIf="!rForm.controls['centrocosto'].value && rForm.controls['centrocosto'].touched">{{ titleAlert }}</div>
           </div>
+        </div>
+        <div class="row">
         </div>
       </form>
     </div>
@@ -271,7 +271,7 @@
                   <option [value]="pple.id" *ngFor="let pple of people">{{ pple.nombres }}</option>
               </select>
             </div>
-            <div class="col s12 m12 l8">
+           <!--  <div class="col s12 m12 l8">
               <div class="file-field">
                 <div class="btn btn-logo">
                   <span>Logo</span>
@@ -281,9 +281,7 @@
                   <input disabled class="file-path validate" type="text" id="logoEdit">
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
+            </div> -->
             <div class="col s12 m6 l4">
               <label for="correoEdit" class="label-color">Correo <span class="span-color">*</span></label>
               <input disabled placeholder="" id="correoEdit" type="text" class="validate" formControlName="correo-ver" required [(ngModel)]="companyEdit.correo" (click)="inputClicked()">
@@ -298,6 +296,8 @@
                 <option value="C">Común</option>
               </select>
             </div>
+          </div>
+          <div class="row">
             <div class="col s12 m6 l4">
               <label class="label-color">Contribuyente</label>
               <select disabled class="browser-default select-city" id="contribuyenteEdit" (change)="selectClicked()">
@@ -306,13 +306,13 @@
                 <option value="N">No</option>
               </select>
             </div>
-          </div>
-          <div class="row">
             <div class="col s12 m6 l4">
               <label for="centroEdit" class="label-color">Centro de costo <span class="span-color">*</span></label>
               <input disabled placeholder="" id="centroEdit" type="text" class="validate" formControlName="centro-ver" required [(ngModel)]="companyEdit.centrocosto" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['centro-ver'].value && seeForm.controls['centro-ver'].touched">{{ titleAlert }}</div>
             </div>
+          </div>
+          <div class="row">
           </div>
         </div>
       </form>

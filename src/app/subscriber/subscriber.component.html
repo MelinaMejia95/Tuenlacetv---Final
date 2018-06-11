@@ -255,20 +255,20 @@
           </div>
         </form>
         <div class="col s12 m6 l3" *ngIf="tipoUsuario=='1'">
-            <label class="label-color">Ciudad</label>
-            <select disabled class="browser-default select-city" id="ciudad-user">
-              <option value="nodisplay" disabled selected>Seleccione</option>
-              <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
-            </select>
-          </div> 
+          <label class="label-color">Ciudad</label>
+          <select disabled class="browser-default select-city" id="ciudad-user">
+            <option value="nodisplay" disabled selected>Seleccione</option>
+            <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
+          </select>
+        </div> 
+        <div class="col s12 m6 l3">
+          <label for="fechanacimiento" class="label-color">Fecha de nacimiento</label>
+          <my-date-picker name="fechanaccreate" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" required></my-date-picker>
+        </div>
         <div class="col s12 m6 l3">
           <label for="correo" class="label-color">Correo</label>
           <input placeholder="" id="correo" type="text" formControlName="correo">
           <div class="alert" *ngIf="!rForm.controls['correo'].value && rForm.controls['correo'].touched">{{ correoAlert }}</div>
-        </div>
-        <div class="col s12 m6 l3">
-          <label for="fechanacimiento" class="label-color">Fecha de nacimiento</label>
-          <my-date-picker name="fechanaccreate" [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)" required></my-date-picker>
         </div>
       </div>
       <div class="row">
@@ -789,14 +789,14 @@
               </select>
             </div>
             <div class="col s12 m6 l3">
-              <label for="correoEdit" class="label-color">Correo</label>
-              <input disabled placeholder="" id="correoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.correo" formControlName="correo" (click)="inputClicked()">
-              <div class="alert" *ngIf="!seeSubs.controls['correo'].value && seeSubs.controls['correo'].touched">{{ correoAlert }}</div>            
-            </div>
-            <div class="col s12 m6 l3">
               <label for="fechanacimientoEdit" class="label-color">Fecha de nacimiento</label>
               <my-date-picker name="fechanacimientoEdit" [options]="myDatePickerOptions" [disabled]="disabled"
               [selDate]="selDate" formControlName="fechanac" (click)="inputClicked()"></my-date-picker>
+            </div>
+            <div class="col s12 m6 l3">
+              <label for="correoEdit" class="label-color">Correo</label>
+              <input disabled placeholder="" id="correoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.correo" formControlName="correo" (click)="inputClicked()">
+              <div class="alert" *ngIf="!seeSubs.controls['correo'].value && seeSubs.controls['correo'].touched">{{ correoAlert }}</div>            
             </div>
           </div>
           <div class="row">      

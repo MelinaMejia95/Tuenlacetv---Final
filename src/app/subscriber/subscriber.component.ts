@@ -668,7 +668,7 @@ export class SubscriberComponent implements OnInit {
 
   openCreateSubs() {
     jQuery('#modal-crear').modal('open');
-    
+    document.querySelector('#modal-crear .modal-content').setAttribute('style', 'padding-top: 3px !important');                        
   }
 
   onPageChange(number: number) {
@@ -975,7 +975,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalPagosAnticipados(){
-    document.querySelector('.principal-container').classList.add('modal-flow');        
+    //document.querySelector('.principal-container').classList.add('modal-flow');        
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
       this.telefonos = '';
     } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
@@ -1171,6 +1171,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalFactura(){
+    document.querySelector('.principal-container').classList.add('modal-flow');
     this.bothServices = 0;
     this.nameService = 'Valor';
     if (this.subsEdit.tv == '1' && this.subsEdit.internet == '0' ) {    
@@ -1320,6 +1321,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalOrden(){
+    
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
       this.telefonos = '';
     } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {
@@ -1499,7 +1501,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModal (subscriber) {
-    document.querySelector('.principal-container').classList.add('modal-flow');
+    //document.querySelector('.principal-container').classList.add('modal-flow');
     this.toogleEdit = false;
     this.modalSub = 1;
     console.log(subscriber)
