@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
+import { Http, RequestOptions, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AppGlobals } from '../shared/app.global';
 import { Headers } from '@angular/http';
@@ -64,12 +64,12 @@ export class GBillingsService {
     const url = this._global.url + `/facturacion/generar_impresion.pdf`;
     let header = new Headers();
     header.append('Authorization', 'Bearer ' +  localStorage.getItem('auth_token'));
-    let options = new RequestOptions({ headers: header, body: content });
+    let options = new RequestOptions({ headers: header, body: content, responseType: ResponseContentType.Blob });
     return this._http.post(url, content, options).map(response => this.saveToFileSystem(response));
    }
 
    private saveToFileSystem(response) {
-    response.responseType = 'blob';
+    response.responseType = ResponseContentType.Blob;
     const filename = "Facturas";
     const blob = new Blob([response._body], { type: 'application/pdf' });
     saveAs(blob, filename);

@@ -179,7 +179,8 @@
             <div class="col s12 m6 l6">
               <label class="label-color">País <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city" id="selectPais" (change)="selectClicked()" formControlName="pais">
-                <option [ngValue]="countryEdit" *ngFor="let countryEdit of countries">{{ countryEdit.nombre }}</option>
+                <option value="" selected>{{ countryShow }}</option>                
+                <option [value]="countryEdit.id" *ngFor="let countryEdit of countries">{{ countryEdit.nombre }}</option>
               </select>
             </div>
           </div>

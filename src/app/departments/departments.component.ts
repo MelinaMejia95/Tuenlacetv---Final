@@ -20,7 +20,7 @@ export class DepartmentsComponent implements OnInit {
   toogleDelete:boolean = false;
   countries:string; countryEdit: string; nameCountry: string; codCountry: string;
   depEdit:any; country: any; createCountry: any;
-  toogleEdit: boolean = false; toogleCheck: boolean = false;
+  toogleEdit: boolean = false; toogleCheck: boolean = false; countryShow: any;
 
   rForm: FormGroup;
   seeForm: FormGroup;
@@ -152,7 +152,7 @@ export class DepartmentsComponent implements OnInit {
   resetForms() {
     this.rForm.reset();
     this.seeForm.reset({
-
+      pais: ''
     });
   }
 
@@ -293,14 +293,15 @@ export class DepartmentsComponent implements OnInit {
     this.toogleEdit = false;
     for (let i = 0; i < this.countries.length; i++) {
       if ( dep.pais == this.countries[i]['nombre']) {
-        this.seeForm.controls.pais.setValue(this.countries[i])
+        this.seeForm.controls.pais.setValue(this.countries[i]['nombre'])
         this.countryEdit = this.countries[i];
+        this.countryShow = this.countries[i]['nombre'];
       }
     }
     jQuery('#modal-see').modal('open');
     jQuery('input[type=text]').attr({style:' box-shadow: none'});    
     this.depEdit = Object.assign({}, dep);
-    console.log(this.depEdit)
+    console.log(this.countryEdit, this.seeForm.controls.pais)
   }
 
   closeModal () {
