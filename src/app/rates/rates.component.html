@@ -152,7 +152,7 @@
         <div class="row">
           <div class="col s12 m6 l6">
             <label for="val" class="label-color">Valor <span class="span-color">*</span></label>
-            <input placeholder="" id="val" type="text" class="validate" formControlName="valor" required>
+            <input placeholder="" id="val" type="text" class="validate" pattern="^[0-9]+$" formControlName="valor" required>
             <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>            
           </div>
           <div class="col s12 m6 l6">
@@ -236,7 +236,7 @@
         <div class="row" *ngIf="rateEdit">
           <div class="col s12 m6 l6">
             <label for="valorEdit" class="label-color">Valor <span class="span-color">*</span></label>
-            <input disabled placeholder="" id="valorEdit" type="text" class="validate" formControlName="valor-ver" [(ngModel)]="rateEdit.valor" (click)="inputClicked()">
+            <input disabled placeholder="" id="valorEdit" type="text" pattern="^[0-9]+$" class="validate" formControlName="valor-ver" [(ngModel)]="rateEdit.valor" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l6">
             <label class="label-color">Estado <span class="span-color">*</span></label>

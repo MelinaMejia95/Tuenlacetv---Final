@@ -172,47 +172,46 @@
         </div>
         <div class="col s12 m6 l4">
             <label class="label-color">Tipo documento <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="tipodoc" formControlName="tipodoc" required>
-              
+            <select class="browser-default select-city validate" id="tipodoc" formControlName="tipodoc" required>             
               <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!rForm.controls['tipodoc'].value && rForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                          
         </div>
         <div class="col s12 m6 l4">
           <label for="documentopersona" class="label-color">Número de documento <span class="span-color">*</span></label>
-          <input placeholder="" id="documentopersona" type="text" class="validate" formControlName="numdoc" required>
+          <input placeholder="" id="documentopersona" type="text" class="validate" pattern="^[0-9]+$" formControlName="numdoc" required>
           <div class="alert" *ngIf="!rForm.controls['numdoc'].value && rForm.controls['numdoc'].touched">{{ titleAlert }}</div>                        
         </div>
       </div>
       <div class="row">
         <div class="col s12 m6 l3">
           <label for="nombre1Create" class="label-color">Primer nombre <span class="span-color">*</span></label>
-          <input placeholder="" id="nombre1Create" type="text" class="validate" formControlName="nombre1" required>
+          <input placeholder="" id="nombre1Create" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="nombre1" required>
           <div class="alert" *ngIf="!rForm.controls['nombre1'].value && rForm.controls['nombre1'].touched">{{ titleAlert }}</div>                        
         </div>
         <div class="col s12 m6 l3">
           <label for="nombre2" class="label-color">Segundo nombre</label>
-          <input id="nombre2" type="text" class="validate" formControlName="nombre2">
+          <input id="nombre2" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="nombre2">
         </div>
         <div class="col s12 m6 l3">
           <label for="apellido1" class="label-color">Primer apellido <span class="span-color">*</span></label>
-          <input id="apellido1" type="text" class="validate" class="validate" formControlName="apellido1" required>
+          <input id="apellido1" type="text" class="validate" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="apellido1" required>
           <div class="alert" *ngIf="!rForm.controls['apellido1'].value && rForm.controls['apellido1'].touched">{{ titleAlert }}</div>                        
         </div>
         <div class="col s12 m6 l3">
           <label for="apellido2" class="label-color">Segundo apellido</label>
-          <input id="apellido2" type="text" class="validate" formControlName="apellido2"> 
+          <input id="apellido2" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="apellido2"> 
         </div>
       </div>
       <div class="row">
         <div class="col s12 m6 l3">
           <label for="tel1" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-          <input placeholder="" id="tel1" type="text" class="validate" formControlName="tel1" required>
+          <input placeholder="" id="tel1" type="text" class="validate" pattern="^[0-9]+$" formControlName="tel1" required>
           <div class="alert" *ngIf="!rForm.controls['tel1'].value && rForm.controls['tel1'].touched">{{ titleAlert }}</div>                        
         </div>
         <div class="col s12 m6 l3">
           <label for="tel2" class="label-color">Teléfono 2</label>
-          <input placeholder="" id="tel2" type="text" formControlName="tel2">
+          <input placeholder="" id="tel2" type="text" pattern="^[0-9]+$" formControlName="tel2">
         </div>
         <div class="col s12 m6 l3">
           <label for="direccionpersona" class="label-color">Dirección <span class="span-color">*</span></label>
@@ -221,8 +220,7 @@
         </div>
         <div class="col s12 m6 l3">
           <label class="label-color">Barrio <span class="span-color">*</span></label>
-          <select class="browser-default select-city validate" id="barrio" formControlName="barrio" required>
-            
+          <select class="browser-default select-city validate" id="barrio" formControlName="barrio" required>           
             <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
           </select>
           <div class="alert" *ngIf="!rForm.controls['barrio'].value && rForm.controls['barrio'].touched">{{ titleAlert }}</div>                        
@@ -231,8 +229,7 @@
       <div class="row">
         <div class="col s12 m6 l3">
           <label class="label-color">Zona <span class="span-color">*</span></label>
-          <select class="browser-default select-city validate" id="zona" formControlName="zona" required>
-            
+          <select class="browser-default select-city validate" id="zona" formControlName="zona" required>        
             <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
           </select>
           <div class="alert" *ngIf="!rForm.controls['zona'].value && rForm.controls['zona'].touched">{{ titleAlert }}</div>                        
@@ -240,8 +237,7 @@
         <form [formGroup]="cityForm" *ngIf="tipoUsuario!='1'">
           <div class="col s12 m6 l3">
             <label class="label-color">Ciudad <span class="span-color">*</span></label>
-            <select class="browser-default select-city" id="ciudad" formControlName="ciudad" required>
-              
+            <select class="browser-default select-city" id="ciudad" formControlName="ciudad" required>             
               <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!cityForm.controls['ciudad'].value && cityForm.controls['ciudad'].touched">{{ titleAlert }}</div>                        
@@ -249,8 +245,7 @@
         </form>
         <div class="col s12 m6 l3" *ngIf="tipoUsuario=='1'">
           <label class="label-color">Ciudad</label>
-          <select disabled class="browser-default select-city" id="ciudad-user">
-            
+          <select disabled class="browser-default select-city" id="ciudad-user">       
             <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
           </select>
         </div> 
@@ -267,8 +262,7 @@
       <div class="row">
         <div class="col s12 m6 l3">
           <label class="label-color">Tipo persona <span class="span-color">*</span></label>
-          <select class="browser-default select-city validate" id="tipopersona" formControlName="tipopersona" required>
-            
+          <select class="browser-default select-city validate" id="tipopersona" formControlName="tipopersona" required>           
             <option value="N">Natural</option>
             <option value="J">Jurídica</option>
           </select>
@@ -315,7 +309,7 @@
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="numcontrato" class="label-color">Número de contrato</label>
-            <input placeholder="" id="numcontrato" type="text" formControlName="numcontrato">
+            <input placeholder="" id="numcontrato" type="text" pattern="^[0-9]+$" formControlName="numcontrato">
           </div>
           <div class="col s12 m6 l3">
             <label for="dirtv" class="label-color">Dirección <span class="span-color">*</span></label>
@@ -351,13 +345,13 @@
           </div>
           <div class="col s12 m6 l3">
             <label for="tel1tv" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-            <input placeholder="" id="tel1tv" type="text" class="validate" formControlName="tel1" required>
+            <input placeholder="" id="tel1tv" type="text" class="validate" pattern="^[0-9]+$" formControlName="tel1" required>
           </div>
         </div>
         <div class="row"   >
           <div class="col s12 m6 l3">
             <label for="te21tv" class="label-color">Teléfono 2</label>
-            <input placeholder="" id="tel2tv" type="text" formControlName="tel2">
+            <input placeholder="" id="tel2tv" type="text" pattern="^[0-9]+$" formControlName="tel2">
           </div>
           <div class="col s12 m6 l3">
             <label for="contactotv" class="label-color">Contacto</label>
@@ -418,24 +412,21 @@
         <div class="row"  >
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo instalación <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="tipoinstalaciontv" formControlName="tipoinstalacion" required>
-              
+            <select class="browser-default select-city validate" id="tipoinstalaciontv" formControlName="tipoinstalacion" required>             
               <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['tipoinstalacion'].value && servForm.controls['tipoinstalacion'].touched">{{ titleAlert }}</div>                                        
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo tecnología <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="tipotecnologiatv" formControlName="tipotecnologia" required>
-              
+            <select class="browser-default select-city validate" id="tipotecnologiatv" formControlName="tipotecnologia" required>            
               <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['tipotecnologia'].value && servForm.controls['tipotecnologia'].touched">{{ titleAlert }}</div>                                        
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo de servicio <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="tiposerviciotv" formControlName="tiposervicio" required>
-                
+            <select class="browser-default select-city validate" id="tiposerviciotv" formControlName="tiposervicio" required>               
                 <option value="R">Residencial</option>
                 <option value="C">Comercial</option>
             </select>
@@ -454,8 +445,7 @@
         <div class="row ">
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo facturación <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="tipofacturacion" formControlName="tipofacturacion" required>
-              
+            <select class="browser-default select-city validate" id="tipofacturacion" formControlName="tipofacturacion" required>         
               <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['tipofacturacion'].value && servForm.controls['tipofacturacion'].touched">{{ titleAlert }}</div>                                        
@@ -481,11 +471,11 @@
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label for="numtv" class="label-color">Televisores</label>
-                      <input placeholder="" id="numtv" type="text" formControlName="televisores">
+                      <input placeholder="" id="numtv" type="text" pattern="^[0-9]+$" formControlName="televisores">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="numdecotv" class="label-color">Decodificadores</label>
-                      <input placeholder="" id="numdecotv" type="text" formControlName="decos">
+                      <input placeholder="" id="numdecotv" type="text" pattern="^[0-9]+$" formControlName="decos">
                     </div>
                     <div class="col s12 m6 l3">
                         <label class="label-color">Permanencia</label>
@@ -531,7 +521,7 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="precintotv" class="label-color">Precinto</label>
-                      <input placeholder="" id="precintotv" type="text" formControlName="precinto">
+                      <input placeholder="" id="precintotv" type="text" pattern="^[0-9]+$" formControlName="precinto">
                     </div>
                   </div>
                   <div class="row">
@@ -551,11 +541,11 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="valorafiliaciontv" class="label-color">Valor afiliación</label>
-                      <input placeholder="" id="valorafiliaciontv" type="text" formControlName="valorafitv">
+                      <input placeholder="" id="valorafiliaciontv" type="text" pattern="^[0-9]+$" formControlName="valorafitv">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="descuentotv" class="label-color">Valor descuento</label>
-                      <input placeholder="" id="descuentotv" type="text" formControlName="descuento">
+                      <input placeholder="" id="descuentotv" type="text" pattern="^[0-9]+$" formControlName="descuento">
                     </div>
                   </div>
               </div>
@@ -577,19 +567,19 @@
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label for="dirip" class="label-color">Dirección IP</label>
-                      <input placeholder="" id="dirip" type="text" formControlName="dirip">
+                      <input placeholder="" id="dirip" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" formControlName="dirip">
                     </div>
                     <div class="col s12 m6 l3">
                       <label class="label-color">Velocidad <span class="span-color">*</span></label>
-                      <input placeholder="" id="velocidad" type="text" class="validate" formControlName="velocidad" required>
+                      <input placeholder="" id="velocidad" type="text" class="validate" pattern="^[0-9]+$" formControlName="velocidad" required>
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mac1" class="label-color">MAC 1</label>
-                      <input placeholder="" id="mac1" type="text" formControlName="mac1">
+                      <input placeholder="" id="mac1" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" formControlName="mac1">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mac2" class="label-color">MAC 2</label>
-                      <input placeholder="" id="mac2" type="text" formControlName="mac2">
+                      <input placeholder="" id="mac2" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" formControlName="mac2">
                     </div>
                   </div>
                   <div class="row">
@@ -603,21 +593,21 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mascara" class="label-color">Máscara subred</label>
-                      <input placeholder="" id="mascara" type="text" formControlName="mascara">
+                      <input placeholder="" id="mascara" type="text" pattern="^[0-9]+$" formControlName="mascara">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="dns" class="label-color">DNS</label>
-                      <input placeholder="" id="dns" type="text" formControlName="dns">
+                      <input placeholder="" id="dns" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" formControlName="dns">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label for="gateway" class="label-color">Gateway</label>
-                      <input placeholder="" id="gateway" type="text" formControlName="gateway">
+                      <input placeholder="" id="gateway" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" formControlName="gateway">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="nodo" class="label-color">Nodo</label>
-                      <input placeholder="" id="nodo" type="text" formControlName="nodo">
+                      <input placeholder="" id="nodo" type="text" pattern="^[0-9]+$" formControlName="nodo">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="clavewifi" class="label-color">Clave Wi-Fi</label>
@@ -648,11 +638,11 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="valorinternet" class="label-color">Valor afiliación</label>
-                      <input placeholder="" id="valorinternet" type="text" formControlName="valorafiint">
+                      <input placeholder="" id="valorinternet" type="text" pattern="^[0-9]+$" formControlName="valorafiint">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="descuentointernet" class="label-color">Valor descuento</label>
-                      <input placeholder="" id="descuentointernet" type="text" formControlName="descuento">
+                      <input placeholder="" id="descuentointernet" type="text" pattern="^[0-9]+$" formControlName="descuento">
                     </div>
                   </div>
               </div>
@@ -704,39 +694,39 @@
             </div>
             <div class="col s12 m6 l4">
               <label for="documentopersonaEdit" class="label-color">Número de documento <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="documentopersonaEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.documento" formControlName="numdoc" (click)="inputClicked()">
+              <input disabled placeholder="" id="documentopersonaEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.documento" formControlName="numdoc" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['numdoc'].value && seeSubs.controls['numdoc'].touched">{{ titleAlert }}</div>                        
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="nombre1Edit" class="label-color">Primer nombre <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="nombre1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nombre1" formControlName="nombre1" (click)="inputClicked()">
+              <input disabled placeholder="" id="nombre1Edit" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate select-disabled" [(ngModel)]="subsEdit.nombre1" formControlName="nombre1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['nombre1'].value && seeSubs.controls['nombre1'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label for="nombre2Edit" class="label-color">Segundo nombre</label>
-              <input disabled id="nombre2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.nombre2" formControlName="nombre2" (click)="inputClicked()">
+              <input disabled id="nombre2Edit" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate select-disabled" [(ngModel)]="subsEdit.nombre2" formControlName="nombre2" (click)="inputClicked()">
             </div>
             <div class="col s12 m6 l3">
               <label for="apellido1Edit" class="label-color">Primer apellido <span class="span-color">*</span></label>
-              <input disabled id="apellido1Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido1" formControlName="apellido1" (click)="inputClicked()">
+              <input disabled id="apellido1Edit" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate select-disabled" [(ngModel)]="subsEdit.apellido1" formControlName="apellido1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['apellido1'].value && seeSubs.controls['apellido1'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label for="apellido2Edit" class="label-color">Segundo apellido</label>
-              <input disabled id="apellido2Edit" type="text" class="validate" class="validate select-disabled" [(ngModel)]="subsEdit.apellido2" formControlName="apellido2" (click)="inputClicked()">
+              <input disabled id="apellido2Edit" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate select-disabled" [(ngModel)]="subsEdit.apellido2" formControlName="apellido2" (click)="inputClicked()">
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="tel1Edit" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="tel1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1P" formControlName="tel1" (click)="inputClicked()">
+              <input disabled placeholder="" id="tel1Edit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1P" formControlName="tel1" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeSubs.controls['tel1'].value && seeSubs.controls['tel1'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l3">
               <label for="tel2Edit" class="label-color">Teléfono 2</label>
-              <input disabled placeholder="" id="tel2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2P" formControlName="tel2" (click)="inputClicked()">
+              <input disabled placeholder="" id="tel2Edit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2P" formControlName="tel2" (click)="inputClicked()">
             </div>
             <div class="col s12 m6 l3">
               <label for="direccionpersonaEdit" class="label-color">Dirección <span class="span-color">*</span></label>
@@ -831,7 +821,7 @@
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="numcontratoEdit" class="label-color">Número de contrato</label>
-            <input disabled placeholder="" id="numcontratoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.contrato" formControlName="numcontrato" (click)="inputClicked()">
+            <input disabled placeholder="" id="numcontratoEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.contrato" formControlName="numcontrato" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label for="dirtvEdit" class="label-color">Dirección <span class="span-color">*</span></label>
@@ -869,14 +859,14 @@
           </div>
           <div class="col s12 m6 l3">
             <label for="tel1tvEdit" class="label-color">Teléfono 1 <span class="span-color">*</span></label>
-            <input disabled placeholder="" id="tel1tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1" formControlName="tel1" (click)="inputClicked()">
+            <input disabled placeholder="" id="tel1tvEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.telefono1" formControlName="tel1" (click)="inputClicked()">
             <div class="alert" *ngIf="!seeServ.controls['tel1'].value && seeServ.controls['tel1'].touched">{{ titleAlert }}</div>                                                  
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l3">
             <label for="te21tvEdit" class="label-color">Teléfono 2</label>
-            <input disabled placeholder="" id="tel2tvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2" formControlName="tel2" (click)="inputClicked()">
+            <input disabled placeholder="" id="tel2tvEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.telefono2" formControlName="tel2" (click)="inputClicked()">
           </div>
           <div class="col s12 m6 l3">
             <label for="contactotvEdit" class="label-color">Contacto</label>
@@ -998,11 +988,11 @@
                       <div class="row">
                         <div class="col s12 m6 l4">
                           <label for="numtvEdit" class="label-color">Televisores</label>
-                          <input disabled placeholder="" id="numtvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.televisores" formControlName="televisores" (click)="inputClicked()">
+                          <input disabled placeholder="" id="numtvEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.televisores" formControlName="televisores" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label for="numdecotvEdit" class="label-color">Decodificadores</label>
-                          <input disabled placeholder="" id="numdecotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.decos" formControlName="decos" (click)="inputClicked()">
+                          <input disabled placeholder="" id="numdecotvEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.decos" formControlName="decos" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label class="label-color">Permanencia</label>
@@ -1048,7 +1038,7 @@
                         </div>
                         <div class="col s12 m6 l4">
                           <label for="precintotvEdit" class="label-color">Precinto</label>
-                          <input disabled placeholder="" id="precintotvEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.precinto" formControlName="precinto" (click)="inputClicked()">
+                          <input disabled placeholder="" id="precintotvEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.precinto" formControlName="precinto" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label class="label-color">Planes <span class="span-color">*</span></label>
@@ -1066,11 +1056,11 @@
                         </div>      
                         <div class="col s12 m6 l4">
                           <label for="estadotvEdit" class="label-color">Estado</label>
-                          <input disabled placeholder="" id="estadotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">
+                          <input disabled placeholder="" id="estadotvEdit" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate not-disabled" [(ngModel)]="subsEdit.estado_tv" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">
                         </div>
                         <div class="col s12 m6 l4">
                           <label for="saldotvEdit" class="label-color">Saldo</label>
-                          <input disabled placeholder="" id="saldotvEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">
+                          <input disabled placeholder="" id="saldotvEdit" type="text" pattern="^[0-9]+$" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_tv" [ngModelOptions]="{standalone: true}" (click)="inputClicked()">
                         </div>
                       </div>
                   </div>
@@ -1094,20 +1084,20 @@
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label for="diripEdit" class="label-color">Dirección IP</label>
-                      <input disabled placeholder="" id="diripEdit" type="text" class="validate select-disabled int-disabled" [(ngModel)]="subsEdit.direccionip" formControlName="dirip" (click)="inputClicked()">
+                      <input disabled placeholder="" id="diripEdit" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" class="validate select-disabled int-disabled" [(ngModel)]="subsEdit.direccionip" formControlName="dirip" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="velocidadEdit" class="label-color">Velocidad <span class="span-color">*</span></label>
-                      <input disabled placeholder="" id="velocidadEdit" type="text" class="validate select-disabled " [(ngModel)]="subsEdit.velocidad" formControlName="velocidad" (click)="inputClicked()">
+                      <input disabled placeholder="" id="velocidadEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled " [(ngModel)]="subsEdit.velocidad" formControlName="velocidad" (click)="inputClicked()">
                       <div class="alert" *ngIf="!seeInt.controls['velocidad'].value && seeInt.controls['velocidad'].touched">{{ titleAlert }}</div>                                                              
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mac1Edit" class="label-color">MAC 1</label>
-                      <input disabled placeholder="" id="mac1Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac1" formControlName="mac1" (click)="inputClicked()">
+                      <input disabled placeholder="" id="mac1Edit" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" class="validate select-disabled" [(ngModel)]="subsEdit.mac1" formControlName="mac1" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mac2Edit" class="label-color">MAC 2</label>
-                      <input disabled placeholder="" id="mac2Edit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mac2" formControlName="mac2" (click)="inputClicked()">
+                      <input disabled placeholder="" id="mac2Edit" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" class="validate select-disabled" [(ngModel)]="subsEdit.mac2" formControlName="mac2" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="modemEdit" class="label-color">Serial módem</label>
@@ -1119,19 +1109,19 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="mascaraEdit" class="label-color">Máscara subred</label>
-                      <input disabled placeholder="" id="mascaraEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.mascarasub"  formControlName="mascara" (click)="inputClicked()">
+                      <input disabled placeholder="" id="mascaraEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.mascarasub"  formControlName="mascara" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="dnsEdit" class="label-color">DNS</label>
-                      <input disabled placeholder="" id="dnsEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.dns"  formControlName="dns" (click)="inputClicked()">
+                      <input disabled placeholder="" id="dnsEdit" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" class="validate select-disabled" [(ngModel)]="subsEdit.dns"  formControlName="dns" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="gatewayEdit" class="label-color">Gateway</label>
-                      <input disabled placeholder="" id="gatewayEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.gateway"  formControlName="gateway" (click)="inputClicked()">
+                      <input disabled placeholder="" id="gatewayEdit" type="text" pattern="^[0-9]{1,3}([.][0-9]{1,3})+$" class="validate select-disabled" [(ngModel)]="subsEdit.gateway"  formControlName="gateway" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="nodoEdit" class="label-color">Nodo</label>
-                      <input disabled placeholder="" id="nodoEdit" type="text" class="validate select-disabled" [(ngModel)]="subsEdit.nodo"  formControlName="nodo" (click)="inputClicked()">
+                      <input disabled placeholder="" id="nodoEdit" type="text" pattern="^[0-9]+$" class="validate select-disabled" [(ngModel)]="subsEdit.nodo"  formControlName="nodo" (click)="inputClicked()">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="clavewifiEdit" class="label-color">Clave Wi-Fi</label>
@@ -1161,11 +1151,11 @@
                     </div>      
                     <div class="col s12 m6 l3">
                       <label for="estadointEdit" class="label-color">Estado</label>
-                      <input disabled placeholder="" id="estadointEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
+                      <input disabled placeholder="" id="estadointEdit" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate not-disabled" [(ngModel)]="subsEdit.estado_int" [ngModelOptions]="{standalone: true}">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="saldointEdit" class="label-color">Saldo</label>
-                      <input disabled placeholder="" id="saldoEdit" type="text" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
+                      <input disabled placeholder="" id="saldoEdit" type="text" pattern="^[0-9]+$" class="validate not-disabled" [(ngModel)]="subsEdit.saldo_int" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
                 </div>
@@ -1241,13 +1231,13 @@
           </div>
           <div class="col s12 m5 l3">
             <label for="valorfac" class="label-color">{{ nameService }} <span class="span-color">*</span></label>
-            <input placeholder="" id="valorfac" type="text" class="validate" formControlName="valor" (click)="inputClicked()">
+            <input placeholder="" id="valorfac" type="text" class="validate" pattern="^[0-9]+$"  formControlName="valor" (click)="inputClicked()">
             <div class="alert" *ngIf="!facForm.controls['valor'].value && facForm.controls['valor'].touched">{{ titleAlert }}</div>                                        
           </div>
           <form [formGroup]="valueForm" *ngIf="bothServices == 1">
             <div class="col s12 m5 l3">
               <label for="valorfac2" class="label-color">Valor Internet <span class="span-color">*</span></label>
-              <input placeholder="" id="valorfac2" type="text" class="validate" formControlName="valor2" (click)="inputClicked()">
+              <input placeholder="" id="valorfac2" type="text" class="validate" pattern="^[0-9]+$" formControlName="valor2" (click)="inputClicked()">
               <div class="alert" *ngIf="!valueForm.controls['valor2'].value && valueForm.controls['valor2'].touched">{{ titleAlert }}</div>                                        
             </div>
           </form>
@@ -1413,7 +1403,7 @@
             </div>
             <div class="col s12 m6 l5">
               <label for="solicitado" class="label-color">Solicitado por</label>
-              <input placeholder="" id="solicitado" type="text" formControlName="solicitado"> 
+              <input placeholder="" id="solicitado" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="solicitado"> 
             </div>
             <div class="col s12 m6 l2" *ngIf="decos == 1">
               <label for="decodificadores" class="label-color">Decodificadores</label>
@@ -1567,12 +1557,12 @@
           <div class="row">
             <div class="col s12 m4 l2" *ngIf="total">
               <label for="pagado" class="label-color">Total pagado <span class="span-color">*</span></label>
-              <input placeholder="" id="pagado" type="text" class="validate" formControlName="totalpagado" required [(ngModel)]="total.valor" (ngModelChange)="changeData()">
+              <input placeholder="" id="pagado" type="text" class="validate" pattern="^[0-9]+$" formControlName="totalpagado" required [(ngModel)]="total.valor" (ngModelChange)="changeData()">
               <div class="alert" *ngIf="!payForm.controls['totalpagado'].value && payForm.controls['totalpagado'].touched">{{ titleAlert }}</div>                                                  
             </div>
             <div class="col s12 m4 l2">
               <label for="descuento" class="label-color">Descuento</label>
-              <input placeholder="" id="descuento" type="text" formControlName="descuentopago" [(ngModel)]="descuento" (ngModelChange)="changeData()">
+              <input placeholder="" id="descuento" type="text" pattern="^[0-9]+$" formControlName="descuentopago" [(ngModel)]="descuento" (ngModelChange)="changeData()">
             </div>
             <div class="col s12 m4 l2">
               <label for="totalapli" class="label-color">Total por aplicar</label>
@@ -1779,16 +1769,14 @@
           <div class="row">
             <div class="col s12 m6 l3">
               <label class="label-color">Servicio <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-serv-orden" formControlName="servicio" required>
-                
+              <select class="browser-default select-city validate" id="select-serv-orden" formControlName="servicio" required>         
                 <option [value]="serv.id" *ngFor="let serv of servicesPay">{{ serv.abreviatura }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['servicio'].value && adPayForm.controls['servicio'].touched">{{ titleAlert }}</div>                                      
             </div>
             <div class="col s12 m6 l3">
               <label class="label-color">Tipo documento <span class="span-color">*</span></label>
-              <select class="browser-default select-city validate" id="select-doc-orden-pay" formControlName="tipodoc" required>
-                
+              <select class="browser-default select-city validate" id="select-doc-orden-pay" formControlName="tipodoc" required>   
                 <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['tipodoc'].value && adPayForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                                      
@@ -1805,12 +1793,12 @@
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="pagadoEdit" class="label-color">Total pagado <span class="span-color">*</span></label>
-              <input placeholder="" id="pagadoEdit" type="text" class="validate" formControlName="totalpagado" required>
+              <input placeholder="" id="pagadoEdit" type="text" class="validate" pattern="^[0-9]+$" formControlName="totalpagado" required>
               <div class="alert" *ngIf="!adPayForm.controls['totalpagado'].value && adPayForm.controls['totalpagado'].touched">{{ titleAlert }}</div>                                                  
             </div>
             <div class="col s12 m6 l3">
               <label for="descuentopago" class="label-color">Descuento</label>
-              <input placeholder="" id="descuentopago" type="text" formControlName="descuentopago" [(ngModel)]="adDescuento">
+              <input placeholder="" id="descuentopago" type="text" pattern="^[0-9]+$" formControlName="descuentopago" [(ngModel)]="adDescuento">
             </div>
             <div class="col s12 m6 l6">
               <label for="obserpagoEdit" class="label-color">Observaciones <span class="span-color">*</span></label>

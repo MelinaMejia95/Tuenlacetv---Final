@@ -1333,7 +1333,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalOrden(){
-    
+    document.querySelector('.principal-container').classList.remove('modal-flow');        
     if (this.subsEdit.telefono1P == null && this.subsEdit.telefono2P == null) {
       this.telefonos = '';
     } else if (this.subsEdit.telefono1P != null && this.subsEdit.telefono2P == null) {

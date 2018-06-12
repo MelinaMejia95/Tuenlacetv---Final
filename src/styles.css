@@ -394,6 +394,18 @@ input[type=text]:not(.browser-default){
     box-sizing: border-box;
 }
 
+input[type=number]:not(.browser-default){
+    height: 2em;
+    font-size: 0.8em;
+    border: 1px solid;
+    border-radius: 0.5em;
+    background-color: white;
+    border-color: #478fbc;
+    margin: 0px 0 7px 0 !important;
+    padding-left: 3px;
+    box-sizing: border-box;
+}
+
 my-date-picker .selectiongroup {
     height: 1.6rem;
     font-size: 0.8em;
@@ -415,6 +427,12 @@ my-date-picker .selectiongroup {
 }
 
 input[type=text]:not(.browser-default):disabled{
+    background-color: #f5f2f0 !important;
+    border-color: rgb(95, 90, 90) !important;
+    margin: 0px 0 7px 0 !important;
+}
+
+input[type=number]:not(.browser-default):disabled{
     background-color: #f5f2f0 !important;
     border-color: rgb(95, 90, 90) !important;
     margin: 0px 0 7px 0 !important;

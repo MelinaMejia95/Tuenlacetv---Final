@@ -128,16 +128,16 @@
         <div class="row">
             <div class="col s12 m12 l4">
               <label for="nom" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" id="nom" type="text" class="validate" formControlName="nombre" required>
+              <input placeholder="" id="nom" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="nombre" required>
               <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="codigoDane" class="label-color">Código Dane</label>
-              <input placeholder="" id="codigoDane" type="text" formControlName="coddane">
+              <input placeholder="" id="codigoDane" type="text" pattern="^[0-9]+$" formControlName="coddane">
             </div>
             <div class="col s12 m6 l4">
               <label for="codalterno" class="label-color">Código Alterno</label>
-              <input placeholder="" id="codalterno" type="text" formControlName="codalt">
+              <input placeholder="" id="codalterno" type="text" pattern="^[0-9]+$" formControlName="codalt">
             </div>
         </div>
       </form>
@@ -205,16 +205,16 @@
           <div class="row">
             <div class="col s12 m12 l4">
               <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" (click)="inputClicked()" formControlName="nombre-ver" [(ngModel)]="citiesEdit.nombre">
+              <input placeholder="" disabled id="nombreEdit" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate" (click)="inputClicked()" formControlName="nombre-ver" [(ngModel)]="citiesEdit.nombre">
               <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="coddaneEdit" class="label-color">Código Dane</label>
-              <input placeholder="" disabled id="coddaneEdit" type="text" class="validate" (click)="inputClicked()" [(ngModel)]="citiesEdit.codigoDane" formControlName="coddane">
+              <input placeholder="" disabled id="coddaneEdit" type="text" pattern="^[0-9]+$" class="validate" (click)="inputClicked()" [(ngModel)]="citiesEdit.codigoDane" formControlName="coddane">
             </div>
             <div class="col s12 m6 l4">
               <label for="codalternoEdit" class="label-color">Código Alterno</label>
-              <input placeholder="" disabled id="codalternoEdit" type="text" class="validate" (click)="inputClicked()" [(ngModel)]="citiesEdit.codigoAlterno" formControlName="codalt">
+              <input placeholder="" disabled id="codalternoEdit" type="text" pattern="^[0-9]+$" class="validate" (click)="inputClicked()" [(ngModel)]="citiesEdit.codigoAlterno" formControlName="codalt">
             </div>
           </div>
         </div>

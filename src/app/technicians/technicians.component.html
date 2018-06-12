@@ -293,7 +293,7 @@
             </div>
             <div class="col s12 m6 l4">
               <label for="solicitado" class="label-color">Solicitado por</label>
-              <input disabled placeholder="" class="select-edit" id="solicitado" type="text" formControlName="solicitado" [(ngModel)]="techEdit.solicita">
+              <input disabled placeholder="" class="select-edit" id="solicitado" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" type="text" formControlName="solicitado" [(ngModel)]="techEdit.solicita">
             </div>
           </div>
           <div class="row">
@@ -334,17 +334,17 @@
             </div>
             <div class="col s12 m4 l2">
               <label for="valor" class="label-color">Valor</label>
-              <input placeholder="" id="valor" type="text" class="validate" formControlName="valor" [(ngModel)]="valor" (ngModelChange)="changeData()">
+              <input placeholder="" id="valor" type="text" class="validate" pattern="^[0-9]+$" formControlName="valor" [(ngModel)]="valor" (ngModelChange)="changeData()">
               <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>                                                  
             </div>
             <div class="col s12 m4 l1">
               <label for="cantidad" class="label-color">Cantidad</label>
-              <input placeholder="" id="cantidad" type="text" class="validate" [(ngModel)]="cantidad" formControlName="cantidad" (click)="disableButton()">
+              <input placeholder="" id="cantidad" type="text" class="validate" pattern="^[0-9]+$" [(ngModel)]="cantidad" formControlName="cantidad" (click)="disableButton()">
               <div class="alert" *ngIf="!rForm.controls['cantidad'].value && rForm.controls['cantidad'].touched">{{ titleAlert }}</div>                                                    
             </div>
             <div class="col s12 m4 l1">
               <label for="iva" class="label-color">%IVA</label>
-              <input placeholder="" id="iva" type="text" class="validate" formControlName="porIva" [(ngModel)]="porIva" (ngModelChange)="changeData()" >
+              <input placeholder="" id="iva" type="text" class="validate" pattern="^[0-9]+$" formControlName="porIva" [(ngModel)]="porIva" (ngModelChange)="changeData()" >
               <div class="alert" *ngIf="!rForm.controls['porIva'].value && rForm.controls['porIva'].touched">{{ titleAlert }}</div>                                                 
             </div>
             <div class="col s12 m4 l2">

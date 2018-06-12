@@ -124,7 +124,7 @@
           </div>
           <div class="col s12 m6 l6">
             <label for="nombre" class="label-color">Nombre <span class="span-color">*</span></label>
-            <input placeholder=" " id="nombre" type="text" class="validate" formControlName="nombre" required>
+            <input placeholder=" " id="nombre" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="nombre" required>
             <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
           </div>
         </div>
@@ -172,7 +172,7 @@
             </div>
             <div class="col s12 m6 l6">
               <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" formControlName="nombre-ver" [(ngModel)]="zoneEdit.nombre" (click)="inputClicked()">
+              <input placeholder="" disabled id="nombreEdit" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate" formControlName="nombre-ver" [(ngModel)]="zoneEdit.nombre" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>            
             </div>
           </div>

@@ -126,12 +126,12 @@
         <div class="row">
           <div class="col s12 m6 l6">
               <label for="nombreCreate" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" id="nombreCreate" type="text" class="validate" formControlName="nombre" required>
+              <input placeholder="" id="nombreCreate" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate" formControlName="nombre" required>
               <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
           </div>
           <div class="col s12 m6 l6">
               <label for="codigopais" class="label-color">Código país</label>
-              <input placeholder="" id="codigopais" type="text" formControlName="codpais">
+              <input placeholder="" id="codigopais" type="text" pattern="^[0-9]+$" formControlName="codpais">
           </div>
         </div>
       </form>
@@ -139,7 +139,7 @@
   </div>
   <div class="modal-footer">
     <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!rForm.valid" (click)="createDep(rForm.value)">Aceptar</button>
-    <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
+    <button class="modal-action modal-close waves-effect waves-green btn-flat" (click)="resetForms()">Cancelar</button>
   </div>
 </div>
   
@@ -187,12 +187,12 @@
           <div class="row">
             <div class="col s12 m6 l6">
               <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" disabled id="nombreEdit" type="text" class="validate" (click)="inputClicked()" formControlName="nombre-ver" [(ngModel)]="depEdit.nombre">
+              <input placeholder="" disabled id="nombreEdit" type="text" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" class="validate" (click)="inputClicked()" formControlName="nombre-ver" [(ngModel)]="depEdit.nombre">
               <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l6">
               <label for="codpaisEdit" class="label-color">Código País</label>
-              <input placeholder="" disabled id="codpaisEdit" type="text" class="validate" (click)="inputClicked()" [(ngModel)]="depEdit.codigo" formControlName="codpais" >
+              <input placeholder="" disabled id="codpaisEdit" type="text" pattern="^[0-9]+$" class="validate" (click)="inputClicked()" [(ngModel)]="depEdit.codigo" formControlName="codpais" >
             </div>
           </div>
         </div>

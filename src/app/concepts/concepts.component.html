@@ -135,29 +135,29 @@
             </div>
             <div class="col s12 m6 l4">
               <label for="cod" class="label-color">Código <span class="span-color">*</span></label>
-              <input placeholder="" id="cod" type="text" class="validate" formControlName="codigo" required>
+              <input placeholder="" id="cod" type="text" class="validate" pattern="^[0-9]+$" formControlName="codigo" required>
               <div class="alert" *ngIf="!rForm.controls['codigo'].value && rForm.controls['codigo'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="nombre" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input placeholder="" id="nombre" type="text" class="validate" formControlName="nombre" required>
+              <input placeholder="" id="nombre" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="nombre" required>
               <div class="alert" *ngIf="!rForm.controls['nombre'].value && rForm.controls['nombre'].touched">{{ titleAlert }}</div>
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l4">
               <label for="nombre" class="label-color">Abreviatura <span class="span-color">*</span></label>
-              <input placeholder="" id="abreviatura" type="text" class="validate" formControlName="abreviatura" required>
+              <input placeholder="" id="abreviatura" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="abreviatura" required>
               <div class="alert" *ngIf="!rForm.controls['abreviatura'].value && rForm.controls['abreviatura'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="iva" class="label-color">Porcentaje IVA <span class="span-color">*</span></label>
-              <input placeholder="" id="iva" type="text" class="validate" formControlName="iva" required>
+              <input placeholder="" id="iva" type="text" class="validate" pattern="^[0-9]+$" formControlName="iva" required>
               <div class="alert" *ngIf="!rForm.controls['iva'].value && rForm.controls['iva'].touched">{{ titleAlert }}</div>
             </div>
             <div class="col s12 m6 l4">
               <label for="operacion" class="label-color">Operación <span class="span-color">*</span></label>
-              <input placeholder="" id="operacion" type="text" class="validate" formControlName="operacion" required>
+              <input placeholder="" id="operacion" type="text" class="validate" pattern="^[+-]{1}" formControlName="operacion" required>
               <div class="alert" *ngIf="!rForm.controls['operacion'].value && rForm.controls['operacion'].touched">{{ titleAlert }}</div>
             </div>
         </div>
@@ -200,29 +200,29 @@
             </div>
             <div class="col s12 m6 l4">
               <label for="codigoEdit" class="label-color">Código <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="codigoEdit" type="text" class="validate" formControlName="codigo-ver" [(ngModel)]="conceptEdit.codigo" (click)="inputClicked()">
+              <input disabled placeholder="" id="codigoEdit" type="text" class="validate" pattern="^[0-9]+$" formControlName="codigo-ver" [(ngModel)]="conceptEdit.codigo" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['codigo-ver'].value && seeForm.controls['codigo-ver'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l4">
               <label for="nombreEdit" class="label-color">Nombre <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="nombreEdit" type="text" class="validate" formControlName="nombre-ver"[(ngModel)]="conceptEdit.nombre" (click)="inputClicked()">
+              <input disabled placeholder="" id="nombreEdit" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="nombre-ver"[(ngModel)]="conceptEdit.nombre" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['nombre-ver'].value && seeForm.controls['nombre-ver'].touched">{{ titleAlert }}</div>                        
             </div>
           </div>
           <div class="row" *ngIf="conceptEdit">
             <div class="col s12 m6 l4">
               <label for="nombreEdit" class="label-color">Abreviatura <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="abreviaturaEdit" type="text" class="validate" formControlName="abreviatura-ver" [(ngModel)]="conceptEdit.abreviatura" (click)="inputClicked()">
+              <input disabled placeholder="" id="abreviaturaEdit" type="text" class="validate" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" formControlName="abreviatura-ver" [(ngModel)]="conceptEdit.abreviatura" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['abreviatura-ver'].value && seeForm.controls['abreviatura-ver'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l4">
               <label for="ivaEdit" class="label-color">Porcentaje IVA <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="ivaEdit" type="text" class="validate" formControlName="iva-ver" [(ngModel)]="conceptEdit.porcentajeIva" (click)="inputClicked()">
+              <input disabled placeholder="" id="ivaEdit" type="text" class="validate" pattern="^[0-9]+$" formControlName="iva-ver" [(ngModel)]="conceptEdit.porcentajeIva" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['iva-ver'].value && seeForm.controls['iva-ver'].touched">{{ titleAlert }}</div>                        
             </div>
             <div class="col s12 m6 l4">
               <label for="operacionEdit" class="label-color">Operación <span class="span-color">*</span></label>
-              <input disabled placeholder="" id="operacionEdit" type="text" class="validate" formControlName="operacion-ver" [(ngModel)]="conceptEdit.operacion" (click)="inputClicked()">
+              <input disabled placeholder="" id="operacionEdit" type="text" class="validate" pattern="^[+-]{1}" formControlName="operacion-ver" [(ngModel)]="conceptEdit.operacion" (click)="inputClicked()">
               <div class="alert" *ngIf="!seeForm.controls['operacion-ver'].value && seeForm.controls['operacion-ver'].touched">{{ titleAlert }}</div>                        
             </div>
 
