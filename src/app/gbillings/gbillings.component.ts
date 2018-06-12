@@ -127,6 +127,7 @@ export class GbillingsComponent implements OnInit {
       }
     })
     jQuery('.dropdown-button').dropdown();
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-imprimir').modal();    
     jQuery('#modal-factura').modal();    
   }

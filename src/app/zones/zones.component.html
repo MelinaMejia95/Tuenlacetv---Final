@@ -25,9 +25,9 @@
         </select>
       </div>
     </div>
-    <div class="col s2 m6 l6 right-align">
+    <!-- <div class="col s2 m6 l6 right-align">
       <a class='btn-floating btn button-options' href='#' data-activates='dropdown1'><i class="material-icons">local_printshop</i></a>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -118,7 +118,6 @@
           <div class="col s12 m6 l6">
             <label class="label-color">Ciudad <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="select-cities" formControlName="ciudad" required>
-              <option value="" disabled selected>Seleccione</option>
               <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!rForm.controls['ciudad'].value && rForm.controls['ciudad'].touched">{{ titleAlert }}</div>
@@ -149,9 +148,9 @@
         <a class="btn-floating btn-large btn-print" (click)="edit()" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">edit</i>
         </a>
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
+        <!-- <a class="btn-floating btn-large btn-print" id="btn-modal">
             <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
+        </a> -->
       </div>
     </div>
   </div>

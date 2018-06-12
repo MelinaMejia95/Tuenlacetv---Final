@@ -124,6 +124,7 @@ export class RatesComponent implements OnInit {
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
     jQuery('select').material_select();
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery('#codigoEdit').prop('disabled',true);

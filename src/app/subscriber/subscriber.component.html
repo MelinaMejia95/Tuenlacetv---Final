@@ -40,7 +40,7 @@
     </div>
     <div class="col s2 m4 l6 right-align">
       <a class='btn-floating dropdown-button btn button-options' href='#' data-activates='dropdown1' id="btn-options"><i class="material-icons">more_vert</i></a>
-      <a class='btn-floating dropdown-button btn button-options modal-trigger' id="btn-print" href="#modal-imprimir"><i class="material-icons">local_printshop</i></a>
+      <a class='btn-floating dropdown-button btn button-options' id="btn-print" (click)="openModalImprimir()"><i class="material-icons">local_printshop</i></a>
       <!-- Dropdown Structure --> 
       <ul id='dropdown1' class='dropdown-content dropdown-options'>
         <li><a (click)="openModalPagos()">Pagos</a></li>
@@ -137,7 +137,7 @@
   <ul class="ul-button">
     <li><a class="btn-floating btn-eliminar red" (click)="deleteSubs()" id="btn-footer-delete">Eliminar</a></li>
     <!--<li><a class="btn-floating btn-señal">Adicionar Señal</a></li>-->
-    <li class="li-button"><a class="btn-floating btn-crear modal-trigger" (click)="validation()" >Crear</a></li>
+    <li class="li-button"><a class="btn-floating btn-crear" (click)="validation()">Crear</a></li>
   </ul>
 </div>
 
@@ -147,11 +147,6 @@
     <div class="row">
       <div class="col s6">
           <h5>Crear</h5>
-      </div>
-      <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
       </div>
     </div>
   </div>
@@ -171,7 +166,6 @@
         <div class="col s12 m6 l4">
           <label class="label-color">Tipo función <span class="span-color">*</span></label>
           <select class="browser-default select-city validate" id="funcion" formControlName="tipofuncion" required (change)="validation()">
-            <option value="" disabled selected>Seleccione</option>
             <option [value]="func.id" *ngFor="let func of functions">{{ func.nombre }}</option>
           </select>
           <div class="alert" *ngIf="!rForm.controls['tipofuncion'].value && rForm.controls['tipofuncion'].touched">{{ titleAlert }}</div>                                      
@@ -179,7 +173,7 @@
         <div class="col s12 m6 l4">
             <label class="label-color">Tipo documento <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="tipodoc" formControlName="tipodoc" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              
               <option [value]="typed.id" *ngFor="let typed of typedoc">{{ typed.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!rForm.controls['tipodoc'].value && rForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                          
@@ -228,7 +222,7 @@
         <div class="col s12 m6 l3">
           <label class="label-color">Barrio <span class="span-color">*</span></label>
           <select class="browser-default select-city validate" id="barrio" formControlName="barrio" required>
-            <option value="nodisplay" disabled selected>Seleccione</option>
+            
             <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
           </select>
           <div class="alert" *ngIf="!rForm.controls['barrio'].value && rForm.controls['barrio'].touched">{{ titleAlert }}</div>                        
@@ -238,7 +232,7 @@
         <div class="col s12 m6 l3">
           <label class="label-color">Zona <span class="span-color">*</span></label>
           <select class="browser-default select-city validate" id="zona" formControlName="zona" required>
-            <option value="nodisplay" disabled selected>Seleccione</option>
+            
             <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
           </select>
           <div class="alert" *ngIf="!rForm.controls['zona'].value && rForm.controls['zona'].touched">{{ titleAlert }}</div>                        
@@ -247,7 +241,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Ciudad <span class="span-color">*</span></label>
             <select class="browser-default select-city" id="ciudad" formControlName="ciudad" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              
               <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!cityForm.controls['ciudad'].value && cityForm.controls['ciudad'].touched">{{ titleAlert }}</div>                        
@@ -256,7 +250,7 @@
         <div class="col s12 m6 l3" *ngIf="tipoUsuario=='1'">
           <label class="label-color">Ciudad</label>
           <select disabled class="browser-default select-city" id="ciudad-user">
-            <option value="nodisplay" disabled selected>Seleccione</option>
+            
             <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
           </select>
         </div> 
@@ -274,7 +268,7 @@
         <div class="col s12 m6 l3">
           <label class="label-color">Tipo persona <span class="span-color">*</span></label>
           <select class="browser-default select-city validate" id="tipopersona" formControlName="tipopersona" required>
-            <option value="nodisplay" disabled selected>Seleccione</option>
+            
             <option value="N">Natural</option>
             <option value="J">Jurídica</option>
           </select>
@@ -343,16 +337,14 @@
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Barrio <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="barriotv" formControlName="barrio" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+            <select class="browser-default select-city validate" id="barriotv" formControlName="barrio" required>           
               <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['barrio'].value && servForm.controls['barrio'].touched">{{ titleAlert }}</div>                          
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Zona <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="zonatv" formControlName="zona" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+            <select class="browser-default select-city validate" id="zonatv" formControlName="zona" required>              
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['zona'].value && servForm.controls['zona'].touched">{{ titleAlert }}</div>                                        
@@ -411,15 +403,13 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Vendedor <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="vendedortv" formControlName="vendedor" required>
-              <option value="nodisplay" selected disabled>Seleccione</option>
               <option [value]="seller.id" *ngFor="let seller of sellers; let i = index">{{ seller['nombres'] }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['vendedor'].value && servForm.controls['vendedor'].touched">{{ titleAlert }}</div>                                        
           </div>
           <div class="col s12 m6 l3">
             <label class="label-color">Técnicos <span class="span-color">*</span></label>
-            <select class="browser-default select-city validate" id="tecnicotv" formControlName="tecnico" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+            <select class="browser-default select-city validate" id="tecnicotv" formControlName="tecnico" required>   
               <option [value]="tech.id" *ngFor="let tech of techs">{{ tech['nombres'] }}</option>
             </select>
             <div class="alert" *ngIf="!servForm.controls['tecnico'].value && servForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                          
@@ -429,7 +419,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo instalación <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="tipoinstalaciontv" formControlName="tipoinstalacion" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              
               <option [value]="inst.id" *ngFor="let inst of typeinst">{{ inst.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['tipoinstalacion'].value && servForm.controls['tipoinstalacion'].touched">{{ titleAlert }}</div>                                        
@@ -437,7 +427,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo tecnología <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="tipotecnologiatv" formControlName="tipotecnologia" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              
               <option [value]="tech.id" *ngFor="let tech of technologies">{{ tech.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['tipotecnologia'].value && servForm.controls['tipotecnologia'].touched">{{ titleAlert }}</div>                                        
@@ -445,7 +435,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo de servicio <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="tiposerviciotv" formControlName="tiposervicio" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option value="R">Residencial</option>
                 <option value="C">Comercial</option>
             </select>
@@ -454,7 +444,6 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Área de instalación <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="areainstalaciontv" formControlName="areainstalacion" required>
-              <option value="npdisplay" disabled selected>Seleccione</option>
               <option value="U">Urbana</option>
               <option value="R">Rural</option>
               <option value="E">Extrarural</option>
@@ -466,7 +455,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Tipo facturación <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="tipofacturacion" formControlName="tipofacturacion" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              
               <option [value]="tipofac.id" *ngFor="let tipofac of tipoFactEdit">{{ tipofac.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!servForm.controls['tipofacturacion'].value && servForm.controls['tipofacturacion'].touched">{{ titleAlert }}</div>                                        
@@ -548,16 +537,14 @@
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label class="label-color">Planes <span class="span-color">*</span></label>
-                      <select class="browser-default select-city validate" id="planestv" formControlName="planestv" required #planes (change)="llenarTarifas(planes.value)">
-                        <option value="nodisplay" disabled selected>Seleccione</option>
+                      <select class="browser-default select-city validate" id="planestv" formControlName="planestv" required #planes (change)="llenarTarifas(planes.value)">                      
                         <option [value]="plantv.id" *ngFor="let plantv of planstv">{{ plantv.nombre }}</option>
                         <div class="alert" *ngIf="!tvForm.controls['planestv'].value && tvForm.controls['planestv'].touched">{{ titleAlert }}</div>                                        
                       </select>
                     </div>
                     <div class="col s12 m6 l3">
                       <label class="label-color">Tarifas <span class="span-color">*</span></label>
-                      <select class="browser-default select-city validate" id="tarifastv" formControlName="tarifastv" required>
-                        <option value="nodisplay" disabled selected>Seleccione</option>
+                      <select class="browser-default select-city validate" id="tarifastv" formControlName="tarifastv" required>                   
                         <option [value]="ratetv.id" *ngFor="let ratetv of ratestvSelect">{{ ratetv.valor }}</option>
                       </select>
                       <div class="alert" *ngIf="!tvForm.controls['tarifastv'].value && tvForm.controls['tarifastv'].touched">{{ titleAlert }}</div>                                                                  
@@ -638,8 +625,7 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label class="label-color">Equipo</label>
-                      <select class="browser-default select-city" id="equipo" formControlName="equipo">
-                        <option value="nodisplay" disabled selected>Seleccione</option>
+                      <select class="browser-default select-city" id="equipo" formControlName="equipo">             
                         <option value="S">Si</option>
                         <option value="N">No</option>
                       </select>
@@ -648,8 +634,7 @@
                   <div class="row">
                     <div class="col s12 m6 l3">
                       <label class="label-color">Planes <span class="span-color">*</span></label>
-                      <select class="browser-default select-city validate" id="planesinternet" formControlName="planesint" required #planesint (change)="llenarTarifasInt(planesint.value)">
-                        <option value="nodisplay" disabled selected>Seleccione</option>
+                      <select class="browser-default select-city validate" id="planesinternet" formControlName="planesint" required #planesint (change)="llenarTarifasInt(planesint.value)">                      
                         <option [value]="planint.id" *ngFor="let planint of plansint">{{ planint.nombre }}</option>
                       </select>
                       <div class="alert" *ngIf="!intForm.controls['planesint'].value && intForm.controls['planesint'].touched">{{ titleAlert }}</div>                                      
@@ -657,7 +642,6 @@
                     <div class="col s12 m6 l3">
                       <label class="label-color">Tarifas <span class="span-color">*</span></label>
                       <select class="browser-default select-city validate" id="tarifasinternet" formControlName="tarifasint" required>
-                        <option value="nodiplay" disabled selected>Seleccione</option>
                         <option [value]="rateint.id" *ngFor="let rateint of ratesintSelect">{{ rateint.valor }}</option>
                       </select>
                       <div class="alert" *ngIf="!intForm.controls['tarifasint'].value && intForm.controls['tarifasint'].touched">{{ titleAlert }}</div>                                                                
@@ -1222,7 +1206,7 @@
             <div class="col s12 m6 l4">
               <label class="label-color">Factura de <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-fac" formControlName="facturade" (change)="selectBill()">
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="service.id" *ngFor="let service of services">{{ service.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!facForm.controls['facturade'].value && facForm.controls['facturade'].touched">{{ titleAlert }}</div>                            
@@ -1384,7 +1368,7 @@
             <div class="col s12 m6 l4">
               <label class="label-color">Tipo orden a generar <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-order" formControlName="tipoorden" #concepto (change)="changeConcept(concepto.value)">
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="concept.id" *ngFor="let concept of concepts">{{ concept.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!orderForm.controls['tipoorden'].value && orderForm.controls['tipoorden'].touched">{{ titleAlert }}</div>                                    
@@ -1422,7 +1406,7 @@
             <div class="col s12 m6 l3">
               <label class="label-color">Técnico <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-employee" formControlName="tecnico" (change)="selectTech()">
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
               </select>
               <div class="alert" *ngIf="!orderForm.controls['tecnico'].value && orderForm.controls['tecnico'].touched">{{ titleAlert }}</div>                                                
@@ -1442,7 +1426,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Nueva Zona <span class="span-color">*</span></label>
             <select class="browser-default select-city vaidate" id="nuevazona" formControlName="nuevazona">
-              <!--  <option value="nodisplay" disabled selected>Seleccione</option> -->
+              <!--   -->
               <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
             </select>
           <div class="alert" *ngIf="!newOrder.controls['nuevazona'].value && newOrder.controls['nuevazona'].touched">{{ titleAlert }}</div>                                                  
@@ -1450,7 +1434,7 @@
           <div class="col s12 m6 l3">
             <label class="label-color">Nuevo Barrio <span class="span-color">*</span></label>
             <select class="browser-default select-city validate" id="nuevobarrio" formControlName="nuevobarrio">
-              <!-- <option value="nodisplay" disabled selected>Seleccione</option> -->
+              <!--  -->
               <option [value]="neighborhood.id" *ngFor="let neighborhood of neighborhoods">{{ neighborhood.nombre }}</option>
             </select>
             <div class="alert" *ngIf="!newOrder.controls['nuevobarrio'].value && newOrder.controls['nuevobarrio'].touched">{{ titleAlert }}</div>                                                                
@@ -1566,7 +1550,7 @@
             <div class="col s12 m4 l4">
               <label class="label-color">Tipo documento <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-doc-orden" formControlName="tipodoc" required (change)="validateConcept(tconcept.value)" #tconcept>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
               </select>
               <div class="alert" *ngIf="!payForm.controls['tipodoc'].value && payForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                                      
@@ -1612,14 +1596,14 @@
             <div class="col s12 m6 l3" *ngIf="paramCobradores=='S'">
               <label class="label-color">Cobradores</label>
               <select class="browser-default select-city" id="select-debt-order" formControlName="cobradores">
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
               </select>
             </div>
             <div class="col s12 m6 l3">
               <label class="label-color">Banco <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-bank-order" formControlName="banco" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="banco.id" *ngFor="let banco of bancos">{{ banco.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!payForm.controls['banco'].value && payForm.controls['banco'].touched">{{ titleAlert }}</div>                                                 
@@ -1627,14 +1611,14 @@
             <div class="col s12 m6 l2">
               <label class="label-color">Forma de pago <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-payment-order" formControlName="formapago" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!payForm.controls['formapago'].value && payForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
             </div>
           </div>
           <div class="row">
-            <div class="separator-payment z-depth-3"></div>
+            <div class="separator-payment2 z-depth-3"></div>
           </div>
           <div class="row">
             <!-- Table -->
@@ -1796,7 +1780,7 @@
             <div class="col s12 m6 l3">
               <label class="label-color">Servicio <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-serv-orden" formControlName="servicio" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="serv.id" *ngFor="let serv of servicesPay">{{ serv.abreviatura }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['servicio'].value && adPayForm.controls['servicio'].touched">{{ titleAlert }}</div>                                      
@@ -1804,7 +1788,7 @@
             <div class="col s12 m6 l3">
               <label class="label-color">Tipo documento <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-doc-orden-pay" formControlName="tipodoc" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="pdocument.id" *ngFor="let pdocument of pdocuments">{{ pdocument.abreviatura }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['tipodoc'].value && adPayForm.controls['tipodoc'].touched">{{ titleAlert }}</div>                                      
@@ -1843,14 +1827,14 @@
             <div class="col s12 m6 l3" *ngIf="paramCobradores=='S'">
               <label class="label-color">Cobradores</label>
               <select class="browser-default select-city" id="select-debt-order-pay" formControlName="cobradores">
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="cobrador.id" *ngFor="let cobrador of cobradores">{{ cobrador.nombres }}</option>
               </select>
             </div>
             <div class="col s12 m6 l3" style="margin-left: -1px">
               <label class="label-color">Banco <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-bank-order-pay" formControlName="banco" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="banco.id" *ngFor="let banco of bancos">{{ banco.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['banco'].value && adPayForm.controls['banco'].touched">{{ titleAlert }}</div>                                                 
@@ -1858,7 +1842,7 @@
             <div class="col s12 m6 l3" style="margin-left: 1px">
               <label class="label-color">Forma de pago <span class="span-color">*</span></label>
               <select class="browser-default select-city validate" id="select-payment-order-pay" formControlName="formapago" required>
-                <option value="nodisplay" disabled selected>Seleccione</option>
+                
                 <option [value]="formap.id" *ngFor="let formap of formaspago">{{ formap.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!adPayForm.controls['formapago'].value && adPayForm.controls['formapago'].touched">{{ titleAlert }}</div>                                                  
@@ -1879,11 +1863,6 @@
     <div class="row">
       <div class="col s6">
           <h5>Anular</h5>
-      </div>
-      <div class="col s6 right-align">
-        <a class="btn-floating btn-large btn-print" id="btn-modal">
-            <i class="large material-icons icon-horizontal icon-print">local_printshop</i>
-        </a>
       </div>
     </div>
   </div>
@@ -2021,7 +2000,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (click)="anularFactura()">Aceptar</button>
+    <button id="btn-anular" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="anularFactura()">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</button>
   </div>
 </div>
@@ -2054,7 +2033,7 @@
           <div class="col s12 m6 l6">
             <label class="label-color">Tipo listado <span class="span-color">*</span></label>
             <select class="browser-default select-city validate disabled-fields" id="select-tipo-list" formControlName="tipolistado" required>
-              <option value="nodisplay" disabled selected>Seleccione</option>
+              
               <option value="listado_consol">Consolidado</option>
               <option value="listado_tv">Televisión</option>
               <option value="listado_int">Internet</option>              

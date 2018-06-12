@@ -98,6 +98,7 @@ export class CitiesComponent implements OnInit {
     });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-see').modal({ complete: function() { 
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);
@@ -220,7 +221,7 @@ export class CitiesComponent implements OnInit {
 
   updateCity(){ 
     if(this.citiesEdit){
-      this._cityservice.updateCities({'pais_id': this.country, 'nombre': this.citiesEdit.nombre, 'id': this.citiesEdit.id, 'codigoDane': this.citiesEdit.codigoDane, 
+      this._cityservice.updateCities({'pais_id': this.country, 'departamento_id': this.department,'nombre': this.citiesEdit.nombre, 'id': this.citiesEdit.id, 'codigoDane': this.citiesEdit.codigoDane, 
       'codigoAlterno': this.citiesEdit.codigoAlterno, 'usuario_id': localStorage.getItem('usuario_id'),
                                     'db': localStorage.getItem('db')}).subscribe(
         data => {
@@ -315,7 +316,7 @@ export class CitiesComponent implements OnInit {
     }
     for (let i = 0; i < this.departments.length; i++) {
       if ( city.departamento == this.departments[i]['nombre']) {
-        this.depEdit = this.departments[i];
+        this.depEdit = this.departments[i]['nombre'];
         this.seeForm.controls.dep.setValue(this.departments[i])
       }
     }
@@ -385,8 +386,8 @@ export class CitiesComponent implements OnInit {
     jQuery('#coddaneEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#nombreEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
     jQuery('#codalternoEdit').attr({style:' margin: 2px 0 7px 0 !important;'});
-    jQuery('#selectEdit').children('option[id="nodisplay"]').css('display','none');
-    jQuery('#selectDep').children('option[id="nodisplay"]').css('display','none');
+    jQuery('#selectEdit').children('option[value="nodisplay"]').css('display','none');
+    jQuery('#selectDep').children('option[value="nodisplay"]').css('display','none');
     jQuery('#selectEdit').on('change', () => {
       this.country = jQuery('#selectEdit').val();
       console.log(this.country)

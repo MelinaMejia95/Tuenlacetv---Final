@@ -2,7 +2,7 @@ export class Concepts {
     /**
      * @type {string} 
      */
-    id: string;
+    codigo: string;
     
     /**
      * @type {string} 

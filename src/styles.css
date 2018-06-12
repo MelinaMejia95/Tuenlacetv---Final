@@ -295,6 +295,10 @@ table {
 .btn-floating.btn-large i {
     line-height: normal;
     display: inline-block;
+} 
+
+#btn-modal i{
+    line-height: inherit;
 }
 
 .btn-floating i {
@@ -303,6 +307,7 @@ table {
 
 .button-crud{
     background-color: #407FA9;
+    
 }
 
 .input-custom {
@@ -449,8 +454,8 @@ input[type=password]:not(.browser-default):disabled{
 #btn-modal{
     width: 32px;
     height: 32px;
-    margin-top: 1.5%;
-    line-height: 3em;
+    margin-top: 2.5%;
+    line-height: 2.5em;
 }
 
 .select-city {

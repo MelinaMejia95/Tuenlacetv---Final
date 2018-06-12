@@ -108,7 +108,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.querySelector('.principal-container').classList.add('modal-flow');    
+    //document.querySelector('.principal-container').classList.add('modal-flow');    
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
      } else {
@@ -141,6 +141,7 @@ export class TechniciansComponent implements OnInit {
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
     this.valorIva = 0;
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 
@@ -149,6 +150,9 @@ export class TechniciansComponent implements OnInit {
       jQuery('#nombreEdit').prop('disabled',true);
       jQuery('.select-edit').prop('disabled', true);          
      }});
+    jQuery('#modal-imprimit').modal({ complete: function(){
+      document.querySelector('.principal-container').classList.remove('modal-flow');    
+    }});
      jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
       console.log(jQuery('#registros').val());
@@ -212,6 +216,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   openModal (tech) {
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
     jQuery( window ).resize( function () {
       if(jQuery( window ).width() <= 600) {
        document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
@@ -284,6 +289,11 @@ export class TechniciansComponent implements OnInit {
     } 
 
     jQuery('#modal-see').modal('open');
+  }
+
+  openModalImprimir(){
+    document.querySelector('.principal-container').classList.add('modal-flow'); 
+    jQuery('#modal-imprimir').modal('open');
   }
 
   closeModal () {

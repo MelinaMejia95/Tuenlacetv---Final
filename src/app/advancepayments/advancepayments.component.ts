@@ -77,8 +77,7 @@ export class AdvancepaymentsComponent implements OnInit {
 
    }
 
-  ngOnInit() {
-    document.querySelector('.principal-container').classList.add('modal-flow');            
+  ngOnInit() {          
     this.nivel = localStorage.getItem('nivel');
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
@@ -104,6 +103,7 @@ export class AdvancepaymentsComponent implements OnInit {
       });
     jQuery('select').material_select();
     jQuery('#modal-see').modal();
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-imprimir').modal();   
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 

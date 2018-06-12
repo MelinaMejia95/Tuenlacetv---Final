@@ -116,6 +116,7 @@ export class BanksComponent implements OnInit {
       });
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-see').modal({ complete: function() { 
       jQuery('#codigoEdit').prop('disabled',true);
       jQuery('#nitEdit').prop('disabled',true);

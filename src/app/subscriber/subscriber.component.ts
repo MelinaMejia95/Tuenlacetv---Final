@@ -114,7 +114,7 @@ export class SubscriberComponent implements OnInit {
       'barrio': [null, Validators.required],                
       'zona': [null, Validators.required],                
       'tipopersona': [null, Validators.required],                
-      'nombre2': [null],   
+      'nombre2': [null, Validators],   
       'apellido2': [null],                           
       'tel2': [null],                           
       'correo':['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')],                           
@@ -1127,6 +1127,7 @@ export class SubscriberComponent implements OnInit {
     this.diferencia = 0;
     this.pagado = 0;
     this.suma = 0;
+    if (this.total != null) {
     this.pagado = Number(this.total.valor) + Number(this.descuento);
     this.decrementar = this.descuento;
     this.suma = Number(this.total.valor) + Number(this.descuento);
@@ -1164,6 +1165,7 @@ export class SubscriberComponent implements OnInit {
         //cancelButtonText: 'No'
       })
       jQuery('#btn-payment').prop('disabled', true);
+    }
     }
   }
 
@@ -1472,6 +1474,11 @@ export class SubscriberComponent implements OnInit {
 
   onDatePrint2(event) {
     this.model14 = event.formatted ;
+  }
+
+  openModalImprimir(){
+    document.querySelector('.principal-container').classList.add('modal-flow');
+    jQuery('#modal-imprimir').modal('open');
   }
 
   exportToExcel(post){
@@ -2214,16 +2221,30 @@ export class SubscriberComponent implements OnInit {
     var rows = <HTMLInputElement><any>document.getElementsByName('rows_fac');
     var check = <HTMLInputElement><any>document.getElementsByName('group5');
     var cantidad = document.getElementsByName('group5');
-    console.log(rows)
+    let cont = 0; 
+    let x = 0;
     
     for(var i = 0; i < cantidad.length; i++ ){
       console.log('row');
       if(check[i].checked){
+        cont = 1;
+        x++;
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");
       }
     }    
+
+    if(cont == 1){
+      jQuery('#btn-anular').prop('disabled', false);
+    } else {
+      jQuery('#btn-anular').prop('disabled', true);
+    }
+
+    if(x > 1) {
+      jQuery('#btn-anular').prop('disabled', true);
+    }
+
   }
 
   edit() {

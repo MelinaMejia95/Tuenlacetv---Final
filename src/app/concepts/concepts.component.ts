@@ -111,6 +111,7 @@ export class ConceptsComponent implements OnInit {
       });
     jQuery('#see-form').on('change', () =>{
     });
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('select').material_select();
     jQuery('#modal-crear').modal();
     jQuery('#modal-see').modal({ complete: function() { 

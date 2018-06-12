@@ -79,6 +79,7 @@ export class CountriesComponent implements  OnInit {
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
     jQuery('#modal-crear').modal();
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-see').modal({ complete: function() { 
         jQuery('#codigoEdit').prop('disabled',true);
         jQuery('#nombreEdit').prop('disabled',true);

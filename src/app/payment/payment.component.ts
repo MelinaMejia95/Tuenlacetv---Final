@@ -74,8 +74,7 @@ export class PaymentComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    document.querySelector('.principal-container').classList.add('modal-flow');        
+  ngOnInit() {    
     this.nivel = localStorage.getItem('nivel');
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
@@ -103,6 +102,7 @@ export class PaymentComponent implements OnInit {
         this.limit = this.count.length; // Start off by showing all books on a single page.*/
       });
     jQuery('#modal-imprimir').modal();    
+    jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-see').modal();
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 

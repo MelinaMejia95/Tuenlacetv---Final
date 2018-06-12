@@ -71,8 +71,7 @@
                   <div class="col s12 m4 l3">
                     <label class="label-color">Zona a generar <span class="span-color">*</span></label>
                     <select class="browser-default select-city validate" id="selectZone" formControlName="zona" required>
-                      <option value="nodisplay" disabled selected>Seleccione</option>
-                      <option value="Todos" *ngFor="let zone of zones">Todos</option>
+                      <option value="Todos">Todos</option>
                       <option [value]="zone.id" *ngFor="let zone of zones">{{ zone.nombre }}</option>
                     </select>
                     <div class="alert" *ngIf="!rForm.controls['zona'].value && rForm.controls['zona'].touched">{{ titleAlert }}</div>                                
