@@ -548,6 +548,10 @@ export class SubscriberComponent implements OnInit {
     })
   }
 
+  ngOnDestroy () {
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
+  }
+
   selectClicked(){
     jQuery('#btn-see').prop('disabled', false);    
   }
@@ -1381,13 +1385,16 @@ export class SubscriberComponent implements OnInit {
   }
 
   createOrder(order, newOrder){
+  if(this.model10 == null) {
+    this.model10 = this.modelDate.date.day + "/" + this.modelDate.date.month + "/" + this.modelDate.date.year;
+  }
    if (order) {
     this.loading = true;
       this._techservice.createOrder({
         "entidad_id": this.subsEdit.id,
         "concepto_id": Number(order.tipoorden),
         "fechatrn": this.model10,
-        "fechaven": this.model11,
+        "fechaven": this.model10,
         "valor": Number(order.valortotal),
         "observacion": order.observaciones,
         "solicita": order.solicitado,
@@ -1751,6 +1758,15 @@ export class SubscriberComponent implements OnInit {
               '',
               'warning'
             )
+          } else if ( data.message == "Persona actualizada con exito") {
+            swal({
+              title: 'Registro actualizado con éxito',
+              text: '',
+              type: 'success',
+              onClose: function reload() {
+                        location.reload();
+                      }
+            })
           }
         },
         error =>{
@@ -1853,10 +1869,10 @@ export class SubscriberComponent implements OnInit {
   }
 
   onDateChangedOrder(event: IMyDateModel) {
-    console.log(event)
     this.model10 = event.formatted;
-    this.model11 = event.formatted;
+    //this.model11 = event.formatted;
     this.selDate3 = event.date;
+    console.log(this.model10)
   }
 
   createSubs(post, city, serv, tv, int){

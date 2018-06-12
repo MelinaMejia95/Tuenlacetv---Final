@@ -131,6 +131,10 @@ export class GbillingsComponent implements OnInit {
     jQuery('#modal-factura').modal();    
   }
 
+  ngOnDestroy () {
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;

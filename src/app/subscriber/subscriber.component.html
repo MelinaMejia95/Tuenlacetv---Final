@@ -1406,7 +1406,7 @@
           <div class="row">
             <div class="col s12 m6 l3">
               <label for="fechavence" class="label-color">Fecha vencimiento</label>
-              <my-date-picker name="fechavence" [options]="myDatePickerOptions" [disabled]="disabled" [selDate]="selDate3" formControlName="fechavence"></my-date-picker>            
+              <my-date-picker name="fechavence" [options]="myDatePickerOptions" [disabled]="disabled" [(ngModel)]="model10" formControlName="fechavence"></my-date-picker>            
             </div>
             <div class="col s12 m6 l3">
               <label for="valortotal" class="label-color">Valor total</label>

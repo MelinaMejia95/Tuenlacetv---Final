@@ -7,7 +7,7 @@ export class Payments {
     /**
      * @type {string} 
      */
-    id: string;
+    entidad_id: string;
 
     /**
      * @type {string} 
