@@ -78,6 +78,7 @@ export class AdvancepaymentsComponent implements OnInit {
    }
 
   ngOnInit() {
+    document.querySelector('.principal-container').classList.add('modal-flow');            
     this.nivel = localStorage.getItem('nivel');
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
@@ -113,6 +114,10 @@ export class AdvancepaymentsComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  ngOnDestroy () {
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
   }
 
   onPageChange(number: number) {

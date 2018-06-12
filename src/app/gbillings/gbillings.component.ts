@@ -206,6 +206,7 @@ export class GbillingsComponent implements OnInit {
             month:this.splitted2[1],
             day: this.splitted2[0]}
         }});
+      console.log(this.printForm.value)
       jQuery('#modal-imprimir').modal('open');      
     }
   }
@@ -362,12 +363,14 @@ export class GbillingsComponent implements OnInit {
       if(check[i].checked){
         this.toogleDelete = true;
         this.counter = cantidad.length;
+        this.tooglePrint = true;
+        this.counter = 1;        
         //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");
-        this.counter --;
-        //this.tooglePrint = true;
+        //this.counter --;
+        //this.tooglePrint = false;
       }
     }    
     console.log(this.counter)

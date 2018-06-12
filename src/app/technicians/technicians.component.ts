@@ -108,18 +108,7 @@ export class TechniciansComponent implements OnInit {
   }
 
   ngOnInit() {
-/*     if(jQuery( window ).width() <= 600) {
-      document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
-     } else {
-      document.getElementById('container-articles').setAttribute('style', 'overflow-y: hidden');
-     }
-    jQuery( window ).resize( function () {
-      if(jQuery( window ).width() <= 600) {
-       document.getElementById('container-articles').setAttribute('style', 'overflow-y: auto');
-      } else {
-       document.getElementById('container-articles').setAttribute('style', 'overflow-y: hidden');
-      }
-    }) */
+    document.querySelector('.principal-container').classList.add('modal-flow');    
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
      } else {
@@ -169,6 +158,10 @@ export class TechniciansComponent implements OnInit {
         document.getElementById('container-pag').setAttribute('style', 'overflow-y: auto');
       }
     })
+  }
+
+  ngOnDestroy () {
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
   }
 
   disableButton(){
