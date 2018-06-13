@@ -818,7 +818,10 @@ export class SubscriberComponent implements OnInit {
         jQuery('#btn-see').prop('disabled',false);        
       } else if (this.seeSubs.valid == false || this.seeServ.valid == false || this.seeInt.valid == false || this.seeTV.valid == false){
         jQuery('#btn-see').prop('disabled',true);       
-        console.log('see no valid')                 
+        console.log('Subs valid' + this.seeSubs.valid)    
+          console.log('Serv valid' + this.seeServ.valid)    
+          console.log('Int valid' + this.seeInt.valid)              
+          console.log('Tv valid' + this.seeTV.valid)               
       }
     } else{
       if (this.seeSubs.valid == true){
@@ -1202,6 +1205,7 @@ export class SubscriberComponent implements OnInit {
   }
 
   openModalAnular(){
+    document.querySelector('.principal-container').classList.remove('modal-flow');    
     if(jQuery( window ).width() <= 600) {
       document.getElementById('container-bills').setAttribute('style', 'overflow-y: auto');
       } else {

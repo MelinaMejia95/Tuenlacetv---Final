@@ -45,8 +45,8 @@
       <ul id='dropdown1' class='dropdown-content dropdown-options'>
         <li><a (click)="openModalPagos()">Pagos</a></li>
         <li><a (click)="openModalPagosAnticipados()">Pagos anticipados</a></li> 
-        <li><a class="modal-trigger" (click)="openModalOrden()">Órdenes técnicas</a></li>
-        <li><a class="modal-trigger" (click)="openModalFactura()">Generar factura</a></li>
+        <li><a (click)="openModalOrden()">Órdenes técnicas</a></li>
+        <li><a (click)="openModalFactura()">Generar factura</a></li>
         <li *ngIf="nivel=='1'"><a (click)="openModalAnular()">Anular factura</a></li>
       </ul>
     </div>    

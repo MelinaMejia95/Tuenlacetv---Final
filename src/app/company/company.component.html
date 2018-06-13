@@ -255,7 +255,8 @@
             <div class="col s12 m6 l4">
               <label class="label-color">Ciudad <span class="span-color">*</span></label>
               <select disabled class="browser-default select-city validate" id="ciudadEdit" (change)="selectClicked()">
-                <option [ngValue]="cityEdit.id" *ngFor="let cityEdit of cities">{{ cityEdit.nombre }}</option>
+                  <option value="nodisplay">{{ cityEdit }}</option>
+                <option [value]="city.id" *ngFor="let city of cities">{{ city.nombre }}</option>
               </select>
             </div>
           </div>

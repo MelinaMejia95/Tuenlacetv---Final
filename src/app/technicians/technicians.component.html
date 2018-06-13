@@ -275,7 +275,7 @@
             </div>
             <div class="col s12 m6 l6">
               <label for="observorden" class="label-color">Observaciones <span class="span-color">*</span></label>
-              <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" formControlName="observaciones">
+              <input disabled placeholder="" class="select-edit" id="observorden" type="text" [(ngModel)]="techEdit.observacion" formControlName="observaciones" (click)="inputClicked()">
               <div class="alert" *ngIf="!orderForm.controls['observaciones'].value && orderForm.controls['observaciones'].touched">{{ titleAlert }}</div>                                                 
             </div>
           </div>
@@ -286,20 +286,20 @@
             </div>
             <div class="col s12 m6 l4" *ngIf="techEdit">
               <label class="label-color">Técnico <span class="span-color">*</span></label>
-              <select disabled class="browser-default select-city select-edit" id="select-employee">
+              <select disabled class="browser-default select-city select-edit" id="select-employee" (change)="selectClicked()">
                 <option value="nodisplay" disabled selected>{{ techEdit.tecnico }}</option>
                 <option [value]="tech.id" *ngFor="let tech of techs">{{ tech.nombres }}</option>
               </select>                               
             </div>
             <div class="col s12 m6 l4">
               <label for="solicitado" class="label-color">Solicitado por</label>
-              <input disabled placeholder="" class="select-edit" id="solicitado" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" type="text" formControlName="solicitado" [(ngModel)]="techEdit.solicita">
+              <input disabled placeholder="" class="select-edit" id="solicitado" pattern="^[a-zA-Z\s.áéíóúÁÉÍÓÚ]+$" type="text" formControlName="solicitado" [(ngModel)]="techEdit.solicita" (click)="inputClicked()">
             </div>
           </div>
           <div class="row">
             <div class="col s12 m6 l5">
               <label for="solucion" class="label-color">Solución Orden <span class="span-color">*</span></label>
-              <input disabled placeholder="" class="select-edit" id="solucion" type="text" formControlName="solucion" [(ngModel)]="techEdit.solucion">
+              <input disabled placeholder="" class="select-edit" id="solucion" type="text" formControlName="solucion" [(ngModel)]="techEdit.solucion" (click)="inputClicked()">
               <div class="alert" *ngIf="!orderForm.controls['solucion'].value && orderForm.controls['solucion'].touched">{{ titleAlert }}</div>                                                            
             </div>
           </div>
@@ -409,7 +409,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" [disabled]="!orderForm.valid" (click)="editOrder(rForm.value, orderForm.value)">Aceptar</button>
+    <button id="btn-edit" class="modal-action modal-close waves-effect waves-green btn-flat" disabled (click)="editOrder(rForm.value, orderForm.value)">Aceptar</button>
     <button class="modal-action modal-close waves-effect waves-green btn-flat" >Cancelar</button>
   </div>
 </div>

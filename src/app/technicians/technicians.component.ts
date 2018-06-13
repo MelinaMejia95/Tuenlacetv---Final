@@ -173,12 +173,28 @@ export class TechniciansComponent implements OnInit {
     this.onChanges();
   }
 
+  selectClicked(){
+    jQuery('#btn-edit').prop('disabled', false);    
+  }
+
+  inputClicked() {
+    this.toogleEdit = true;
+    this.onChanges()
+  }
+
   onChanges(): void { 
     this.rForm.valueChanges.subscribe(val => {  
       if(this.rForm.valid == true && this.toogleEdit == true) {
         jQuery('#btn-detail').prop('disabled', false);
       } else if(this.rForm.valid == false){    
         jQuery('#btn-detail').prop('disabled', true);
+      }
+    });
+    this.orderForm.valueChanges.subscribe(val => {  
+      if(this.orderForm.valid == true && this.toogleEdit == true) {
+        jQuery('#btn-edit').prop('disabled', false);
+      } else if(this.orderForm.valid == false){    
+        jQuery('#btn-edit').prop('disabled', true);
       }
     });
   }
