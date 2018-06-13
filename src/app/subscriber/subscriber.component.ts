@@ -813,16 +813,25 @@ export class SubscriberComponent implements OnInit {
 
   validationSee(){
     if (this.showEntity == 'Suscriptor'){
-      if(this.seeSubs.valid == true && this.seeServ.valid == true && this.seeInt.valid == true && this.seeTV.valid == true) {
-        console.log('see valid')
-        jQuery('#btn-see').prop('disabled',false);        
-      } else if (this.seeSubs.valid == false || this.seeServ.valid == false || this.seeInt.valid == false || this.seeTV.valid == false){
-        jQuery('#btn-see').prop('disabled',true);       
-        console.log('Subs valid' + this.seeSubs.valid)    
-          console.log('Serv valid' + this.seeServ.valid)    
-          console.log('Int valid' + this.seeInt.valid)              
-          console.log('Tv valid' + this.seeTV.valid)               
-      }
+      if(jQuery('#internetEdit').prop('checked') == true && jQuery('#televisionEdit').prop('checked') == true) {
+        if(this.seeSubs.valid == true && this.seeServ.valid == true && this.seeInt.valid == true && this.seeTV.valid == true) {
+          jQuery('#btn-see').prop('disabled',false);        
+        } else if (this.seeSubs.valid == false || this.seeServ.valid == false || this.seeInt.valid == false || this.seeTV.valid == false){
+          jQuery('#btn-see').prop('disabled',true);                   
+        }
+      } else if(jQuery('#internetEdit').prop('checked') == false && jQuery('#televisionEdit').prop('checked') == true){
+          if(this.seeSubs.valid == true && this.seeServ.valid == true  && this.seeTV.valid == true) {
+              jQuery('#btn-see').prop('disabled',false);        
+            } else if (this.seeSubs.valid == false || this.seeServ.valid == false || this.seeTV.valid == false){
+              jQuery('#btn-see').prop('disabled',true);                    
+          }
+        } else if(jQuery('#internetEdit').prop('checked') == true && jQuery('#televisionEdit').prop('checked') == false){
+          if(this.seeSubs.valid == true && this.seeServ.valid == true  && this.seeInt.valid == true) {
+              jQuery('#btn-see').prop('disabled',false);        
+            } else if (this.seeSubs.valid == false || this.seeServ.valid == false || this.seeInt.valid == false){
+              jQuery('#btn-see').prop('disabled',true);                    
+          }
+        }
     } else{
       if (this.seeSubs.valid == true){
         jQuery('#btn-see').prop('disabled',false);                
