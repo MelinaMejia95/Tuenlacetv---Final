@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="col s2 m6 l6 right-align">
-      <a class='btn-floating btn button-options modal-trigger' id="btn-print" href="#modal-imprimir"><i class="material-icons">local_printshop</i></a>
+      <a class='btn-floating btn button-options' id="btn-print" (click)="openModalImprimir()"><i class="material-icons">local_printshop</i></a>
     </div>
   </div>
 </div>
@@ -58,7 +58,7 @@
         </th>
         <th class="fecha-th">
           <label for="fecha" class="label-color">Fecha</label>
-          <input id="fecha" type="text" class="input-custom" [(ngModel)]="filter.fecha">
+          <input id="fecha" type="text" class="input-custom" [(ngModel)]="filter.fechatrn">
         </th>
         <th class="valor-th">
           <label for="valor" class="label-color">Valor</label>
@@ -79,7 +79,7 @@
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.nropago }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.entidad_id }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.nombres }}</td>
-        <td (click)="openModal(payment)" href="#modal-see">{{ payment.trn }}</td>
+        <td (click)="openModal(payment)" href="#modal-see">{{ payment.fechatrn }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.valor }}</td>
         <td (click)="openModal(payment)" href="#modal-see">{{ payment.banco }}</td>
       </tr>

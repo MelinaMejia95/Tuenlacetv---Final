@@ -66,6 +66,7 @@ export class NavbarPrincipalComponent implements OnInit {
       if (data.status == "deleted") {
         this.route.navigate(['/login']);
         localStorage.removeItem('auth_token');
+        localStorage.removeItem('nombre');
       }
     });
   }

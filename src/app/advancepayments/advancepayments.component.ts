@@ -105,6 +105,9 @@ export class AdvancepaymentsComponent implements OnInit {
     jQuery('#modal-see').modal();
     jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-imprimir').modal();   
+    jQuery('#modal-imprimir').modal({ complete: function() { 
+      document.querySelector('.principal-container').classList.remove('modal-flow');          
+    }});
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
       console.log(jQuery('#registros').val());
@@ -120,6 +123,10 @@ export class AdvancepaymentsComponent implements OnInit {
     document.querySelector('.principal-container').classList.remove('modal-flow');    
   }
 
+  resetForms(){
+    this.printForm.reset();
+  }
+
   onPageChange(number: number) {
     console.log('change to page', number);
     this.config.currentPage = number;
@@ -127,6 +134,11 @@ export class AdvancepaymentsComponent implements OnInit {
 
   changeEntity(){
     localStorage.setItem('entidad', '1');
+  }
+
+  openModalImprimir(){
+    document.querySelector('.principal-container').classList.add('modal-flow');
+    jQuery('#modal-imprimir').modal('open');
   }
 
   openModal (payment) {

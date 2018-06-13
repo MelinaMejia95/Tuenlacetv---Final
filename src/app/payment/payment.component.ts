@@ -104,6 +104,9 @@ export class PaymentComponent implements OnInit {
     jQuery('#modal-imprimir').modal();    
     jQuery('#registros').children('option[value="nodisplay"]').css('display','none');
     jQuery('#modal-see').modal();
+    jQuery('#modal-imprimir').modal({ complete: function() { 
+       document.querySelector('.principal-container').classList.remove('modal-flow');          
+     }});
     jQuery('#registros').on('change', () => {
       this.config.itemsPerPage = Number(jQuery('#registros').val()); 
       console.log(jQuery('#registros').val());
@@ -130,6 +133,11 @@ export class PaymentComponent implements OnInit {
 
   resetForms() {
     this.printForm.reset();
+  }
+
+  openModalImprimir(){
+    document.querySelector('.principal-container').classList.add('modal-flow');
+    jQuery('#modal-imprimir').modal('open');
   }
 
   openModal (payment) {
@@ -281,7 +289,7 @@ export class PaymentComponent implements OnInit {
     var cantidad = document.getElementsByName('group1');
 
     if (this.toogleDelete == true) {
-      //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
+      document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: hidden');
       this.toogleDelete = false;
     }
     
@@ -289,7 +297,7 @@ export class PaymentComponent implements OnInit {
       if(check[i].checked){
         console.log('false');
         this.toogleDelete = true;
-        //document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
+        document.getElementById('btn-footer-delete').setAttribute('style', 'visibility: visible');
         rows[i].setAttribute("style", "background-color : #9ad1ea");
       } else {
         rows[i].setAttribute("style", "background-color : none");

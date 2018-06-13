@@ -319,7 +319,6 @@
             <div class="col s12 m4 l2">
               <label class="label-color">Grupo Artículos</label>
               <select class="browser-default select-city validate" id="grupopart" formControlName="grupoArticulos">
-                <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="group.id" *ngFor="let group of groups">{{ group.descripcion }}</option>
               </select>
               <div class="alert" *ngIf="!rForm.controls['grupoArticulos'].value && rForm.controls['grupoArticulos'].touched">{{ titleAlert }}</div>                                                    
@@ -327,14 +326,13 @@
             <div class="col s12 m4 l2">
               <label for="articulos" class="label-color">Artículos</label>
               <select class="browser-default select-city validate" id="articles" formControlName="articulos" (change)="selectArticle()">
-                <option value="nodisplay" disabled selected>Seleccione</option>
                 <option [value]="article.id" *ngFor="let article of articles">{{ article.nombre }}</option>
               </select>
               <div class="alert" *ngIf="!rForm.controls['articulos'].value && rForm.controls['articulos'].touched">{{ titleAlert }}</div>                                                    
             </div>
             <div class="col s12 m4 l2">
               <label for="valor" class="label-color">Valor</label>
-              <input placeholder="" id="valor" type="text" class="validate" pattern="^[0-9]+$" formControlName="valor" [(ngModel)]="valor" (ngModelChange)="changeData()">
+              <input placeholder="" id="valor" type="text" class="validate" pattern="^[0-9]*\.?[0-9]+$" formControlName="valor" [(ngModel)]="valor" (ngModelChange)="changeData()">
               <div class="alert" *ngIf="!rForm.controls['valor'].value && rForm.controls['valor'].touched">{{ titleAlert }}</div>                                                  
             </div>
             <div class="col s12 m4 l1">

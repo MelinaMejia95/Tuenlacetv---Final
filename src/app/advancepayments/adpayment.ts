@@ -17,7 +17,7 @@ export class AdPayments {
     /**
      * @type {string} 
      */
-    fecha: String;
+    fechatrn: String;
 
     /**
      * @type {string} 
