@@ -2265,6 +2265,13 @@ export class SubscriberComponent implements OnInit {
     jQuery('.not-disabled').prop('disabled', true);
     jQuery("select:disabled").prop('disabled',false);
     this.disabled = false;
+    //this.funcionEdit = this.funEdit;
+    for(let i = 0; i < this.functions.length; i++){
+      if (this.funEdit == this.functions[i]['nombre']){
+        this.funcionEdit = this.functions[i]['id'];
+        console.log(this.funcionEdit)
+      }
+    }
     jQuery('#funcionEdit').on('change', () => {
       this.tipoUsuarioEdit = jQuery('#funcionEdit').val();
       if ( this.tipoUsuarioEdit == '1') {

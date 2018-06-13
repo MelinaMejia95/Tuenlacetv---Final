@@ -101,7 +101,7 @@
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.id }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.documento }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.nombres }}</td>
-        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccion }}</td>
+        <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.direccionP }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.telefono1P }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.saldo_tv }}</td>
         <td (click)="openModal(subscriber)" href="#modal-see">{{ subscriber.estado_tv }}</td>
@@ -638,7 +638,7 @@
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="valorinternet" class="label-color">Valor afiliación</label>
-                      <input placeholder="" id="valorinternet" type="text" pattern="^[0-9]+$" formControlName="valorafiint">
+                      <input placeholder="" id="valorinternet" type="text" pattern="^[0-9]*\.?[0-9]+$" formControlName="valorafiint">
                     </div>
                     <div class="col s12 m6 l3">
                       <label for="descuentointernet" class="label-color">Valor descuento</label>
